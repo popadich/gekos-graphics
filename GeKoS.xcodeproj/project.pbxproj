@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FAA02D472756D6E800A0C454 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D462756D6E800A0C454 /* AppDelegate.m */; };
+		FAA02D4A2756D6E800A0C454 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D492756D6E800A0C454 /* Document.m */; };
+		FAA02D4D2756D6E800A0C454 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D4B2756D6E800A0C454 /* Document.xib */; };
+		FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */; };
+		FAA02D522756D6F600A0C454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D512756D6F600A0C454 /* Assets.xcassets */; };
+		FAA02D552756D6F600A0C454 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D532756D6F600A0C454 /* MainMenu.xib */; };
+		FAA02D582756D6F600A0C454 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D572756D6F600A0C454 /* main.m */; };
+		FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D622756D6F700A0C454 /* GeKoSTests.m */; };
+		FAA02D6E2756D6F700A0C454 /* GeKoSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D6D2756D6F700A0C454 /* GeKoSUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FAA02D5F2756D6F700A0C454 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAA02D3A2756D6E800A0C454 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FAA02D412756D6E800A0C454;
+			remoteInfo = GeKoS;
+		};
+		FAA02D6A2756D6F700A0C454 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAA02D3A2756D6E800A0C454 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FAA02D412756D6E800A0C454;
+			remoteInfo = GeKoS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FAA02D422756D6E800A0C454 /* GeKoS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeKoS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA02D452756D6E800A0C454 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FAA02D462756D6E800A0C454 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FAA02D482756D6E800A0C454 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		FAA02D492756D6E800A0C454 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		FAA02D4C2756D6E800A0C454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		FAA02D4F2756D6E800A0C454 /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
+		FAA02D512756D6F600A0C454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FAA02D542756D6F600A0C454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FAA02D562756D6F600A0C454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAA02D572756D6F600A0C454 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FAA02D592756D6F600A0C454 /* GeKoS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GeKoS.entitlements; sourceTree = "<group>"; };
+		FAA02D5E2756D6F700A0C454 /* GeKoSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeKoSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA02D622756D6F700A0C454 /* GeKoSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeKoSTests.m; sourceTree = "<group>"; };
+		FAA02D642756D6F700A0C454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAA02D692756D6F700A0C454 /* GeKoSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeKoSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA02D6D2756D6F700A0C454 /* GeKoSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeKoSUITests.m; sourceTree = "<group>"; };
+		FAA02D6F2756D6F700A0C454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAA465C42758107A00A5A280 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FAA02D3F2756D6E800A0C454 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAA02D5B2756D6F700A0C454 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAA02D662756D6F700A0C454 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FAA02D392756D6E800A0C454 = {
+			isa = PBXGroup;
+			children = (
+				FAA465C42758107A00A5A280 /* README.md */,
+				FAA02D442756D6E800A0C454 /* GeKoS */,
+				FAA02D612756D6F700A0C454 /* GeKoSTests */,
+				FAA02D6C2756D6F700A0C454 /* GeKoSUITests */,
+				FAA02D432756D6E800A0C454 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FAA02D432756D6E800A0C454 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAA02D422756D6E800A0C454 /* GeKoS.app */,
+				FAA02D5E2756D6F700A0C454 /* GeKoSTests.xctest */,
+				FAA02D692756D6F700A0C454 /* GeKoSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FAA02D442756D6E800A0C454 /* GeKoS */ = {
+			isa = PBXGroup;
+			children = (
+				FAA02D452756D6E800A0C454 /* AppDelegate.h */,
+				FAA02D462756D6E800A0C454 /* AppDelegate.m */,
+				FAA02D482756D6E800A0C454 /* Document.h */,
+				FAA02D492756D6E800A0C454 /* Document.m */,
+				FAA02D4B2756D6E800A0C454 /* Document.xib */,
+				FAA02D512756D6F600A0C454 /* Assets.xcassets */,
+				FAA02D532756D6F600A0C454 /* MainMenu.xib */,
+				FAA02D562756D6F600A0C454 /* Info.plist */,
+				FAA02D572756D6F600A0C454 /* main.m */,
+				FAA02D592756D6F600A0C454 /* GeKoS.entitlements */,
+				FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */,
+			);
+			path = GeKoS;
+			sourceTree = "<group>";
+		};
+		FAA02D612756D6F700A0C454 /* GeKoSTests */ = {
+			isa = PBXGroup;
+			children = (
+				FAA02D622756D6F700A0C454 /* GeKoSTests.m */,
+				FAA02D642756D6F700A0C454 /* Info.plist */,
+			);
+			path = GeKoSTests;
+			sourceTree = "<group>";
+		};
+		FAA02D6C2756D6F700A0C454 /* GeKoSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FAA02D6D2756D6F700A0C454 /* GeKoSUITests.m */,
+				FAA02D6F2756D6F700A0C454 /* Info.plist */,
+			);
+			path = GeKoSUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FAA02D412756D6E800A0C454 /* GeKoS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAA02D722756D6F700A0C454 /* Build configuration list for PBXNativeTarget "GeKoS" */;
+			buildPhases = (
+				FAA02D3E2756D6E800A0C454 /* Sources */,
+				FAA02D3F2756D6E800A0C454 /* Frameworks */,
+				FAA02D402756D6E800A0C454 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GeKoS;
+			productName = GeKoS;
+			productReference = FAA02D422756D6E800A0C454 /* GeKoS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FAA02D5D2756D6F700A0C454 /* GeKoSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAA02D752756D6F700A0C454 /* Build configuration list for PBXNativeTarget "GeKoSTests" */;
+			buildPhases = (
+				FAA02D5A2756D6F700A0C454 /* Sources */,
+				FAA02D5B2756D6F700A0C454 /* Frameworks */,
+				FAA02D5C2756D6F700A0C454 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FAA02D602756D6F700A0C454 /* PBXTargetDependency */,
+			);
+			name = GeKoSTests;
+			productName = GeKoSTests;
+			productReference = FAA02D5E2756D6F700A0C454 /* GeKoSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FAA02D682756D6F700A0C454 /* GeKoSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAA02D782756D6F700A0C454 /* Build configuration list for PBXNativeTarget "GeKoSUITests" */;
+			buildPhases = (
+				FAA02D652756D6F700A0C454 /* Sources */,
+				FAA02D662756D6F700A0C454 /* Frameworks */,
+				FAA02D672756D6F700A0C454 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FAA02D6B2756D6F700A0C454 /* PBXTargetDependency */,
+			);
+			name = GeKoSUITests;
+			productName = GeKoSUITests;
+			productReference = FAA02D692756D6F700A0C454 /* GeKoSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FAA02D3A2756D6E800A0C454 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = XS;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					FAA02D412756D6E800A0C454 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					FAA02D5D2756D6F700A0C454 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = FAA02D412756D6E800A0C454;
+					};
+					FAA02D682756D6F700A0C454 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = FAA02D412756D6E800A0C454;
+					};
+				};
+			};
+			buildConfigurationList = FAA02D3D2756D6E800A0C454 /* Build configuration list for PBXProject "GeKoS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FAA02D392756D6E800A0C454;
+			productRefGroup = FAA02D432756D6E800A0C454 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAA02D412756D6E800A0C454 /* GeKoS */,
+				FAA02D5D2756D6F700A0C454 /* GeKoSTests */,
+				FAA02D682756D6F700A0C454 /* GeKoSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FAA02D402756D6E800A0C454 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAA02D522756D6F600A0C454 /* Assets.xcassets in Resources */,
+				FAA02D4D2756D6E800A0C454 /* Document.xib in Resources */,
+				FAA02D552756D6F600A0C454 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAA02D5C2756D6F700A0C454 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAA02D672756D6F700A0C454 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FAA02D3E2756D6E800A0C454 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */,
+				FAA02D4A2756D6E800A0C454 /* Document.m in Sources */,
+				FAA02D582756D6F600A0C454 /* main.m in Sources */,
+				FAA02D472756D6E800A0C454 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAA02D5A2756D6F700A0C454 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAA02D652756D6F700A0C454 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAA02D6E2756D6F700A0C454 /* GeKoSUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FAA02D602756D6F700A0C454 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FAA02D412756D6E800A0C454 /* GeKoS */;
+			targetProxy = FAA02D5F2756D6F700A0C454 /* PBXContainerItemProxy */;
+		};
+		FAA02D6B2756D6F700A0C454 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FAA02D412756D6E800A0C454 /* GeKoS */;
+			targetProxy = FAA02D6A2756D6F700A0C454 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FAA02D4B2756D6E800A0C454 /* Document.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAA02D4C2756D6E800A0C454 /* Base */,
+			);
+			name = Document.xib;
+			sourceTree = "<group>";
+		};
+		FAA02D532756D6F600A0C454 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAA02D542756D6F600A0C454 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FAA02D702756D6F700A0C454 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FAA02D712756D6F700A0C454 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FAA02D732756D6F700A0C454 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GeKoS/GeKoS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = K9SL5C6R5S;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GeKoS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xephyr.GeKoS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FAA02D742756D6F700A0C454 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GeKoS/GeKoS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = K9SL5C6R5S;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GeKoS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xephyr.GeKoS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		FAA02D762756D6F700A0C454 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = K9SL5C6R5S;
+				INFOPLIST_FILE = GeKoSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xephyr.GeKoSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GeKoS.app/Contents/MacOS/GeKoS";
+			};
+			name = Debug;
+		};
+		FAA02D772756D6F700A0C454 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = K9SL5C6R5S;
+				INFOPLIST_FILE = GeKoSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xephyr.GeKoSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GeKoS.app/Contents/MacOS/GeKoS";
+			};
+			name = Release;
+		};
+		FAA02D792756D6F700A0C454 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = K9SL5C6R5S;
+				INFOPLIST_FILE = GeKoSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xephyr.GeKoSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GeKoS;
+			};
+			name = Debug;
+		};
+		FAA02D7A2756D6F700A0C454 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = K9SL5C6R5S;
+				INFOPLIST_FILE = GeKoSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xephyr.GeKoSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GeKoS;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FAA02D3D2756D6E800A0C454 /* Build configuration list for PBXProject "GeKoS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAA02D702756D6F700A0C454 /* Debug */,
+				FAA02D712756D6F700A0C454 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAA02D722756D6F700A0C454 /* Build configuration list for PBXNativeTarget "GeKoS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAA02D732756D6F700A0C454 /* Debug */,
+				FAA02D742756D6F700A0C454 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAA02D752756D6F700A0C454 /* Build configuration list for PBXNativeTarget "GeKoSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAA02D762756D6F700A0C454 /* Debug */,
+				FAA02D772756D6F700A0C454 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAA02D782756D6F700A0C454 /* Build configuration list for PBXNativeTarget "GeKoSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAA02D792756D6F700A0C454 /* Debug */,
+				FAA02D7A2756D6F700A0C454 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FAA02D4F2756D6E800A0C454 /* Document.xcdatamodel */,
+			);
+			currentVersion = FAA02D4F2756D6E800A0C454 /* Document.xcdatamodel */;
+			path = Document.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FAA02D3A2756D6E800A0C454 /* Project object */;
+}
