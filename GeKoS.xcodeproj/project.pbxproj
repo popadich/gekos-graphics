@@ -94,8 +94,8 @@
 			children = (
 				FA35286827587A49002B716C /* gks.h */,
 				FA352859275864A8002B716C /* gks_types.h */,
-				FA35285A275864C6002B716C /* gks_3d_matrix.c */,
 				FA35285B275864C6002B716C /* gks_3d_matrix.h */,
+				FA35285A275864C6002B716C /* gks_3d_matrix.c */,
 			);
 			path = gks;
 			sourceTree = "<group>";

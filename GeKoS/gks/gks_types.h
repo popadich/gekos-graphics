@@ -54,6 +54,7 @@ typedef struct {
     Gfloat z;
     Gfloat w;
 } Gpt_3;
+typedef Gfloat *Gpt_3_Ptr;
 
 typedef struct
 {
@@ -68,13 +69,13 @@ typedef struct
 typedef Gfloat Matrix_4[4][4];
 typedef Gfloat Vector_4[4];
 
-// Union with 3D points and vector[4] arrays
+// Union of Gpt_3 points and Vector_4 arrays
 union vector3d {
     Gpt_3 vecpos;
     Vector_4 vec_arr;
 };
-typedef union vector3d Vector;
-typedef Vector *VectorPtr;
+typedef union vector3d GVector;
+typedef GVector *GVectorPtr;
 /*
 ** A union works like so...
 **

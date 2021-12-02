@@ -105,4 +105,56 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertTrue(is_identity);
 }
 
+- (void)testVecDotProduct {
+    Gpt_3 A = {1.0, 2.0, 3.0, 0.0};
+    Gpt_3 B = {2.0, 0.0, 1.0, 0.0};
+    float scalar_value = 0.0;
+    
+    scalar_value = vecdot((Gpt_3_Ptr)&A, (Gpt_3_Ptr)&B);
+    XCTAssertEqualWithAccuracy(scalar_value, 5.0, 0.001);
+}
+
+
+- (void)testVecSub {
+    Gpt_3 va = {1.0, 2.0, 3.0, 1.0};
+    Gpt_3 vb = {2.0, 0.0, 1.0, 0.0};
+    Gpt_3 vc;
+    
+    vecsub((Gpt_3_Ptr)&va, (Gpt_3_Ptr)&vb, (Gpt_3_Ptr)&vc);
+    XCTAssertEqualWithAccuracy(vc.x, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.y, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.z, 2.0, 0.001);
+}
+
+- (void)testVecAdd {
+    GVector va = {1.0, 2.0, 3.0, 1.0};
+    GVector vb = {2.0, 0.0, 1.0, 0.0};
+    GVector vc = {0.0, 0.0, 0.0, 0.0};
+    
+    vecadd(va, vb, &vc);
+    XCTAssertEqualWithAccuracy(vc.vecpos.x, 3.0, 0.001);
+
+}
+
+- (void)testVecScale {
+    Gpt_3 va = {1.0, 2.0, 3.0, 0.0};
+    Gpt_3 vc;
+    
+    vecscale(1.5, (Gpt_3_Ptr)&va, (Gpt_3_Ptr)&vc);
+    XCTAssertEqualWithAccuracy(vc.x, 1.5, 0.001);
+    XCTAssertEqualWithAccuracy(vc.y, 3.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.z, 4.5, 0.001);
+}
+
+- (void)testVecProduct {
+    Gpt_3 A = {1.0, 2.0, 3.0, 0.0};
+    Gpt_3 B = {2.0, 0.0, 1.0, 0.0};
+    Gpt_3 C = {0.0, 0.0, 0.0, 0.0};
+    
+    vecprod((Gpt_3_Ptr)&A, (Gpt_3_Ptr)&B, (Gpt_3_Ptr)&C);
+    XCTAssertEqualWithAccuracy(C.x, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(C.y, 5.0, 0.001);
+    XCTAssertEqualWithAccuracy(C.z, -4.0, 0.001);
+}
+
 @end
