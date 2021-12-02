@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = FA35285A275864C6002B716C /* gks_3d_matrix.c */; };
+		FA352861275875E7002B716C /* GKSMatrixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA352860275875E7002B716C /* GKSMatrixTests.m */; };
 		FAA02D472756D6E800A0C454 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D462756D6E800A0C454 /* AppDelegate.m */; };
 		FAA02D4A2756D6E800A0C454 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D492756D6E800A0C454 /* Document.m */; };
 		FAA02D4D2756D6E800A0C454 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D4B2756D6E800A0C454 /* Document.xib */; };
@@ -36,6 +38,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA352859275864A8002B716C /* gks_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_types.h; sourceTree = "<group>"; };
+		FA35285A275864C6002B716C /* gks_3d_matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gks_3d_matrix.c; sourceTree = "<group>"; };
+		FA35285B275864C6002B716C /* gks_3d_matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gks_3d_matrix.h; sourceTree = "<group>"; };
+		FA352860275875E7002B716C /* GKSMatrixTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSMatrixTests.m; sourceTree = "<group>"; };
+		FA35286827587A49002B716C /* gks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks.h; sourceTree = "<group>"; };
 		FAA02D422756D6E800A0C454 /* GeKoS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeKoS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA02D452756D6E800A0C454 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FAA02D462756D6E800A0C454 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -82,6 +89,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA35285827584DF0002B716C /* gks */ = {
+			isa = PBXGroup;
+			children = (
+				FA35286827587A49002B716C /* gks.h */,
+				FA352859275864A8002B716C /* gks_types.h */,
+				FA35285A275864C6002B716C /* gks_3d_matrix.c */,
+				FA35285B275864C6002B716C /* gks_3d_matrix.h */,
+			);
+			path = gks;
+			sourceTree = "<group>";
+		};
 		FAA02D392756D6E800A0C454 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +124,7 @@
 		FAA02D442756D6E800A0C454 /* GeKoS */ = {
 			isa = PBXGroup;
 			children = (
+				FA35285827584DF0002B716C /* gks */,
 				FAA02D452756D6E800A0C454 /* AppDelegate.h */,
 				FAA02D462756D6E800A0C454 /* AppDelegate.m */,
 				FAA02D482756D6E800A0C454 /* Document.h */,
@@ -125,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA02D622756D6F700A0C454 /* GeKoSTests.m */,
+				FA352860275875E7002B716C /* GKSMatrixTests.m */,
 				FAA02D642756D6F700A0C454 /* Info.plist */,
 			);
 			path = GeKoSTests;
@@ -201,7 +221,7 @@
 		FAA02D3A2756D6E800A0C454 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = XS;
+				CLASSPREFIX = GKS;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					FAA02D412756D6E800A0C454 = {
@@ -270,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */,
+				FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */,
 				FAA02D4A2756D6E800A0C454 /* Document.m in Sources */,
 				FAA02D582756D6F600A0C454 /* main.m in Sources */,
 				FAA02D472756D6E800A0C454 /* AppDelegate.m in Sources */,
@@ -280,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA352861275875E7002B716C /* GKSMatrixTests.m in Sources */,
 				FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

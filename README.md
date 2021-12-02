@@ -1,6 +1,6 @@
 #  GeKoS Graphics
 
-A simple implementation of the Graphical Kernel System as described in the textbook "blah blah". This program is a learning tool for how 3D graphics work. Trying to keep it as simple and fun to code as possible.
+A simple implementation of the Graphical Kernel System as described in the textbook Computer Graphics - Donald Hearn / M. Pauline Baker, 1st Ed. This program is a learning tool for 3D graphics algorithms. Try to keep it as simple and fun to code as possible.
 
 ## Goal of this project:
 - Learn 3D graphics concepts and build a reusable library in C.
