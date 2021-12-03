@@ -20,5 +20,6 @@ void vecprod(Gpt_3_Ptr a, Gpt_3_Ptr b, Gpt_3_Ptr c);
 void vecsub(Gpt_3_Ptr a, Gpt_3_Ptr b, Gpt_3_Ptr c);
 void vecadd(GVector a, GVector b, GVectorPtr c);
 void vecscale(Gfloat k, Gpt_3_Ptr a, Gpt_3_Ptr b);
+void vecnormal(Gpt_3_Ptr vec, Gpt_3_Ptr normal);
 
 #endif /* gks_3d_matrix_h */

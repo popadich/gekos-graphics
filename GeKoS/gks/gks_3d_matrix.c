@@ -5,6 +5,7 @@
 //  Created by Alex Popadich on 12/1/21.
 //
 
+#include <math.h>
 #include "gks_3d_matrix.h"
 
 
@@ -59,11 +60,21 @@ void vecadd(GVector a, GVector b, GVectorPtr c)
     }
 }
 
-void vecscale(Gfloat k, Gfloat *a, Gfloat *b)
+void vecscale(Gfloat k, Gpt_3_Ptr a, Gpt_3_Ptr b)
 {
     b[0]=a[0]*k;
     b[1]=a[1]*k;
     b[2]=a[2]*k;
 }
 
-
+void vecnormal(Gpt_3_Ptr vec, Gpt_3_Ptr normal)
+{
+    Gfloat    length;
+    
+    length = sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
+    
+    normal[0] = vec[0]/length;
+    normal[1] = vec[1]/length;
+    normal[2] = vec[2]/length;
+    
+}

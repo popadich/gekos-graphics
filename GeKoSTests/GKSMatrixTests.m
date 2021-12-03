@@ -157,4 +157,15 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqualWithAccuracy(C.z, -4.0, 0.001);
 }
 
+- (void)testVecNormal {
+    Gpt_3 va = {1.0, 2.0, 3.0, 0.0};
+    Gpt_3 vc;
+    
+    vecnormal((Gpt_3_Ptr)&va, (Gpt_3_Ptr)&vc);
+    XCTAssertEqualWithAccuracy(vc.x, 0.267261241912424, 0.001, @"1/sqrt(14)");
+    XCTAssertEqualWithAccuracy(vc.y, 0.534522483824849, 0.001);
+    XCTAssertEqualWithAccuracy(vc.z, 0.801783725737273, 0.001);
+}
+
+
 @end
