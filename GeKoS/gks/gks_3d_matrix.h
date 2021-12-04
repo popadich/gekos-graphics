@@ -21,6 +21,12 @@ void gks_create_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 resul
 void gks_create_x_rotation_matrix_3(Gfloat theta, Matrix_4 result);
 void gks_create_y_rotation_matrix_3(Gfloat theta, Matrix_4 result);
 void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_4 result);
+void gks_create_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 result);
+
+void gks_accumulate_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 m);
+void gks_accumulate_x_rotation_matrix_3(Gfloat theta, Matrix_4 m);
+void gks_accumulate_y_rotation_matrix_3(Gfloat theta, Matrix_4 m);
+void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_4 m);
 
 // Vector Operations
 Gfloat vecdot(Gpt_3_Ptr a, Gpt_3_Ptr b);

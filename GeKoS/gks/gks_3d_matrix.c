@@ -73,6 +73,62 @@ void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_4 result)
     = result[0][3] = result[1][3] = result[2][3] = 0.0;
 }
 
+void gks_create_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 result)
+{
+    result[0][0] = result[1][1] = result[2][2] = result[3][3] = 1.0;
+    result[0][1] = result[0][2] = result[1][0] = result[1][2] = 0.0;
+    result[2][0] = result[2][1] = result[3][0] = result[3][1] = result[3][2] = 0.0;
+    result[0][3] = dx;
+    result[1][3] = dy;
+    result[2][3] = dz;
+}
+
+
+// Forms the matrix product result = A*B
+void accumulate_matrices_3(Matrix_4 matrix_a, Matrix_4 matrix_b, Matrix_4 result)
+{
+    int i,j,k;
+    Matrix_4    temp;
+    
+    for(i=0;i<4;i++) for(j=0;j<4;j++)
+        {
+            temp[i][j]=0.0;
+            for(k=0;k<4;k++)
+                temp[i][j] += matrix_a[i][k]*matrix_b[k][j];
+        }
+    for(i=0;i<4;i++) for(j=0;j<4;j++)
+        result[i][j]=temp[i][j];
+}
+
+void gks_accumulate_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 m)
+{
+    Matrix_4 temp;
+    gks_create_scaling_matrix_3(sx,sy,sz,temp);
+    accumulate_matrices_3(temp,m,m);
+}
+
+void gks_accumulate_x_rotation_matrix_3(Gfloat theta, Matrix_4 m)
+{
+    Matrix_4 temp;
+    gks_create_x_rotation_matrix_3(theta,temp);
+    accumulate_matrices_3(temp,m,m);
+}
+
+void gks_accumulate_y_rotation_matrix_3(Gfloat theta, Matrix_4 m)
+{
+    Matrix_4 temp;
+    gks_create_y_rotation_matrix_3(theta,temp);
+    accumulate_matrices_3(temp,m,m);
+}
+
+void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_4 m)
+{
+    Matrix_4 temp;
+    gks_create_z_rotation_matrix_3(theta,temp);
+    accumulate_matrices_3(temp,m,m);
+}
+
+
 // Vector Operations
 //
 // Vector operations all use an in place technique

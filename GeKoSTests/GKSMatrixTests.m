@@ -176,6 +176,124 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
 }
 
+- (void)testMatrixTranslate3 {
+    gks_create_translation_matrix_3(A, B, C, m);
+    XCTAssertEqual(m[0][3], A);
+    XCTAssertEqual(m[1][3], B);
+    XCTAssertEqual(m[2][3], C);
+    
+    gks_create_translation_matrix_3(C, B, A, m);
+    XCTAssertEqual(m[0][3], C);
+    XCTAssertEqual(m[1][3], B);
+    XCTAssertEqual(m[2][3], A);
+}
+
+- (void)testAccumulatedScale {
+
+    gks_accumulate_scaling_matrix_3(2.0, 3.0, 4.0, m);
+    XCTAssertEqualWithAccuracy(2.0, m[0][0], 0.001);
+    XCTAssertEqualWithAccuracy(3.0, m[1][1], 0.001);
+    XCTAssertEqualWithAccuracy(4.0, m[2][2], 0.001);
+    
+    gks_accumulate_scaling_matrix_3(1.5, 2.0, 2.5, m);
+    XCTAssertEqualWithAccuracy(3.0, m[0][0], 0.001);
+    XCTAssertEqualWithAccuracy(6.0, m[1][1], 0.001);
+    XCTAssertEqualWithAccuracy(10.0, m[2][2], 0.001);
+
+}
+
+- (void)testAccumulatedRotateX {
+    gks_accumulate_x_rotation_matrix_3(theta, m);
+
+    XCTAssertEqualWithAccuracy(m[0][0], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+
+    XCTAssertEqualWithAccuracy(m[3][0], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][1], 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][2], -0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][3], 0.0, 0.001);
+    
+    gks_accumulate_x_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.866, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.866, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+
+    XCTAssertEqualWithAccuracy(m[3][0], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][1], 0.5, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][2], -0.5, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][3], 0.0, 0.001);
+    
+    gks_accumulate_x_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.707, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.707, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+
+    XCTAssertEqualWithAccuracy(m[3][0], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][1], 0.707, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][2], -0.707, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][3], 0.0, 0.001);
+
+    gks_accumulate_x_rotation_matrix_3(3*theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+
+    XCTAssertEqualWithAccuracy(m[3][0], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][1], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][2], -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][3], 0.0, 0.001);
+    
+}
+
+- (void)testAccumulatedRotateY {
+    gks_accumulate_y_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+
+    XCTAssertEqualWithAccuracy(m[2][0], -0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][2], 0.259, 0.001);
+    
+    gks_accumulate_y_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 0.866, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.866, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+
+    XCTAssertEqualWithAccuracy(m[2][0], -0.5, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][2], 0.5, 0.001);
+
+}
+
+- (void)testAccumulatedRotateZ {
+    gks_accumulate_z_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+    
+    XCTAssertEqualWithAccuracy(m[1][0], 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][1], -0.259, 0.001);
+    
+    gks_accumulate_z_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 0.866, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.866, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+    
+    XCTAssertEqualWithAccuracy(m[1][0], 0.5, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][1], -0.5, 0.001);
+
+}
+
 
 // vector tests
 - (void)testVecDotProduct {
