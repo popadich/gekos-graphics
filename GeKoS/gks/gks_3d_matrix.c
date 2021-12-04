@@ -26,6 +26,52 @@ void gks_set_identity_matrix_3(Matrix_4 result)
     result[3][0] = result[3][1] = result[3][2] = 0.0;
 }
 
+// Evaluates a scaling matrix with a fixed point at
+//    the origin and scale factors sx, sy and sz.
+void gks_create_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 result)
+{
+    result[0][1] = result[0][2] = result[0][3]
+        = result[1][0] = result[1][2] = result[1][3]
+        = result[2][0] = result[2][1] = result[2][3]
+        = result[3][0] = result[3][1] = result[3][2]= 0.0;
+    result[0][0] = sx;
+    result[1][1] = sy;
+    result[2][2] = sz;
+    result[3][3] = 1.0;
+}
+
+void gks_create_x_rotation_matrix_3(Gfloat theta, Matrix_4 result)
+{
+    result[1][1] = result[2][2] = cos(theta);
+    result[2][1] = sin(theta);
+    result[0][0] = result[3][3] = 1;
+    result[1][2] = -result[2][1];
+    result[0][1] = result[0][2] = result[1][0] = result[2][0] = 0.0;
+    result[3][0] = result[3][1] = result[3][2]
+    = result[0][3] = result[1][3] = result[2][3] = 0.0;
+}
+
+void gks_create_y_rotation_matrix_3(Gfloat theta, Matrix_4 result)
+{
+    result[0][0] = result[2][2] = cos(theta);
+    result[0][2] = sin(theta);
+    result[1][1] = result[3][3] = 1;
+    result[2][0] = -result[0][2];
+    result[0][1] = result[1][0] = result[1][2] = result[2][1] = 0.0;
+    result[3][0] = result[3][1] = result[3][2]
+    = result[0][3] = result[1][3] = result[2][3] = 0.0;
+}
+
+void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_4 result)
+{
+    result[0][0] = result[1][1] = cos(theta);
+    result[1][0] = sin(theta);
+    result[2][2] = result[3][3] = 1;
+    result[0][1] = -result[1][0];
+    result[2][0] = result[2][1] = result[0][2] = result[1][2] = 0.0;
+    result[3][0] = result[3][1] = result[3][2]
+    = result[0][3] = result[1][3] = result[2][3] = 0.0;
+}
 
 // Vector Operations
 //

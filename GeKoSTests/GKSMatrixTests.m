@@ -8,14 +8,29 @@
 #import <XCTest/XCTest.h>
 #include "../GeKoS/gks/gks.h"
 
-@interface GKSMatrixTests : XCTestCase
-
+@interface GKSMatrixTests : XCTestCase {
+    Gfloat A;
+    Gfloat B;
+    Gfloat C;
+    Gfloat theta;
+    Matrix_4 m;
+}
 @end
 
 @implementation GKSMatrixTests
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    A = 20.0;
+    B = 10.0;
+    C = 7.0;
+    theta = DEG_TO_RAD * 15.0;
+
+    m[0][0] = m[1][1] = m[2][2] = m[3][3] = 1.0;
+    m[0][1] = m[0][2] = m[0][3] = 0.0;
+    m[1][0] = m[1][2] = m[1][3] = 0.0;
+    m[2][0] = m[2][1] = m[2][3] = 0.0;
+    m[3][0] = m[3][1] = m[3][2] = 0.0;
 }
 
 - (void)tearDown {
@@ -105,6 +120,64 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertTrue(is_identity);
 }
 
+- (void)testMatrixScale3 {
+    gks_create_scaling_matrix_3(A, B, C, m);
+    XCTAssertEqual(m[0][0], A, @"Scaled in X by 20.0");
+    XCTAssertEqual(m[1][1], B, @"Scaled in Y by 10.0");
+    XCTAssertEqual(m[2][2], C);
+    XCTAssertEqual(m[3][3], 1.0);
+    
+    gks_create_scaling_matrix_3(C, B, A, m);
+    XCTAssertEqual(m[0][0], C, @"Scaled in X by 5.0");
+    XCTAssertEqual(m[1][1], B, @"Scaled in Y by 10.0");
+    XCTAssertEqual(m[2][2], A);
+    XCTAssertEqual(m[3][3], 1.0);
+}
+
+
+- (void)testCreateRotate3x {
+    gks_create_x_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+    
+    XCTAssertEqualWithAccuracy(m[3][0], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][1], 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][2], -0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][3], 0.0, 0.001);
+    
+    gks_create_x_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+    
+    XCTAssertEqualWithAccuracy(m[3][0], 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][1], 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][2], -0.259, 0.001);
+    XCTAssertEqualWithAccuracy(m[0][3], 0.0, 0.001);
+}
+
+- (void)testCreateRotate3y {
+    gks_create_y_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+}
+
+
+- (void)testCreateRotate3z {
+    gks_create_z_rotation_matrix_3(theta, m);
+    XCTAssertEqualWithAccuracy(m[0][0], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[1][1], 0.966, 0.001);
+    XCTAssertEqualWithAccuracy(m[2][2], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(m[3][3], 1.0, 0.001);
+}
+
+
+// vector tests
 - (void)testVecDotProduct {
     Gpt_3 A = {1.0, 2.0, 3.0, 0.0};
     Gpt_3 B = {2.0, 0.0, 1.0, 0.0};
@@ -113,7 +186,6 @@ bool isIdentity_3(Matrix_4 matrix)
     scalar_value = vecdot((Gpt_3_Ptr)&A, (Gpt_3_Ptr)&B);
     XCTAssertEqualWithAccuracy(scalar_value, 5.0, 0.001);
 }
-
 
 - (void)testVecSub {
     Gpt_3 va = {1.0, 2.0, 3.0, 1.0};
@@ -133,7 +205,8 @@ bool isIdentity_3(Matrix_4 matrix)
     
     vecadd(va, vb, &vc);
     XCTAssertEqualWithAccuracy(vc.vecpos.x, 3.0, 0.001);
-
+    XCTAssertEqualWithAccuracy(vc.vecpos.y, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.vecpos.z, 4.0, 0.001);
 }
 
 - (void)testVecScale {
