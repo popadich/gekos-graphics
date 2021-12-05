@@ -294,6 +294,137 @@ bool isIdentity_3(Matrix_4 matrix)
 
 }
 
+- (void)testAccumulateTranslate {
+    gks_accumulate_transaltion_matrix_3(A, B, C, m);
+    XCTAssertEqual(m[0][3], A);
+    XCTAssertEqual(m[1][3], B);
+    XCTAssertEqual(m[2][3], C);
+    
+    gks_accumulate_transaltion_matrix_3(C, B, A, m);
+    XCTAssertEqual(m[0][3], A+C);
+    XCTAssertEqual(m[1][3], B+B);
+    XCTAssertEqual(m[2][3], C+A);
+}
+
+- (void)testCopyMatrix3 {
+    Matrix_4 s;
+    Matrix_4 M = {
+        {1.0, 2.0,  3.0, -4.0},
+        {2.0, 4.0,  6.0,  8.0},
+        {3.0, 6.0, -2.0,  1.0},
+        {0.0, 0.0,  0.0,  1.0}
+    };
+    
+    gks_copy_matrix_3(m, s);
+    XCTAssertEqual(s[0][0], 1.0, @"Identity 1.0 in diagonal");
+    XCTAssertEqual(s[1][1], 1.0, @"Identity 1.0 in diagonal");
+    XCTAssertEqual(s[2][2], 1.0, @"Identity 1.0 in diagonal");
+    XCTAssertEqual(s[3][3], 1.0, @"Identity 1.0 in diagonal");
+    
+    bool is_identity = isIdentity_3(s);
+    XCTAssertTrue(is_identity, @"Identity check failed");
+    
+    s[0][2] = 3.0;
+    is_identity = isIdentity_3(s);
+    XCTAssertFalse(is_identity, @"Identity check failed");
+
+    gks_copy_matrix_3(M, m);
+    XCTAssertEqualWithAccuracy(1.0, m[0][0], 0.001);
+    XCTAssertEqualWithAccuracy(-2.0, m[2][2], 0.001);
+    XCTAssertEqualWithAccuracy(3.0, m[0][2], 0.001);
+}
+
+- (void)testTransformPoint3 {
+    Gpt_3 p0 = {1.0, 1.0, 1.0};
+    Gpt_3 p1;
+    
+    gks_create_y_rotation_matrix_3(theta, m);
+    gks_transform_point_3(m, &p0, &p1);
+
+    XCTAssertEqualWithAccuracy(p1.x, 0.966 + 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(p1.y, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(p1.z, 0.966 - 0.259, 0.001);
+    
+    gks_accumulate_y_rotation_matrix_3(theta, m);
+    gks_transform_point_3(m, &p0, &p1);
+
+    XCTAssertEqualWithAccuracy(p1.x, 0.866 + 0.5, 0.001);
+    XCTAssertEqualWithAccuracy(p1.y, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(p1.z, 0.866 - 0.5, 0.001);
+
+    //ac_scale_3(2.0, 2.0, 2.0, m);
+
+    XCTAssertEqualWithAccuracy(p0.x, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(p0.y, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(p0.z, 1.0, 0.001);
+}
+
+- (void)testTransformVector4 {
+    Vector_4 v = {1.0, 1.0, 1.0, 1.0};
+    Vector_4 vn;
+    
+    gks_create_y_rotation_matrix_3(theta, m);
+    gks_transform_vector_4(m, v, vn);
+    XCTAssertEqualWithAccuracy(vn[0], 0.966 - 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(vn[1], 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(vn[2], 0.966 + 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(vn[3], 1.0, 0.001);
+}
+
+- (void)testPlaneEquation {
+    Gpt_3 p1 = {0.0, 0.0, 0.0};
+    Gpt_3 p2 = {1.0, 0.0, 0.0};
+    Gpt_3 p3 = {1.0, 1.0, 0.0};
+    Gpt_3 p4 = {0.0, 1.0, 0.0};
+    Gpt_3 p5 = {0.0, 0.0, 1.0};
+    Gpt_3 p6 = {1.0, 0.0, 1.0};
+    Gpt_3 p7 = {1.0, 1.0, 1.0};
+    Gpt_3 p8 = {0.0, 1.0, 1.0};
+    
+    Gpt_3 testPlane = {0.0, 0.0, 0.0, 0.0};    // this is weird using a point type for a plane type.
+    
+    // polygon 4
+    gks_plane_equation_3(p2, p3, p7, &testPlane);
+    XCTAssertEqualWithAccuracy(testPlane.x, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.w, -1.0, 0.001);
+    
+    // polygon 1
+    gks_plane_equation_3(p3, p2, p1, &testPlane);
+    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.z, -1.0, 0.001);
+    gks_plane_equation_3(p1, p4, p3, &testPlane);
+    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.z, -1.0, 0.001);
+
+    // polygon 6
+    gks_plane_equation_3(p3, p4, p8, &testPlane);
+    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.y, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
+    
+    // polygon 3
+    gks_plane_equation_3(p8, p4, p1, &testPlane);
+    XCTAssertEqualWithAccuracy(testPlane.x, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
+    
+    // polygon 2
+    gks_plane_equation_3(p5, p6, p7, &testPlane);
+    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.z, 1.0, 0.001);
+    
+    // polygon 5
+    gks_plane_equation_3(p1, p2, p6, &testPlane);
+    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.y, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
+    
+}
 
 // vector tests
 - (void)testVecDotProduct {

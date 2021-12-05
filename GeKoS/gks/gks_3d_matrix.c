@@ -128,6 +128,80 @@ void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_4 m)
     accumulate_matrices_3(temp,m,m);
 }
 
+void gks_accumulate_transaltion_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 m)
+{
+    Matrix_4 temp;
+    gks_create_translation_matrix_3(dx,dy,dz,temp);
+    accumulate_matrices_3(temp,m,m);
+}
+
+// Copies matrix A -> B
+void gks_copy_matrix_3(Matrix_4 matrix_a, Matrix_4 matrix_b)
+{
+    int i,j;
+    
+    for(i=0;i<4;i++) for(j=0;j<4;j++)
+            matrix_b[i][j]=matrix_a[i][j];
+}
+
+// Computes a new point using homogeneous coordinate transformation matrix
+// it assumes the w component of the point is always 1.
+// TODO: Test to confirm order of multiplication
+// New point computed using homogenuous coordinates, but the order of multiplication
+// is unclear.
+// The textbook states that Matrix multiplies a vector to transform the vector.
+// Like this, but I'm not convinced.
+//
+//    [m1 m2 m3 m4] [px]
+//    [           ] [py]
+//    [           ] [pz]
+//    [           ] [1]
+//
+void gks_transform_point_3(Matrix_4 tm, Gpt_3 *p1, Gpt_3 *p2)
+{
+    p2->x = tm[0][3] + tm[0][0]*p1->x + tm[0][1]*p1->y + tm[0][2]*p1->z;
+    p2->y = tm[1][3] + tm[1][0]*p1->x + tm[1][1]*p1->y + tm[1][2]*p1->z;
+    p2->z = tm[2][3] + tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z;
+}
+
+
+// New point computed using homogenuous coordinates, but the order of multiplication
+// is different. To test the order of multiplication.
+//
+//   [v0]  [m1 m2 m3 m4]
+//   [v1]  [           ]
+//   [v2]  [           ]
+//   [v3]  [           ]
+//
+void gks_transform_vector_4(Matrix_4 tm, Vector_4 v, Vector_4 result)
+{
+    result[0] = tm[0][0]*v[0] + tm[1][0]*v[1] + tm[2][0]*v[2] + tm[3][0]*v[3];
+    result[1] = tm[0][1]*v[0] + tm[1][1]*v[1] + tm[2][1]*v[2] + tm[3][1]*v[3];
+    result[2] = tm[0][2]*v[0] + tm[1][2]*v[1] + tm[2][2]*v[2] + tm[3][2]*v[3];
+    result[3] = tm[0][3]*v[0] + tm[1][3]*v[1] + tm[2][3]*v[2] + tm[3][3]*v[3];
+
+}
+
+void gks_plane_equation_3(Gpt_3 p1, Gpt_3 p2, Gpt_3 p3, Gpt_3 *overloadPlane) {
+    double A, B, C, D;
+    
+    // compute the plane equation from 3 points on the plane
+    // this will generate 4 double numbers A, B, C, D.
+    // A, B, C are the normal vector and D is distance from
+    // origin.
+    A = p1.y*(p2.z - p3.z) + p2.y*(p3.z - p1.z) + p3.y*(p1.z - p2.z);
+    B = p1.z*(p2.x - p3.x) + p2.z*(p3.x - p1.x) + p3.z*(p1.x - p2.x);
+    C = p1.x*(p2.y - p3.y) + p2.x*(p3.y - p1.y) + p3.x*(p1.y - p2.y);
+    D = -p1.x*(p2.y*p3.z - p3.y*p2.z)
+        -p2.x*(p3.y*p1.z - p1.y*p3.z)
+        -p3.x*(p1.y*p2.z - p2.y*p1.z);
+    overloadPlane->x = A;
+    overloadPlane->y = B;
+    overloadPlane->z = C;
+    overloadPlane->w = D;
+
+}
+
 
 // Vector Operations
 //
