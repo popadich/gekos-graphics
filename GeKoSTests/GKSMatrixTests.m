@@ -515,5 +515,14 @@ bool isIdentity_3(Matrix_4 matrix)
     
 }
 
+- (void)testMeshPyramid {
+    Object_3 *pyramidObj;
+    
+    pyramidObj = PyramidMesh();
+    XCTAssert(pyramidObj != NULL, @"Pyramid mesh not exists");
+    XCTAssertEqual(pyramidObj->vertnum, 5, @"Pyramid has 5 vertices");
+    XCTAssertEqual(pyramidObj->polynum, 5, @"Pyramid has 5 polygons");
+}
+
 
 @end

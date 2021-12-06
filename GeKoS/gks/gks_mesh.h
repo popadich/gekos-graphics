@@ -13,6 +13,10 @@
 #define GKS_CUBE_VERTEX_COUNT    8
 #define GKS_CUBE_POLYGON_COUNT   6
 
+#define GKS_PYRAMID_VERTEX_COUNT    5
+#define GKS_PYRAMID_POLYGON_COUNT   5
+
 Object_3 *CubeMesh(void);
+Object_3 *PyramidMesh(void);
 
 #endif /* gks_mesh_h */
