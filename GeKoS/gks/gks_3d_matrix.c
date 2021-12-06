@@ -128,7 +128,7 @@ void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_4 m)
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_transaltion_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 m)
+void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 m)
 {
     Matrix_4 temp;
     gks_create_translation_matrix_3(dx,dy,dz,temp);

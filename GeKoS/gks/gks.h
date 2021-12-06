@@ -10,6 +10,7 @@
 
 #include "gks_types.h"
 #include "gks_3d_matrix.h"
+#include "gks_mesh.h"
 
 #endif
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA2D4937275D817300727B7B /* gks_mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = FA2D4936275D817300727B7B /* gks_mesh.c */; };
 		FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = FA35285A275864C6002B716C /* gks_3d_matrix.c */; };
 		FA352861275875E7002B716C /* GKSMatrixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA352860275875E7002B716C /* GKSMatrixTests.m */; };
 		FAA02D472756D6E800A0C454 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D462756D6E800A0C454 /* AppDelegate.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA2D4935275D817300727B7B /* gks_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_mesh.h; sourceTree = "<group>"; };
+		FA2D4936275D817300727B7B /* gks_mesh.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_mesh.c; sourceTree = "<group>"; };
 		FA352859275864A8002B716C /* gks_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_types.h; sourceTree = "<group>"; };
 		FA35285A275864C6002B716C /* gks_3d_matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gks_3d_matrix.c; sourceTree = "<group>"; };
 		FA35285B275864C6002B716C /* gks_3d_matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gks_3d_matrix.h; sourceTree = "<group>"; };
@@ -96,6 +99,8 @@
 				FA352859275864A8002B716C /* gks_types.h */,
 				FA35285B275864C6002B716C /* gks_3d_matrix.h */,
 				FA35285A275864C6002B716C /* gks_3d_matrix.c */,
+				FA2D4935275D817300727B7B /* gks_mesh.h */,
+				FA2D4936275D817300727B7B /* gks_mesh.c */,
 			);
 			path = gks;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2D4937275D817300727B7B /* gks_mesh.c in Sources */,
 				FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */,
 				FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */,
 				FAA02D4A2756D6E800A0C454 /* Document.m in Sources */,

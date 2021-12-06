@@ -295,12 +295,12 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testAccumulateTranslate {
-    gks_accumulate_transaltion_matrix_3(A, B, C, m);
+    gks_accumulate_translation_matrix_3(A, B, C, m);
     XCTAssertEqual(m[0][3], A);
     XCTAssertEqual(m[1][3], B);
     XCTAssertEqual(m[2][3], C);
     
-    gks_accumulate_transaltion_matrix_3(C, B, A, m);
+    gks_accumulate_translation_matrix_3(C, B, A, m);
     XCTAssertEqual(m[0][3], A+C);
     XCTAssertEqual(m[1][3], B+B);
     XCTAssertEqual(m[2][3], C+A);
@@ -316,10 +316,10 @@ bool isIdentity_3(Matrix_4 matrix)
     };
     
     gks_copy_matrix_3(m, s);
-    XCTAssertEqual(s[0][0], 1.0, @"Identity 1.0 in diagonal");
-    XCTAssertEqual(s[1][1], 1.0, @"Identity 1.0 in diagonal");
-    XCTAssertEqual(s[2][2], 1.0, @"Identity 1.0 in diagonal");
-    XCTAssertEqual(s[3][3], 1.0, @"Identity 1.0 in diagonal");
+    XCTAssertEqual(s[0][0], 1.0, @"Identity 1.0 not in diagonal");
+    XCTAssertEqual(s[1][1], 1.0, @"Identity 1.0 not in diagonal");
+    XCTAssertEqual(s[2][2], 1.0, @"Identity 1.0 not in diagonal");
+    XCTAssertEqual(s[3][3], 1.0, @"Identity 1.0 not in diagonal");
     
     bool is_identity = isIdentity_3(s);
     XCTAssertTrue(is_identity, @"Identity check failed");
@@ -487,6 +487,32 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqualWithAccuracy(vc.x, 0.267261241912424, 0.001, @"1/sqrt(14)");
     XCTAssertEqualWithAccuracy(vc.y, 0.534522483824849, 0.001);
     XCTAssertEqualWithAccuracy(vc.z, 0.801783725737273, 0.001);
+}
+
+
+// MARK: MESH
+
+- (void)testMeshCube {
+    Object_3 *cubeObj;
+    
+    cubeObj = CubeMesh();
+    XCTAssert(cubeObj != NULL, @"Cube mesh does not exist");
+    XCTAssertEqual(cubeObj->vertnum, 8);
+    XCTAssertEqual(cubeObj->polynum, 6);
+    
+    // vertex 0
+    XCTAssertEqual(cubeObj->vertices[0].x, 0.0);
+    XCTAssertEqual(cubeObj->vertices[0].y, 0.0);
+    XCTAssertEqual(cubeObj->vertices[0].z, 0.0);
+    // vertex 3 {0.0, 1.0, 0.0},
+    XCTAssertEqual(cubeObj->vertices[3].x, 0.0);
+    XCTAssertEqual(cubeObj->vertices[3].y, 1.0);
+    XCTAssertEqual(cubeObj->vertices[3].z, 0.0);
+    // vertex 6 {1.0, 1.0, 1.0}
+    XCTAssertEqual(cubeObj->vertices[6].x, 1.0);
+    XCTAssertEqual(cubeObj->vertices[6].y, 1.0);
+    XCTAssertEqual(cubeObj->vertices[6].z, 1.0);
+    
 }
 
 

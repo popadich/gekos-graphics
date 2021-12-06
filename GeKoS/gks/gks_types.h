@@ -102,4 +102,24 @@ typedef struct {
     Gfloat alpha;
 } Gcolor;
 
+
+// Polygon has a vertex count followed
+// by count vertex indexes (usually 3 or 4)
+// but potentially more. Make room by
+// modifying the GKS_MIN_VERTEX_COUNT constant.
+typedef Gint        Gpoly_3[GKS_MIN_VERTEX_COUNT];
+
+typedef Gpt_3       *VertexArrayPtr;       // list of 3D points for each polygon
+typedef Gpoly_3     *PolygonArrayPtr;      // polygon list
+
+
+typedef struct
+{
+    Gint vertnum;
+    Gint polynum;
+    VertexArrayPtr vertices;
+    PolygonArrayPtr polygons;
+} Object_3;
+
+
 #endif /* gks_types_h */

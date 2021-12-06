@@ -27,7 +27,7 @@ void gks_accumulate_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 m
 void gks_accumulate_x_rotation_matrix_3(Gfloat theta, Matrix_4 m);
 void gks_accumulate_y_rotation_matrix_3(Gfloat theta, Matrix_4 m);
 void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_4 m);
-void gks_accumulate_transaltion_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 m);
+void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 m);
 
 void gks_copy_matrix_3(Matrix_4 matrix_a, Matrix_4 matrix_b);
 
