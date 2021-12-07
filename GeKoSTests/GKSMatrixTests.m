@@ -561,5 +561,31 @@ bool isIdentity_3(Matrix_4 matrix)
     
 }
 
+- (void)testProjectionInit {
+    Matrix_4 *projMatrix;
+    
+    gks_init_projection();
+    projMatrix = gks_get_projection_matrix();
+    XCTAssertEqual((*projMatrix)[0][0], 1.0);
+    XCTAssertEqual((*projMatrix)[1][1], 1.0);
+    XCTAssertEqual((*projMatrix)[2][2], 0.0);
+    XCTAssertEqual((*projMatrix)[2][3], 0.0);
+    XCTAssertEqual((*projMatrix)[3][3], 1.0);
+}
+
+- (void)testProjectionOrthogonalEnable {
+    Matrix_4 *projMatrix;
+    
+    gks_enable_orthogonal_projection();
+    projMatrix = gks_get_projection_matrix();
+    XCTAssertEqual((*projMatrix)[0][0], 1.0);
+    XCTAssertEqual((*projMatrix)[1][1], 1.0);
+    XCTAssertEqual((*projMatrix)[2][2], 0.0);
+    XCTAssertEqual((*projMatrix)[2][3], 0.0);
+    XCTAssertEqual((*projMatrix)[3][3], 1.0);
+    
+    XCTAssertEqual(gks_get_projection_type(), kOrthogonalProjection);
+}
+
 
 @end
