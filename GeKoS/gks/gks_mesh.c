@@ -115,3 +115,64 @@ Object_3 *PyramidMesh(void)
     
     return aPyramid;
 }
+
+Object_3 *HouseMesh(void)
+{
+    static Gpt_3 objectvert[GKS_HOUSE_VERTEX_COUNT] = {
+        {0, 0,30},
+        {16, 0,30},
+        {16,10,30},
+        {8,16,30},
+        {0,10,30},
+        {0, 0,54},
+        {16, 0,54},
+        {16,10,54},
+        {8,16,54},
+        {0,10,54}
+    };
+    static Gpoly_3 objectpoly[GKS_HOUSE_POLYGON_COUNT] = {
+        {5, 5, 4, 3, 2, 1},
+        {5, 6, 7, 8, 9, 10},
+        {4, 1, 2, 7, 6},
+        {4, 2, 3, 8, 7},
+        {4, 1, 6, 10, 5},
+        {4, 3, 4, 9, 8},
+        {4, 4, 5, 10, 9}
+    };
+    
+    Gpt_3 *p, *q;
+    Object_3 *anObject = NULL;
+
+    // clear memory allocation to zeros
+    VertexArrayPtr vertexList = (VertexArrayPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(Gpt_3));
+    PolygonArrayPtr polygonList = (PolygonArrayPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(Gpoly_3));
+
+    
+    
+    // copy vertices using pointer arithmetic
+    p = objectvert;
+    q = vertexList;
+    for(int i=0; i<GKS_HOUSE_VERTEX_COUNT; i++) {
+        q->x=p->x;
+        q->y=p->y;
+        q->z=p->z;
+        p++; q++;
+    }
+
+
+    // copy polygon data using array indexing
+    for(int i=0; i<GKS_HOUSE_POLYGON_COUNT; i++) {
+        int polygonSize = objectpoly[i][0] + 1;
+        for(int j=0; j<polygonSize; j++) {
+            polygonList[i][j] = objectpoly[i][j];
+        }
+    }
+
+    anObject = (Object_3 *)calloc(1, sizeof(Object_3));
+    anObject->vertices = vertexList;
+    anObject->vertnum = GKS_HOUSE_VERTEX_COUNT;
+    anObject->polygons = polygonList;
+    anObject->polynum = GKS_HOUSE_POLYGON_COUNT;
+    
+    return anObject;
+}

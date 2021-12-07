@@ -500,11 +500,11 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqual(cubeObj->vertnum, 8);
     XCTAssertEqual(cubeObj->polynum, 6);
     
-    // vertex 0
+    // vertex 0 {0.0, 0.0, 0.0}
     XCTAssertEqual(cubeObj->vertices[0].x, 0.0);
     XCTAssertEqual(cubeObj->vertices[0].y, 0.0);
     XCTAssertEqual(cubeObj->vertices[0].z, 0.0);
-    // vertex 3 {0.0, 1.0, 0.0},
+    // vertex 3 {0.0, 1.0, 0.0}
     XCTAssertEqual(cubeObj->vertices[3].x, 0.0);
     XCTAssertEqual(cubeObj->vertices[3].y, 1.0);
     XCTAssertEqual(cubeObj->vertices[3].z, 0.0);
@@ -520,8 +520,45 @@ bool isIdentity_3(Matrix_4 matrix)
     
     pyramidObj = PyramidMesh();
     XCTAssert(pyramidObj != NULL, @"Pyramid mesh not exists");
-    XCTAssertEqual(pyramidObj->vertnum, 5, @"Pyramid has 5 vertices");
-    XCTAssertEqual(pyramidObj->polynum, 5, @"Pyramid has 5 polygons");
+    XCTAssertEqual(pyramidObj->vertnum, 5, @"Pyramid should have 5 vertices");
+    XCTAssertEqual(pyramidObj->polynum, 5, @"Pyramid should have 5 polygons");
+    
+    // vertex 0 {0.0, 0.0, 0.0}
+    XCTAssertEqual(pyramidObj->vertices[0].x, 0.0);
+    XCTAssertEqual(pyramidObj->vertices[0].y, 0.0);
+    XCTAssertEqual(pyramidObj->vertices[0].z, 0.0);
+    // vertex 2 {1.0, 0.0, 1.0}
+    XCTAssertEqual(pyramidObj->vertices[2].x, 1.0);
+    XCTAssertEqual(pyramidObj->vertices[2].y, 0.0);
+    XCTAssertEqual(pyramidObj->vertices[2].z, 1.0);
+    // vertuex 4 {0.5, 0.6636661, 0.5}
+    XCTAssertEqual(pyramidObj->vertices[4].x, 0.5);
+    XCTAssertEqual(pyramidObj->vertices[4].y, 0.6636661);
+    XCTAssertEqual(pyramidObj->vertices[4].z, 0.5);
+
+}
+
+- (void)testMeshHouse {
+    Object_3 *houseObj;
+    
+    houseObj = HouseMesh();
+    XCTAssert(houseObj != NULL, @"House mesh not exists");
+    XCTAssertEqual(houseObj->vertnum, 10, @"House should have 10 vertices");
+    XCTAssertEqual(houseObj->polynum, 7, @"House should have 7 polygons");
+
+    // vertex 0 {0, 0, 30}
+    XCTAssertEqual(houseObj->vertices[0].x, 0.0);
+    XCTAssertEqual(houseObj->vertices[0].y, 0.0);
+    XCTAssertEqual(houseObj->vertices[0].z, 30.0);
+    // vertex 6 {16, 0, 54},
+    XCTAssertEqual(houseObj->vertices[6].x, 16.0);
+    XCTAssertEqual(houseObj->vertices[6].y, 0.0);
+    XCTAssertEqual(houseObj->vertices[6].z, 54.0);
+    // vertuex 9 {0, 10, 54}
+    XCTAssertEqual(houseObj->vertices[9].x, 0.0);
+    XCTAssertEqual(houseObj->vertices[9].y, 10.0);
+    XCTAssertEqual(houseObj->vertices[9].z, 54.0);
+    
 }
 
 
