@@ -10,6 +10,7 @@
 
 static Matrix_4            gProjectionMatrix_3;
 static ProjectionType      gProjectionType = kOrthogonalProjection;
+static Gfloat              gPerspectiveDepth;
 
 void gks_init_projection(void)
 {    
@@ -41,10 +42,33 @@ void gks_enable_orthogonal_projection(void)
     gProjectionType = kOrthogonalProjection;
 }
 
+void gks_enable_perspective_projection(void)
+{
+    gProjectionMatrix_3[0][0] = 1.0; gProjectionMatrix_3[0][1] = 0.0; gProjectionMatrix_3[0][2] = 0.0; gProjectionMatrix_3[0][3] = 0.0;
+    gProjectionMatrix_3[1][0] = 0.0; gProjectionMatrix_3[1][1] = 1.0; gProjectionMatrix_3[1][2] = 0.0; gProjectionMatrix_3[1][3] = 0.0;
+    gProjectionMatrix_3[2][0] = 0.0; gProjectionMatrix_3[2][1] = 0.0; gProjectionMatrix_3[2][2] = 0.0; gProjectionMatrix_3[2][3] = 1.0/gPerspectiveDepth;       //TODO: should be positive according to the book
+    gProjectionMatrix_3[3][0] = 0.0; gProjectionMatrix_3[3][1] = 0.0; gProjectionMatrix_3[3][2] = 0.0; gProjectionMatrix_3[3][3] = 1.0;
+    
+    gProjectionType = kPerspectiveProjection;
+}
 
 Matrix_4 *gks_get_projection_matrix(void)
 {
     return &gProjectionMatrix_3;
 }
 
+void gks_set_perspective_depth(Gfloat distance)
+{
+    gPerspectiveDepth = distance;
+    
+    //FIXME: sly hack, probably not a good idea
+    if (gProjectionType == kPerspectiveProjection) {
+        // TODO: pay attention to the sign, should be positive
+        gProjectionMatrix_3[2][3] = 1.0/gPerspectiveDepth;
+    }
+}
 
+Gfloat gks_get_perspective_depth(void)
+{
+    return gPerspectiveDepth;
+}
