@@ -20,6 +20,7 @@
 		FAA02D582756D6F600A0C454 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D572756D6F600A0C454 /* main.m */; };
 		FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D622756D6F700A0C454 /* GeKoSTests.m */; };
 		FAA02D6E2756D6F700A0C454 /* GeKoSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D6D2756D6F700A0C454 /* GeKoSUITests.m */; };
+		FAA5C30F2760F2E20005ACAE /* gks_3d_transforms.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C30E2760F2E20005ACAE /* gks_3d_transforms.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		FAA02D6D2756D6F700A0C454 /* GeKoSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeKoSUITests.m; sourceTree = "<group>"; };
 		FAA02D6F2756D6F700A0C454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAA465C42758107A00A5A280 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		FAA5C30D2760F2E20005ACAE /* gks_3d_transforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_transforms.h; sourceTree = "<group>"; };
+		FAA5C30E2760F2E20005ACAE /* gks_3d_transforms.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_transforms.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 				FA2D4936275D817300727B7B /* gks_mesh.c */,
 				FA58B8A3275F0EF000BFFB11 /* gks_3d_projection.h */,
 				FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */,
+				FAA5C30D2760F2E20005ACAE /* gks_3d_transforms.h */,
+				FAA5C30E2760F2E20005ACAE /* gks_3d_transforms.c */,
 			);
 			path = gks;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 				FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */,
 				FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */,
 				FAA02D4A2756D6E800A0C454 /* Document.m in Sources */,
+				FAA5C30F2760F2E20005ACAE /* gks_3d_transforms.c in Sources */,
 				FAA02D582756D6F600A0C454 /* main.m in Sources */,
 				FAA02D472756D6E800A0C454 /* AppDelegate.m in Sources */,
 			);

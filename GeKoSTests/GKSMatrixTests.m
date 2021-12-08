@@ -604,5 +604,19 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqual(pt, kPerspectiveProjection, @"Perspective was just enabled");
 }
 
+- (void)testTransformInit {
+    gks_trans_init_3();
+    
+    Gint idx = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(idx, -1, @"Index should be out of bounds");
+    
+}
+
+- (void)testTransformSetIndex {
+    Gint idx = 0;
+    gks_trans_set_curr_view_idx(idx);
+    idx = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(idx, 0);
+}
 
 @end
