@@ -619,4 +619,137 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqual(idx, 0);
 }
 
+- (void)testTransformCreate {
+    Glim_3 winlims = { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 };
+    Glim_3 winlims2 = { -10.0, 20.0, -30.0, 40.0, -50.0, 60.0 };
+    Gint view_num = 0;
+    
+    gks_trans_init_3();
+    gks_trans_create_transform_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, winlims);
+
+    Glim_3 volume = gks_trans_get_transform_at_idx(view_num, kWorldVolumeSetup);
+    XCTAssertEqual(volume.xmin, -1.0);
+    XCTAssertEqual(volume.xmax, 2.0);
+    XCTAssertEqual(volume.ymin, -3.0);
+    XCTAssertEqual(volume.ymax, 4.0);
+    XCTAssertEqual(volume.zmin, -5.0);
+    XCTAssertEqual(volume.zmax, 6.0);
+    
+    Glim_2 vp = gks_trans_get_device_viewport();
+    XCTAssertEqual(vp.xmin, 0.0);
+    XCTAssertEqual(vp.ymin, 0.0);
+    XCTAssertEqual(vp.xmax, 400.0);
+    XCTAssertEqual(vp.ymax, 400.0);
+
+    view_num = 3;
+    gks_trans_create_transform_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, winlims2);
+
+    volume = gks_trans_get_transform_at_idx(view_num, kWorldVolumeSetup);
+    XCTAssertEqual(volume.xmin, -10.0);
+    XCTAssertEqual(volume.xmax, 20.0);
+    XCTAssertEqual(volume.ymin, -30.0);
+    XCTAssertEqual(volume.ymax, 40.0);
+    XCTAssertEqual(volume.zmin, -50.0);
+    XCTAssertEqual(volume.zmax, 60.0);
+    
+    vp = gks_trans_get_device_viewport();
+    XCTAssertEqual(vp.xmin, 0.0);
+    XCTAssertEqual(vp.ymin, 0.0);
+    XCTAssertEqual(vp.xmax, 250.0);
+    XCTAssertEqual(vp.ymax, 300.0);
+    
+}
+
+
+- (void)testTransformGetCurrentView {
+    Glim_3 wrldlims = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
+    gks_trans_init_3();
+    
+    int view_num = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num, -1, @"No view should be set");
+    
+    gks_trans_create_transform_at_idx(3, 0.0, 250.0, 0.0, 300.0, wrldlims);
+    view_num = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num, 3);
+}
+
+- (void)testTransformSetCurrentView {
+    Glim_3 wrldlims1 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    Glim_3 wrldlims2 = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
+    gks_trans_init_3();
+    
+    int view_num = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num, -1, @"No view should be set");
+    
+    view_num = 1;
+    gks_trans_create_transform_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, wrldlims1);
+    view_num = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num, 1);
+
+    view_num = 3;
+    gks_trans_create_transform_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, wrldlims2);
+    view_num = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num, 3);
+    
+    view_num = 1;
+    gks_trans_set_curr_view_idx(view_num);
+    view_num = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num, 1);
+    
+}
+
+
+- (void)testTransformWCToNDC3 {
+    Glim_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    Gpt_3 p1 = {1.0, 1.0, 1.0, 1.0};
+    Gpt_3 p2 = {0.0, 0.0, 0.0, 0.0};
+    Gint viewNum = 0;
+    
+    gks_trans_init_3();
+    
+    gks_trans_create_transform_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
+    int view_num_get = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num_get, viewNum);
+    
+    // not a verified test, try some different values for p1 and limits
+    gks_trans_wc_to_ndc_3 (&p1, &p2);
+    
+    XCTAssertEqual(p1.x, 1.0);
+    XCTAssertEqual(p1.y, 1.0);
+    XCTAssertEqual(p1.z, 1.0);
+    
+}
+
+
+- (void)testTransformNDCToDC3 {
+    Glim_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    Gpt_3 p1 = {1.0, 1.0, 1.0, 1.0};
+    Gpt_3 p2 = {0.5, 0.5, 0.0, 1.0};
+    Gint u, v;
+    
+    Gint viewNum = 0;
+    
+    gks_trans_init_3();
+    
+    gks_trans_create_transform_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
+    int view_num_get = gks_trans_get_curr_view_idx();
+    XCTAssertEqual(view_num_get, viewNum);
+    
+    // not a verified test, try some different values for p1 and limits
+    gks_trans_ndc_3_to_dc_2(&p1, &u, &v);
+    
+    XCTAssertEqual(p1.x, 1.0);
+    XCTAssertEqual(p1.y, 1.0);
+    XCTAssertEqual(p1.z, 1.0);
+    
+    XCTAssertEqual(u, 400.0);
+    XCTAssertEqual(v, 400.0);
+    
+    gks_trans_ndc_3_to_dc_2(&p2, &u, &v);
+    XCTAssertEqual(u, 300.0);
+    XCTAssertEqual(v, 300.0);
+    
+}
+
+
 @end
