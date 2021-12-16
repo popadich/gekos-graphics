@@ -8,7 +8,7 @@
 #import <XCTest/XCTest.h>
 #include "../GeKoS/gks/gks.h"
 
-@interface GKSMatrixTests : XCTestCase {
+@interface GeKoSCoreTests : XCTestCase {
     Gfloat A;
     Gfloat B;
     Gfloat C;
@@ -17,7 +17,7 @@
 }
 @end
 
-@implementation GKSMatrixTests
+@implementation GeKoSCoreTests
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -561,6 +561,7 @@ bool isIdentity_3(Matrix_4 matrix)
     
 }
 
+// MARK: PROJECTION
 - (void)testProjectionInit {
     Matrix_4 *projMatrix;
     
@@ -604,6 +605,7 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqual(pt, kPerspectiveProjection, @"Perspective was just enabled");
 }
 
+//MARK: TRANSFORM
 - (void)testTransformInit {
     gks_trans_init_3();
     
@@ -749,6 +751,35 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqual(u, 300.0);
     XCTAssertEqual(v, 300.0);
     
+}
+
+// MARK: MODEL
+- (void)testModelWorldInit {
+    Matrix_4 *world_model_matrix;
+    
+    gks_init_world_model();
+    world_model_matrix = gks_get_world_model_matrix();
+    Gfloat avalue = (*world_model_matrix)[0][0];
+    Gfloat bvalue = (*world_model_matrix)[1][1];
+    Gfloat evalue = (*world_model_matrix)[2][1];
+    XCTAssertEqual(avalue, 1.0);
+    XCTAssertEqual(bvalue, 1.0);
+    XCTAssertEqual(evalue, 0.0);
+}
+
+- (void)testModelWorldGetMatrix {
+    Matrix_4 *world_model_matrix;
+    
+    gks_init_world_model();
+    world_model_matrix = gks_get_world_model_matrix();
+    Gfloat avalue = (*world_model_matrix)[0][0];
+    Gfloat bvalue = (*world_model_matrix)[1][1];
+    Gfloat cvalue = (*world_model_matrix)[2][2];
+    Gfloat dvalue = (*world_model_matrix)[3][3];
+    XCTAssertEqual(avalue, 1.0);
+    XCTAssertEqual(bvalue, 1.0);
+    XCTAssertEqual(cvalue, 1.0);
+    XCTAssertEqual(dvalue, 1.0);
 }
 
 

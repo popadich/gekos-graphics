@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FA2D4937275D817300727B7B /* gks_mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = FA2D4936275D817300727B7B /* gks_mesh.c */; };
 		FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = FA35285A275864C6002B716C /* gks_3d_matrix.c */; };
-		FA352861275875E7002B716C /* GKSMatrixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA352860275875E7002B716C /* GKSMatrixTests.m */; };
+		FA352861275875E7002B716C /* GeKoSCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA352860275875E7002B716C /* GeKoSCoreTests.m */; };
 		FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */ = {isa = PBXBuildFile; fileRef = FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */; };
 		FAA02D472756D6E800A0C454 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D462756D6E800A0C454 /* AppDelegate.m */; };
 		FAA02D4A2756D6E800A0C454 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D492756D6E800A0C454 /* Document.m */; };
@@ -21,6 +21,7 @@
 		FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D622756D6F700A0C454 /* GeKoSTests.m */; };
 		FAA02D6E2756D6F700A0C454 /* GeKoSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D6D2756D6F700A0C454 /* GeKoSUITests.m */; };
 		FAA5C30F2760F2E20005ACAE /* gks_3d_transforms.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C30E2760F2E20005ACAE /* gks_3d_transforms.c */; };
+		FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */ = {isa = PBXBuildFile; fileRef = FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +47,7 @@
 		FA352859275864A8002B716C /* gks_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_types.h; sourceTree = "<group>"; };
 		FA35285A275864C6002B716C /* gks_3d_matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gks_3d_matrix.c; sourceTree = "<group>"; };
 		FA35285B275864C6002B716C /* gks_3d_matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gks_3d_matrix.h; sourceTree = "<group>"; };
-		FA352860275875E7002B716C /* GKSMatrixTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSMatrixTests.m; sourceTree = "<group>"; };
+		FA352860275875E7002B716C /* GeKoSCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeKoSCoreTests.m; sourceTree = "<group>"; };
 		FA35286827587A49002B716C /* gks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks.h; sourceTree = "<group>"; };
 		FA58B8A3275F0EF000BFFB11 /* gks_3d_projection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_projection.h; sourceTree = "<group>"; };
 		FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_projection.c; sourceTree = "<group>"; };
@@ -71,6 +72,8 @@
 		FAA465C42758107A00A5A280 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FAA5C30D2760F2E20005ACAE /* gks_3d_transforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_transforms.h; sourceTree = "<group>"; };
 		FAA5C30E2760F2E20005ACAE /* gks_3d_transforms.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_transforms.c; sourceTree = "<group>"; };
+		FAF2DE1E276ADBA600E1B29C /* gks_3d_world.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_world.h; sourceTree = "<group>"; };
+		FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_world.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 				FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */,
 				FAA5C30D2760F2E20005ACAE /* gks_3d_transforms.h */,
 				FAA5C30E2760F2E20005ACAE /* gks_3d_transforms.c */,
+				FAF2DE1E276ADBA600E1B29C /* gks_3d_world.h */,
+				FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */,
 			);
 			path = gks;
 			sourceTree = "<group>";
@@ -159,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA02D622756D6F700A0C454 /* GeKoSTests.m */,
-				FA352860275875E7002B716C /* GKSMatrixTests.m */,
+				FA352860275875E7002B716C /* GeKoSCoreTests.m */,
 				FAA02D642756D6F700A0C454 /* Info.plist */,
 			);
 			path = GeKoSTests;
@@ -308,6 +313,7 @@
 				FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */,
 				FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */,
 				FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */,
+				FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */,
 				FAA02D4A2756D6E800A0C454 /* Document.m in Sources */,
 				FAA5C30F2760F2E20005ACAE /* gks_3d_transforms.c in Sources */,
 				FAA02D582756D6F600A0C454 /* main.m in Sources */,
@@ -319,7 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA352861275875E7002B716C /* GKSMatrixTests.m in Sources */,
+				FA352861275875E7002B716C /* GeKoSCoreTests.m in Sources */,
 				FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

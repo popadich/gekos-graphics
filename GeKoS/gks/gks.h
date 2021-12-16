@@ -13,6 +13,7 @@
 #include "gks_mesh.h"
 #include "gks_3d_projection.h"
 #include "gks_3d_transforms.h"
+#include "gks_3d_world.h"
 
 #endif
 
