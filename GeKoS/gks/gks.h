@@ -14,6 +14,7 @@
 #include "gks_3d_projection.h"
 #include "gks_3d_transforms.h"
 #include "gks_3d_world.h"
+#include "gks_3d_view_orient.h"
 
 #endif
 

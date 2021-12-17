@@ -783,4 +783,87 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 
+// MARK: VIEW ORIENT
+- (void)testViewOrientInit {
+    Matrix_4 *theViewMatrixPtr;
+    gks_init_view_plane();
+    
+    theViewMatrixPtr = gks_get_view_matrix();
+    XCTAssertEqual((*theViewMatrixPtr)[0][0], 1.0);
+    XCTAssertEqual((*theViewMatrixPtr)[1][2], 0.0);
+    XCTAssertEqual((*theViewMatrixPtr)[2][2], 1.0);
+}
+
+- (void)testViewOrientSetMatrix {
+    
+    Matrix_4 *theViewMatrixPtr;
+    
+    gks_init_view_plane();
+    gks_set_view_matrix(m);
+
+    theViewMatrixPtr = gks_get_view_matrix();
+    XCTAssertEqual((*theViewMatrixPtr)[0][0], 1.0);
+    XCTAssertEqual((*theViewMatrixPtr)[1][2], 0.0);     // non-diagonal
+    XCTAssertEqual((*theViewMatrixPtr)[1][1], 1.0);
+    XCTAssertEqual((*theViewMatrixPtr)[2][2], 1.0);
+    XCTAssertEqual((*theViewMatrixPtr)[3][3], 1.0);
+}
+
+- (void)testViewOrientCreateViewMatrix {
+    // TODO: needs more testing and module needs better design.
+    Gpt_3 camera;
+    Gpt_3 plane;
+    Gpt_3 v;
+    Matrix_4 theResultMatrix;
+    
+    gks_init_view_plane();
+    
+    camera.x = 0.0;
+    camera.y = 0.0;
+    camera.z = 3.0;
+    
+    plane.x = 0.0;
+    plane.y = 0.0;
+    plane.z = -1.0;
+    
+    v.x = 1.0;
+    v.y = 0.0;
+    v.z = 0.0;
+    
+    
+    gks_create_view_matrix(camera.x, camera.y, camera.z, plane.x, plane.y, plane.z, v.x, v.y, v.z, theResultMatrix);
+    
+    XCTAssertEqual(theResultMatrix[0][0], 0.0);
+    
+}
+
+- (void)testViewOrientLookAt {
+    // TODO: needs more testing.
+    // this is litterally seat of the pants programming.
+    Matrix_4 theResultMatrix;
+    Gpt_3 observer;
+    Gpt_3 look_at;
+    Gpt_3 v;
+
+    observer.x = 0.0;
+    observer.y = 0.0;
+    observer.z = 3.0;
+    
+    look_at.x = 0.0;
+    look_at.y = 0.0;
+    look_at.z = 0.0;
+    
+    v.x = 0.0;
+    v.y = 1.0;
+    v.z = 0.0;
+    
+    gks_init_view_plane();
+    
+    gks_compute_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
+    
+    XCTAssertEqual(theResultMatrix[0][0], 1.0);
+    
+}
+
+
 @end
