@@ -14,7 +14,7 @@
 				<string>com.example.persistent-store</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Document</string>
+			<string>GKSDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>SQLite</string>
 		</dict>

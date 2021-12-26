@@ -5,13 +5,13 @@
 //  Created by Alex Popadich on 11/30/21.
 //
 
-#import "AppDelegate.h"
+#import "GKSAppDelegate.h"
 
-@interface AppDelegate ()
+@interface GKSAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation GKSAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application

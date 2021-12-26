@@ -5,13 +5,13 @@
 //  Created by Alex Popadich on 11/30/21.
 //
 
-#import "Document.h"
+#import "GKSDocument.h"
 
-@interface Document ()
+@interface GKSDocument ()
 
 @end
 
-@implementation Document
+@implementation GKSDocument
 
 - (instancetype)init {
     self = [super init];

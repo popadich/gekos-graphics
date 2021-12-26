@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  Document.h
 //  GeKoS
 //
 //  Created by Alex Popadich on 11/30/21.
@@ -7,8 +7,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
-
-
+@interface GKSDocument : NSPersistentDocument
 @end
-
