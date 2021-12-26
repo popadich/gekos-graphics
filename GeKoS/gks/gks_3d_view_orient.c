@@ -108,7 +108,7 @@ void gks_compute_look_at_matrix(double xo, double yo, double zo,
                             double xa, double ya, double za,
                             double xv, double yv, double zv, Matrix_4 result)
 {
-    Gpt_3 U, v, N, un, vn, nn;
+    Gpt_3 U, V, N, un, vn, nn;
 
     Gpt_3 myUp, myLook, myObs;
     myUp.x = xv; myUp.y = yv; myUp.z = zv;
@@ -123,7 +123,7 @@ void gks_compute_look_at_matrix(double xo, double yo, double zo,
     Gfloat *vrp_ptr = (Gfloat *)(&myObs);
     
     Gfloat *U_ptr = (Gfloat *)(&U);
-    Gfloat *v_ptr = (Gfloat *)(&v);
+    Gfloat *V_ptr = (Gfloat *)(&V);
     Gfloat *N_ptr = (Gfloat *)(&N);
     Gfloat *un_ptr = (Gfloat *)(&un);
     Gfloat *vn_ptr = (Gfloat *)(&vn);
@@ -135,8 +135,8 @@ void gks_compute_look_at_matrix(double xo, double yo, double zo,
     vecprod(vup_ptr, nn_ptr, U_ptr);
     vecnormal(U_ptr, un_ptr);
     
-    vecprod(nn_ptr, un_ptr, v_ptr);
-    vecnormal(v_ptr, vn_ptr);
+    vecprod(nn_ptr, un_ptr, V_ptr);
+    vecnormal(V_ptr, vn_ptr);
     
     result[0][0] = un.x;
     result[0][1] = un.y;

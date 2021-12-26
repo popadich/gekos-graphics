@@ -837,9 +837,7 @@ bool isIdentity_3(Matrix_4 matrix)
     
 }
 
-- (void)testViewOrientLookAt {
-    // TODO: needs more testing.
-    // this is litterally seat of the pants programming.
+- (void)testViewOrientLookAtZero {
     Matrix_4 theResultMatrix;
     Gpt_3 observer;
     Gpt_3 look_at;
@@ -847,7 +845,7 @@ bool isIdentity_3(Matrix_4 matrix)
 
     observer.x = 0.0;
     observer.y = 0.0;
-    observer.z = 3.0;
+    observer.z = 4.0;
     
     look_at.x = 0.0;
     look_at.y = 0.0;
@@ -862,8 +860,125 @@ bool isIdentity_3(Matrix_4 matrix)
     gks_compute_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
     
     XCTAssertEqual(theResultMatrix[0][0], 1.0);
-    
+    XCTAssertEqual(theResultMatrix[1][1], 1.0);
+    XCTAssertEqual(theResultMatrix[2][2], 1.0);
+    XCTAssertEqual(theResultMatrix[2][3], -4.0);
+    XCTAssertEqual(theResultMatrix[3][3], 1.0);
+
 }
+
+- (void)testViewOrientLookAtZ2 {
+    Matrix_4 theResultMatrix;
+    Gpt_3 observer;
+    Gpt_3 look_at;
+    Gpt_3 v;
+
+    observer.x = 0.0;
+    observer.y = 0.0;
+    observer.z = 4.0;
+    
+    look_at.x = 0.0;
+    look_at.y = 0.0;
+    look_at.z = 2.0;
+    
+    v.x = 0.0;
+    v.y = 1.0;
+    v.z = 0.0;
+    
+    gks_init_view_plane();
+    
+    gks_compute_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
+    
+    XCTAssertEqual(theResultMatrix[0][0], 1.0);
+    XCTAssertEqual(theResultMatrix[1][1], 1.0);
+    XCTAssertEqual(theResultMatrix[2][2], 1.0);
+    XCTAssertEqual(theResultMatrix[2][3], -4.0);
+    XCTAssertEqual(theResultMatrix[3][3], 1.0);
+
+}
+
+- (void)testViewOrientLookAtX4 {
+    Matrix_4 theResultMatrix;
+    Gpt_3 observer;
+    Gpt_3 look_at;
+    Gpt_3 v;
+
+    observer.x = 0.0;
+    observer.y = 0.0;
+    observer.z = 4.0;
+    
+    look_at.x = 4.0;
+    look_at.y = 0.0;
+    look_at.z = 0.0;
+    
+    v.x = 0.0;
+    v.y = 1.0;
+    v.z = 0.0;
+    
+    gks_init_view_plane();
+    
+    gks_compute_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
+    
+    XCTAssertEqualWithAccuracy(theResultMatrix[0][0], 0.7071, 0.001);
+    XCTAssertEqual(theResultMatrix[0][1], 0.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[0][2], 0.7071, 0.001);
+    XCTAssertEqual(theResultMatrix[0][3], 0.0);
+    XCTAssertEqual(theResultMatrix[1][0], 0.0);
+    XCTAssertEqual(theResultMatrix[1][1], 1.0);
+    XCTAssertEqual(theResultMatrix[1][2], 0.0);
+    XCTAssertEqual(theResultMatrix[1][3], 0.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[2][0], -0.7071, 0.001);
+    XCTAssertEqual(theResultMatrix[2][1], 0.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[2][2], 0.7071, 0.001);
+    XCTAssertEqual(theResultMatrix[2][3], -4.0);
+    XCTAssertEqual(theResultMatrix[3][0], 0.0);
+    XCTAssertEqual(theResultMatrix[3][1], 0.0);
+    XCTAssertEqual(theResultMatrix[3][2], 0.0);
+    XCTAssertEqual(theResultMatrix[3][3], 1.0);
+
+}
+
+- (void)testViewOrientLookAtY4 {
+    Matrix_4 theResultMatrix;
+    Gpt_3 observer;
+    Gpt_3 look_at;
+    Gpt_3 v;
+
+    observer.x = 0.0;
+    observer.y = 0.0;
+    observer.z = 4.0;
+    
+    look_at.x = 0.0;
+    look_at.y = 4.0;
+    look_at.z = 0.0;
+    
+    v.x = 0.0;
+    v.y = 1.0;
+    v.z = 0.0;
+    
+    gks_init_view_plane();
+    
+    gks_compute_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
+    
+    XCTAssertEqual(theResultMatrix[0][0], 1.0);
+    XCTAssertEqual(theResultMatrix[0][1], 0.0);
+    XCTAssertEqual(theResultMatrix[0][2], 0.0);
+    XCTAssertEqual(theResultMatrix[0][3], 0.0);
+    XCTAssertEqual(theResultMatrix[1][0], 0.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[1][1], 0.7071, 0.001);
+    XCTAssertEqualWithAccuracy(theResultMatrix[1][2],  0.7071, 0.001);
+    XCTAssertEqual(theResultMatrix[1][3], 0.0);
+    XCTAssertEqual(theResultMatrix[2][0], 0.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[2][1], -0.7071, 0.001);
+    XCTAssertEqualWithAccuracy(theResultMatrix[2][2], 0.7071, 0.001);
+    XCTAssertEqual(theResultMatrix[2][3], -4.0);
+    XCTAssertEqual(theResultMatrix[3][0], 0.0);
+    XCTAssertEqual(theResultMatrix[3][1], 0.0);
+    XCTAssertEqual(theResultMatrix[3][2], 0.0);
+    XCTAssertEqual(theResultMatrix[3][3], 1.0);
+
+}
+
 
 
 @end
