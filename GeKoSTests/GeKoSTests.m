@@ -7,6 +7,7 @@
 
 #import <XCTest/XCTest.h>
 #import "GKSConstants.h"
+#import "GKSAppDelegate.h"
 
 @interface GeKoSTests : XCTestCase
 
@@ -45,6 +46,26 @@
     NSNumber* viewPortWidth = [[NSUserDefaults standardUserDefaults] valueForKey:GKSViewWidth];
     XCTAssertEqual([viewPortWidth floatValue], 400.0);
     
+}
+
+- (void)testAppDelegateInit {
+    // get app delegate
+    GKSAppDelegate* gksAppDelegate = NSApplication.sharedApplication.delegate;
+    NSColor* aColor = gksAppDelegate.backColor;
+    XCTAssertEqual(aColor.redComponent, 0.066);
+    XCTAssertEqual(aColor.greenComponent, 0.510);
+    XCTAssertEqual(aColor.blueComponent, 0.910);
+    
+    aColor = gksAppDelegate.lineColor;
+    XCTAssertEqual(aColor.redComponent, 0.9);
+    XCTAssertEqual(aColor.greenComponent, 0.9);
+    XCTAssertEqual(aColor.blueComponent, 0.9);
+    
+    aColor = gksAppDelegate.fillColor;
+    XCTAssertEqual(aColor.redComponent, 1.0);
+    XCTAssertEqual(aColor.greenComponent, 1.0);
+    XCTAssertEqual(aColor.blueComponent, 0.8);
+
 }
 
 @end

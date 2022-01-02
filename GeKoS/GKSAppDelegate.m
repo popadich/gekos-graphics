@@ -70,6 +70,34 @@ static NSDictionary *defaultValues() {
     // init gks
     // this needs to be done early in the application lifecycle
     gks_init();
+    
+    
+    NSError* error;
+    NSColor* aColor;
+    
+    NSData* theData =[[NSUserDefaults standardUserDefaults] dataForKey:GKSBackgroundColor];
+    if (theData != nil) {
+        aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+        if (error.code == noErr) {
+            self.backColor = aColor;
+        }
+    }
+    theData = [[NSUserDefaults standardUserDefaults] dataForKey:GKSFillColor];
+    if (theData != nil) {
+        aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+        if (error.code == noErr) {
+            self.fillColor = aColor;
+        }
+        
+    }
+    theData = [[NSUserDefaults standardUserDefaults] dataForKey:GKSPenColor];
+    if (theData != nil) {
+        aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+        if (error.code == noErr) {
+            self.lineColor = aColor;
+        }
+    }
+
 
 }
 

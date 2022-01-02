@@ -622,7 +622,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testTransformCreate {
-    const Gint kWorldVolumeSetup = 0;
+    const Gint word_volume_index = 0;
     Glim_3 winlims = { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 };
     Glim_3 winlims2 = { -10.0, 20.0, -30.0, 40.0, -50.0, 60.0 };
     Gint view_num = 0;
@@ -630,7 +630,7 @@ bool isIdentity_3(Matrix_4 matrix)
     gks_trans_init_3();
     gks_trans_create_transform_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, winlims);
 
-    Glim_3 volume = gks_trans_get_transform_at_idx(view_num, kWorldVolumeSetup);
+    Glim_3 volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
     XCTAssertEqual(volume.xmin, -1.0);
     XCTAssertEqual(volume.xmax, 2.0);
     XCTAssertEqual(volume.ymin, -3.0);
@@ -647,7 +647,7 @@ bool isIdentity_3(Matrix_4 matrix)
     view_num = 3;
     gks_trans_create_transform_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, winlims2);
 
-    volume = gks_trans_get_transform_at_idx(view_num, kWorldVolumeSetup);
+    volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
     XCTAssertEqual(volume.xmin, -10.0);
     XCTAssertEqual(volume.xmax, 20.0);
     XCTAssertEqual(volume.ymin, -30.0);
