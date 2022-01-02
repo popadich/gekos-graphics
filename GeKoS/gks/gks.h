@@ -16,5 +16,8 @@
 #include "gks_3d_world.h"
 #include "gks_3d_view_orient.h"
 
+void gks_init(void);
+
+
 #endif
 

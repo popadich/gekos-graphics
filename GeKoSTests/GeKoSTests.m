@@ -6,6 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "GKSConstants.h"
 
 @interface GeKoSTests : XCTestCase
 
@@ -31,6 +32,19 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
     }];
+}
+
+- (void)testUserDefaults {
+
+    NSNumber* lookAtFlag = [[NSUserDefaults standardUserDefaults] valueForKey:XSUseLookAtPoint];
+    XCTAssertEqual([lookAtFlag boolValue], NO);
+    
+    NSNumber* perpectiveDistance = [[NSUserDefaults standardUserDefaults] valueForKey:GKSPerspectiveDistance];
+    XCTAssertEqual([perpectiveDistance floatValue], 1.0);
+    
+    NSNumber* viewPortWidth = [[NSUserDefaults standardUserDefaults] valueForKey:GKSViewWidth];
+    XCTAssertEqual([viewPortWidth floatValue], 400.0);
+    
 }
 
 @end

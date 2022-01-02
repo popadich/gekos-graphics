@@ -23,6 +23,9 @@
 
 #define GKS_MAX_VIEW_TRANSFORMS 10
 
+const Gint kWorldVolumeSetup = 0;
+const Gint kViewPortVolumeSetup = 1;
+
 
 // S T A T I C   G L O B A L S
 static Gint         g_curr_transform_idx;

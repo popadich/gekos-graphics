@@ -12,9 +12,6 @@
 
 #define GKS_MAX_VIEW_TRANSFORMS 10
 
-const Gint kWorldVolumeSetup = 0;
-const Gint kViewPortVolumeSetup = 1;
-
 void gks_trans_init_3(void);
 
 Gint gks_trans_get_curr_view_idx(void);
