@@ -8,4 +8,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface GKSDocument : NSPersistentDocument
+@property (nonatomic, strong) NSColor* lineColor;
+@property (nonatomic, strong) NSColor* fillColor;
+@property (nonatomic, strong) NSColor* backColor;
+
+@property (nonatomic, weak) IBOutlet NSTextField* noContentLabel;
+
 @end

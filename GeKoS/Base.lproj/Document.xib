@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GKSDocument">
             <connections>
+                <outlet property="noContentLabel" destination="Hz6-mo-xeY" id="9Hs-5d-s12"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>

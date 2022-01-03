@@ -8,6 +8,7 @@
 #import <XCTest/XCTest.h>
 #import "GKSConstants.h"
 #import "GKSAppDelegate.h"
+#import "GKSDocument.h"
 
 @interface GeKoSTests : XCTestCase
 
@@ -51,17 +52,33 @@
 - (void)testAppDelegateInit {
     // get app delegate
     GKSAppDelegate* gksAppDelegate = NSApplication.sharedApplication.delegate;
-    NSColor* aColor = gksAppDelegate.backColor;
+    XCTAssertNotNil(gksAppDelegate);
+
+}
+
+- (void)testDocumentInit {
+    GKSDocument* aDoc = [[GKSDocument alloc] init];
+    XCTAssertNotNil(aDoc);
+
+    [aDoc makeWindowControllers];
+    NSArray* controllerArr = (NSArray *)[aDoc windowControllers];
+
+    NSWindowController* controller = [controllerArr objectAtIndex:0];
+    XCTAssertNotNil(controller.window);
+    
+    XCTAssertNotNil(aDoc.noContentLabel);
+    
+    NSColor* aColor = aDoc.backColor;
     XCTAssertEqual(aColor.redComponent, 0.066);
     XCTAssertEqual(aColor.greenComponent, 0.510);
     XCTAssertEqual(aColor.blueComponent, 0.910);
     
-    aColor = gksAppDelegate.lineColor;
+    aColor = aDoc.lineColor;
     XCTAssertEqual(aColor.redComponent, 0.9);
     XCTAssertEqual(aColor.greenComponent, 0.9);
     XCTAssertEqual(aColor.blueComponent, 0.9);
     
-    aColor = gksAppDelegate.fillColor;
+    aColor = aDoc.fillColor;
     XCTAssertEqual(aColor.redComponent, 1.0);
     XCTAssertEqual(aColor.greenComponent, 1.0);
     XCTAssertEqual(aColor.blueComponent, 0.8);

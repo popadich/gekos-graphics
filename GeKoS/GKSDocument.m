@@ -6,6 +6,7 @@
 //
 
 #import "GKSDocument.h"
+#import "GKSConstants.h"
 
 @interface GKSDocument ()
 
@@ -17,6 +18,32 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
+        NSError* error;
+        NSColor* aColor;
+        
+        NSData* theData =[[NSUserDefaults standardUserDefaults] dataForKey:GKSBackgroundColor];
+        if (theData != nil) {
+            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+            if (error.code == noErr) {
+                self.backColor = aColor;
+            }
+        }
+        theData = [[NSUserDefaults standardUserDefaults] dataForKey:GKSFillColor];
+        if (theData != nil) {
+            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+            if (error.code == noErr) {
+                self.fillColor = aColor;
+            }
+            
+        }
+        theData = [[NSUserDefaults standardUserDefaults] dataForKey:GKSPenColor];
+        if (theData != nil) {
+            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+            if (error.code == noErr) {
+                self.lineColor = aColor;
+            }
+        }
+
     }
     return self;
 }
