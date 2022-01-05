@@ -7,11 +7,15 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeName</key>
+			<string>GeKoS</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.example.persistent-store</string>
+				<string>com.xephyr.gekos</string>
 			</array>
 			<key>NSDocumentClass</key>
 			<string>GKSDocument</string>
@@ -54,13 +58,24 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Example Persistent Store</string>
+			<key>UTTypeIconFile</key>
+			<string>gekos-doc</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>gekos-fill</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>gekos-center</string>
+				<key>UTTypeIconText</key>
+				<string>gekos</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>com.example.persistent-store</string>
+			<string>com.xephyr.gekos</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>example-db</string>
+					<string>gekos</string>
 				</array>
 			</dict>
 		</dict>
