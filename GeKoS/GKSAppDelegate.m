@@ -7,6 +7,7 @@
 
 #import "GKSAppDelegate.h"
 #import "GKSConstants.h"
+#import "GKSPreferences.h"
 #include "gks/gks.h"
 
 @interface GKSAppDelegate ()
@@ -61,6 +62,15 @@ static NSDictionary *defaultValues() {
         [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaultValues()];
         
     }
+}
+
+
+- (IBAction)showPreferencesWindow:(id)sender
+{
+    GKSPreferences *preferences = [GKSPreferences sharedPreferences];
+    
+    [preferences showWindow:sender];
+    
 }
 
 
