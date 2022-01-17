@@ -265,6 +265,23 @@
                             <binding destination="XI3-BN-hwX" name="value" keyPath="values.worldVolumeMaxZ" id="ZyG-2m-Eus"/>
                         </connections>
                     </textField>
+                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0AZ-T0-ug0">
+                        <rect key="frame" x="34" y="237" width="120" height="25"/>
+                        <popUpButtonCell key="cell" type="push" title="Orthographic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="WOp-ld-ktT" id="aTn-hX-fdf">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="tKm-I9-OG4">
+                                <items>
+                                    <menuItem title="Orthographic" state="on" id="WOp-ld-ktT"/>
+                                    <menuItem title="Perspective" id="1Yx-7S-T7q"/>
+                                    <menuItem title="Stereo" id="Ntg-tf-D66"/>
+                                </items>
+                            </menu>
+                            <connections>
+                                <binding destination="XI3-BN-hwX" name="selectedIndex" keyPath="values.perspectiveType" id="pDX-Zc-Rc7"/>
+                            </connections>
+                        </popUpButtonCell>
+                    </popUpButton>
                 </subviews>
                 <constraints>
                     <constraint firstItem="39F-Uj-HS2" firstAttribute="firstBaseline" secondItem="7cu-q1-QUe" secondAttribute="firstBaseline" id="0ZH-MU-DHH"/>
@@ -292,6 +309,7 @@
                     <constraint firstItem="7cu-q1-QUe" firstAttribute="firstBaseline" secondItem="c5g-fM-JBs" secondAttribute="firstBaseline" id="ZKf-RV-gBt"/>
                     <constraint firstItem="c5g-fM-JBs" firstAttribute="top" secondItem="Atr-7T-XUZ" secondAttribute="bottom" constant="51" id="ZYi-M4-qIf"/>
                     <constraint firstItem="Ic9-Zv-la7" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="cU3-kg-avC"/>
+                    <constraint firstItem="1R3-O6-i6o" firstAttribute="centerY" secondItem="0AZ-T0-ug0" secondAttribute="centerY" id="dVx-sl-rPi"/>
                     <constraint firstItem="QAc-Wo-dTJ" firstAttribute="firstBaseline" secondItem="tct-1y-fR7" secondAttribute="firstBaseline" id="fqf-FK-NGY"/>
                     <constraint firstItem="cK8-D8-UyN" firstAttribute="centerX" secondItem="Zpv-1T-gAl" secondAttribute="centerX" id="g0O-RJ-5bI"/>
                     <constraint firstItem="bwZ-nR-oFi" firstAttribute="leading" secondItem="KzO-5P-5Hw" secondAttribute="trailing" constant="48" id="gvg-ee-nSF"/>
@@ -303,6 +321,7 @@
                     <constraint firstItem="84r-7O-vnc" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="127" id="k0a-2r-a7f"/>
                     <constraint firstItem="Sox-6N-jUB" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="77" id="kU5-3R-PYu"/>
                     <constraint firstItem="pdN-eY-xmN" firstAttribute="centerY" secondItem="1R3-O6-i6o" secondAttribute="centerY" id="mGP-1m-5Vd"/>
+                    <constraint firstItem="1R3-O6-i6o" firstAttribute="leading" secondItem="0AZ-T0-ug0" secondAttribute="trailing" constant="71" id="mNQ-I7-Bjy"/>
                     <constraint firstItem="KzO-5P-5Hw" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="32" id="nTH-hU-q2H"/>
                     <constraint firstItem="tct-1y-fR7" firstAttribute="trailing" secondItem="c5g-fM-JBs" secondAttribute="trailing" id="pKO-90-Anl"/>
                     <constraint firstItem="Gz2-Ej-sCh" firstAttribute="leading" secondItem="cK8-D8-UyN" secondAttribute="trailing" constant="99" id="qNv-UD-Bhw"/>
