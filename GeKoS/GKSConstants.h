@@ -8,29 +8,25 @@
 #ifndef GKSConstants_h
 #define GKSConstants_h
 
-#define GKSViewWidth @"GKSViewWidth"
-#define GKSViewHeight @"GKSViewHeight"
-#define GKSVirtualHeight @"GKSVirtualHeight"
-#define GKSVirtualWidth @"GKSVirtualWidth"
-#define GKSProjectionType @"GKSProjectionType"
-#define GKSPerspectiveProjectionFlag @"GKSPerspectiveProjectionFlag"
-#define GKSPerspectiveDistance @"GKSPerspectiveDistance"
-#define GKSHiddenLineRemoval @"GKSHiddenLineRemoval"
-
-#define GKSBackgroundColor @"GKSBackgroundColor"
-#define GKSFillColor @"GKSFillColor"
-#define GKSPenColor @"GKSPenColor"
-#define GKSWorldVolumeData @"GKSWorldVolume"
-#define GKSWorldVolumeMinX @"GKSWorldVolumeMinX"
-#define GKSWorldVolumeMaxX @"GKSWorldVolumeMaxX"
-#define GKSWorldVolumeMinY @"GKSWorldVolumeMinY"
-#define GKSWorldVolumeMaxY @"GKSWorldVolumeMaxY"
-#define GKSWorldVolumeMinZ @"GKSWorldVolumeMinZ"
-#define GKSWorldVolumeMaxZ @"GKSWorldVolumeMaxZ"
-
-#define GKSPolygonPointMin @"GKSPolygonPointMin"
-
-#define XSUseLookAtPoint @"XSLookAtFlag"
+#define gksPrefViewWidth @"viewWidth"
+#define gksPrefViewHeight @"viewHeight"
+#define gksPrefVirtualWidth @"virtualWidth"
+#define gksPrefVirtualHeight @"virtualHeight"
+#define gksPrefProjectionType @"projectionType"
+#define gksPrefPerspectiveProjectionFlag @"perspectiveProjectionFlag"
+#define gksPrefPerspectiveDistance @"perspectiveDepth"
+#define gksPrefVisibleSurfaceFlag @"visibleSurfaceFlag"
+#define gksPrefBackgroundColor @"backgroundColor"
+#define gksPrefFillColor @"fillColor"
+#define gksPrefPenColor @"penColor"
+#define gksPrefWorldVolumeData @"worldVolume"
+#define gksPrefWorldVolumeMinX @"worldVolumeMinX"
+#define gksPrefWorldVolumeMaxX @"worldVolumeMaxX"
+#define gksPrefWorldVolumeMinY @"worldVolumeMinY"
+#define gksPrefWorldVolumeMaxY @"worldVolumeMaxY"
+#define gksPrefWorldVolumeMinZ @"worldVolumeMinZ"
+#define gksPrefWorldVolumeMaxZ @"worldVolumeMaxZ"
+#define gksPrefLookAtPoint @"lookAtFlag"
 
 
 #endif /* GKSConstants_h */

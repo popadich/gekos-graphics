@@ -21,14 +21,14 @@
         NSError* error;
         NSColor* aColor;
         
-        NSData* theData =[[NSUserDefaults standardUserDefaults] dataForKey:GKSBackgroundColor];
+        NSData* theData =[[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
         if (theData != nil) {
             aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
             if (error.code == noErr) {
                 self.backColor = aColor;
             }
         }
-        theData = [[NSUserDefaults standardUserDefaults] dataForKey:GKSFillColor];
+        theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
         if (theData != nil) {
             aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
             if (error.code == noErr) {
@@ -36,7 +36,7 @@
             }
             
         }
-        theData = [[NSUserDefaults standardUserDefaults] dataForKey:GKSPenColor];
+        theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
         if (theData != nil) {
             aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
             if (error.code == noErr) {

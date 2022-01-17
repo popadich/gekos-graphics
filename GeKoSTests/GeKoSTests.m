@@ -38,13 +38,13 @@
 
 - (void)testUserDefaults {
 
-    NSNumber* lookAtFlag = [[NSUserDefaults standardUserDefaults] valueForKey:XSUseLookAtPoint];
+    NSNumber* lookAtFlag = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefLookAtPoint];
     XCTAssertEqual([lookAtFlag boolValue], NO);
     
-    NSNumber* perpectiveDistance = [[NSUserDefaults standardUserDefaults] valueForKey:GKSPerspectiveDistance];
+    NSNumber* perpectiveDistance = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
     XCTAssertEqual([perpectiveDistance floatValue], 1.0);
     
-    NSNumber* viewPortWidth = [[NSUserDefaults standardUserDefaults] valueForKey:GKSViewWidth];
+    NSNumber* viewPortWidth = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefViewWidth];
     XCTAssertEqual([viewPortWidth floatValue], 400.0);
     
 }
@@ -67,21 +67,7 @@
     XCTAssertNotNil(controller.window);
     
     XCTAssertNotNil(aDoc.noContentLabel);
-    
-    NSColor* aColor = aDoc.backColor;
-    XCTAssertEqual(aColor.redComponent, 0.066);
-    XCTAssertEqual(aColor.greenComponent, 0.510);
-    XCTAssertEqual(aColor.blueComponent, 0.910);
-    
-    aColor = aDoc.lineColor;
-    XCTAssertEqual(aColor.redComponent, 0.9);
-    XCTAssertEqual(aColor.greenComponent, 0.9);
-    XCTAssertEqual(aColor.blueComponent, 0.9);
-    
-    aColor = aDoc.fillColor;
-    XCTAssertEqual(aColor.redComponent, 1.0);
-    XCTAssertEqual(aColor.greenComponent, 1.0);
-    XCTAssertEqual(aColor.blueComponent, 0.8);
+
 
 }
 

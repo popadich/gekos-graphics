@@ -31,22 +31,22 @@ static NSDictionary *defaultValues() {
         NSError* error = nil;
         
         dict = [[NSDictionary alloc] initWithObjectsAndKeys:
-                [NSNumber numberWithInteger:400], GKSViewWidth,
-                [NSNumber numberWithInteger:400], GKSViewHeight,
-                [NSNumber numberWithBool:YES], GKSPerspectiveProjectionFlag,
-                [NSNumber numberWithDouble:1.0], GKSPerspectiveDistance,
-                [NSNumber numberWithBool:NO], GKSHiddenLineRemoval,
-                [NSKeyedArchiver archivedDataWithRootObject:bluePrintBlue requiringSecureCoding:YES error:&error], GKSBackgroundColor,
-                [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], GKSFillColor,
-                [NSKeyedArchiver archivedDataWithRootObject:greypenColor requiringSecureCoding:NO error:&error], GKSPenColor,
-                [NSNumber numberWithBool:NO], XSUseLookAtPoint,
-                worldVolumeData, GKSWorldVolumeData,
-                [NSNumber numberWithDouble:world_volume[0]], GKSWorldVolumeMinX,
-                [NSNumber numberWithDouble:world_volume[1]], GKSWorldVolumeMaxX,
-                [NSNumber numberWithDouble:world_volume[2]], GKSWorldVolumeMinY,
-                [NSNumber numberWithDouble:world_volume[3]], GKSWorldVolumeMaxY,
-                [NSNumber numberWithDouble:world_volume[4]], GKSWorldVolumeMinZ,
-                [NSNumber numberWithDouble:world_volume[5]], GKSWorldVolumeMaxZ,
+                [NSNumber numberWithInteger:400], gksPrefViewWidth,
+                [NSNumber numberWithInteger:400], gksPrefViewHeight,
+                [NSNumber numberWithBool:YES], gksPrefPerspectiveProjectionFlag,
+                [NSNumber numberWithDouble:1.0], gksPrefPerspectiveDistance,
+                [NSNumber numberWithBool:NO], gksPrefVisibleSurfaceFlag,
+                [NSKeyedArchiver archivedDataWithRootObject:bluePrintBlue requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
+                [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], gksPrefFillColor,
+                [NSKeyedArchiver archivedDataWithRootObject:greypenColor requiringSecureCoding:NO error:&error], gksPrefPenColor,
+                [NSNumber numberWithBool:NO], gksPrefLookAtPoint,
+                worldVolumeData, gksPrefWorldVolumeData,
+                [NSNumber numberWithDouble:world_volume[0]], gksPrefWorldVolumeMinX,
+                [NSNumber numberWithDouble:world_volume[1]], gksPrefWorldVolumeMaxX,
+                [NSNumber numberWithDouble:world_volume[2]], gksPrefWorldVolumeMinY,
+                [NSNumber numberWithDouble:world_volume[3]], gksPrefWorldVolumeMaxY,
+                [NSNumber numberWithDouble:world_volume[4]], gksPrefWorldVolumeMinZ,
+                [NSNumber numberWithDouble:world_volume[5]], gksPrefWorldVolumeMaxZ,
                 nil];
     }
     return dict;
