@@ -7,6 +7,8 @@
 
 #import "GKSDocument.h"
 #import "GKSConstants.h"
+#import "GKSWindowController.h"
+#import "GKSContentViewController.h"
 
 @interface GKSDocument ()
 
@@ -52,11 +54,23 @@
     return YES;
 }
 
-
+/*
 - (NSString *)windowNibName {
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"Document";
+}
+*/
+
+
+- (void)makeWindowControllers {
+    GKSWindowController *windowController = [[GKSWindowController alloc] initWithWindowNibName:@"Document"];
+    [self addWindowController:windowController];
+    
+    // No need to specify nib file if it has the same name as the class
+    GKSContentViewController *contentController = [[GKSContentViewController alloc] init];
+    contentController.representedObject = nil;
+    windowController.contentViewController = contentController;
 }
 
 

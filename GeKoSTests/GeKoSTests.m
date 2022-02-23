@@ -9,6 +9,9 @@
 #import "GKSConstants.h"
 #import "GKSAppDelegate.h"
 #import "GKSDocument.h"
+#import "GKSWindowController.h"
+#import "GKSContentViewController.h"
+
 
 @interface GeKoSTests : XCTestCase
 
@@ -63,11 +66,10 @@
     [aDoc makeWindowControllers];
     NSArray* controllerArr = (NSArray *)[aDoc windowControllers];
 
-    NSWindowController* controller = [controllerArr objectAtIndex:0];
-    XCTAssertNotNil(controller.window);
+    GKSWindowController* windowController = [controllerArr objectAtIndex:0];
+    XCTAssertNotNil(windowController.window);
     
-    XCTAssertNotNil(aDoc.noContentLabel);
-
+    XCTAssert(windowController.contentViewController);
 
 }
 

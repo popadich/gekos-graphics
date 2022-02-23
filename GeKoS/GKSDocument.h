@@ -12,6 +12,4 @@
 @property (nonatomic, strong) NSColor* fillColor;
 @property (nonatomic, strong) NSColor* backColor;
 
-@property (nonatomic, weak) IBOutlet NSTextField* noContentLabel;
-
 @end
