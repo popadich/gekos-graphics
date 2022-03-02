@@ -34,6 +34,9 @@
         _projectionType = [NSNumber numberWithInt:kPerspectiveProjection];
         _perspectiveProjectionFlag = [NSNumber numberWithBool:YES];
         _perspectiveDistance = [NSNumber numberWithFloat:1.0];
+        
+        _visibleSurfaceFlag = [NSNumber numberWithBool:NO];
+        _useLookAt = [NSNumber numberWithBool:NO];
    }
     return self;
 }

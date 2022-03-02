@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber* perspectiveProjectionFlag;
 @property (nonatomic, strong) NSNumber* projectionType;
 
+@property (nonatomic, strong) NSNumber* visibleSurfaceFlag;
+
 @end
 
 NS_ASSUME_NONNULL_END
