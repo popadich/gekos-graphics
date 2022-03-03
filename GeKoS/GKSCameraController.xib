@@ -25,8 +25,8 @@
                     </constraints>
                     <sliderCell key="cell" state="on" alignment="left" minValue="-90" maxValue="90" tickMarkPosition="above" sliderType="linear" id="xjb-W2-2XT"/>
                     <connections>
-                        <action selector="changeTilt:" target="-2" id="vOY-kc-3Bk"/>
-                        <binding destination="-2" name="value" keyPath="self.upTilt" id="8tx-YL-z4M"/>
+                        <action selector="changeRoll:" target="-2" id="vOY-kc-3Bk"/>
+                        <binding destination="-2" name="value" keyPath="self.planeRoll" id="dqd-PN-rBc"/>
                     </connections>
                 </slider>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="utE-Yr-fbs">
@@ -86,7 +86,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.upTilt" id="txm-Db-igw"/>
+                        <binding destination="-2" name="value" keyPath="self.planeRoll" id="T9y-wb-Thh"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vZR-EG-tOp">
@@ -122,14 +122,14 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.perspectiveDistance" id="9jp-sk-wXu"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="eiW-g6-Zkg"/>
                     </connections>
                 </textField>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YsV-SS-ctN">
                     <rect key="frame" x="18" y="142" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="30" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="RlP-fA-Dow"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.perspectiveDistance" id="edm-WV-btk"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="due-cD-Rru"/>
                     </connections>
                 </slider>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LR6-BI-tcW">
@@ -167,7 +167,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.upY" id="h6Q-Tk-t4a"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatY" id="pbm-Qx-uXA"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-Nb-HnH">
@@ -179,7 +179,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.upX" id="Qt3-H5-tCF"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatX" id="ms9-Mx-VnL"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OGA-9b-7I8">
@@ -239,7 +239,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.upZ" id="0B2-bE-uM8"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatZ" id="T6J-Ix-Fkd"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jBU-da-DlQ">
@@ -293,8 +293,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4LN-lO-1hw">
-                                <rect key="frame" x="6" y="69" width="24" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="up:" id="pRf-VX-qeY">
+                                <rect key="frame" x="6" y="69" width="27" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="vht:" id="pRf-VX-qeY">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Nka-a8-FHI"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
@@ -302,8 +302,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5UB-pX-3gx">
-                                <rect key="frame" x="11" y="45" width="19" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="pl:" id="3Ad-ng-A9Q">
+                                <rect key="frame" x="9" y="45" width="24" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="dir:" id="3Ad-ng-A9Q">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="IyE-1C-68e"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
@@ -311,8 +311,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zDa-V3-LIw">
-                                <rect key="frame" x="6" y="21" width="24" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="ob:" id="SbD-uK-2wc">
+                                <rect key="frame" x="7" y="21" width="26" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="loc:" id="SbD-uK-2wc">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Lo7-wd-sje"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
@@ -324,7 +324,6 @@
                             <constraint firstItem="OGA-9b-7I8" firstAttribute="centerX" secondItem="oRA-ng-btd" secondAttribute="centerX" id="6Ww-3P-R0r"/>
                             <constraint firstItem="Fw2-eU-vpc" firstAttribute="centerY" secondItem="6eR-8w-MHr" secondAttribute="centerY" id="6YV-MN-DWJ"/>
                             <constraint firstItem="7gn-Hg-KS3" firstAttribute="centerY" secondItem="6eR-8w-MHr" secondAttribute="centerY" id="6wh-87-2TG"/>
-                            <constraint firstItem="5UB-pX-3gx" firstAttribute="leading" secondItem="tQ3-aH-e1a" secondAttribute="leading" constant="13" id="8ED-gq-2QM"/>
                             <constraint firstItem="oRA-ng-btd" firstAttribute="centerY" secondItem="4LN-lO-1hw" secondAttribute="centerY" id="9en-Pa-vYq"/>
                             <constraint firstItem="Yfc-Fh-fBh" firstAttribute="centerX" secondItem="9Bx-Nb-HnH" secondAttribute="centerX" id="E4e-0n-27x"/>
                             <constraint firstItem="Fw2-eU-vpc" firstAttribute="centerX" secondItem="fNT-HA-0fl" secondAttribute="centerX" id="Hnl-0i-B6m"/>
@@ -336,7 +335,6 @@
                             <constraint firstItem="6eR-8w-MHr" firstAttribute="centerX" secondItem="9Bx-Nb-HnH" secondAttribute="centerX" id="VZB-Dc-Qom"/>
                             <constraint firstItem="jBU-da-DlQ" firstAttribute="centerY" secondItem="zDa-V3-LIw" secondAttribute="centerY" id="WXY-Dc-TJi"/>
                             <constraint firstItem="6eR-8w-MHr" firstAttribute="leading" secondItem="tQ3-aH-e1a" secondAttribute="leading" constant="54" id="Wga-4Z-sPG"/>
-                            <constraint firstItem="zDa-V3-LIw" firstAttribute="leading" secondItem="tQ3-aH-e1a" secondAttribute="leading" constant="8" id="YQb-Yg-9Pp"/>
                             <constraint firstItem="4LN-lO-1hw" firstAttribute="leading" secondItem="tQ3-aH-e1a" secondAttribute="leading" constant="8" id="Z73-Uy-cAP"/>
                             <constraint firstItem="5UB-pX-3gx" firstAttribute="top" secondItem="4LN-lO-1hw" secondAttribute="bottom" constant="8" symbolic="YES" id="ZEC-aD-APq"/>
                             <constraint firstItem="5mx-rN-Vzq" firstAttribute="centerY" secondItem="zDa-V3-LIw" secondAttribute="centerY" id="aXW-Kr-YTI"/>

@@ -6,6 +6,7 @@
 //
 
 #import "GKSCameraController.h"
+#import "GKSCameraRep.h"
 #include "gks/gks.h"
 
 @interface GKSCameraController ()
@@ -13,27 +14,60 @@
 
 @end
 
+static void *CameraFocalLengthContext = &CameraFocalLengthContext;
+
 @implementation GKSCameraController
 
-#pragma mark BASECLASS
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
     NSLog(@"Observer Custom View Did Load! Says the Controller.");
-    self.upTilt = @0.0;
+    self.planeRoll = @0.0;
     self.planePitch = @0.0;
     self.planeYaw = @0.0;
     
+    GKSCameraRep *camera = self.representedObject;
+    // observe focal length of camera
+    [self registerAsObserverForCamera:camera];
 }
+
+
+- (void)registerAsObserverForCamera:(GKSCameraRep*)camera
+{
+    [camera addObserver:self
+              forKeyPath:@"focalLength"
+                 options:(NSKeyValueObservingOptionNew |
+                          NSKeyValueObservingOptionOld)
+                 context:CameraFocalLengthContext];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if (context == CameraFocalLengthContext) {
+        // Do something with focal length value
+        NSNumber *anum = [change valueForKey:@"new"];
+        [self doFocus:anum];
+    } else {
+        // Any unrecognized context must belong to super
+        [super observeValueForKeyPath:keyPath
+                             ofObject:object
+                               change:change
+                               context:context];
+    }
+}
+
 
 
 #pragma mark User Interaction
 
-// FIXME: Adjust up vector VUP to be at right angle to VPN
-// I think that can be accomplished by just truncating the Z component of the
-// transformation. Or for now pretend like it doesn't exist. Should check to
-// see if the up vector is a unit vector. Maybe normalis it?
+- (void)doFocus:(NSNumber *)focal;
+{
+    NSLog(@"Focus: %@", focal);
+    self.headView.headFocalLength = focal;
+    [self.headView setNeedsDisplay:YES];
+
+}
 
 - (void)doTilt:(double)degrees {
     Gpt_3 vpn = {0.0, 1.0, 0.0};
@@ -51,17 +85,17 @@
 
     gks_transform_point_3(T, &vpn, &comp);
     
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"upX"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"upY"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"upZ"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"vHatX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"vHatY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"vHatZ"];
     
     self.headView.headYaw = self.planeYaw;
     self.headView.headPitch = self.planePitch;
-    self.headView.headRoll = self.upTilt;
+    self.headView.headRoll = self.planeRoll;
     [self.headView setNeedsDisplay:YES];
 }
 
-- (IBAction)changeTilt:(id)sender
+- (IBAction)changeRoll:(id)sender
 {
     if ([sender isKindOfClass:[NSSlider class]]) {
         double degrees = [sender doubleValue];
@@ -79,7 +113,7 @@
         double degrees = [sender doubleValue];
         double psi = DEG_TO_RAD * degrees;
         double theta = DEG_TO_RAD * [self.planeYaw doubleValue];
-        double phi = DEG_TO_RAD * [self.upTilt doubleValue];
+        double phi = DEG_TO_RAD * [self.planeRoll doubleValue];
 
         // maybe theta needs be negative? Or control min and max switched?
         gks_set_identity_matrix_3(T);
@@ -93,7 +127,7 @@
         [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
         
         // maybe do a vector cross product (u X n) and compute up vector instead
-        [self doTilt:[self.upTilt doubleValue]];
+        [self doTilt:[self.planeRoll doubleValue]];
     }
 
 }
@@ -108,7 +142,7 @@
         double degrees = [sender doubleValue];
         double theta = DEG_TO_RAD * degrees;
         double psi = DEG_TO_RAD * [self.planePitch doubleValue];
-        double phi = DEG_TO_RAD * [self.upTilt doubleValue];
+        double phi = DEG_TO_RAD * [self.planeRoll doubleValue];
 
         // maybe theta needs be negative? Or control min and max switched?
         gks_set_identity_matrix_3(T);
@@ -122,7 +156,7 @@
         [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
 
         // maybe do a vector cross product (u X n) and compute up vector instead
-        [self doTilt:[self.upTilt doubleValue]];
+        [self doTilt:[self.planeRoll doubleValue]];
 
     }
 }

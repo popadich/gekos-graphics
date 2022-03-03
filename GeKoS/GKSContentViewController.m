@@ -23,10 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    self.cameraRep = [[GKSCameraRep alloc] init];
     
     
-    // !!!: View controllers view is lazy loaded
     // Can't use replace subview because constraints in parent view are lost
     NSView* cameraSubView = self.cameraViewController.view;
     cameraSubView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -48,13 +46,20 @@
     // Set perspective distance, projection type and other camera properties.
     // Use default values settings and preferences here
     NSNumber *distance =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-    self.cameraRep.perspectiveDistance = distance;
+    self.cameraRep.focalLength = distance;
     
     NSNumber *prtype =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
     self.cameraRep.projectionType = prtype;
 
     
-    self.cameraViewController.representedObject = self.cameraRep;
 }
+
+- (void)awakeFromNib {
+    self.cameraRep = [[GKSCameraRep alloc] init];
+
+    self.cameraViewController.representedObject = self.cameraRep;
+
+}
+
 
 @end

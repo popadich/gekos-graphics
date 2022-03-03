@@ -20,6 +20,7 @@
 {
     self = [super init];
     if (self) {
+        _focalLength = [NSNumber numberWithFloat:1.0];
         _upX = [NSNumber numberWithFloat:0.0];
         _upY = [NSNumber numberWithFloat:1.0];
         _upZ = [NSNumber numberWithFloat:0.0];
@@ -30,10 +31,13 @@
         _positionY = [NSNumber numberWithFloat:0.0];
         _positionZ = [NSNumber numberWithFloat:1.0];
         
+        _vHatX = @(0);
+        _vHatY = @(1);
+        _vHatZ = @(0);
+        
         // TODO: get from preference
         _projectionType = [NSNumber numberWithInt:kPerspectiveProjection];
         _perspectiveProjectionFlag = [NSNumber numberWithBool:YES];
-        _perspectiveDistance = [NSNumber numberWithFloat:1.0];
         
         _visibleSurfaceFlag = [NSNumber numberWithBool:NO];
         _useLookAt = [NSNumber numberWithBool:NO];

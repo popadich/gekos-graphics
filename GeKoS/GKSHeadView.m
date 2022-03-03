@@ -24,7 +24,7 @@
 //
 
 
-- (void)HeadTo3DScreenAtPoint:(NSPoint)center focalLenth:(double)fl yaw:(double)yaw pitch:(double)pitch roll:(double)roll
+- (void)drawHead3DAtPoint:(NSPoint)center yaw:(double)yaw pitch:(double)pitch roll:(double)roll focalLenth:(double)fl
 {
     static Gpt_3 cube[24] =     {
         { -0.500000, -0.500000, -0.500000 },
@@ -54,15 +54,14 @@
     };
     
     double      Xeye,Yeye,Zeye;
-    double      x,y,z;
-    NSColor     *foreColor;
     CGFloat     screen_x = 0.0;
     CGFloat     screen_y = 0.0;
+    NSColor     *foreColor;
+    
+    // TODO: clean up mess
     double      alpha = roll;
     double      beta = yaw;
     double      gamma = pitch;
-
-    
 
     NSBezierPath *cubePath = [[NSBezierPath alloc] init];
     BOOL isFirstTime = YES;
@@ -78,12 +77,18 @@
     
     NSPoint endPoint = NSMakePoint(0.0, 0.0);
     for (int i=0; i<24; i++) {
-        x = cube[i].x;
-        y = cube[i].y;
-        z = cube[i].z;
+        double x = cube[i].x;
+        double y = cube[i].y;
+        double z = cube[i].z;
+        
+        // rotation matrix [Rz][Ry][Rz] from wikipedia
+        // https://en.wikipedia.org/wiki/Rotation_matrix
+
         Xeye =  x*ca*cb    + y*(ca*sb*sg-sa*cg)   + z*(ca*sb*cg+sa*sg);
         Yeye =  x*sa*cb    + y*(sa*sb*sg+ca*cg)   + z*(sa*sb*cg-ca*sg);
         Zeye = -x*sb    + y*cb*sg   + z*cb*cg;
+        
+        // center on screen and apply perspective transformation
         screen_x = center.x + SCALE * (Xeye / (r*Zeye + 1.0));
         screen_y = center.y + SCALE * (Yeye / (r*Zeye + 1.0));
         
@@ -121,11 +126,6 @@
         }
         
     }
-    
-//    [NSColor.whiteColor set];
-//    [cubePath setLineWidth:1.0];
-//    [cubePath stroke];
-    
 }
 
 
@@ -136,13 +136,13 @@
     [NSColor.blueColor set];
     [NSBezierPath fillRect:dirtyRect];
     
-    
     // draw head
     NSPoint centerPoint = NSMakePoint(NSMidX(dirtyRect), NSMidY(dirtyRect));
     double turnYaw = [self.headYaw doubleValue] * DEG_TO_RAD;
     double turnPitch = [self.headPitch doubleValue] * DEG_TO_RAD;
     double turnRoll = [self.headRoll doubleValue] * DEG_TO_RAD;
-    [self HeadTo3DScreenAtPoint:centerPoint focalLenth:5.0 yaw:turnYaw pitch:turnPitch roll:turnRoll];
+    double fl = [self.headFocalLength doubleValue];
+    [self drawHead3DAtPoint:centerPoint yaw:turnYaw pitch:turnPitch roll:turnRoll focalLenth:(double)fl ];
 
 }
 
