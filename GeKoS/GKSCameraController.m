@@ -11,7 +11,6 @@
 @interface GKSCameraController ()
 
 
-
 @end
 
 @implementation GKSCameraController
@@ -55,6 +54,11 @@
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"upX"];
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"upY"];
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"upZ"];
+    
+    self.headView.headYaw = self.planeYaw;
+    self.headView.headPitch = self.planePitch;
+    self.headView.headRoll = self.upTilt;
+    [self.headView setNeedsDisplay:YES];
 }
 
 - (IBAction)changeTilt:(id)sender
@@ -100,7 +104,7 @@
         Gpt_3 vpn = {0.0, 0.0, 1.0};
         Gpt_3 comp;
         Matrix_4 T;
-        
+
         double degrees = [sender doubleValue];
         double theta = DEG_TO_RAD * degrees;
         double psi = DEG_TO_RAD * [self.planePitch doubleValue];
@@ -112,7 +116,7 @@
         gks_accumulate_x_rotation_matrix_3(-psi, T);
         gks_accumulate_z_rotation_matrix_3(phi, T);
         gks_transform_point_3(T, &vpn, &comp);
-        
+
         [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
         [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
         [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];

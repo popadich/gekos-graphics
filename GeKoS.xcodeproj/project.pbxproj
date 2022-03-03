@@ -14,6 +14,7 @@
 		FA081B7227CFBAF40070056A /* GKSCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA081B6F27CFBAF40070056A /* GKSCameraController.m */; };
 		FA081B7327CFBAF40070056A /* GKSCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA081B7027CFBAF40070056A /* GKSCameraController.xib */; };
 		FA081B7627CFC5F60070056A /* GKSCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA081B7527CFC5F60070056A /* GKSCameraView.m */; };
+		FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA081B7B27D121D10070056A /* GKSHeadView.m */; };
 		FA274D65276BF659005104A4 /* gks_3d_view_orient.c in Sources */ = {isa = PBXBuildFile; fileRef = FA274D64276BF659005104A4 /* gks_3d_view_orient.c */; };
 		FA2D4937275D817300727B7B /* gks_mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = FA2D4936275D817300727B7B /* gks_mesh.c */; };
 		FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = FA35285A275864C6002B716C /* gks_3d_matrix.c */; };
@@ -66,6 +67,8 @@
 		FA081B7127CFBAF40070056A /* GKSCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKSCameraController.h; sourceTree = "<group>"; };
 		FA081B7427CFC5F60070056A /* GKSCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKSCameraView.h; sourceTree = "<group>"; };
 		FA081B7527CFC5F60070056A /* GKSCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKSCameraView.m; sourceTree = "<group>"; };
+		FA081B7A27D121D10070056A /* GKSHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSHeadView.h; sourceTree = "<group>"; };
+		FA081B7B27D121D10070056A /* GKSHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSHeadView.m; sourceTree = "<group>"; };
 		FA274D63276BF659005104A4 /* gks_3d_view_orient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_view_orient.h; sourceTree = "<group>"; };
 		FA274D64276BF659005104A4 /* gks_3d_view_orient.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_view_orient.c; sourceTree = "<group>"; };
 		FA2D4935275D817300727B7B /* gks_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_mesh.h; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 				FA081B7127CFBAF40070056A /* GKSCameraController.h */,
 				FA081B6F27CFBAF40070056A /* GKSCameraController.m */,
 				FA081B7027CFBAF40070056A /* GKSCameraController.xib */,
+				FA081B7A27D121D10070056A /* GKSHeadView.h */,
+				FA081B7B27D121D10070056A /* GKSHeadView.m */,
 				FA081B7427CFC5F60070056A /* GKSCameraView.h */,
 				FA081B7527CFC5F60070056A /* GKSCameraView.m */,
 				FA3C4E862794E3B000A1196D /* GKSPreferences.h */,
@@ -376,6 +381,7 @@
 				FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */,
 				FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */,
 				FA274D65276BF659005104A4 /* gks_3d_view_orient.c in Sources */,
+				FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */,
 				FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */,
 				FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */,
 				FA0146DB27C6B88200AE01E8 /* GKSWindowController.m in Sources */,

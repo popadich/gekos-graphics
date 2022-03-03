@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GKSHeadView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber* upTilt;
 @property (nonatomic, strong) NSNumber* planePitch;
 @property (nonatomic, strong) NSNumber* planeYaw;
+
+@property (weak)IBOutlet GKSHeadView *headView;
 
 @end
 

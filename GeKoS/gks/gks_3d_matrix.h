@@ -11,7 +11,7 @@
 
 # include "gks_types.h"
 
-#define DEG_TO_RAD 0.0174533
+#define DEG_TO_RAD 0.01745329252
 
 
 void gks_set_identity_matrix_2(Matrix_3 result);
