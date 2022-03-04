@@ -22,11 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber* dirY;
 @property (nonatomic, strong) NSNumber* dirZ;
 
-
-@property (nonatomic, strong) NSNumber* vHatX;
-@property (nonatomic, strong) NSNumber* vHatY;
-@property (nonatomic, strong) NSNumber* vHatZ;
-
 @property (nonatomic, strong) NSNumber* useLookAt;
 @property (nonatomic, strong) NSNumber* yaw;
 @property (nonatomic, strong) NSNumber* pitch;

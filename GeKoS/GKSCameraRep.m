@@ -9,8 +9,13 @@
 #include "gks/gks_types.h"
 
 @interface GKSCameraRep () {
-    float unit_vect[3];
+    Gpt_3 unit_vect;
+
 }
+
+@property (nonatomic, strong) NSNumber* vHatX;
+@property (nonatomic, strong) NSNumber* vHatY;
+@property (nonatomic, strong) NSNumber* vHatZ;
 
 @end
 
@@ -26,7 +31,7 @@
         _upZ = [NSNumber numberWithFloat:0.0];
         _dirX = [NSNumber numberWithFloat:0.0];
         _dirY = [NSNumber numberWithFloat:0.0];
-        _dirZ = [NSNumber numberWithFloat:1.0];
+        _dirZ = [NSNumber numberWithFloat:-1.0];
         _positionX = [NSNumber numberWithFloat:0.0];
         _positionY = [NSNumber numberWithFloat:0.0];
         _positionZ = [NSNumber numberWithFloat:1.0];

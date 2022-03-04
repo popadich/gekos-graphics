@@ -45,6 +45,15 @@
     
     // Set perspective distance, projection type and other camera properties.
     // Use default values settings and preferences here
+    self.cameraRep.upX = @0;
+    self.cameraRep.upY = @1.0;
+    self.cameraRep.upZ = @0;
+    
+    self.cameraRep.positionX = @0.0;
+    self.cameraRep.positionY = @0.0;
+    self.cameraRep.positionZ = @2.0;
+    
+    
     NSNumber *distance =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
     self.cameraRep.focalLength = distance;
     

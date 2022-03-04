@@ -9,7 +9,9 @@
 #import "GKSCameraRep.h"
 #include "gks/gks.h"
 
-@interface GKSCameraController ()
+@interface GKSCameraController () {
+    Gpt_3 up_vect;
+}
 
 @property (strong)GKSCameraRep *camera;
 @property (weak)IBOutlet GKSHeadView *headView;
@@ -17,6 +19,7 @@
 @end
 
 static void *CameraFocalLengthContext = &CameraFocalLengthContext;
+static void *CameraRotationContext = &CameraRotationContext;
 
 
 @implementation GKSCameraController
@@ -24,11 +27,15 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    up_vect.x = 0.0;
+    up_vect.y = 1.0;
+    up_vect.z = 0.0;
     
     GKSCameraRep *camera = self.representedObject;
     // observe focal length of camera
     [self registerAsObserverForCamera:camera];
     self.camera = camera;
+
 }
 
 
@@ -39,6 +46,22 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
                  options:(NSKeyValueObservingOptionNew |
                           NSKeyValueObservingOptionOld)
                  context:CameraFocalLengthContext];
+
+    [camera addObserver:self
+              forKeyPath:@"yaw"
+                 options:(NSKeyValueObservingOptionNew |
+                          NSKeyValueObservingOptionOld)
+                 context:CameraRotationContext];
+    [camera addObserver:self
+              forKeyPath:@"pitch"
+                 options:(NSKeyValueObservingOptionNew |
+                          NSKeyValueObservingOptionOld)
+                 context:CameraRotationContext];
+    [camera addObserver:self
+              forKeyPath:@"roll"
+                 options:(NSKeyValueObservingOptionNew |
+                          NSKeyValueObservingOptionOld)
+                 context:CameraRotationContext];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
@@ -47,6 +70,17 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
         // Do something with focal length value
         NSNumber *newLength = [change valueForKey:@"new"];
         [self setFocus:newLength];
+    } else if (context == CameraRotationContext) {
+        NSNumber *newValue = [change valueForKey:@"new"];
+        if ([keyPath isEqualToString:@"yaw"]) {
+            [self adjustCameraWithYaw:newValue];
+        }
+        else if ([keyPath isEqualToString:@"pitch"]) {
+            [self adjustCameraWithPitch:newValue];
+        }
+        else if([keyPath isEqualToString:@"roll"]) {
+            [self adjustCameraWithRoll:newValue];
+        }
     } else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath
@@ -66,6 +100,24 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 
 }
 
+- (void)adjustCameraWithYaw:(NSNumber *)angle
+{
+    [self changeYaw:angle];
+    [self adjustHead];
+}
+
+- (void)adjustCameraWithPitch:(NSNumber *)angle
+{
+    [self changePitch:angle];
+    [self adjustHead];
+}
+
+- (void)adjustCameraWithRoll:(NSNumber *)angle
+{
+    [self changeRoll:angle];
+    [self adjustHead];
+}
+
 - (void)adjustHead {
     self.headView.headYaw = self.camera.yaw;
     self.headView.headPitch = self.camera.pitch;
@@ -79,95 +131,69 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
     [self.headView setNeedsDisplay:YES];
 }
 
-- (void)adjustCamera:(double)angle {
-    Gpt_3 vpn = {0.0, 1.0, 0.0};
+- (void)changeRoll:(NSNumber *)angle
+{
     Gpt_3 comp;
     Matrix_4 T;
 
     double theta = [self.camera.yaw doubleValue];
     double psi = [self.camera.pitch doubleValue];
-    double phi = angle;
+    double phi = [angle doubleValue];
 
     gks_set_identity_matrix_3(T);
     gks_create_z_rotation_matrix_3(-phi, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
 
-    gks_transform_point_3(T, &vpn, &comp);
+    gks_transform_point_3(T, &up_vect, &comp);
     
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"vHatX"];
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"vHatY"];
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"vHatZ"];
+}
+
+- (void)changePitch:(NSNumber *)angle
+{
+    Gpt_3 comp;
+    Matrix_4 T;
     
-    [self adjustHead];
+    double psi = [angle doubleValue];
+    double theta = [self.camera.yaw doubleValue];
+    double phi = [self.camera.roll doubleValue];
+
+    // maybe theta needs be negative? Or control min and max switched?
+    gks_set_identity_matrix_3(T);
+    gks_create_y_rotation_matrix_3(theta, T);
+    gks_accumulate_x_rotation_matrix_3(-psi, T);
+    gks_accumulate_z_rotation_matrix_3(phi, T);
+    gks_transform_point_3(T, &up_vect, &comp);
+    
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
 
 }
 
-- (IBAction)changeRoll:(id)sender
+- (void)changeYaw:(NSNumber *)angle
 {
-    if ([sender isKindOfClass:[NSSlider class]]) {
-        double min = [sender minValue];
-        double max = [sender maxValue];
-        // reverse the value
-        double angle = max + min - [sender doubleValue];
-        [self adjustCamera:angle];
-    }
-}
+    Gpt_3 comp;
+    Matrix_4 T;
 
-- (IBAction)changePitch:(id)sender
-{
-    if ([sender isKindOfClass:[NSSlider class]]) {
-        Gpt_3 vpn = {0.0, 0.0, 1.0};
-        Gpt_3 comp;
-        Matrix_4 T;
-        
-        double psi = [sender doubleValue];
-        double theta = [self.camera.yaw doubleValue];
-        double phi = [self.camera.roll doubleValue];
+    double theta = [angle doubleValue];
+    double psi = [self.camera.pitch doubleValue];
+    double phi = [self.camera.roll doubleValue];
 
-        // maybe theta needs be negative? Or control min and max switched?
-        gks_set_identity_matrix_3(T);
-        gks_create_y_rotation_matrix_3(theta, T);
-        gks_accumulate_x_rotation_matrix_3(-psi, T);
-        gks_accumulate_z_rotation_matrix_3(phi, T);
-        gks_transform_point_3(T, &vpn, &comp);
-        
-        [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
-        [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
-        [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
-        
-        // maybe do a vector cross product (u X n) and compute up vector instead
-        [self adjustCamera:[self.camera.roll doubleValue]];
-    }
+    // maybe theta needs be negative? Or control min and max switched?
+    gks_set_identity_matrix_3(T);
+    gks_create_y_rotation_matrix_3(theta, T);
+    gks_accumulate_x_rotation_matrix_3(-psi, T);
+    gks_accumulate_z_rotation_matrix_3(phi, T);
+    gks_transform_point_3(T, &up_vect, &comp);
 
-}
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
 
-- (IBAction)changeYaw:(id)sender
-{
-    if ([sender isKindOfClass:[NSSlider class]]) {
-        Gpt_3 vpn = {0.0, 0.0, 1.0};
-        Gpt_3 comp;
-        Matrix_4 T;
-
-        double theta = [sender doubleValue];
-        double psi = [self.camera.pitch doubleValue];
-        double phi = [self.camera.roll doubleValue];
-
-        // maybe theta needs be negative? Or control min and max switched?
-        gks_set_identity_matrix_3(T);
-        gks_create_y_rotation_matrix_3(theta, T);
-        gks_accumulate_x_rotation_matrix_3(-psi, T);
-        gks_accumulate_z_rotation_matrix_3(phi, T);
-        gks_transform_point_3(T, &vpn, &comp);
-
-        [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
-        [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
-        [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
-
-        // maybe do a vector cross product (u X n) and compute up vector instead
-        [self adjustCamera:[self.camera.roll doubleValue]];
-
-    }
 }
 
 - (IBAction)changeVisibleSurface:(id)sender
