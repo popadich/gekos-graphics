@@ -35,6 +35,10 @@
         _vHatY = @(1);
         _vHatZ = @(0);
         
+        _yaw = @(0);
+        _pitch = @(0);
+        _roll = @(0);
+
         // TODO: get from preference
         _projectionType = [NSNumber numberWithInt:kPerspectiveProjection];
         _perspectiveProjectionFlag = [NSNumber numberWithBool:YES];

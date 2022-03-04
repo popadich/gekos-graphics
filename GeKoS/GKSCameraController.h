@@ -12,11 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSCameraController : NSViewController
 
-@property (nonatomic, strong)NSNumber* planeRoll;
-@property (nonatomic, strong)NSNumber* planePitch;
-@property (nonatomic, strong)NSNumber* planeYaw;
-
-@property (weak)IBOutlet GKSHeadView *headView;
 
 @end
 

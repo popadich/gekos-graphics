@@ -11,24 +11,24 @@
 
 @interface GKSCameraController ()
 
+@property (strong)GKSCameraRep *camera;
+@property (weak)IBOutlet GKSHeadView *headView;
 
 @end
 
 static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 
-@implementation GKSCameraController
 
+@implementation GKSCameraController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    self.planeRoll = @0.0;
-    self.planePitch = @0.0;
-    self.planeYaw = @0.0;
     
     GKSCameraRep *camera = self.representedObject;
     // observe focal length of camera
     [self registerAsObserverForCamera:camera];
+    self.camera = camera;
 }
 
 
@@ -57,7 +57,6 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 }
 
 
-
 #pragma mark User Interaction
 
 - (void)setFocus:(NSNumber *)focal;
@@ -67,14 +66,27 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 
 }
 
-- (void)doTilt:(double)degrees {
+- (void)adjustHead {
+    self.headView.headYaw = self.camera.yaw;
+    self.headView.headPitch = self.camera.pitch;
+
+    // reverse the roll value because x-axis is coming out at us and a positive rotation
+    // from that refererence appears as a negative rotation of our head. The head is
+    // oriented as if looking along the negative x-axis direction.
+    double angle =  -1 * [self.camera.roll doubleValue];
+    self.headView.headRoll = [NSNumber numberWithDouble:angle];
+    
+    [self.headView setNeedsDisplay:YES];
+}
+
+- (void)adjustCamera:(double)angle {
     Gpt_3 vpn = {0.0, 1.0, 0.0};
     Gpt_3 comp;
     Matrix_4 T;
 
-    double theta = DEG_TO_RAD * [self.planeYaw doubleValue];
-    double psi = DEG_TO_RAD * [self.planePitch doubleValue];
-    double phi = DEG_TO_RAD * degrees;
+    double theta = [self.camera.yaw doubleValue];
+    double psi = [self.camera.pitch doubleValue];
+    double phi = angle;
 
     gks_set_identity_matrix_3(T);
     gks_create_z_rotation_matrix_3(-phi, T);
@@ -87,17 +99,18 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"vHatY"];
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"vHatZ"];
     
-    self.headView.headYaw = self.planeYaw;
-    self.headView.headPitch = self.planePitch;
-    self.headView.headRoll = self.planeRoll;
-    [self.headView setNeedsDisplay:YES];
+    [self adjustHead];
+
 }
 
 - (IBAction)changeRoll:(id)sender
 {
     if ([sender isKindOfClass:[NSSlider class]]) {
-        double degrees = [sender doubleValue];
-        [self doTilt:degrees];
+        double min = [sender minValue];
+        double max = [sender maxValue];
+        // reverse the value
+        double angle = max + min - [sender doubleValue];
+        [self adjustCamera:angle];
     }
 }
 
@@ -108,10 +121,9 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
         Gpt_3 comp;
         Matrix_4 T;
         
-        double degrees = [sender doubleValue];
-        double psi = DEG_TO_RAD * degrees;
-        double theta = DEG_TO_RAD * [self.planeYaw doubleValue];
-        double phi = DEG_TO_RAD * [self.planeRoll doubleValue];
+        double psi = [sender doubleValue];
+        double theta = [self.camera.yaw doubleValue];
+        double phi = [self.camera.roll doubleValue];
 
         // maybe theta needs be negative? Or control min and max switched?
         gks_set_identity_matrix_3(T);
@@ -125,7 +137,7 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
         [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
         
         // maybe do a vector cross product (u X n) and compute up vector instead
-        [self doTilt:[self.planeRoll doubleValue]];
+        [self adjustCamera:[self.camera.roll doubleValue]];
     }
 
 }
@@ -137,10 +149,9 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
         Gpt_3 comp;
         Matrix_4 T;
 
-        double degrees = [sender doubleValue];
-        double theta = DEG_TO_RAD * degrees;
-        double psi = DEG_TO_RAD * [self.planePitch doubleValue];
-        double phi = DEG_TO_RAD * [self.planeRoll doubleValue];
+        double theta = [sender doubleValue];
+        double psi = [self.camera.pitch doubleValue];
+        double phi = [self.camera.roll doubleValue];
 
         // maybe theta needs be negative? Or control min and max switched?
         gks_set_identity_matrix_3(T);
@@ -154,12 +165,12 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
         [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
 
         // maybe do a vector cross product (u X n) and compute up vector instead
-        [self doTilt:[self.planeRoll doubleValue]];
+        [self adjustCamera:[self.camera.roll doubleValue]];
 
     }
 }
 
-- (IBAction)changeHiddenSurface:(id)sender
+- (IBAction)changeVisibleSurface:(id)sender
 {
     if ([sender isKindOfClass:[NSButton class]]) {
         bool onState = [sender state];

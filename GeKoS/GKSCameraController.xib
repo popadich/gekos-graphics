@@ -26,7 +26,7 @@
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="xjb-W2-2XT"/>
                     <connections>
                         <action selector="changeRoll:" target="-2" id="vOY-kc-3Bk"/>
-                        <binding destination="-2" name="value" keyPath="self.planeRoll" id="dqd-PN-rBc"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.roll" id="Zcc-d9-5Xt"/>
                     </connections>
                 </slider>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="utE-Yr-fbs">
@@ -34,7 +34,7 @@
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="T5I-FI-dAP"/>
                     <connections>
                         <action selector="changePitch:" target="-2" id="SnO-no-Zcr"/>
-                        <binding destination="-2" name="value" keyPath="self.planePitch" id="qax-4c-OMD"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.pitch" id="wFb-1k-bHu"/>
                     </connections>
                 </slider>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pZS-0I-YEc">
@@ -42,7 +42,7 @@
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="u0J-3x-yFL"/>
                     <connections>
                         <action selector="changeYaw:" target="-2" id="DSj-Yc-TDg"/>
-                        <binding destination="-2" name="value" keyPath="self.planeYaw" id="1Ng-Xb-N7U"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.yaw" id="gtq-Zq-0NA"/>
                     </connections>
                 </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2qG-eK-CKO">
@@ -86,7 +86,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.planeRoll" id="T9y-wb-Thh"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.roll" id="09j-Ap-nMA"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vZR-EG-tOp">
@@ -98,7 +98,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.planePitch" id="myX-Ez-K3v"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.pitch" id="WGp-n2-muc"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZFo-a9-4zp">
@@ -110,7 +110,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.planeYaw" id="Wol-3X-ahG"/>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.yaw" id="CFb-uT-OwD"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qgq-8w-Aon">
