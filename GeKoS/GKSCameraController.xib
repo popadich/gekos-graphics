@@ -23,7 +23,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="180" id="oLe-Iy-FCJ"/>
                     </constraints>
-                    <sliderCell key="cell" state="on" alignment="left" minValue="-90" maxValue="90" tickMarkPosition="above" sliderType="linear" id="xjb-W2-2XT"/>
+                    <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="xjb-W2-2XT"/>
                     <connections>
                         <action selector="changeRoll:" target="-2" id="vOY-kc-3Bk"/>
                         <binding destination="-2" name="value" keyPath="self.planeRoll" id="dqd-PN-rBc"/>
@@ -31,7 +31,7 @@
                 </slider>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="utE-Yr-fbs">
                     <rect key="frame" x="18" y="198" width="184" height="28"/>
-                    <sliderCell key="cell" state="on" alignment="left" minValue="-90" maxValue="90" tickMarkPosition="above" sliderType="linear" id="T5I-FI-dAP"/>
+                    <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="T5I-FI-dAP"/>
                     <connections>
                         <action selector="changePitch:" target="-2" id="SnO-no-Zcr"/>
                         <binding destination="-2" name="value" keyPath="self.planePitch" id="qax-4c-OMD"/>
@@ -39,7 +39,7 @@
                 </slider>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pZS-0I-YEc">
                     <rect key="frame" x="18" y="170" width="184" height="28"/>
-                    <sliderCell key="cell" state="on" alignment="left" minValue="-90" maxValue="90" tickMarkPosition="above" sliderType="linear" id="u0J-3x-yFL"/>
+                    <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="u0J-3x-yFL"/>
                     <connections>
                         <action selector="changeYaw:" target="-2" id="DSj-Yc-TDg"/>
                         <binding destination="-2" name="value" keyPath="self.planeYaw" id="1Ng-Xb-N7U"/>

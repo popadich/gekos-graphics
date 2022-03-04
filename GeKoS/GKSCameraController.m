@@ -22,7 +22,6 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    NSLog(@"Observer Custom View Did Load! Says the Controller.");
     self.planeRoll = @0.0;
     self.planePitch = @0.0;
     self.planeYaw = @0.0;
@@ -46,8 +45,8 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 {
     if (context == CameraFocalLengthContext) {
         // Do something with focal length value
-        NSNumber *anum = [change valueForKey:@"new"];
-        [self doFocus:anum];
+        NSNumber *newLength = [change valueForKey:@"new"];
+        [self setFocus:newLength];
     } else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath
@@ -61,9 +60,8 @@ static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 
 #pragma mark User Interaction
 
-- (void)doFocus:(NSNumber *)focal;
+- (void)setFocus:(NSNumber *)focal;
 {
-    NSLog(@"Focus: %@", focal);
     self.headView.headFocalLength = focal;
     [self.headView setNeedsDisplay:YES];
 

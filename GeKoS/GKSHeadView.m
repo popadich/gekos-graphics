@@ -94,6 +94,7 @@
         
         NSPoint screenPoint = NSMakePoint(screen_x, screen_y);
 
+        // front face
         if (i > 4 && i < 9 ) {
             [cubePath setLineWidth:3.0];
             foreColor = [NSColor redColor];
@@ -104,7 +105,7 @@
             foreColor = [NSColor colorWithRed:25535.0/65535.0 green:0.0 blue:0.0 alpha:1.0];
             [foreColor set];
          }
-
+        // TODO: get rid of funky modulo logic and use two loops
         if( i%4==0 ) {
             if (isFirstTime) {
                 [cubePath moveToPoint:screenPoint];
@@ -138,9 +139,9 @@
     
     // draw head
     NSPoint centerPoint = NSMakePoint(NSMidX(dirtyRect), NSMidY(dirtyRect));
-    double turnYaw = [self.headYaw doubleValue] * DEG_TO_RAD;
-    double turnPitch = [self.headPitch doubleValue] * DEG_TO_RAD;
-    double turnRoll = [self.headRoll doubleValue] * DEG_TO_RAD;
+    double turnYaw = [self.headYaw doubleValue];
+    double turnPitch = [self.headPitch doubleValue];
+    double turnRoll = [self.headRoll doubleValue];
     double fl = [self.headFocalLength doubleValue];
     [self drawHead3DAtPoint:centerPoint yaw:turnYaw pitch:turnPitch roll:turnRoll focalLenth:(double)fl ];
 
