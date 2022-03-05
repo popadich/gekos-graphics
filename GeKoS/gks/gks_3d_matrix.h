@@ -29,9 +29,10 @@ void gks_accumulate_y_rotation_matrix_3(Gfloat theta, Matrix_3 m);
 void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_3 m);
 void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_3 m);
 
-void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_b);
-
 void gks_transform_point_3(Matrix_3 trans_matrix, Gpt_3 *old_point, Gpt_3 *new_point);
+
+void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_b);
+void gks_transpose_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_trans);
 
 void gks_plane_equation_3(Gpt_3 p1, Gpt_3 p2, Gpt_3 p3, Gpt_3 *overloadPlane);
 

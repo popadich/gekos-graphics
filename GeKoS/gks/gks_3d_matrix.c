@@ -8,8 +8,6 @@
 #include <math.h>
 #include "gks_3d_matrix.h"
 
-
-
 void gks_set_identity_matrix_2(Matrix_2 result)
 {
     result[0][0] = result[1][1] = result[2][2] = 1.0;
@@ -139,10 +137,20 @@ void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix
 void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_b)
 {
     int i,j;
-    
-    for(i=0;i<4;i++) for(j=0;j<4;j++)
+    for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
             matrix_b[i][j]=matrix_a[i][j];
 }
+
+// Transpose matrix A -> T
+void gks_transpose_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_trans)
+{
+    int i,j;
+    for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
+            matrix_trans[i][j]=matrix_a[j][i];
+}
+
 
 // Computes a new point using homogeneous coordinate transformation matrix
 // it assumes the w component of the point is always 1.
