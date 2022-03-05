@@ -36,13 +36,13 @@
         _positionY = [NSNumber numberWithFloat:0.0];
         _positionZ = [NSNumber numberWithFloat:1.0];
         
-        _vHatX = @(0);
-        _vHatY = @(1);
-        _vHatZ = @(0);
+        _vHatX = @0.0;
+        _vHatY = @1.0;
+        _vHatZ = @0.0;
         
-        _yaw = @(0);
-        _pitch = @(0);
-        _roll = @(0);
+        _yaw = @0.0;
+        _pitch = @0.0;
+        _roll = @0.0;
 
         // TODO: get from preference
         _projectionType = [NSNumber numberWithInt:kPerspectiveProjection];
@@ -50,6 +50,9 @@
         
         _visibleSurfaceFlag = [NSNumber numberWithBool:NO];
         _useLookAt = [NSNumber numberWithBool:NO];
+        _lookX = @0.0;
+        _lookY = @0.0;
+        _lookZ = @0.0;
    }
     return self;
 }

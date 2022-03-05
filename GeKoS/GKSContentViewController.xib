@@ -27,9 +27,344 @@
                     <rect key="frame" x="20" y="20" width="715" height="309"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
+                <tabView translatesAutoresizingMaskIntoConstraints="NO" id="TCR-Jr-Xrg">
+                    <rect key="frame" x="494" y="330" width="248" height="421"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="234" id="9hR-cr-fDL"/>
+                    </constraints>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="Observer" identifier="1" id="Yfh-jQ-U0O">
+                            <view key="view" id="yfN-Af-ZrN">
+                                <rect key="frame" x="10" y="33" width="228" height="375"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q5f-gl-PZS">
+                                        <rect key="frame" x="72" y="103" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="1" drawsBackground="YES" id="Pw1-8t-6wO">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="C2K-RJ-2Jk"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="camera.positionZ" id="yjp-q4-Fbi"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OGB-Ki-yx7">
+                                        <rect key="frame" x="15" y="199" width="50" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Look Z:" id="mGD-d0-hVQ">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mHj-Mo-wzv">
+                                        <rect key="frame" x="72" y="351" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="tCm-nb-ray">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="SvZ-BT-DCb"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.upX" id="9lN-z9-7K5"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Got-x8-U1K">
+                                        <rect key="frame" x="72" y="72" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="1" drawsBackground="YES" id="Kgo-Rc-toz">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="L04-w4-isY"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kop-1p-NlA">
+                                        <rect key="frame" x="15" y="137" width="42" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Pos Y:" id="Z6A-I6-eV2">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qc3-i5-UZT">
+                                        <rect key="frame" x="72" y="320" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="u0f-38-30m">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="o13-dt-UWI"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.upY" id="bxv-rO-2G8"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cDm-ca-h5R">
+                                        <rect key="frame" x="15" y="354" width="38" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Up X:" id="g4H-SH-4qf">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FPo-o2-hTr">
+                                        <rect key="frame" x="15" y="261" width="50" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Look X:" id="amK-sJ-Inw">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uf5-b4-Kq6">
+                                        <rect key="frame" x="72" y="134" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="2Ii-v0-ITr">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="D8i-iA-ovx"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.positionY" id="Iww-Xm-GrV"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mF6-0w-HYc">
+                                        <rect key="frame" x="15" y="230" width="50" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Look Y:" id="mXI-8C-Rgv">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HMK-iO-O5i">
+                                        <rect key="frame" x="72" y="289" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="lde-VG-lOZ">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="0sw-V3-RP4"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.upZ" id="zSR-fB-ZVH"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3cY-IA-RoB">
+                                        <rect key="frame" x="72" y="165" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="VBG-ay-JHr">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="5KQ-1i-MB7"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.positionX" id="Ys4-jY-RTM"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YqF-q3-twU">
+                                        <rect key="frame" x="72" y="258" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="HWZ-2f-mBj">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="qyz-v8-yTJ"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.lookX" id="Uwd-I7-Xrz"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="njp-xH-cE3">
+                                        <rect key="frame" x="15" y="323" width="38" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Up Y:" id="5v6-R7-WpL">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0R0-mA-OLs">
+                                        <rect key="frame" x="72" y="227" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="TPB-Tx-Xlc">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="x7D-jM-d4t"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.lookY" id="mwD-ox-xpl"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dEM-3J-FHH">
+                                        <rect key="frame" x="15" y="168" width="43" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Pos X:" id="gCN-EA-67W">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cLz-kx-zxp">
+                                        <rect key="frame" x="15" y="106" width="43" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Pos Z:" id="7lZ-59-Efq">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mix-rk-seE">
+                                        <rect key="frame" x="15" y="292" width="38" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Up Z:" id="zV7-bM-Hyr">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FbE-CF-Jc9">
+                                        <rect key="frame" x="72" y="196" width="139" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="1" drawsBackground="YES" id="JOa-wF-Kfw">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Jjf-bA-HVt"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="NFN-fq-5sy" name="value" keyPath="self.camera.lookZ" id="ciU-J2-Jn6"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k6S-tw-kni">
+                                        <rect key="frame" x="15" y="75" width="47" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Scale" id="xdt-kt-POQ">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Mix-rk-seE" firstAttribute="top" secondItem="njp-xH-cE3" secondAttribute="bottom" constant="15" id="0Zw-hB-vbq"/>
+                                    <constraint firstItem="OGB-Ki-yx7" firstAttribute="trailing" secondItem="FPo-o2-hTr" secondAttribute="trailing" id="6FU-yr-QB1"/>
+                                    <constraint firstItem="mF6-0w-HYc" firstAttribute="trailing" secondItem="FPo-o2-hTr" secondAttribute="trailing" id="6bn-Qh-pv4"/>
+                                    <constraint firstItem="cLz-kx-zxp" firstAttribute="top" secondItem="kop-1p-NlA" secondAttribute="bottom" constant="15" id="ASg-LZ-88j"/>
+                                    <constraint firstItem="Uf5-b4-Kq6" firstAttribute="top" secondItem="3cY-IA-RoB" secondAttribute="bottom" constant="10" symbolic="YES" id="AYd-iF-PO5"/>
+                                    <constraint firstItem="OGB-Ki-yx7" firstAttribute="leading" secondItem="FPo-o2-hTr" secondAttribute="leading" id="Ae9-hQ-gWC"/>
+                                    <constraint firstItem="mF6-0w-HYc" firstAttribute="leading" secondItem="FPo-o2-hTr" secondAttribute="leading" id="Agd-JF-u4t"/>
+                                    <constraint firstItem="OGB-Ki-yx7" firstAttribute="top" secondItem="mF6-0w-HYc" secondAttribute="bottom" constant="15" id="BO7-Jo-ZTm"/>
+                                    <constraint firstItem="kop-1p-NlA" firstAttribute="leading" secondItem="dEM-3J-FHH" secondAttribute="leading" id="C6V-Nr-DOR"/>
+                                    <constraint firstItem="HMK-iO-O5i" firstAttribute="trailing" secondItem="YqF-q3-twU" secondAttribute="trailing" id="CUU-od-x1g"/>
+                                    <constraint firstItem="Mix-rk-seE" firstAttribute="leading" secondItem="cDm-ca-h5R" secondAttribute="leading" id="DKR-QZ-Kre"/>
+                                    <constraint firstItem="FbE-CF-Jc9" firstAttribute="trailing" secondItem="3cY-IA-RoB" secondAttribute="trailing" id="EtA-NQ-gEP"/>
+                                    <constraint firstItem="0R0-mA-OLs" firstAttribute="top" secondItem="YqF-q3-twU" secondAttribute="bottom" constant="10" symbolic="YES" id="HV7-ro-luv"/>
+                                    <constraint firstItem="k6S-tw-kni" firstAttribute="leading" secondItem="dEM-3J-FHH" secondAttribute="leading" id="Kdg-ra-HmF"/>
+                                    <constraint firstItem="Mix-rk-seE" firstAttribute="trailing" secondItem="cDm-ca-h5R" secondAttribute="trailing" id="LXD-bT-1ey"/>
+                                    <constraint firstItem="YqF-q3-twU" firstAttribute="trailing" secondItem="0R0-mA-OLs" secondAttribute="trailing" id="Lfv-iC-92Z"/>
+                                    <constraint firstItem="dEM-3J-FHH" firstAttribute="top" secondItem="OGB-Ki-yx7" secondAttribute="bottom" constant="15" id="M3B-tE-rrd"/>
+                                    <constraint firstItem="cDm-ca-h5R" firstAttribute="leading" secondItem="yfN-Af-ZrN" secondAttribute="leading" constant="17" id="M8u-9e-kuq"/>
+                                    <constraint firstItem="YqF-q3-twU" firstAttribute="leading" secondItem="0R0-mA-OLs" secondAttribute="leading" id="MG5-W2-vmo"/>
+                                    <constraint firstItem="q5f-gl-PZS" firstAttribute="top" secondItem="Uf5-b4-Kq6" secondAttribute="bottom" constant="10" symbolic="YES" id="MvG-IL-OMz"/>
+                                    <constraint firstItem="njp-xH-cE3" firstAttribute="leading" secondItem="cDm-ca-h5R" secondAttribute="leading" id="NwU-E2-8W6"/>
+                                    <constraint firstItem="Uf5-b4-Kq6" firstAttribute="leading" secondItem="kop-1p-NlA" secondAttribute="trailing" constant="17" id="OEB-fE-GGt"/>
+                                    <constraint firstItem="FbE-CF-Jc9" firstAttribute="leading" secondItem="3cY-IA-RoB" secondAttribute="leading" id="OOf-eo-aRc"/>
+                                    <constraint firstItem="njp-xH-cE3" firstAttribute="top" secondItem="cDm-ca-h5R" secondAttribute="bottom" constant="15" id="PZC-eZ-9yO"/>
+                                    <constraint firstItem="3cY-IA-RoB" firstAttribute="top" secondItem="FbE-CF-Jc9" secondAttribute="bottom" constant="10" symbolic="YES" id="Pad-Cn-6PY"/>
+                                    <constraint firstItem="Uf5-b4-Kq6" firstAttribute="trailing" secondItem="q5f-gl-PZS" secondAttribute="trailing" id="R69-NO-M7K"/>
+                                    <constraint firstItem="0R0-mA-OLs" firstAttribute="trailing" secondItem="FbE-CF-Jc9" secondAttribute="trailing" id="Sal-ix-sgo"/>
+                                    <constraint firstItem="k6S-tw-kni" firstAttribute="top" secondItem="cLz-kx-zxp" secondAttribute="bottom" constant="15" id="TwJ-PK-4g0"/>
+                                    <constraint firstItem="qc3-i5-UZT" firstAttribute="trailing" secondItem="HMK-iO-O5i" secondAttribute="trailing" id="U1M-uI-Fex"/>
+                                    <constraint firstItem="FbE-CF-Jc9" firstAttribute="top" secondItem="0R0-mA-OLs" secondAttribute="bottom" constant="10" symbolic="YES" id="W5F-Ww-kx5"/>
+                                    <constraint firstItem="cDm-ca-h5R" firstAttribute="top" secondItem="yfN-Af-ZrN" secondAttribute="top" constant="5" id="WqC-SB-iCB"/>
+                                    <constraint firstItem="kop-1p-NlA" firstAttribute="top" secondItem="dEM-3J-FHH" secondAttribute="bottom" constant="15" id="Xac-hd-e4M"/>
+                                    <constraint firstItem="mHj-Mo-wzv" firstAttribute="trailing" secondItem="qc3-i5-UZT" secondAttribute="trailing" id="Ygl-9d-3KI"/>
+                                    <constraint firstItem="njp-xH-cE3" firstAttribute="trailing" secondItem="cDm-ca-h5R" secondAttribute="trailing" id="aA0-Y9-kfJ"/>
+                                    <constraint firstItem="3cY-IA-RoB" firstAttribute="leading" secondItem="Uf5-b4-Kq6" secondAttribute="leading" id="aQI-DQ-p29"/>
+                                    <constraint firstItem="mF6-0w-HYc" firstAttribute="top" secondItem="FPo-o2-hTr" secondAttribute="bottom" constant="15" id="cDv-KB-Ndf"/>
+                                    <constraint firstItem="dEM-3J-FHH" firstAttribute="leading" secondItem="FPo-o2-hTr" secondAttribute="leading" id="dAW-KV-ThE"/>
+                                    <constraint firstItem="FPo-o2-hTr" firstAttribute="top" secondItem="Mix-rk-seE" secondAttribute="bottom" constant="15" id="dEd-gc-R20"/>
+                                    <constraint firstItem="cLz-kx-zxp" firstAttribute="leading" secondItem="dEM-3J-FHH" secondAttribute="leading" id="dcK-9m-JHA"/>
+                                    <constraint firstItem="0R0-mA-OLs" firstAttribute="leading" secondItem="FbE-CF-Jc9" secondAttribute="leading" id="dhg-ni-Xxu"/>
+                                    <constraint firstItem="HMK-iO-O5i" firstAttribute="top" secondItem="qc3-i5-UZT" secondAttribute="bottom" constant="10" symbolic="YES" id="dup-eE-SH8"/>
+                                    <constraint firstItem="FPo-o2-hTr" firstAttribute="leading" secondItem="cDm-ca-h5R" secondAttribute="leading" id="dwg-cv-sPV"/>
+                                    <constraint firstItem="HMK-iO-O5i" firstAttribute="leading" secondItem="YqF-q3-twU" secondAttribute="leading" id="eZb-za-ag8"/>
+                                    <constraint firstItem="3cY-IA-RoB" firstAttribute="trailing" secondItem="Uf5-b4-Kq6" secondAttribute="trailing" id="fnM-EM-yf9"/>
+                                    <constraint firstItem="q5f-gl-PZS" firstAttribute="leading" secondItem="cLz-kx-zxp" secondAttribute="trailing" constant="16" id="hfk-LU-TkN"/>
+                                    <constraint firstItem="Uf5-b4-Kq6" firstAttribute="leading" secondItem="q5f-gl-PZS" secondAttribute="leading" id="jEC-zX-MYB"/>
+                                    <constraint firstItem="Got-x8-U1K" firstAttribute="leading" secondItem="k6S-tw-kni" secondAttribute="trailing" constant="12" id="k9x-V8-L8T"/>
+                                    <constraint firstItem="Got-x8-U1K" firstAttribute="top" secondItem="q5f-gl-PZS" secondAttribute="bottom" constant="10" symbolic="YES" id="kQm-X8-H5o"/>
+                                    <constraint firstItem="YqF-q3-twU" firstAttribute="top" secondItem="HMK-iO-O5i" secondAttribute="bottom" constant="10" symbolic="YES" id="lb0-8D-Sas"/>
+                                    <constraint firstItem="q5f-gl-PZS" firstAttribute="trailing" secondItem="Got-x8-U1K" secondAttribute="trailing" id="ng3-km-Hup"/>
+                                    <constraint firstItem="3cY-IA-RoB" firstAttribute="leading" secondItem="dEM-3J-FHH" secondAttribute="trailing" constant="16" id="nqb-6s-Bew"/>
+                                    <constraint firstItem="q5f-gl-PZS" firstAttribute="leading" secondItem="Got-x8-U1K" secondAttribute="leading" id="oLb-5K-nrl"/>
+                                    <constraint firstAttribute="trailing" secondItem="mHj-Mo-wzv" secondAttribute="trailing" constant="17" id="opf-AI-tjH"/>
+                                    <constraint firstItem="Got-x8-U1K" firstAttribute="firstBaseline" secondItem="k6S-tw-kni" secondAttribute="firstBaseline" id="oxt-m3-DA1"/>
+                                    <constraint firstItem="mHj-Mo-wzv" firstAttribute="leading" secondItem="qc3-i5-UZT" secondAttribute="leading" id="szM-3P-R7t"/>
+                                    <constraint firstItem="qc3-i5-UZT" firstAttribute="top" secondItem="mHj-Mo-wzv" secondAttribute="bottom" constant="10" symbolic="YES" id="xQc-wZ-XJU"/>
+                                    <constraint firstItem="qc3-i5-UZT" firstAttribute="leading" secondItem="HMK-iO-O5i" secondAttribute="leading" id="zw0-bF-Wcw"/>
+                                </constraints>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="View" identifier="2" id="C8m-h0-NnB">
+                            <view key="view" id="RyS-4c-ou8">
+                                <rect key="frame" x="10" y="33" width="228" height="375"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N0A-m2-i8T">
+                                        <rect key="frame" x="15" y="356" width="37" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Near:" id="f0o-3H-vg5">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wXk-yI-Tev">
+                                        <rect key="frame" x="115" y="353" width="96" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="Uav-pA-Xic">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="3oI-Tq-QMI"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5dt-7N-qYv">
+                                        <rect key="frame" x="15" y="330" width="27" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Far:" id="fAM-0k-zGz">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="36J-4P-1sS">
+                                        <rect key="frame" x="115" y="327" width="96" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="30" drawsBackground="YES" id="Lid-vs-OJg">
+                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="cV9-HA-xaL"/>
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="36J-4P-1sS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5dt-7N-qYv" secondAttribute="trailing" constant="8" symbolic="YES" id="7Sz-Ud-1uW"/>
+                                    <constraint firstItem="N0A-m2-i8T" firstAttribute="leading" secondItem="RyS-4c-ou8" secondAttribute="leading" constant="17" id="AO4-P2-rna"/>
+                                    <constraint firstAttribute="trailing" secondItem="wXk-yI-Tev" secondAttribute="trailing" constant="17" id="BW8-FT-6eg"/>
+                                    <constraint firstItem="wXk-yI-Tev" firstAttribute="trailing" secondItem="36J-4P-1sS" secondAttribute="trailing" id="ELQ-EA-5to"/>
+                                    <constraint firstItem="N0A-m2-i8T" firstAttribute="top" secondItem="RyS-4c-ou8" secondAttribute="top" constant="3" id="jN5-MO-iIr"/>
+                                    <constraint firstItem="wXk-yI-Tev" firstAttribute="leading" secondItem="36J-4P-1sS" secondAttribute="leading" id="jpj-Uq-Tu7"/>
+                                    <constraint firstItem="wXk-yI-Tev" firstAttribute="leading" secondItem="N0A-m2-i8T" secondAttribute="trailing" constant="65" id="qCc-g0-Qzp"/>
+                                    <constraint firstItem="N0A-m2-i8T" firstAttribute="leading" secondItem="5dt-7N-qYv" secondAttribute="leading" id="sGl-9T-qrU"/>
+                                    <constraint firstItem="36J-4P-1sS" firstAttribute="top" secondItem="wXk-yI-Tev" secondAttribute="bottom" constant="5" id="t80-UZ-ofw"/>
+                                    <constraint firstItem="N0A-m2-i8T" firstAttribute="baseline" secondItem="wXk-yI-Tev" secondAttribute="baseline" id="vVw-5Q-M1h"/>
+                                    <constraint firstItem="5dt-7N-qYv" firstAttribute="baseline" secondItem="36J-4P-1sS" secondAttribute="baseline" id="xRa-7D-avW"/>
+                                </constraints>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
             </subviews>
+            <constraints>
+                <constraint firstItem="TCR-Jr-Xrg" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="12" symbolic="YES" id="1Ga-mf-3sn"/>
+                <constraint firstItem="TCR-Jr-Xrg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="501" id="57k-Fu-s9b"/>
+                <constraint firstAttribute="bottom" secondItem="TCR-Jr-Xrg" secondAttribute="bottom" constant="340" id="cdu-9U-TJw"/>
+                <constraint firstAttribute="trailing" secondItem="TCR-Jr-Xrg" secondAttribute="trailing" constant="23" id="mTF-ma-U25"/>
+            </constraints>
             <point key="canvasLocation" x="23" y="369.5"/>
         </customView>
         <viewController id="NFN-fq-5sy" customClass="GKSCameraController"/>
+        <userDefaultsController representsSharedInstance="YES" id="HFF-pk-F7y"/>
     </objects>
 </document>

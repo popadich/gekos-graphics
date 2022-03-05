@@ -139,16 +139,6 @@
                         <binding destination="-2" name="value" keyPath="self.representedObject.visibleSurfaceFlag" id="Mj1-qC-n22"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bse-rx-SH8">
-                    <rect key="frame" x="157" y="44" width="113" height="27"/>
-                    <buttonCell key="cell" type="check" title="Use Look At" bezelStyle="regularSquare" imagePosition="left" borderStyle="border" inset="2" id="GI2-dB-Rnx">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.useLookAt" id="DtG-AE-UeR"/>
-                    </connections>
-                </button>
                 <box borderType="line" title="Camera" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ezx-uv-pjo">
                     <rect key="frame" x="406" y="131" width="195" height="123"/>
                     <view key="contentView" id="tQ3-aH-e1a">
@@ -365,7 +355,6 @@
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Bse-rx-SH8" secondAttribute="trailing" constant="346" id="0Qu-0X-jlf"/>
                 <constraint firstItem="Ezx-uv-pjo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lfP-U2-WOE" secondAttribute="trailing" constant="95" id="0yG-L5-hPu"/>
                 <constraint firstItem="Ezx-uv-pjo" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="1Az-sG-FvA"/>
                 <constraint firstItem="UZn-Xn-tiF" firstAttribute="firstBaseline" secondItem="utE-Yr-fbs" secondAttribute="firstBaseline" id="1IH-3D-u9p"/>
@@ -373,7 +362,6 @@
                 <constraint firstItem="ZFo-a9-4zp" firstAttribute="leading" secondItem="IJC-mu-i9v" secondAttribute="trailing" constant="38" id="1Z9-WS-73n"/>
                 <constraint firstItem="pZS-0I-YEc" firstAttribute="top" secondItem="utE-Yr-fbs" secondAttribute="bottom" constant="8" symbolic="YES" id="1f3-1H-nDQ"/>
                 <constraint firstItem="2qG-eK-CKO" firstAttribute="leading" secondItem="iWx-7M-byz" secondAttribute="leading" id="3Nk-5f-x18"/>
-                <constraint firstItem="Bse-rx-SH8" firstAttribute="leading" secondItem="LR6-BI-tcW" secondAttribute="trailing" constant="8" symbolic="YES" id="7Oy-Z8-k2O"/>
                 <constraint firstItem="IJC-mu-i9v" firstAttribute="firstBaseline" secondItem="pZS-0I-YEc" secondAttribute="firstBaseline" id="8Qy-sf-01s"/>
                 <constraint firstItem="Zzv-ZE-YXy" firstAttribute="trailing" secondItem="utE-Yr-fbs" secondAttribute="trailing" id="8hz-0y-4fP"/>
                 <constraint firstItem="Qgq-8w-Aon" firstAttribute="leading" secondItem="iWx-7M-byz" secondAttribute="trailing" constant="9" id="9d7-Xx-Ven"/>
@@ -391,7 +379,6 @@
                 <constraint firstItem="YsV-SS-ctN" firstAttribute="top" secondItem="pZS-0I-YEc" secondAttribute="bottom" constant="8" symbolic="YES" id="Tma-6D-qtY"/>
                 <constraint firstItem="ZFo-a9-4zp" firstAttribute="leading" secondItem="lfP-U2-WOE" secondAttribute="leading" id="VyQ-E8-Tl9"/>
                 <constraint firstItem="vZR-EG-tOp" firstAttribute="leading" secondItem="lfP-U2-WOE" secondAttribute="leading" id="X1L-9v-NW3"/>
-                <constraint firstItem="Bse-rx-SH8" firstAttribute="centerY" secondItem="LR6-BI-tcW" secondAttribute="centerY" id="XcE-Mg-ywp"/>
                 <constraint firstItem="GQB-q9-TdK" firstAttribute="top" secondItem="Ezx-uv-pjo" secondAttribute="bottom" constant="8" symbolic="YES" id="fQJ-Ws-uDp"/>
                 <constraint firstItem="LR6-BI-tcW" firstAttribute="leading" secondItem="YsV-SS-ctN" secondAttribute="leading" id="gTz-oe-CWv"/>
                 <constraint firstItem="utE-Yr-fbs" firstAttribute="leading" secondItem="pZS-0I-YEc" secondAttribute="leading" id="kAc-PY-l05"/>

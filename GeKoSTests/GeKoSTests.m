@@ -45,7 +45,7 @@
     XCTAssertEqual([lookAtFlag boolValue], NO);
     
     NSNumber* perpectiveDistance = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-    XCTAssertEqual([perpectiveDistance floatValue], 1.0);
+    XCTAssertEqual([perpectiveDistance floatValue], 2.0);
     
     NSNumber* viewPortWidth = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefViewWidth];
     XCTAssertEqual([viewPortWidth floatValue], 400.0);
