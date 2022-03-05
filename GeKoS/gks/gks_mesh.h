@@ -10,6 +10,14 @@
 
 #include "gks_types.h"
 
+typedef enum {
+    kCubeKind = 1,
+    kSphereKind,
+    kPyramidKind,
+    kSpaceShuttleKind,
+    kHouseKind
+} ObjectKind;
+
 #define GKS_CUBE_VERTEX_COUNT    8
 #define GKS_CUBE_POLYGON_COUNT   6
 

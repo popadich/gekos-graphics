@@ -13,7 +13,7 @@
     Gfloat B;
     Gfloat C;
     Gfloat theta;
-    Matrix_4 m;
+    Matrix_3 m;
 }
 @end
 
@@ -37,7 +37,7 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-bool isIdentity_2(Matrix_3 matrix)
+bool isIdentity_2(Matrix_2 matrix)
 {
     bool identityTrue = true;
     for (int i=0; i<3; i++) {
@@ -56,7 +56,7 @@ bool isIdentity_2(Matrix_3 matrix)
     return identityTrue;
 }
 
-bool isIdentity_3(Matrix_4 matrix)
+bool isIdentity_3(Matrix_3 matrix)
 {
     bool identityTrue = true;
     for (int i=0; i<4; i++) {
@@ -76,7 +76,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testIdentityMatrix2 {
-    Matrix_3 im;
+    Matrix_2 im;
     
     gks_set_identity_matrix_2(im);
     XCTAssertEqual(im[0][0], 1.0, @"Not 1.0 on diagonal");
@@ -96,7 +96,7 @@ bool isIdentity_3(Matrix_4 matrix)
 - (void)testIdentityMatrix3 {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    Matrix_4 im;
+    Matrix_3 im;
     
     gks_set_identity_matrix_3(im);
     XCTAssertEqual(im[0][0], 1.0, @"Not 1.0 on diagonal");
@@ -307,8 +307,8 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testCopyMatrix3 {
-    Matrix_4 s;
-    Matrix_4 M = {
+    Matrix_3 s;
+    Matrix_3 M = {
         {1.0, 2.0,  3.0, -4.0},
         {2.0, 4.0,  6.0,  8.0},
         {3.0, 6.0, -2.0,  1.0},
@@ -357,18 +357,6 @@ bool isIdentity_3(Matrix_4 matrix)
     XCTAssertEqualWithAccuracy(p0.x, 1.0, 0.001);
     XCTAssertEqualWithAccuracy(p0.y, 1.0, 0.001);
     XCTAssertEqualWithAccuracy(p0.z, 1.0, 0.001);
-}
-
-- (void)testTransformVector4 {
-    Vector_4 v = {1.0, 1.0, 1.0, 1.0};
-    Vector_4 vn;
-    
-    gks_create_y_rotation_matrix_3(theta, m);
-    gks_transform_vector_4(m, v, vn);
-    XCTAssertEqualWithAccuracy(vn[0], 0.966 - 0.259, 0.001);
-    XCTAssertEqualWithAccuracy(vn[1], 1.0, 0.001);
-    XCTAssertEqualWithAccuracy(vn[2], 0.966 + 0.259, 0.001);
-    XCTAssertEqualWithAccuracy(vn[3], 1.0, 0.001);
 }
 
 - (void)testPlaneEquation {
@@ -563,7 +551,7 @@ bool isIdentity_3(Matrix_4 matrix)
 
 // MARK: PROJECTION
 - (void)testProjectionInit {
-    Matrix_4 *projMatrix;
+    Matrix_3 *projMatrix;
     
     gks_init_projection();
     projMatrix = gks_get_projection_matrix();
@@ -575,7 +563,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testProjectionOrthogonalEnable {
-    Matrix_4 *projMatrix;
+    Matrix_3 *projMatrix;
     
     gks_enable_orthogonal_projection();
     projMatrix = gks_get_projection_matrix();
@@ -589,7 +577,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testProjectionPerspectiveEnable {
-    Matrix_4 *projMatrix;
+    Matrix_3 *projMatrix;
 
     gks_enable_perspective_projection();
     gks_set_perspective_depth(1.0);
@@ -756,7 +744,7 @@ bool isIdentity_3(Matrix_4 matrix)
 
 // MARK: MODEL
 - (void)testModelWorldInit {
-    Matrix_4 *world_model_matrix;
+    Matrix_3 *world_model_matrix;
     
     gks_init_world_model();
     world_model_matrix = gks_get_world_model_matrix();
@@ -769,7 +757,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testModelWorldGetMatrix {
-    Matrix_4 *world_model_matrix;
+    Matrix_3 *world_model_matrix;
     
     gks_init_world_model();
     world_model_matrix = gks_get_world_model_matrix();
@@ -786,7 +774,7 @@ bool isIdentity_3(Matrix_4 matrix)
 
 // MARK: VIEW ORIENT
 - (void)testViewOrientInit {
-    Matrix_4 *theViewMatrixPtr;
+    Matrix_3 *theViewMatrixPtr;
     gks_init_view_plane();
     
     theViewMatrixPtr = gks_get_view_matrix();
@@ -797,7 +785,7 @@ bool isIdentity_3(Matrix_4 matrix)
 
 - (void)testViewOrientSetMatrix {
     
-    Matrix_4 *theViewMatrixPtr;
+    Matrix_3 *theViewMatrixPtr;
     
     gks_init_view_plane();
     gks_set_view_matrix(m);
@@ -815,7 +803,7 @@ bool isIdentity_3(Matrix_4 matrix)
     Gpt_3 camera;
     Gpt_3 plane;
     Gpt_3 v;
-    Matrix_4 theResultMatrix;
+    Matrix_3 theResultMatrix;
     
     gks_init_view_plane();
     
@@ -839,7 +827,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testViewOrientLookAtZero {
-    Matrix_4 theResultMatrix;
+    Matrix_3 theResultMatrix;
     Gpt_3 observer;
     Gpt_3 look_at;
     Gpt_3 v;
@@ -869,7 +857,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testViewOrientLookAtZ2 {
-    Matrix_4 theResultMatrix;
+    Matrix_3 theResultMatrix;
     Gpt_3 observer;
     Gpt_3 look_at;
     Gpt_3 v;
@@ -899,7 +887,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testViewOrientLookAtX4 {
-    Matrix_4 theResultMatrix;
+    Matrix_3 theResultMatrix;
     Gpt_3 observer;
     Gpt_3 look_at;
     Gpt_3 v;
@@ -940,7 +928,7 @@ bool isIdentity_3(Matrix_4 matrix)
 }
 
 - (void)testViewOrientLookAtY4 {
-    Matrix_4 theResultMatrix;
+    Matrix_3 theResultMatrix;
     Gpt_3 observer;
     Gpt_3 look_at;
     Gpt_3 v;

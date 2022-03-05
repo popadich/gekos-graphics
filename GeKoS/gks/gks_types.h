@@ -1,6 +1,6 @@
 //
 //  gks_types.h
-//  gks-graphics
+//  GeKoS
 //
 //  Created by Alex Popadich on 12/1/21.
 //
@@ -14,7 +14,6 @@ typedef int Gint;
 typedef double Gfloat;
 typedef char Gchar;
 
-/*  2-D  */
 typedef struct
 {
     Gfloat x;
@@ -29,24 +28,7 @@ typedef struct
     Gfloat ymax;
 } Glim_2;
 
-typedef Gfloat Matrix_3[3][3];
-
-
-/*  3-D  */
-typedef enum {
-    kCubeKind = 1,
-    kSphereKind,
-    kPyramidKind,
-    kSpaceShuttleKind,
-    kHouseKind
-} ObjectKind;
-
-
-typedef enum {
-    kOrthogonalProjection = 0,
-    kPerspectiveProjection,
-    kAxonometricProjection
-} ProjectionType;
+typedef Gfloat Matrix_2[3][3];
 
 typedef struct {
     Gfloat x;
@@ -66,13 +48,13 @@ typedef struct
     Gfloat zmax;
 } Glim_3;
 
-typedef Gfloat Matrix_4[4][4];
-typedef Gfloat Vector_4[4];
+typedef Gfloat Matrix_3[4][4];
+typedef Gfloat Vector_3[4];
 
 // Union of Gpt_3 points and Vector_4 arrays
 union vector3d {
     Gpt_3 vecpos;
-    Vector_4 vec_arr;
+    Vector_3 vec_arr;
 };
 typedef union vector3d GVector;
 typedef GVector *GVectorPtr;

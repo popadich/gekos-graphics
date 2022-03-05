@@ -134,7 +134,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (void)changeRoll:(NSNumber *)angle
 {
     Gpt_3 comp;
-    Matrix_4 T;
+    Matrix_3 T;
 
     double theta = [self.camera.yaw doubleValue];
     double psi = [self.camera.pitch doubleValue];
@@ -155,7 +155,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (void)changePitch:(NSNumber *)angle
 {
     Gpt_3 comp;
-    Matrix_4 T;
+    Matrix_3 T;
     
     double psi = [angle doubleValue];
     double theta = [self.camera.yaw doubleValue];
@@ -177,7 +177,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (void)changeYaw:(NSNumber *)angle
 {
     Gpt_3 comp;
-    Matrix_4 T;
+    Matrix_3 T;
 
     double theta = [angle doubleValue];
     double psi = [self.camera.pitch doubleValue];

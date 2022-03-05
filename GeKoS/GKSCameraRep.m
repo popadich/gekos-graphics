@@ -45,7 +45,6 @@
         _roll = @0.0;
 
         // TODO: get from preference
-        _projectionType = [NSNumber numberWithInt:kPerspectiveProjection];
         _perspectiveProjectionFlag = [NSNumber numberWithBool:YES];
         
         _visibleSurfaceFlag = [NSNumber numberWithBool:NO];

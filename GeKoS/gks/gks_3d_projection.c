@@ -8,7 +8,7 @@
 #include "gks_3d_projection.h"
 
 
-static Matrix_4            gProjectionMatrix_3;
+static Matrix_3            gProjectionMatrix_3;
 static ProjectionType      gProjectionType = kOrthogonalProjection;
 static Gfloat              gPerspectiveDepth;
 
@@ -52,7 +52,7 @@ void gks_enable_perspective_projection(void)
     gProjectionType = kPerspectiveProjection;
 }
 
-Matrix_4 *gks_get_projection_matrix(void)
+Matrix_3 *gks_get_projection_matrix(void)
 {
     return &gProjectionMatrix_3;
 }

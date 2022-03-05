@@ -9,11 +9,11 @@
 #include "gks_3d_matrix.h"
 
 // P R I V A T E    O K
-static Matrix_4      gViewMatrix_4;       // View Plane Orientation Matrix
+static Matrix_3      gViewMatrix_4;       // View Plane Orientation Matrix
 
 void gks_init_view_plane(void)
 {
-    Matrix_4 viewTransMatrix = {
+    Matrix_3 viewTransMatrix = {
         {1.0, 0.0, 0.0, 0.0},
         {0.0, 1.0, 0.0, 0.0},
         {0.0, 0.0, 1.0, 0.0},
@@ -39,14 +39,14 @@ void gks_init_view_plane(void)
 // VUP the view plane up vector. The heads up.
 
 
-void gks_set_view_matrix(Matrix_4 viewMatrix)
+void gks_set_view_matrix(Matrix_3 viewMatrix)
 {
     for(int i=0; i<4; i++)
         for (int j=0; j<4; j++)
             gViewMatrix_4[i][j] = viewMatrix[i][j];
 }
 
-Matrix_4 *gks_get_view_matrix(void)
+Matrix_3 *gks_get_view_matrix(void)
 {
     return &gViewMatrix_4;
 }
@@ -55,7 +55,7 @@ Matrix_4 *gks_get_view_matrix(void)
 // When (xn,yn,zn) is set to (0,1,0) things blow up
 void gks_create_view_matrix(double xo, double yo, double zo,
                         double xn, double yn, double zn,
-                        double xv, double yv, double zv, Matrix_4 result) {
+                        double xv, double yv, double zv, Matrix_3 result) {
     Gpt_3 u,v,un,vn,nn;
     Gpt_3 x;
     Gfloat normalization_coeff;
@@ -106,7 +106,7 @@ void gks_create_view_matrix(double xo, double yo, double zo,
 
 void gks_compute_look_at_matrix(double xo, double yo, double zo,
                             double xa, double ya, double za,
-                            double xv, double yv, double zv, Matrix_4 result)
+                            double xv, double yv, double zv, Matrix_3 result)
 {
     Gpt_3 U, V, N, un, vn, nn;
 

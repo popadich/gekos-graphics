@@ -10,14 +10,14 @@
 
 
 
-void gks_set_identity_matrix_2(Matrix_3 result)
+void gks_set_identity_matrix_2(Matrix_2 result)
 {
     result[0][0] = result[1][1] = result[2][2] = 1.0;
     result[0][1] = result[1][0] = result[2][0] = 0.0;
     result[0][2] = result[1][2] = result[2][1] = 0.0;
 }
 
-void gks_set_identity_matrix_3(Matrix_4 result)
+void gks_set_identity_matrix_3(Matrix_3 result)
 {
     result[0][0] = result[1][1] = result[2][2] = result[3][3] = 1.0;
     result[0][1] = result[0][2] = result[0][3] = 0.0;
@@ -28,7 +28,7 @@ void gks_set_identity_matrix_3(Matrix_4 result)
 
 // Evaluates a scaling matrix with a fixed point at
 //    the origin and scale factors sx, sy and sz.
-void gks_create_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 result)
+void gks_create_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_3 result)
 {
     result[0][1] = result[0][2] = result[0][3]
         = result[1][0] = result[1][2] = result[1][3]
@@ -40,7 +40,7 @@ void gks_create_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 resul
     result[3][3] = 1.0;
 }
 
-void gks_create_x_rotation_matrix_3(Gfloat theta, Matrix_4 result)
+void gks_create_x_rotation_matrix_3(Gfloat theta, Matrix_3 result)
 {
     result[1][1] = result[2][2] = cos(theta);
     result[2][1] = sin(theta);
@@ -51,7 +51,7 @@ void gks_create_x_rotation_matrix_3(Gfloat theta, Matrix_4 result)
     = result[0][3] = result[1][3] = result[2][3] = 0.0;
 }
 
-void gks_create_y_rotation_matrix_3(Gfloat theta, Matrix_4 result)
+void gks_create_y_rotation_matrix_3(Gfloat theta, Matrix_3 result)
 {
     result[0][0] = result[2][2] = cos(theta);
     result[0][2] = sin(theta);
@@ -62,7 +62,7 @@ void gks_create_y_rotation_matrix_3(Gfloat theta, Matrix_4 result)
     = result[0][3] = result[1][3] = result[2][3] = 0.0;
 }
 
-void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_4 result)
+void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_3 result)
 {
     result[0][0] = result[1][1] = cos(theta);
     result[1][0] = sin(theta);
@@ -73,7 +73,7 @@ void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_4 result)
     = result[0][3] = result[1][3] = result[2][3] = 0.0;
 }
 
-void gks_create_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 result)
+void gks_create_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_3 result)
 {
     result[0][0] = result[1][1] = result[2][2] = result[3][3] = 1.0;
     result[0][1] = result[0][2] = result[1][0] = result[1][2] = 0.0;
@@ -85,10 +85,10 @@ void gks_create_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 r
 
 
 // Forms the matrix product result = A*B
-void accumulate_matrices_3(Matrix_4 matrix_a, Matrix_4 matrix_b, Matrix_4 result)
+void accumulate_matrices_3(Matrix_3 matrix_a, Matrix_3 matrix_b, Matrix_3 result)
 {
     int i,j,k;
-    Matrix_4    temp;
+    Matrix_3    temp;
     
     for(i=0;i<4;i++) for(j=0;j<4;j++)
         {
@@ -100,43 +100,43 @@ void accumulate_matrices_3(Matrix_4 matrix_a, Matrix_4 matrix_b, Matrix_4 result
         result[i][j]=temp[i][j];
 }
 
-void gks_accumulate_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_4 m)
+void gks_accumulate_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_3 m)
 {
-    Matrix_4 temp;
+    Matrix_3 temp;
     gks_create_scaling_matrix_3(sx,sy,sz,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_x_rotation_matrix_3(Gfloat theta, Matrix_4 m)
+void gks_accumulate_x_rotation_matrix_3(Gfloat theta, Matrix_3 m)
 {
-    Matrix_4 temp;
+    Matrix_3 temp;
     gks_create_x_rotation_matrix_3(theta,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_y_rotation_matrix_3(Gfloat theta, Matrix_4 m)
+void gks_accumulate_y_rotation_matrix_3(Gfloat theta, Matrix_3 m)
 {
-    Matrix_4 temp;
+    Matrix_3 temp;
     gks_create_y_rotation_matrix_3(theta,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_4 m)
+void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_3 m)
 {
-    Matrix_4 temp;
+    Matrix_3 temp;
     gks_create_z_rotation_matrix_3(theta,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_4 m)
+void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_3 m)
 {
-    Matrix_4 temp;
+    Matrix_3 temp;
     gks_create_translation_matrix_3(dx,dy,dz,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
 // Copies matrix A -> B
-void gks_copy_matrix_3(Matrix_4 matrix_a, Matrix_4 matrix_b)
+void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_b)
 {
     int i,j;
     
@@ -157,30 +157,13 @@ void gks_copy_matrix_3(Matrix_4 matrix_a, Matrix_4 matrix_b)
 //    [           ] [pz]
 //    [           ] [1]
 //
-void gks_transform_point_3(Matrix_4 tm, Gpt_3 *p1, Gpt_3 *p2)
+void gks_transform_point_3(Matrix_3 tm, Gpt_3 *p1, Gpt_3 *p2)
 {
     p2->x = tm[0][3] + tm[0][0]*p1->x + tm[0][1]*p1->y + tm[0][2]*p1->z;
     p2->y = tm[1][3] + tm[1][0]*p1->x + tm[1][1]*p1->y + tm[1][2]*p1->z;
     p2->z = tm[2][3] + tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z;
 }
 
-
-// New point computed using homogenuous coordinates, but the order of multiplication
-// is different. To test the order of multiplication.
-//
-//   [v0]  [m1 m2 m3 m4]
-//   [v1]  [           ]
-//   [v2]  [           ]
-//   [v3]  [           ]
-//
-void gks_transform_vector_4(Matrix_4 tm, Vector_4 v, Vector_4 result)
-{
-    result[0] = tm[0][0]*v[0] + tm[1][0]*v[1] + tm[2][0]*v[2] + tm[3][0]*v[3];
-    result[1] = tm[0][1]*v[0] + tm[1][1]*v[1] + tm[2][1]*v[2] + tm[3][1]*v[3];
-    result[2] = tm[0][2]*v[0] + tm[1][2]*v[1] + tm[2][2]*v[2] + tm[3][2]*v[3];
-    result[3] = tm[0][3]*v[0] + tm[1][3]*v[1] + tm[2][3]*v[2] + tm[3][3]*v[3];
-
-}
 
 void gks_plane_equation_3(Gpt_3 p1, Gpt_3 p2, Gpt_3 p3, Gpt_3 *overloadPlane) {
     double A, B, C, D;
