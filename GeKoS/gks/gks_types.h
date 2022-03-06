@@ -10,46 +10,46 @@
 
 #define GKS_MIN_VERTEX_COUNT    7
 
-typedef int Gint;
-typedef double Gfloat;
-typedef char Gchar;
+typedef int GKSint;
+typedef double GKSfloat;
+typedef char GKSchar;
 
 typedef struct
 {
-    Gfloat x;
-    Gfloat y;
+    GKSfloat x;
+    GKSfloat y;
 } Gpt_2;
 
 typedef struct
 {
-    Gfloat xmin;
-    Gfloat xmax;
-    Gfloat ymin;
-    Gfloat ymax;
+    GKSfloat xmin;
+    GKSfloat xmax;
+    GKSfloat ymin;
+    GKSfloat ymax;
 } Glim_2;
 
-typedef Gfloat Matrix_2[3][3];
+typedef GKSfloat Matrix_2[3][3];
 
 typedef struct {
-    Gfloat x;
-    Gfloat y;
-    Gfloat z;
-    Gfloat w;
+    GKSfloat x;
+    GKSfloat y;
+    GKSfloat z;
+    GKSfloat w;
 } Gpt_3;
-typedef Gfloat *Gpt_3_Ptr;
+typedef GKSfloat *Gpt_3_Ptr;
 
 typedef struct
 {
-    Gfloat xmin;
-    Gfloat xmax;
-    Gfloat ymin;
-    Gfloat ymax;
-    Gfloat zmin;
-    Gfloat zmax;
+    GKSfloat xmin;
+    GKSfloat xmax;
+    GKSfloat ymin;
+    GKSfloat ymax;
+    GKSfloat zmin;
+    GKSfloat zmax;
 } Glim_3;
 
-typedef Gfloat Matrix_3[4][4];
-typedef Gfloat Vector_3[4];
+typedef GKSfloat Matrix_3[4][4];
+typedef GKSfloat Vector_3[4];
 
 // Union of Gpt_3 points and Vector_4 arrays
 union vector3d {
@@ -78,10 +78,10 @@ typedef GVector *GVectorPtr;
 */
 
 typedef struct {
-    Gfloat red;
-    Gfloat green;
-    Gfloat blue;
-    Gfloat alpha;
+    GKSfloat red;
+    GKSfloat green;
+    GKSfloat blue;
+    GKSfloat alpha;
 } Gcolor;
 
 
@@ -89,7 +89,7 @@ typedef struct {
 // by count vertex indexes (usually 3 or 4)
 // but potentially more. Make room by
 // modifying the GKS_MIN_VERTEX_COUNT constant.
-typedef Gint        Gpoly_3[GKS_MIN_VERTEX_COUNT];
+typedef GKSint      Gpoly_3[GKS_MIN_VERTEX_COUNT];
 
 typedef Gpt_3       *VertexArrayPtr;       // list of 3D points for each polygon
 typedef Gpoly_3     *PolygonArrayPtr;      // polygon list
@@ -97,8 +97,8 @@ typedef Gpoly_3     *PolygonArrayPtr;      // polygon list
 
 typedef struct
 {
-    Gint vertnum;
-    Gint polynum;
+    GKSint vertnum;
+    GKSint polynum;
     VertexArrayPtr vertices;
     PolygonArrayPtr polygons;
 } Object_3;

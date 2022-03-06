@@ -10,7 +10,7 @@
 
 static Matrix_3            gProjectionMatrix_3;
 static ProjectionType      gProjectionType = kOrthogonalProjection;
-static Gfloat              gPerspectiveDepth;
+static GKSfloat            gPerspectiveDepth;
 
 void gks_init_projection(void)
 {    
@@ -57,7 +57,7 @@ Matrix_3 *gks_get_projection_matrix(void)
     return &gProjectionMatrix_3;
 }
 
-void gks_set_perspective_depth(Gfloat distance)
+void gks_set_perspective_depth(GKSfloat distance)
 {
     gPerspectiveDepth = distance;
     
@@ -68,7 +68,7 @@ void gks_set_perspective_depth(Gfloat distance)
     }
 }
 
-Gfloat gks_get_perspective_depth(void)
+GKSfloat gks_get_perspective_depth(void)
 {
     return gPerspectiveDepth;
 }

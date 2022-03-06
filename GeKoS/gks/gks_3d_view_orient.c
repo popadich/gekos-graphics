@@ -58,22 +58,22 @@ void gks_create_view_matrix(double xo, double yo, double zo,
                         double xv, double yv, double zv, Matrix_3 result) {
     Gpt_3 u,v,un,vn,nn;
     Gpt_3 x;
-    Gfloat normalization_coeff;
+    GKSfloat normalization_coeff;
     
     Gpt_3 myUp, myNorm, myObs;
     myUp.x = xv; myUp.y = yv; myUp.z = zv;
     myNorm.x = xn; myNorm.y = yn; myNorm.z = zn;
     myObs.x = xo; myObs.y = yo; myObs.z = zo;
     
-    Gfloat *vup_ptr = (Gfloat *)(&myUp);
-    Gfloat *vpn_ptr = (Gfloat *)(&myNorm);
+    GKSfloat *vup_ptr = (GKSfloat *)(&myUp);
+    GKSfloat *vpn_ptr = (GKSfloat *)(&myNorm);
     
-    Gfloat *u_ptr = (Gfloat *)(&u);
-    Gfloat *v_ptr = (Gfloat *)(&v);
-    Gfloat *un_ptr = (Gfloat *)(&un);
-    Gfloat *vn_ptr = (Gfloat *)(&vn);
-    Gfloat *nn_ptr = (Gfloat *)(&nn);
-    Gfloat *x_ptr = (Gfloat *)(&x);
+    GKSfloat *u_ptr = (GKSfloat *)(&u);
+    GKSfloat *v_ptr = (GKSfloat *)(&v);
+    GKSfloat *un_ptr = (GKSfloat *)(&un);
+    GKSfloat *vn_ptr = (GKSfloat *)(&vn);
+    GKSfloat *nn_ptr = (GKSfloat *)(&nn);
+    GKSfloat *x_ptr = (GKSfloat *)(&x);
 
     normalization_coeff = vecdot(vup_ptr, vpn_ptr) / vecdot(vpn_ptr, vpn_ptr);
     vecscale(normalization_coeff, vpn_ptr, x_ptr);
@@ -118,16 +118,16 @@ void gks_compute_look_at_matrix(double xo, double yo, double zo,
     // This seems very kludgy. Hacking time!
     // I'm forcing a struct to be a pointer to an array of floats.
     // @TODO: use the vector pointer type.
-    Gfloat *vup_ptr = (Gfloat *)(&myUp);
-    Gfloat *lap_ptr = (Gfloat *)(&myLook);
-    Gfloat *vrp_ptr = (Gfloat *)(&myObs);
+    GKSfloat *vup_ptr = (GKSfloat *)(&myUp);
+    GKSfloat *lap_ptr = (GKSfloat *)(&myLook);
+    GKSfloat *vrp_ptr = (GKSfloat *)(&myObs);
     
-    Gfloat *U_ptr = (Gfloat *)(&U);
-    Gfloat *V_ptr = (Gfloat *)(&V);
-    Gfloat *N_ptr = (Gfloat *)(&N);
-    Gfloat *un_ptr = (Gfloat *)(&un);
-    Gfloat *vn_ptr = (Gfloat *)(&vn);
-    Gfloat *nn_ptr = (Gfloat *)(&nn);
+    GKSfloat *U_ptr = (GKSfloat *)(&U);
+    GKSfloat *V_ptr = (GKSfloat *)(&V);
+    GKSfloat *N_ptr = (GKSfloat *)(&N);
+    GKSfloat *un_ptr = (GKSfloat *)(&un);
+    GKSfloat *vn_ptr = (GKSfloat *)(&vn);
+    GKSfloat *nn_ptr = (GKSfloat *)(&nn);
 
     vecsub(vrp_ptr, lap_ptr, N_ptr);
     vecnormal(N_ptr, nn_ptr);

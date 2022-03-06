@@ -9,10 +9,10 @@
 #include "../GeKoS/gks/gks.h"
 
 @interface GeKoSCoreTests : XCTestCase {
-    Gfloat A;
-    Gfloat B;
-    Gfloat C;
-    Gfloat theta;
+    GKSfloat A;
+    GKSfloat B;
+    GKSfloat C;
+    GKSfloat theta;
     Matrix_3 im;
 }
 @end
@@ -556,9 +556,9 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 - (void)testVecAbsoluteValue {
     Gpt_3 va = {1.0, 2.0, 3.0, 0.0};
     Gpt_3 vb = {1.0, -2.0, -3.0, 0.0};
-    Gfloat sqrtof14 = 3.74165;
+    GKSfloat sqrtof14 = 3.74165;
     
-    Gfloat av = vecabsolutevalue((Gpt_3_Ptr)&va);
+    GKSfloat av = vecabsolutevalue((Gpt_3_Ptr)&va);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
     av = vecabsolutevalue((Gpt_3_Ptr)&vb);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
@@ -683,23 +683,23 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 - (void)testTransformInit {
     gks_trans_init_3();
     
-    Gint idx = gks_trans_get_curr_view_idx();
+    GKSint idx = gks_trans_get_curr_view_idx();
     XCTAssertEqual(idx, -1, @"Index should be out of bounds");
     
 }
 
 - (void)testTransformSetIndex {
-    Gint idx = 0;
+    GKSint idx = 0;
     gks_trans_set_curr_view_idx(idx);
     idx = gks_trans_get_curr_view_idx();
     XCTAssertEqual(idx, 0);
 }
 
 - (void)testTransformCreate {
-    const Gint word_volume_index = 0;
+    const GKSint word_volume_index = 0;
     Glim_3 winlims = { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 };
     Glim_3 winlims2 = { -10.0, 20.0, -30.0, 40.0, -50.0, 60.0 };
-    Gint view_num = 0;
+    GKSint view_num = 0;
     
     gks_trans_init_3();
     gks_trans_create_transform_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, winlims);
@@ -780,7 +780,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
     Glim_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     Gpt_3 p1 = {1.0, 1.0, 1.0, 1.0};
     Gpt_3 p2 = {0.0, 0.0, 0.0, 0.0};
-    Gint viewNum = 0;
+    GKSint viewNum = 0;
     
     gks_trans_init_3();
     
@@ -802,9 +802,9 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
     Glim_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     Gpt_3 p1 = {1.0, 1.0, 1.0, 1.0};
     Gpt_3 p2 = {0.5, 0.5, 0.0, 1.0};
-    Gint u, v;
+    GKSint u, v;
     
-    Gint viewNum = 0;
+    GKSint viewNum = 0;
     
     gks_trans_init_3();
     
@@ -834,9 +834,9 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
     
     gks_init_world_model();
     world_model_matrix = gks_get_world_model_matrix();
-    Gfloat avalue = (*world_model_matrix)[0][0];
-    Gfloat bvalue = (*world_model_matrix)[1][1];
-    Gfloat evalue = (*world_model_matrix)[2][1];
+    GKSfloat avalue = (*world_model_matrix)[0][0];
+    GKSfloat bvalue = (*world_model_matrix)[1][1];
+    GKSfloat evalue = (*world_model_matrix)[2][1];
     XCTAssertEqual(avalue, 1.0);
     XCTAssertEqual(bvalue, 1.0);
     XCTAssertEqual(evalue, 0.0);
@@ -847,10 +847,10 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
     
     gks_init_world_model();
     world_model_matrix = gks_get_world_model_matrix();
-    Gfloat avalue = (*world_model_matrix)[0][0];
-    Gfloat bvalue = (*world_model_matrix)[1][1];
-    Gfloat cvalue = (*world_model_matrix)[2][2];
-    Gfloat dvalue = (*world_model_matrix)[3][3];
+    GKSfloat avalue = (*world_model_matrix)[0][0];
+    GKSfloat bvalue = (*world_model_matrix)[1][1];
+    GKSfloat cvalue = (*world_model_matrix)[2][2];
+    GKSfloat dvalue = (*world_model_matrix)[3][3];
     XCTAssertEqual(avalue, 1.0);
     XCTAssertEqual(bvalue, 1.0);
     XCTAssertEqual(cvalue, 1.0);

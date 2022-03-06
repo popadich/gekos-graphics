@@ -26,7 +26,7 @@ void gks_set_identity_matrix_3(Matrix_3 result)
 
 // Evaluates a scaling matrix with a fixed point at
 //    the origin and scale factors sx, sy and sz.
-void gks_create_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_3 result)
+void gks_create_scaling_matrix_3(GKSfloat sx, GKSfloat sy, GKSfloat sz, Matrix_3 result)
 {
     result[0][1] = result[0][2] = result[0][3]
         = result[1][0] = result[1][2] = result[1][3]
@@ -38,7 +38,7 @@ void gks_create_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_3 resul
     result[3][3] = 1.0;
 }
 
-void gks_create_x_rotation_matrix_3(Gfloat theta, Matrix_3 result)
+void gks_create_x_rotation_matrix_3(GKSfloat theta, Matrix_3 result)
 {
     result[1][1] = result[2][2] = cos(theta);
     result[2][1] = sin(theta);
@@ -49,7 +49,7 @@ void gks_create_x_rotation_matrix_3(Gfloat theta, Matrix_3 result)
     = result[0][3] = result[1][3] = result[2][3] = 0.0;
 }
 
-void gks_create_y_rotation_matrix_3(Gfloat theta, Matrix_3 result)
+void gks_create_y_rotation_matrix_3(GKSfloat theta, Matrix_3 result)
 {
     result[0][0] = result[2][2] = cos(theta);
     result[0][2] = sin(theta);
@@ -60,7 +60,7 @@ void gks_create_y_rotation_matrix_3(Gfloat theta, Matrix_3 result)
     = result[0][3] = result[1][3] = result[2][3] = 0.0;
 }
 
-void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_3 result)
+void gks_create_z_rotation_matrix_3(GKSfloat theta, Matrix_3 result)
 {
     result[0][0] = result[1][1] = cos(theta);
     result[1][0] = sin(theta);
@@ -71,7 +71,7 @@ void gks_create_z_rotation_matrix_3(Gfloat theta, Matrix_3 result)
     = result[0][3] = result[1][3] = result[2][3] = 0.0;
 }
 
-void gks_create_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_3 result)
+void gks_create_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, Matrix_3 result)
 {
     result[0][0] = result[1][1] = result[2][2] = result[3][3] = 1.0;
     result[0][1] = result[0][2] = result[1][0] = result[1][2] = 0.0;
@@ -98,35 +98,35 @@ void accumulate_matrices_3(Matrix_3 matrix_a, Matrix_3 matrix_b, Matrix_3 result
         result[i][j]=temp[i][j];
 }
 
-void gks_accumulate_scaling_matrix_3(Gfloat sx, Gfloat sy, Gfloat sz, Matrix_3 m)
+void gks_accumulate_scaling_matrix_3(GKSfloat sx, GKSfloat sy, GKSfloat sz, Matrix_3 m)
 {
     Matrix_3 temp;
     gks_create_scaling_matrix_3(sx,sy,sz,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_x_rotation_matrix_3(Gfloat theta, Matrix_3 m)
+void gks_accumulate_x_rotation_matrix_3(GKSfloat theta, Matrix_3 m)
 {
     Matrix_3 temp;
     gks_create_x_rotation_matrix_3(theta,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_y_rotation_matrix_3(Gfloat theta, Matrix_3 m)
+void gks_accumulate_y_rotation_matrix_3(GKSfloat theta, Matrix_3 m)
 {
     Matrix_3 temp;
     gks_create_y_rotation_matrix_3(theta,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_z_rotation_matrix_3(Gfloat theta, Matrix_3 m)
+void gks_accumulate_z_rotation_matrix_3(GKSfloat theta, Matrix_3 m)
 {
     Matrix_3 temp;
     gks_create_z_rotation_matrix_3(theta,temp);
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix_3 m)
+void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, Matrix_3 m)
 {
     Matrix_3 temp;
     gks_create_translation_matrix_3(dx,dy,dz,temp);
@@ -234,12 +234,12 @@ void gks_multiply_matrix_3(Matrix_3 a, Matrix_3 b, Matrix_3 r)
 // function in order to populate it with teh results.
 //
 
-Gfloat vecdot(Gpt_3_Ptr a, Gpt_3_Ptr b)
+GKSfloat vecdot(Gpt_3_Ptr a, Gpt_3_Ptr b)
 {
     return (a[0]*b[0] + a[1]*b[1] + a[2]*b[2]);
 }
 
-void vecprod(Gfloat *a, Gfloat *b, Gfloat *c)
+void vecprod(GKSfloat *a, GKSfloat *b, GKSfloat *c)
 {
     c[0]=a[1]*b[2]-b[1]*a[2];
     c[1]=b[0]*a[2]-b[2]*a[0];    // smart reverse for sign change
@@ -248,19 +248,19 @@ void vecprod(Gfloat *a, Gfloat *b, Gfloat *c)
 
 void vecsub(Gpt_3_Ptr a, Gpt_3_Ptr b, Gpt_3_Ptr c)
 {
-    Gint k;
+    GKSint k;
     for (k=0; k<3; k++) c[k]=a[k]-b[k];
 }
 
 void vecadd(GVector a, GVector b, GVectorPtr c)
 {
-    Gint k;
+    GKSint k;
     for (k=0; k<3; k++) {
         c->vec_arr[k] = a.vec_arr[k]+b.vec_arr[k];
     }
 }
 
-void vecscale(Gfloat k, Gpt_3_Ptr a, Gpt_3_Ptr b)
+void vecscale(GKSfloat k, Gpt_3_Ptr a, Gpt_3_Ptr b)
 {
     b[0]=a[0]*k;
     b[1]=a[1]*k;
@@ -269,7 +269,7 @@ void vecscale(Gfloat k, Gpt_3_Ptr a, Gpt_3_Ptr b)
 
 void vecnormal(Gpt_3_Ptr vec, Gpt_3_Ptr normal)
 {
-    Gfloat length = sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
+    GKSfloat length = sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
     
     normal[0] = vec[0]/length;
     normal[1] = vec[1]/length;
@@ -277,7 +277,7 @@ void vecnormal(Gpt_3_Ptr vec, Gpt_3_Ptr normal)
     
 }
 
-Gfloat vecabsolutevalue(Gpt_3_Ptr vec)
+GKSfloat vecabsolutevalue(Gpt_3_Ptr vec)
 {
     return sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
 }

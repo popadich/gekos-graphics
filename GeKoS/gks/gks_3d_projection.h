@@ -25,7 +25,7 @@ void gks_enable_perspective_projection(void);
 
 Matrix_3 *gks_get_projection_matrix(void);
 
-void gks_set_perspective_depth(Gfloat distance);
-Gfloat gks_get_perspective_depth(void);
+void gks_set_perspective_depth(GKSfloat distance);
+GKSfloat gks_get_perspective_depth(void);
 
 #endif /* gks_3d_projection_h */
