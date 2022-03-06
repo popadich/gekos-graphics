@@ -408,6 +408,32 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 }
 
+- (void)testMultiplyMatrix {
+    Matrix_3 m1 = {
+        { 1.0,  2.0,  3.0,  0.0},
+        { 4.0,  5.0,  6.0,  -1.0},
+        { 7.0,  8.0,  9.0,  0.0},
+        {-7.0, -8.0,  9.0,  1.0}
+    };
+    Matrix_3 m2 = {
+        { 1.0,  2.0,  3.0,  4.0},
+        { 4.0,  5.0,  6.0,  0.0},
+        { 7.0,  8.0,  9.0,  0.0},
+        {-7.0, -8.0,  9.0,  1.0}
+    };
+    Matrix_3 verify;
+    Matrix_3 result = {
+        {30, 36, 42, 4},
+        {73, 89, 87, 15},
+        {102, 126, 150, 28},
+        {17, 10, 21, -27}
+    };
+    
+    gks_multiply_matrix_3(m1, m2, verify);
+    
+    XCTAssertTrue(isEqual_3(verify, result));
+
+}
 
 - (void)testPlaneEquation {
     Gpt_3 p1 = {0.0, 0.0, 0.0};
@@ -527,6 +553,16 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(vc.z, 0.801783725737273, 0.001);
 }
 
+- (void)testVecAbsoluteValue {
+    Gpt_3 va = {1.0, 2.0, 3.0, 0.0};
+    Gpt_3 vb = {1.0, -2.0, -3.0, 0.0};
+    Gfloat sqrtof14 = 3.74165;
+    
+    Gfloat av = vecabsolutevalue((Gpt_3_Ptr)&va);
+    XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
+    av = vecabsolutevalue((Gpt_3_Ptr)&vb);
+    XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
+}
 
 // MARK: MESH
 

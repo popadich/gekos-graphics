@@ -31,11 +31,12 @@ void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix
 
 void gks_transform_point_3(Matrix_3 trans_matrix, Gpt_3 *old_point, Gpt_3 *new_point);
 
-void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_b);
+// Matrix Operations
+void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_copy);
 void gks_transpose_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_trans);
+void gks_multiply_matrix_3(Matrix_3 a, Matrix_3 b, Matrix_3 matrix_result);
 
 void gks_plane_equation_3(Gpt_3 p1, Gpt_3 p2, Gpt_3 p3, Gpt_3 *overloadPlane);
-
 
 // Vector Operations
 Gfloat vecdot(Gpt_3_Ptr a, Gpt_3_Ptr b);
@@ -44,5 +45,6 @@ void vecsub(Gpt_3_Ptr a, Gpt_3_Ptr b, Gpt_3_Ptr c);
 void vecadd(GVector a, GVector b, GVectorPtr c);
 void vecscale(Gfloat k, Gpt_3_Ptr a, Gpt_3_Ptr b);
 void vecnormal(Gpt_3_Ptr vec, Gpt_3_Ptr normal);
+Gfloat vecabsolutevalue(Gpt_3_Ptr vec);
 
 #endif /* gks_3d_matrix_h */

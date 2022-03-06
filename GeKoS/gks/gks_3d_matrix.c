@@ -133,25 +133,6 @@ void gks_accumulate_translation_matrix_3(Gfloat dx, Gfloat dy, Gfloat dz, Matrix
     accumulate_matrices_3(temp,m,m);
 }
 
-// Copies matrix A -> B
-void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_b)
-{
-    int i,j;
-    for(i=0;i<4;i++)
-        for(j=0;j<4;j++)
-            matrix_b[i][j]=matrix_a[i][j];
-}
-
-// Transpose matrix A -> T
-void gks_transpose_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_trans)
-{
-    int i,j;
-    for(i=0;i<4;i++)
-        for(j=0;j<4;j++)
-            matrix_trans[i][j]=matrix_a[j][i];
-}
-
-
 // Computes a new point using homogeneous coordinate transformation matrix
 // it assumes the w component of the point is always 1.
 // TODO: Test to confirm order of multiplication
@@ -190,6 +171,58 @@ void gks_plane_equation_3(Gpt_3 p1, Gpt_3 p2, Gpt_3 p3, Gpt_3 *overloadPlane) {
     overloadPlane->y = B;
     overloadPlane->z = C;
     overloadPlane->w = D;
+
+}
+
+
+// Copies matrix A -> B
+void gks_copy_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_b)
+{
+    int i,j;
+    for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
+            matrix_b[i][j]=matrix_a[i][j];
+}
+
+// Transpose matrix
+//  A -> AT
+void gks_transpose_matrix_3(Matrix_3 matrix_a, Matrix_3 matrix_trans)
+{
+    int i,j;
+    for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
+            matrix_trans[i][j]=matrix_a[j][i];
+}
+
+// Multiply matrix A • B -> R
+//
+//    [a00  a01 a02 a03]    [b00  b01  ... ...]
+//    [a10  ... ... ...]    [b10  ...  ... ...]
+//    [...  ... ... ...]    [b20  ...  ... ...]
+//    [...  ... ... ...]    [b30  ...  ... ...]
+//
+//
+void gks_multiply_matrix_3(Matrix_3 a, Matrix_3 b, Matrix_3 r)
+{
+    r[0][0] = a[0][0]*b[0][0] + a[0][1]*b[1][0] + a[0][2]*b[2][0] + a[0][3]*b[3][0];
+    r[0][1] = a[0][0]*b[0][1] + a[0][1]*b[1][1] + a[0][2]*b[2][1] + a[0][3]*b[3][1];
+    r[0][2] = a[0][0]*b[0][2] + a[0][1]*b[1][2] + a[0][2]*b[2][2] + a[0][3]*b[3][2];
+    r[0][3] = a[0][0]*b[0][3] + a[0][1]*b[1][3] + a[0][2]*b[2][3] + a[0][3]*b[3][3];
+
+    r[1][0] = a[1][0]*b[0][0] + a[1][1]*b[1][0] + a[1][2]*b[2][0] + a[1][3]*b[3][0];
+    r[1][1] = a[1][0]*b[0][1] + a[1][1]*b[1][1] + a[1][2]*b[2][1] + a[1][3]*b[3][1];
+    r[1][2] = a[1][0]*b[0][2] + a[1][1]*b[1][2] + a[1][2]*b[2][2] + a[1][3]*b[3][2];
+    r[1][3] = a[1][0]*b[0][3] + a[1][1]*b[1][3] + a[1][2]*b[2][3] + a[1][3]*b[3][3];
+
+    r[2][0] = a[2][0]*b[0][0] + a[2][1]*b[1][0] + a[2][2]*b[2][0] + a[2][3]*b[3][0];
+    r[2][1] = a[2][0]*b[0][1] + a[2][1]*b[1][1] + a[2][2]*b[2][1] + a[2][3]*b[3][1];
+    r[2][2] = a[2][0]*b[0][2] + a[2][1]*b[1][2] + a[2][2]*b[2][2] + a[2][3]*b[3][2];
+    r[2][3] = a[2][0]*b[0][3] + a[2][1]*b[1][3] + a[2][2]*b[2][3] + a[2][3]*b[3][3];
+    
+    r[3][0] = a[3][0]*b[0][0] + a[3][1]*b[1][0] + a[3][2]*b[2][0] + a[3][3]*b[3][0];
+    r[3][1] = a[3][0]*b[0][1] + a[3][1]*b[1][1] + a[3][2]*b[2][1] + a[3][3]*b[3][1];
+    r[3][2] = a[3][0]*b[0][2] + a[3][1]*b[1][2] + a[3][2]*b[2][2] + a[3][3]*b[3][2];
+    r[3][3] = a[3][0]*b[0][3] + a[3][1]*b[1][3] + a[3][2]*b[2][3] + a[3][3]*b[3][3];
 
 }
 
@@ -236,12 +269,15 @@ void vecscale(Gfloat k, Gpt_3_Ptr a, Gpt_3_Ptr b)
 
 void vecnormal(Gpt_3_Ptr vec, Gpt_3_Ptr normal)
 {
-    Gfloat    length;
-    
-    length = sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
+    Gfloat length = sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
     
     normal[0] = vec[0]/length;
     normal[1] = vec[1]/length;
     normal[2] = vec[2]/length;
     
+}
+
+Gfloat vecabsolutevalue(Gpt_3_Ptr vec)
+{
+    return sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
 }
