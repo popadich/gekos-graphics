@@ -30,7 +30,7 @@
 }
 
 - (void)makeWindowControllers {
-    GKSWindowController *windowController = [[GKSWindowController alloc] initWithWindowNibName:@"Document"];
+    GKSWindowController *windowController = [[GKSWindowController alloc] initWithWindowNibName:@"GKSDocument"];
     [self addWindowController:windowController];
     
     // No need to specify nib file if it has the same name as the class

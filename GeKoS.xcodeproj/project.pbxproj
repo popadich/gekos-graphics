@@ -26,7 +26,7 @@
 		FA9842CC2782023E00EBDC7D /* gks.c in Sources */ = {isa = PBXBuildFile; fileRef = FA9842CB2782023E00EBDC7D /* gks.c */; };
 		FAA02D472756D6E800A0C454 /* GKSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D462756D6E800A0C454 /* GKSAppDelegate.m */; };
 		FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D492756D6E800A0C454 /* GKSDocument.m */; };
-		FAA02D4D2756D6E800A0C454 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D4B2756D6E800A0C454 /* Document.xib */; };
+		FAA02D4D2756D6E800A0C454 /* GKSDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D4B2756D6E800A0C454 /* GKSDocument.xib */; };
 		FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */; };
 		FAA02D522756D6F600A0C454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D512756D6F600A0C454 /* Assets.xcassets */; };
 		FAA02D552756D6F600A0C454 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D532756D6F600A0C454 /* MainMenu.xib */; };
@@ -92,7 +92,7 @@
 		FAA02D462756D6E800A0C454 /* GKSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSAppDelegate.m; sourceTree = "<group>"; };
 		FAA02D482756D6E800A0C454 /* GKSDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSDocument.h; sourceTree = "<group>"; };
 		FAA02D492756D6E800A0C454 /* GKSDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSDocument.m; sourceTree = "<group>"; };
-		FAA02D4C2756D6E800A0C454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		FAA02D4C2756D6E800A0C454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GKSDocument.xib; sourceTree = "<group>"; };
 		FAA02D4F2756D6E800A0C454 /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
 		FAA02D512756D6F600A0C454 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAA02D542756D6F600A0C454 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -189,9 +189,9 @@
 				FAA02D462756D6E800A0C454 /* GKSAppDelegate.m */,
 				FAA02D482756D6E800A0C454 /* GKSDocument.h */,
 				FAA02D492756D6E800A0C454 /* GKSDocument.m */,
+				FAA02D4B2756D6E800A0C454 /* GKSDocument.xib */,
 				FA0146D827C6B88200AE01E8 /* GKSWindowController.h */,
 				FA0146D927C6B88200AE01E8 /* GKSWindowController.m */,
-				FAA02D4B2756D6E800A0C454 /* Document.xib */,
 				FA0146E627C6BB2F00AE01E8 /* GKSContentViewController.h */,
 				FA0146E727C6BB2F00AE01E8 /* GKSContentViewController.m */,
 				FA0146E827C6BB2F00AE01E8 /* GKSContentViewController.xib */,
@@ -342,7 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAA02D522756D6F600A0C454 /* Assets.xcassets in Resources */,
-				FAA02D4D2756D6E800A0C454 /* Document.xib in Resources */,
+				FAA02D4D2756D6E800A0C454 /* GKSDocument.xib in Resources */,
 				FA081B7327CFBAF40070056A /* GKSCameraController.xib in Resources */,
 				FA3C4E8A2794E3B000A1196D /* GKSPreferences.xib in Resources */,
 				FAA02D552756D6F600A0C454 /* MainMenu.xib in Resources */,
@@ -426,12 +426,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FAA02D4B2756D6E800A0C454 /* Document.xib */ = {
+		FAA02D4B2756D6E800A0C454 /* GKSDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FAA02D4C2756D6E800A0C454 /* Base */,
 			);
-			name = Document.xib;
+			name = GKSDocument.xib;
 			sourceTree = "<group>";
 		};
 		FAA02D532756D6F600A0C454 /* MainMenu.xib */ = {
