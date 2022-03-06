@@ -26,7 +26,7 @@
 
 - (void)drawHead3DAtPoint:(NSPoint)center yaw:(double)yaw pitch:(double)pitch roll:(double)roll focalLenth:(double)fl
 {
-    static Gpt_3 cube[24] =     {
+    static GKSpoint_3 cube[24] =     {
         { -0.500000, -0.500000, -0.500000 },
         { 0.500000, -0.500000, -0.500000 },
         { 0.500000, 0.500000, -0.500000 },

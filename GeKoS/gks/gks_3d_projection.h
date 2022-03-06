@@ -23,7 +23,7 @@ ProjectionType gks_get_projection_type(void);
 void gks_enable_orthogonal_projection(void);
 void gks_enable_perspective_projection(void);
 
-Matrix_3 *gks_get_projection_matrix(void);
+GKSmatrix_3 *gks_get_projection_matrix(void);
 
 void gks_set_perspective_depth(GKSfloat distance);
 GKSfloat gks_get_perspective_depth(void);

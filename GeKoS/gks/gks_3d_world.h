@@ -12,8 +12,8 @@
 
 void gks_init_world_model(void);
 
-void gks_set_world_model_matrix(Matrix_3 trans_matrix);
-Matrix_3 *gks_get_world_model_matrix(void);
+void gks_set_world_model_matrix(GKSmatrix_3 trans_matrix);
+GKSmatrix_3 *gks_get_world_model_matrix(void);
 
 
 #endif /* gks_3d_world_h */

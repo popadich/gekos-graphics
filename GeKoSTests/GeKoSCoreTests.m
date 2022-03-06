@@ -13,7 +13,7 @@
     GKSfloat B;
     GKSfloat C;
     GKSfloat theta;
-    Matrix_3 im;
+    GKSmatrix_3 im;
 }
 @end
 
@@ -37,7 +37,7 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-bool isIdentity_2(Matrix_2 matrix)
+bool isIdentity_2(GKSmatrix_2 matrix)
 {
     bool identityTrue = true;
     for (int i=0; i<3; i++) {
@@ -56,7 +56,7 @@ bool isIdentity_2(Matrix_2 matrix)
     return identityTrue;
 }
 
-bool isIdentity_3(Matrix_3 matrix)
+bool isIdentity_3(GKSmatrix_3 matrix)
 {
     bool identityTrue = true;
     for (int i=0; i<4; i++) {
@@ -75,7 +75,7 @@ bool isIdentity_3(Matrix_3 matrix)
     return identityTrue;
 }
 
-bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
+bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 {
     bool identical = true;
     for (int i=0; i<4; i++) {
@@ -90,7 +90,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testIdentityMatrix2 {
-    Matrix_2 im;
+    GKSmatrix_2 im;
     
     gks_set_identity_matrix_2(im);
     XCTAssertEqual(im[0][0], 1.0, @"Not 1.0 on diagonal");
@@ -110,7 +110,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 - (void)testIdentityMatrix3 {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    Matrix_3 im;
+    GKSmatrix_3 im;
     
     gks_set_identity_matrix_3(im);
     XCTAssertEqual(im[0][0], 1.0, @"Not 1.0 on diagonal");
@@ -321,8 +321,8 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testCopyMatrix3 {
-    Matrix_3 s;
-    Matrix_3 M = {
+    GKSmatrix_3 s;
+    GKSmatrix_3 M = {
         {1.0, 2.0,  3.0, -4.0},
         {2.0, 4.0,  6.0,  8.0},
         {3.0, 6.0, -2.0,  1.0},
@@ -349,8 +349,8 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testTransformPoint3 {
-    Gpt_3 p0 = {1.0, 1.0, 1.0};
-    Gpt_3 p1;
+    GKSpoint_3 p0 = {1.0, 1.0, 1.0};
+    GKSpoint_3 p1;
     
     gks_create_y_rotation_matrix_3(theta, im);
     gks_transform_point_3(im, &p0, &p1);
@@ -374,13 +374,13 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testTransposeMatrix3 {
-    Matrix_3 m = {
+    GKSmatrix_3 m = {
         { 1.0,  2.0,  3.0,  0.0},
         { 4.0,  5.0,  6.0,  0.0},
         { 7.0,  8.0,  9.0,  0.0},
         {-7.0, -8.0,  9.0,  1.0}
     };
-    Matrix_3 t, o;
+    GKSmatrix_3 t, o;
     
     gks_transpose_matrix_3(m, t);
     
@@ -409,20 +409,20 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testMultiplyMatrix {
-    Matrix_3 m1 = {
+    GKSmatrix_3 m1 = {
         { 1.0,  2.0,  3.0,  0.0},
         { 4.0,  5.0,  6.0,  -1.0},
         { 7.0,  8.0,  9.0,  0.0},
         {-7.0, -8.0,  9.0,  1.0}
     };
-    Matrix_3 m2 = {
+    GKSmatrix_3 m2 = {
         { 1.0,  2.0,  3.0,  4.0},
         { 4.0,  5.0,  6.0,  0.0},
         { 7.0,  8.0,  9.0,  0.0},
         {-7.0, -8.0,  9.0,  1.0}
     };
-    Matrix_3 verify;
-    Matrix_3 result = {
+    GKSmatrix_3 verify;
+    GKSmatrix_3 result = {
         {30, 36, 42, 4},
         {73, 89, 87, 15},
         {102, 126, 150, 28},
@@ -436,16 +436,16 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testPlaneEquation {
-    Gpt_3 p1 = {0.0, 0.0, 0.0};
-    Gpt_3 p2 = {1.0, 0.0, 0.0};
-    Gpt_3 p3 = {1.0, 1.0, 0.0};
-    Gpt_3 p4 = {0.0, 1.0, 0.0};
-    Gpt_3 p5 = {0.0, 0.0, 1.0};
-    Gpt_3 p6 = {1.0, 0.0, 1.0};
-    Gpt_3 p7 = {1.0, 1.0, 1.0};
-    Gpt_3 p8 = {0.0, 1.0, 1.0};
+    GKSpoint_3 p1 = {0.0, 0.0, 0.0};
+    GKSpoint_3 p2 = {1.0, 0.0, 0.0};
+    GKSpoint_3 p3 = {1.0, 1.0, 0.0};
+    GKSpoint_3 p4 = {0.0, 1.0, 0.0};
+    GKSpoint_3 p5 = {0.0, 0.0, 1.0};
+    GKSpoint_3 p6 = {1.0, 0.0, 1.0};
+    GKSpoint_3 p7 = {1.0, 1.0, 1.0};
+    GKSpoint_3 p8 = {0.0, 1.0, 1.0};
     
-    Gpt_3 testPlane = {0.0, 0.0, 0.0, 0.0};    // this is weird using a point type for a plane type.
+    GKSpoint_3 testPlane = {0.0, 0.0, 0.0, 0.0};    // this is weird using a point type for a plane type.
     
     // polygon 4
     gks_plane_equation_3(p2, p3, p7, &testPlane);
@@ -492,82 +492,82 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 // vector tests
 - (void)testVecDotProduct {
-    Gpt_3 A = {1.0, 2.0, 3.0, 0.0};
-    Gpt_3 B = {2.0, 0.0, 1.0, 0.0};
+    GKSpoint_3 A = {1.0, 2.0, 3.0, 0.0};
+    GKSpoint_3 B = {2.0, 0.0, 1.0, 0.0};
     float scalar_value = 0.0;
     
-    scalar_value = vecdot((Gpt_3_Ptr)&A, (Gpt_3_Ptr)&B);
+    scalar_value = vecdot((GKSpoint_3_Ptr)&A, (GKSpoint_3_Ptr)&B);
     XCTAssertEqualWithAccuracy(scalar_value, 5.0, 0.001);
 }
 
 - (void)testVecSub {
-    Gpt_3 va = {1.0, 2.0, 3.0, 1.0};
-    Gpt_3 vb = {2.0, 0.0, 1.0, 0.0};
-    Gpt_3 vc;
+    GKSpoint_3 va = {1.0, 2.0, 3.0, 1.0};
+    GKSpoint_3 vb = {2.0, 0.0, 1.0, 0.0};
+    GKSpoint_3 vc;
     
-    vecsub((Gpt_3_Ptr)&va, (Gpt_3_Ptr)&vb, (Gpt_3_Ptr)&vc);
+    vecsub((GKSpoint_3_Ptr)&va, (GKSpoint_3_Ptr)&vb, (GKSpoint_3_Ptr)&vc);
     XCTAssertEqualWithAccuracy(vc.x, -1.0, 0.001);
     XCTAssertEqualWithAccuracy(vc.y, 2.0, 0.001);
     XCTAssertEqualWithAccuracy(vc.z, 2.0, 0.001);
 }
 
 - (void)testVecAdd {
-    GVector va = {1.0, 2.0, 3.0, 1.0};
-    GVector vb = {2.0, 0.0, 1.0, 0.0};
-    GVector vc = {0.0, 0.0, 0.0, 0.0};
+    GKSvector3d va = {1.0, 2.0, 3.0, 1.0};
+    GKSvector3d vb = {2.0, 0.0, 1.0, 0.0};
+    GKSvector3d vc = {0.0, 0.0, 0.0, 0.0};
     
     vecadd(va, vb, &vc);
-    XCTAssertEqualWithAccuracy(vc.vecpos.x, 3.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vecpos.y, 2.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vecpos.z, 4.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.vec_pos.x, 3.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.vec_pos.y, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.vec_pos.z, 4.0, 0.001);
 }
 
 - (void)testVecScale {
-    Gpt_3 va = {1.0, 2.0, 3.0, 0.0};
-    Gpt_3 vc;
+    GKSpoint_3 va = {1.0, 2.0, 3.0, 0.0};
+    GKSpoint_3 vc;
     
-    vecscale(1.5, (Gpt_3_Ptr)&va, (Gpt_3_Ptr)&vc);
+    vecscale(1.5, (GKSpoint_3_Ptr)&va, (GKSpoint_3_Ptr)&vc);
     XCTAssertEqualWithAccuracy(vc.x, 1.5, 0.001);
     XCTAssertEqualWithAccuracy(vc.y, 3.0, 0.001);
     XCTAssertEqualWithAccuracy(vc.z, 4.5, 0.001);
 }
 
 - (void)testVecProduct {
-    Gpt_3 A = {1.0, 2.0, 3.0, 0.0};
-    Gpt_3 B = {2.0, 0.0, 1.0, 0.0};
-    Gpt_3 C = {0.0, 0.0, 0.0, 0.0};
+    GKSpoint_3 A = {1.0, 2.0, 3.0, 0.0};
+    GKSpoint_3 B = {2.0, 0.0, 1.0, 0.0};
+    GKSpoint_3 C = {0.0, 0.0, 0.0, 0.0};
     
-    vecprod((Gpt_3_Ptr)&A, (Gpt_3_Ptr)&B, (Gpt_3_Ptr)&C);
+    vecprod((GKSpoint_3_Ptr)&A, (GKSpoint_3_Ptr)&B, (GKSpoint_3_Ptr)&C);
     XCTAssertEqualWithAccuracy(C.x, 2.0, 0.001);
     XCTAssertEqualWithAccuracy(C.y, 5.0, 0.001);
     XCTAssertEqualWithAccuracy(C.z, -4.0, 0.001);
 }
 
 - (void)testVecNormal {
-    Gpt_3 va = {1.0, 2.0, 3.0, 0.0};
-    Gpt_3 vc;
+    GKSpoint_3 va = {1.0, 2.0, 3.0, 0.0};
+    GKSpoint_3 vc;
     
-    vecnormal((Gpt_3_Ptr)&va, (Gpt_3_Ptr)&vc);
+    vecnormal((GKSpoint_3_Ptr)&va, (GKSpoint_3_Ptr)&vc);
     XCTAssertEqualWithAccuracy(vc.x, 0.267261241912424, 0.001, @"1/sqrt(14)");
     XCTAssertEqualWithAccuracy(vc.y, 0.534522483824849, 0.001);
     XCTAssertEqualWithAccuracy(vc.z, 0.801783725737273, 0.001);
 }
 
 - (void)testVecAbsoluteValue {
-    Gpt_3 va = {1.0, 2.0, 3.0, 0.0};
-    Gpt_3 vb = {1.0, -2.0, -3.0, 0.0};
+    GKSpoint_3 va = {1.0, 2.0, 3.0, 0.0};
+    GKSpoint_3 vb = {1.0, -2.0, -3.0, 0.0};
     GKSfloat sqrtof14 = 3.74165;
     
-    GKSfloat av = vecabsolutevalue((Gpt_3_Ptr)&va);
+    GKSfloat av = vecabsolutevalue((GKSpoint_3_Ptr)&va);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
-    av = vecabsolutevalue((Gpt_3_Ptr)&vb);
+    av = vecabsolutevalue((GKSpoint_3_Ptr)&vb);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
 }
 
 // MARK: MESH
 
 - (void)testMeshCube {
-    Object_3 *cubeObj;
+    GKSobject_3 *cubeObj;
     
     cubeObj = CubeMesh();
     XCTAssert(cubeObj != NULL, @"Cube mesh does not exist");
@@ -590,7 +590,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testMeshPyramid {
-    Object_3 *pyramidObj;
+    GKSobject_3 *pyramidObj;
     
     pyramidObj = PyramidMesh();
     XCTAssert(pyramidObj != NULL, @"Pyramid mesh not exists");
@@ -613,7 +613,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testMeshHouse {
-    Object_3 *houseObj;
+    GKSobject_3 *houseObj;
     
     houseObj = HouseMesh();
     XCTAssert(houseObj != NULL, @"House mesh not exists");
@@ -637,7 +637,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 // MARK: PROJECTION
 - (void)testProjectionInit {
-    Matrix_3 *projMatrix;
+    GKSmatrix_3 *projMatrix;
     
     gks_init_projection();
     projMatrix = gks_get_projection_matrix();
@@ -649,7 +649,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testProjectionOrthogonalEnable {
-    Matrix_3 *projMatrix;
+    GKSmatrix_3 *projMatrix;
     
     gks_enable_orthogonal_projection();
     projMatrix = gks_get_projection_matrix();
@@ -663,7 +663,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testProjectionPerspectiveEnable {
-    Matrix_3 *projMatrix;
+    GKSmatrix_3 *projMatrix;
 
     gks_enable_perspective_projection();
     gks_set_perspective_depth(1.0);
@@ -697,14 +697,14 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 - (void)testTransformCreate {
     const GKSint word_volume_index = 0;
-    Glim_3 winlims = { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 };
-    Glim_3 winlims2 = { -10.0, 20.0, -30.0, 40.0, -50.0, 60.0 };
+    GKSlimits_3 winlims = { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 };
+    GKSlimits_3 winlims2 = { -10.0, 20.0, -30.0, 40.0, -50.0, 60.0 };
     GKSint view_num = 0;
     
     gks_trans_init_3();
     gks_trans_create_transform_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, winlims);
 
-    Glim_3 volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
+    GKSlimits_3 volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
     XCTAssertEqual(volume.xmin, -1.0);
     XCTAssertEqual(volume.xmax, 2.0);
     XCTAssertEqual(volume.ymin, -3.0);
@@ -712,7 +712,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
     XCTAssertEqual(volume.zmin, -5.0);
     XCTAssertEqual(volume.zmax, 6.0);
     
-    Glim_2 vp = gks_trans_get_device_viewport();
+    GKSlimits_2 vp = gks_trans_get_device_viewport();
     XCTAssertEqual(vp.xmin, 0.0);
     XCTAssertEqual(vp.ymin, 0.0);
     XCTAssertEqual(vp.xmax, 400.0);
@@ -739,7 +739,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 
 - (void)testTransformGetCurrentView {
-    Glim_3 wrldlims = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
+    GKSlimits_3 wrldlims = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
     gks_trans_init_3();
     
     int view_num = gks_trans_get_curr_view_idx();
@@ -751,8 +751,8 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testTransformSetCurrentView {
-    Glim_3 wrldlims1 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
-    Glim_3 wrldlims2 = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
+    GKSlimits_3 wrldlims1 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    GKSlimits_3 wrldlims2 = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
     gks_trans_init_3();
     
     int view_num = gks_trans_get_curr_view_idx();
@@ -777,9 +777,9 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 
 - (void)testTransformWCToNDC3 {
-    Glim_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
-    Gpt_3 p1 = {1.0, 1.0, 1.0, 1.0};
-    Gpt_3 p2 = {0.0, 0.0, 0.0, 0.0};
+    GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    GKSpoint_3 p1 = {1.0, 1.0, 1.0, 1.0};
+    GKSpoint_3 p2 = {0.0, 0.0, 0.0, 0.0};
     GKSint viewNum = 0;
     
     gks_trans_init_3();
@@ -799,9 +799,9 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 
 - (void)testTransformNDCToDC3 {
-    Glim_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
-    Gpt_3 p1 = {1.0, 1.0, 1.0, 1.0};
-    Gpt_3 p2 = {0.5, 0.5, 0.0, 1.0};
+    GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    GKSpoint_3 p1 = {1.0, 1.0, 1.0, 1.0};
+    GKSpoint_3 p2 = {0.5, 0.5, 0.0, 1.0};
     GKSint u, v;
     
     GKSint viewNum = 0;
@@ -830,7 +830,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 // MARK: MODEL
 - (void)testModelWorldInit {
-    Matrix_3 *world_model_matrix;
+    GKSmatrix_3 *world_model_matrix;
     
     gks_init_world_model();
     world_model_matrix = gks_get_world_model_matrix();
@@ -843,7 +843,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testModelWorldGetMatrix {
-    Matrix_3 *world_model_matrix;
+    GKSmatrix_3 *world_model_matrix;
     
     gks_init_world_model();
     world_model_matrix = gks_get_world_model_matrix();
@@ -860,7 +860,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 // MARK: VIEW ORIENT
 - (void)testViewOrientInit {
-    Matrix_3 *theViewMatrixPtr;
+    GKSmatrix_3 *theViewMatrixPtr;
     gks_init_view_plane();
     
     theViewMatrixPtr = gks_get_view_matrix();
@@ -871,7 +871,7 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 - (void)testViewOrientSetMatrix {
     
-    Matrix_3 *theViewMatrixPtr;
+    GKSmatrix_3 *theViewMatrixPtr;
     
     gks_init_view_plane();
     gks_set_view_matrix(im);
@@ -886,10 +886,10 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 
 - (void)testViewOrientCreateViewMatrix {
     // TODO: needs more testing and module needs better design.
-    Gpt_3 camera;
-    Gpt_3 plane;
-    Gpt_3 v;
-    Matrix_3 theResultMatrix;
+    GKSpoint_3 camera;
+    GKSpoint_3 plane;
+    GKSpoint_3 v;
+    GKSmatrix_3 theResultMatrix;
     
     gks_init_view_plane();
     
@@ -913,10 +913,10 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testViewOrientLookAtZero {
-    Matrix_3 theResultMatrix;
-    Gpt_3 observer;
-    Gpt_3 look_at;
-    Gpt_3 v;
+    GKSmatrix_3 theResultMatrix;
+    GKSpoint_3 observer;
+    GKSpoint_3 look_at;
+    GKSpoint_3 v;
 
     observer.x = 0.0;
     observer.y = 0.0;
@@ -943,10 +943,10 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testViewOrientLookAtZ2 {
-    Matrix_3 theResultMatrix;
-    Gpt_3 observer;
-    Gpt_3 look_at;
-    Gpt_3 v;
+    GKSmatrix_3 theResultMatrix;
+    GKSpoint_3 observer;
+    GKSpoint_3 look_at;
+    GKSpoint_3 v;
 
     observer.x = 0.0;
     observer.y = 0.0;
@@ -973,10 +973,10 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testViewOrientLookAtX4 {
-    Matrix_3 theResultMatrix;
-    Gpt_3 observer;
-    Gpt_3 look_at;
-    Gpt_3 v;
+    GKSmatrix_3 theResultMatrix;
+    GKSpoint_3 observer;
+    GKSpoint_3 look_at;
+    GKSpoint_3 v;
 
     observer.x = 0.0;
     observer.y = 0.0;
@@ -1014,10 +1014,10 @@ bool isEqual_3(Matrix_3 matrix, Matrix_3 matrix_b)
 }
 
 - (void)testViewOrientLookAtY4 {
-    Matrix_3 theResultMatrix;
-    Gpt_3 observer;
-    Gpt_3 look_at;
-    Gpt_3 v;
+    GKSmatrix_3 theResultMatrix;
+    GKSpoint_3 observer;
+    GKSpoint_3 look_at;
+    GKSpoint_3 v;
 
     observer.x = 0.0;
     observer.y = 0.0;

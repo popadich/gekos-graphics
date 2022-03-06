@@ -31,12 +31,12 @@ const GKSint kViewPortVolumeSetup = 1;
 static GKSint         g_curr_transform_idx;
 
 // Make room for 10 transforms, use only one for now
-static Glim_3       g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][2];
+static GKSlimits_3       g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][2];
 static bool         g_setup_check_list[GKS_MAX_VIEW_TRANSFORMS][2];
 
 static GKSfloat       g_r_min3, g_r_max3, g_s_min3, g_s_max3;
-static Glim_3       g_world_volume;
-static Glim_3       g_viewport_volume;
+static GKSlimits_3       g_world_volume;
+static GKSlimits_3       g_viewport_volume;
 
 static GKSfloat       g_wrld_xscale, g_wrld_xcoord;
 static GKSfloat       g_wrld_yscale, g_wrld_ycoord;
@@ -72,7 +72,7 @@ GKSint gks_trans_get_curr_view_idx(void)
 
 
 
-void gks_trans_set_device_viewport(GKSint view_num, Glim_2 device_limits)
+void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
 {
     g_r_min3 = device_limits.xmin;
     g_r_max3 = device_limits.xmax;
@@ -80,7 +80,7 @@ void gks_trans_set_device_viewport(GKSint view_num, Glim_2 device_limits)
     g_s_max3 = device_limits.ymax;
 }
 
-void gks_trans_set_world_volume_3(GKSint view_num, Glim_3 *wrld_volume)
+void gks_trans_set_world_volume_3(GKSint view_num, GKSlimits_3 *wrld_volume)
 {
     g_tranform_list[view_num][kWorldVolumeSetup].xmin = wrld_volume->xmin;
     g_tranform_list[view_num][kWorldVolumeSetup].xmax = wrld_volume->xmax;
@@ -94,7 +94,7 @@ void gks_trans_set_world_volume_3(GKSint view_num, Glim_3 *wrld_volume)
 }
 
 
-void gks_trans_set_viewport_volume_3(GKSint view_num, Glim_3 *viewport)
+void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
 {
 
     g_tranform_list[view_num][kViewPortVolumeSetup].xmin = viewport->xmin;
@@ -109,7 +109,7 @@ void gks_trans_set_viewport_volume_3(GKSint view_num, Glim_3 *viewport)
     
 }
 
-void setup_transform_world_view(Glim_3 winlim, Glim_3 vwplim) {
+void setup_transform_world_view(GKSlimits_3 winlim, GKSlimits_3 vwplim) {
     GKSfloat        x_min,x_max,y_min,y_max,z_min,z_max;
     GKSfloat        u_min,u_max,v_min,v_max,w_min,w_max;
     
@@ -134,7 +134,7 @@ void setup_transform_world_view(Glim_3 winlim, Glim_3 vwplim) {
     g_wrld_zcoord = g_wrld_zscale*(-z_min) + w_min;
 }
 
-void setup_transform_viewport_to_device(Glim_3 viewport_limits)
+void setup_transform_viewport_to_device(GKSlimits_3 viewport_limits)
 {
     GKSfloat u_min, u_max, v_min, v_max;
     
@@ -153,8 +153,8 @@ void setup_transform_viewport_to_device(Glim_3 viewport_limits)
 // it in an array of 10 seems weird and pointless.
 void gks_trans_compute_view_3(GKSint view_num)
 {
-    Glim_3 wrld_volume;
-    Glim_3 vwp_lim;
+    GKSlimits_3 wrld_volume;
+    GKSlimits_3 vwp_lim;
     
     if (g_setup_check_list[view_num][kWorldVolumeSetup] && g_setup_check_list[view_num][kViewPortVolumeSetup]) {
         
@@ -199,10 +199,10 @@ void gks_trans_set_curr_view_idx(GKSint view_num)
 //  r_min = WindowRect.left;    r_max = WindowRect.right;
 //  s_min = WindowRect.bottom;  s_max = WindowRect.top;
 //
-void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max, Glim_3 world_volume_3)
+void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max, GKSlimits_3 world_volume_3)
 {
     // I think this always stays as a unit cube for a normalized scale viewport
-    static Glim_3 viewport0_3 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    static GKSlimits_3 viewport0_3 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     g_wrld_xscale = g_wrld_xcoord = 0.0;
     g_wrld_yscale = g_wrld_ycoord = 0.0;
     g_wrld_zscale = g_wrld_zcoord = 0.0;
@@ -219,7 +219,7 @@ void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat
         // which sets up the global transformation values.
         
         // 2D_DevicePort
-        Glim_2 deviceport_2 = {r_min, r_max, s_min, s_max};
+        GKSlimits_2 deviceport_2 = {r_min, r_max, s_min, s_max};
         gks_trans_set_device_viewport(view_num, deviceport_2);  // pass by copy
         
         // 3D_World
@@ -235,20 +235,20 @@ void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat
     }
 }
 
-Glim_3 gks_trans_get_transform_at_idx(GKSint view_num, GKSint setup)
+GKSlimits_3 gks_trans_get_transform_at_idx(GKSint view_num, GKSint setup)
 {
-    Glim_3 worldVolume =  g_tranform_list[view_num][setup];
+    GKSlimits_3 worldVolume =  g_tranform_list[view_num][setup];
     return worldVolume;
 }
 
-Glim_2 gks_trans_get_device_viewport(void)
+GKSlimits_2 gks_trans_get_device_viewport(void)
 {
-    Glim_2 vpt = {g_r_min3, g_r_max3, g_s_min3, g_s_max3};
+    GKSlimits_2 vpt = {g_r_min3, g_r_max3, g_s_min3, g_s_max3};
     return vpt;
 }
 
 // World coordinates (wc) to Normalized Device Coordinates (ndc)
-void gks_trans_wc_to_ndc_3 (Gpt_3 *wc_pt, Gpt_3 *ndc_pt)
+void gks_trans_wc_to_ndc_3 (GKSpoint_3 *wc_pt, GKSpoint_3 *ndc_pt)
 {
     ndc_pt->x = g_wrld_xscale * wc_pt->x + g_wrld_xcoord;
     ndc_pt->y = g_wrld_yscale * wc_pt->y + g_wrld_ycoord;
@@ -258,7 +258,7 @@ void gks_trans_wc_to_ndc_3 (Gpt_3 *wc_pt, Gpt_3 *ndc_pt)
 // Normalized Device Coordinates (ndc) to Device Coordinates (dc) 2D
 // If I were to build a 2D drawing library, this function would be
 // part of that.
-void gks_trans_ndc_3_to_dc_2 (Gpt_3 *ndc_pt, GKSint *r, GKSint *s)
+void gks_trans_ndc_3_to_dc_2 (GKSpoint_3 *ndc_pt, GKSint *r, GKSint *s)
 {
     *r = g_dev_xscale * ndc_pt->x + g_dex_xcoord;
     *s = g_dev_yscale * ndc_pt->y + g_dev_ycoord;

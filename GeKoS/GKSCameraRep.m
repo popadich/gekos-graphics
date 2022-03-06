@@ -9,7 +9,7 @@
 #include "gks/gks_types.h"
 
 @interface GKSCameraRep () {
-    Gpt_3 unit_vect;
+    GKSpoint_3 unit_vect;
 
 }
 

@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include "gks_mesh.h"
 
-Object_3 *CubeMesh(void)
+GKSobject_3 *CubeMesh(void)
 {
-    static Gpt_3 cubevert[GKS_CUBE_VERTEX_COUNT] = {
+    static GKSpoint_3 cubevert[GKS_CUBE_VERTEX_COUNT] = {
         {0.0, 0.0, 0.0},
         {1.0, 0.0, 0.0},
         {1.0, 1.0, 0.0},
@@ -20,7 +20,7 @@ Object_3 *CubeMesh(void)
         {1.0, 1.0, 1.0},
         {0.0, 1.0, 1.0}
     };
-    static Gpoly_3 cubepoly[GKS_CUBE_POLYGON_COUNT] = {
+    static GKSpolygon_3 cubepoly[GKS_CUBE_POLYGON_COUNT] = {
         {4,4,3,2,1},
         {4,5,6,7,8},
         {4,1,5,8,4},
@@ -29,12 +29,12 @@ Object_3 *CubeMesh(void)
         {4,3,4,8,7}
     };
 
-    Gpt_3 *p, *q;
-    Object_3 *aCube;
+    GKSpoint_3 *p, *q;
+    GKSobject_3 *aCube;
 
     // clear memory allocation to zeros
-    VertexArrayPtr vertexList = (VertexArrayPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(Gpt_3));
-    PolygonArrayPtr polygonList = (PolygonArrayPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(Gpoly_3));
+    GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_3));
+    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
     
     // copy vertices using pointer arithmetic
     p = cubevert;
@@ -54,7 +54,7 @@ Object_3 *CubeMesh(void)
         }
     }
 
-    aCube = (Object_3 *)calloc(1, sizeof(Object_3));
+    aCube = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
     aCube->vertices = vertexList;
     aCube->polygons = polygonList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
@@ -64,17 +64,17 @@ Object_3 *CubeMesh(void)
 }
 
 
-Object_3 *PyramidMesh(void)
+GKSobject_3 *PyramidMesh(void)
 {
     // Put some code here to configure a Pyramid.
-    static Gpt_3 pyramidVertices[GKS_PYRAMID_VERTEX_COUNT] = {
+    static GKSpoint_3 pyramidVertices[GKS_PYRAMID_VERTEX_COUNT] = {
         {0.0, 0.0, 0.0},
         {1.0, 0.0, 0.0},
         {1.0, 0.0, 1.0},
         {0.0, 0.0, 1.0},
         {0.5, 0.6636661, 0.5}
     };
-    static Gpoly_3 pyramidPolys[GKS_PYRAMID_POLYGON_COUNT] = {
+    static GKSpolygon_3 pyramidPolys[GKS_PYRAMID_POLYGON_COUNT] = {
         {4,1,2,3,4},
         {3,1,5,2},
         {3,2,5,3},
@@ -82,12 +82,12 @@ Object_3 *PyramidMesh(void)
         {3,4,5,1}
     };
 
-    Gpt_3 *p, *q;
-    Object_3 *aPyramid = NULL;
+    GKSpoint_3 *p, *q;
+    GKSobject_3 *aPyramid = NULL;
 
     // clear memory allocation to zeros
-    VertexArrayPtr vertexList = (VertexArrayPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(Gpt_3));
-    PolygonArrayPtr polygonList = (PolygonArrayPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(Gpoly_3));
+    GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_3));
+    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
 
     // copy vertices using pointer arithmetic
     p = pyramidVertices;
@@ -107,7 +107,7 @@ Object_3 *PyramidMesh(void)
         }
     }
     
-    aPyramid = (Object_3 *)calloc(1, sizeof(Object_3));
+    aPyramid = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
     aPyramid->vertices = vertexList;
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
     aPyramid->polygons = polygonList;
@@ -116,9 +116,9 @@ Object_3 *PyramidMesh(void)
     return aPyramid;
 }
 
-Object_3 *HouseMesh(void)
+GKSobject_3 *HouseMesh(void)
 {
-    static Gpt_3 objectvert[GKS_HOUSE_VERTEX_COUNT] = {
+    static GKSpoint_3 objectvert[GKS_HOUSE_VERTEX_COUNT] = {
         {0, 0,30},
         {16, 0,30},
         {16,10,30},
@@ -130,7 +130,7 @@ Object_3 *HouseMesh(void)
         {8,16,54},
         {0,10,54}
     };
-    static Gpoly_3 objectpoly[GKS_HOUSE_POLYGON_COUNT] = {
+    static GKSpolygon_3 objectpoly[GKS_HOUSE_POLYGON_COUNT] = {
         {5, 5, 4, 3, 2, 1},
         {5, 6, 7, 8, 9, 10},
         {4, 1, 2, 7, 6},
@@ -140,12 +140,12 @@ Object_3 *HouseMesh(void)
         {4, 4, 5, 10, 9}
     };
     
-    Gpt_3 *p, *q;
-    Object_3 *anObject = NULL;
+    GKSpoint_3 *p, *q;
+    GKSobject_3 *anObject = NULL;
 
     // clear memory allocation to zeros
-    VertexArrayPtr vertexList = (VertexArrayPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(Gpt_3));
-    PolygonArrayPtr polygonList = (PolygonArrayPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(Gpoly_3));
+    GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSpoint_3));
+    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(GKSpolygon_3));
 
     
     
@@ -168,7 +168,7 @@ Object_3 *HouseMesh(void)
         }
     }
 
-    anObject = (Object_3 *)calloc(1, sizeof(Object_3));
+    anObject = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
     anObject->vertices = vertexList;
     anObject->vertnum = GKS_HOUSE_VERTEX_COUNT;
     anObject->polygons = polygonList;

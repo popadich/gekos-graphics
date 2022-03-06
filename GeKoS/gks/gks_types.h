@@ -18,7 +18,7 @@ typedef struct
 {
     GKSfloat x;
     GKSfloat y;
-} Gpt_2;
+} GKSpoint_2;
 
 typedef struct
 {
@@ -26,17 +26,17 @@ typedef struct
     GKSfloat xmax;
     GKSfloat ymin;
     GKSfloat ymax;
-} Glim_2;
+} GKSlimits_2;
 
-typedef GKSfloat Matrix_2[3][3];
+typedef GKSfloat GKSmatrix_2[3][3];
 
 typedef struct {
     GKSfloat x;
     GKSfloat y;
     GKSfloat z;
     GKSfloat w;
-} Gpt_3;
-typedef GKSfloat *Gpt_3_Ptr;
+} GKSpoint_3;
+typedef GKSfloat *GKSpoint_3_Ptr;
 
 typedef struct
 {
@@ -46,18 +46,18 @@ typedef struct
     GKSfloat ymax;
     GKSfloat zmin;
     GKSfloat zmax;
-} Glim_3;
+} GKSlimits_3;
 
-typedef GKSfloat Matrix_3[4][4];
-typedef GKSfloat Vector_3[4];
+typedef GKSfloat GKSmatrix_3[4][4];
+typedef GKSfloat GKSvector_3[4];
 
 // Union of Gpt_3 points and Vector_4 arrays
-union vector3d {
-    Gpt_3 vecpos;
-    Vector_3 vec_arr;
+union GKSvector3d {
+    GKSpoint_3 vec_pos;
+    GKSvector_3 vec_arr;
 };
-typedef union vector3d GVector;
-typedef GVector *GVectorPtr;
+typedef union GKSvector3d GKSvector3d;
+typedef GKSvector3d *GKSvector3dPtr;
 /*
 ** A union works like so...
 **
@@ -82,26 +82,26 @@ typedef struct {
     GKSfloat green;
     GKSfloat blue;
     GKSfloat alpha;
-} Gcolor;
+} GKScolor;
 
 
 // Polygon has a vertex count followed
 // by count vertex indexes (usually 3 or 4)
 // but potentially more. Make room by
 // modifying the GKS_MIN_VERTEX_COUNT constant.
-typedef GKSint      Gpoly_3[GKS_MIN_VERTEX_COUNT];
+typedef GKSint      GKSpolygon_3[GKS_MIN_VERTEX_COUNT];
 
-typedef Gpt_3       *VertexArrayPtr;       // list of 3D points for each polygon
-typedef Gpoly_3     *PolygonArrayPtr;      // polygon list
+typedef GKSpoint_3      *GKSvertexArrPtr;       // list of 3D points for each polygon
+typedef GKSpolygon_3    *GKSpolygonArrPtr;      // polygon list
 
 
 typedef struct
 {
     GKSint vertnum;
     GKSint polynum;
-    VertexArrayPtr vertices;
-    PolygonArrayPtr polygons;
-} Object_3;
+    GKSvertexArrPtr vertices;
+    GKSpolygonArrPtr polygons;
+} GKSobject_3;
 
 
 #endif /* gks_types_h */
