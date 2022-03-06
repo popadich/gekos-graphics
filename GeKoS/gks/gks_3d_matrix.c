@@ -227,6 +227,65 @@ void gks_multiply_matrix_3(GKSmatrix_3 a, GKSmatrix_3 b, GKSmatrix_3 r)
 }
 
 
+void subMatrix(GKSint n, GKSfloat m[n][n], GKSint I, GKSint J, GKSfloat M[n-1][n-1])
+{
+    GKSint i, a = 0, b = 0;
+    GKSint j;
+    for (i = 0; i < n; i++)
+    {
+        if (i == I)
+        {
+            continue;
+        }
+
+        b = 0;//in-order to start fresh for new row
+        for (j = 0; j < n; j++)
+        {
+            if (J == j)
+            {
+                continue;
+            }
+            M[a][b] = m[i][j];
+            b++;
+        }
+        a++;
+    }
+}
+
+//this recursive function calculates the determinant
+GKSfloat determinant(GKSint n, GKSfloat M[n][n])
+{
+    double det = 0;
+    //the functions continues to call its self until n=2
+    if(n==1)
+    {
+        return M[0][0];
+    }
+    if (n == 2)
+    {
+        det = M[0][0] *M[1][1]-M[0][1]*M[1][0];
+    }
+    else
+    {
+        double subArray[n-1][n-1];
+        for (GKSint i = 0; i < n; i++)
+        {
+            //subMatrix is filling the subArray
+            subMatrix(n,M,0,i,subArray);
+            det += M[0][i] * ((i&1)?-1:1)*determinant(n - 1,subArray);
+        }
+    }
+    return det;
+}
+
+GKSfloat gks_determinant_matrix_3(GKSmatrix_3 M)
+{
+    return (determinant(4, M));
+}
+
+
+
+
 // Vector Operations
 //
 // Vector operations all use an in place technique

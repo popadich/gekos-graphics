@@ -435,6 +435,29 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 }
 
+
+- (void)testDeterminantMatrix {
+    GKSmatrix_3 m1 = {
+        { 1.0,  2.0,  3.0,  0.0},
+        { 4.0,  5.0,  6.0,  -1.0},
+        { 7.0,  8.0,  9.0,  0.0},
+        {-7.0, -8.0,  9.0,  1.0}
+    };
+    GKSmatrix_3 m2 = {
+        { 1.0,  2.0,  3.0,  4.0},
+        { 4.0,  5.0,  6.0,  0.0},
+        { 7.0,  8.0,  9.0,  0.0},
+        {-7.0, -8.0,  9.0,  1.0}
+    };
+    
+    GKSfloat det = gks_determinant_matrix_3(m1);
+    XCTAssertEqualWithAccuracy(det, 108.0, 0.001);
+
+    det = gks_determinant_matrix_3(m2);
+    XCTAssertEqualWithAccuracy(det, 216.0, 0.001);
+
+}
+
 - (void)testPlaneEquation {
     GKSpoint_3 p1 = {0.0, 0.0, 0.0};
     GKSpoint_3 p2 = {1.0, 0.0, 0.0};
