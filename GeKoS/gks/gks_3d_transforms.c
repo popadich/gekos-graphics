@@ -26,6 +26,10 @@
 const GKSint kWorldVolumeSetup = 0;
 const GKSint kViewPortVolumeSetup = 1;
 
+//  P R O T O T Y P E S
+// Compute transformation values for view_num index, after all values are set.
+void gks_trans_compute_view_3(GKSint view_num);
+
 
 // S T A T I C   G L O B A L S
 static GKSint         g_curr_transform_idx;
@@ -69,7 +73,14 @@ GKSint gks_trans_get_curr_view_idx(void)
     return g_curr_transform_idx;
 }
 
+void gks_trans_adjust_device_viewport(GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max) {
 
+    // These have to be set before the selecting a norm
+    GKSlimits_2 deviceport_2 = {r_min, r_max, s_min, s_max};
+    gks_trans_set_device_viewport(0, deviceport_2);  // pass by copy
+    gks_trans_compute_view_3(0);      //FIXME: perform the math no need for setting
+    
+}
 
 
 void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
@@ -234,6 +245,7 @@ void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat
         gks_trans_compute_view_3(view_num);
     }
 }
+
 
 GKSlimits_3 gks_trans_get_transform_at_idx(GKSint view_num, GKSint setup)
 {

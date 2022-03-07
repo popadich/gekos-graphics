@@ -7,6 +7,7 @@
 
 #import "GKSDrawingView.h"
 #import "GKSConstants.h"
+#include "gks/gks.h"
 
 @interface GKSDrawingView () {
     NSColor *bluePrintBlueColor;
@@ -62,6 +63,7 @@
     [NSBezierPath fillRect:dirtyRect];
     
     NSRect blueprintBox = NSInsetRect(self.bounds, 20.0, 20.0);
+    gks_trans_adjust_device_viewport(blueprintBox.origin.x, blueprintBox.size.width, blueprintBox.origin.y, blueprintBox.size.height);
     
     [self.backgroundColor set];
     NSBezierPath *boxPath = [NSBezierPath bezierPathWithRect:blueprintBox];
