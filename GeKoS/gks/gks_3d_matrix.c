@@ -336,7 +336,7 @@ void vecnormal(GKSpoint_3_Ptr vec, GKSpoint_3_Ptr normal)
     
 }
 
-GKSfloat vecabsolutevalue(GKSpoint_3_Ptr vec)
+GKSfloat vecabsolutevalue(GKSvector3d vec)
 {
-    return sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
+    return sqrt (vec.vec_arr[0]*vec.vec_arr[0] + vec.vec_arr[1]*vec.vec_arr[1] + vec.vec_arr[2]*vec.vec_arr[2]);
 }

@@ -577,13 +577,13 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 - (void)testVecAbsoluteValue {
-    GKSpoint_3 va = {1.0, 2.0, 3.0, 0.0};
-    GKSpoint_3 vb = {1.0, -2.0, -3.0, 0.0};
+    GKSvector3d va = {1.0, 2.0, 3.0, 0.0};
+    GKSvector3d vb = {1.0, -2.0, -3.0, 0.0};
     GKSfloat sqrtof14 = 3.74165;
     
-    GKSfloat av = vecabsolutevalue((GKSpoint_3_Ptr)&va);
+    GKSfloat av = vecabsolutevalue(va);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
-    av = vecabsolutevalue((GKSpoint_3_Ptr)&vb);
+    av = vecabsolutevalue(vb);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
 }
 
@@ -674,7 +674,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionOrthogonalEnable {
     GKSmatrix_3 *projMatrix;
     
-    gks_enable_orthogonal_projection();
+    gks_set_orthogonal_projection();
     projMatrix = gks_get_projection_matrix();
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
@@ -688,7 +688,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionPerspectiveEnable {
     GKSmatrix_3 *projMatrix;
 
-    gks_enable_perspective_projection();
+    gks_set_perspective_projection();
     gks_set_perspective_depth(1.0);
     projMatrix = gks_get_projection_matrix();
     XCTAssertEqual((*projMatrix)[0][0], 1.0);

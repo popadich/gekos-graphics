@@ -46,6 +46,6 @@ void vecsub(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b, GKSpoint_3_Ptr c);
 void vecadd(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c);
 void vecscale(GKSfloat k, GKSpoint_3_Ptr a, GKSpoint_3_Ptr b);
 void vecnormal(GKSpoint_3_Ptr vec, GKSpoint_3_Ptr normal);
-GKSfloat vecabsolutevalue(GKSpoint_3_Ptr vec);
+GKSfloat vecabsolutevalue(GKSvector3d vec);
 
 #endif /* gks_3d_matrix_h */
