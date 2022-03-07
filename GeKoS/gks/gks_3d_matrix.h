@@ -30,6 +30,7 @@ void gks_accumulate_z_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 m);
 void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, GKSmatrix_3 m);
 
 void gks_transform_point_3(GKSmatrix_3 trans_matrix, GKSpoint_3 *old_point, GKSpoint_3 *new_point);
+void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result);
 
 // Matrix Operations
 void gks_copy_matrix_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_copy);
@@ -49,3 +50,4 @@ void vecnormal(GKSpoint_3_Ptr vec, GKSpoint_3_Ptr normal);
 GKSfloat vecabsolutevalue(GKSvector3d vec);
 
 #endif /* gks_3d_matrix_h */
+

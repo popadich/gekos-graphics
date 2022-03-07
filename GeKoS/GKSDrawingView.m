@@ -54,8 +54,82 @@
     _itemLineWidth = 1.0;
 }
 
+
+struct mystery_data {
+    int op_num;
+    bool hiddenLineRemovalFlag;
+    char name[32];
+    void* ns_bezier_path;
+};
+
+static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr trans_array, GKSDCArrPtr dc_array, GKSnormalArrPtr norms, GKScolor *lineColor, bool hiddenSurfaceRemoveFlag, void* userdata)
+{
+    int             vertexID;
+    GKSpoint_2      dc;             // device coordinate
+    GKSint          r0, s0;
+
+    NSBezierPath* polyPath = [NSBezierPath bezierPath];
+    
+    // set pen color to object color
+    NSColor* aColor = [NSColor colorWithRed:lineColor->red green:lineColor->green blue:lineColor->blue alpha:lineColor->alpha];
+    [aColor setStroke];
+
+    // restore point 0
+//    vrc = trans_array[0];
+    
+    // restore device coordinate
+    dc = dc_array[0];
+    r0 = dc.x;
+    s0 = dc.y;
+    
+    // MoveTo call on Cocoa object
+    [polyPath moveToPoint:NSMakePoint(r0, s0)];
+    
+    for (vertexID=1; vertexID<num_pt; vertexID++) {
+
+        // restore transformed point
+//        vrc = trans_array[vertexID];
+        
+        // restore device coordinate
+        dc = dc_array[vertexID];
+        
+        // LineTo call on Cocoa object
+        [polyPath lineToPoint:NSMakePoint(dc.x, dc.y)];
+    }
+    // LineTo call on Cocoa object
+    [polyPath lineToPoint:NSMakePoint(r0, s0)];
+    
+    // this might be smarter at mesh instantiation
+    // and then just transform normal vectors with the rest of
+    // the vertices.
+    // restore the normal for polygon
+    GKSpoint_3 normal_vector = norms[polygonID];
+    
+    // Primitive surface removal in order to test normal vectors
+    //hiddenSurfaceRemoveFlag = mr_data->hiddenLineRemovalFlag;
+    if (hiddenSurfaceRemoveFlag) {
+        if (normal_vector.z > 0) {
+            // Stroke and Fill call on Cocoa object
+            // colors get set in GKSDrawingView:  - (void)drawRect
+            [polyPath fill];
+            [polyPath stroke];
+        }
+    }
+    else {
+        [polyPath stroke];
+    }
+}
+
+
+
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
+    
+    // Callback registration. Look into putting this in the awake method.
+    struct mystery_data polylinedata = {3, NO, "polyliner", NULL};
+    polylinedata.hiddenLineRemovalFlag = self.showSurface;
+    localpolyline_cb_register(my_polyline_cb, &polylinedata);
+    
     
     // Drawing code here.
     // erase the background by drawing background color
@@ -73,15 +147,12 @@
     [boxPath setLineWidth:self.itemLineWidth];
     [boxPath stroke];
     
-    CGFloat radius = 30.0;
-    CGFloat ox = (dirtyRect.size.width - radius) / 2.0;
-    CGFloat oy = (dirtyRect.size.height - radius) / 2.0;
-    NSRect ovalRect = NSMakeRect(ox, oy, radius, radius);
-    NSBezierPath *testDrawing = [NSBezierPath bezierPathWithOvalInRect:ovalRect];
-    [self.lineColor set];
+    // render objects
+    [self.lineColor setStroke];
     [self.fillColor setFill];
-    [testDrawing fill];
-    [testDrawing stroke];
+    // @TODO: use context or pass data?
+    // instead of using a callback function above
+    gks_objarr_draw_list();
 
 }
 

@@ -15,6 +15,8 @@
 #include "gks_3d_transforms.h"
 #include "gks_3d_world.h"
 #include "gks_3d_view_orient.h"
+#include "gks_3d_object_list.h"
+#include "gks_drawing_glue.h"
 
 void gks_init(void);
 

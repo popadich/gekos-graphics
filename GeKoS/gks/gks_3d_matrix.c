@@ -153,6 +153,30 @@ void gks_transform_point_3(GKSmatrix_3 tm, GKSpoint_3 *p1, GKSpoint_3 *p2)
     p2->z = tm[2][3] + tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z;
 }
 
+// New point computed using homogenuous coordinates, but the order of multiplication
+// is different.
+// I think that the book states that Matrix multiplies Vector to transform a vector.
+// this, but Im not sure.
+//
+//   [v0]  [m1 m2 m3 m4]
+//   [v1]  [           ]
+//   [v2]  [           ]
+//   [v3]  [           ]
+//
+void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result)
+{
+    result[0] = tm[0][0]*v[0] + tm[1][0]*v[1] + tm[2][0]*v[2] + tm[3][0]*v[3];
+    result[1] = tm[0][1]*v[0] + tm[1][1]*v[1] + tm[2][1]*v[2] + tm[3][1]*v[3];
+    result[2] = tm[0][2]*v[0] + tm[1][2]*v[1] + tm[2][2]*v[2] + tm[3][2]*v[3];
+    result[3] = tm[0][3]*v[0] + tm[1][3]*v[1] + tm[2][3]*v[2] + tm[3][3]*v[3];
+
+//    result[0] = tm[0][0]*v[0] + tm[0][1]*v[1] + tm[0][2]*v[2] + tm[0][3]*v[3];
+//    result[1] = tm[1][0]*v[0] + tm[1][1]*v[1] + tm[1][2]*v[2] + tm[1][3]*v[3];
+//    result[2] = tm[2][0]*v[0] + tm[2][1]*v[1] + tm[2][2]*v[2] + tm[2][3]*v[3];
+//    result[3] = tm[3][0]*v[0] + tm[3][1]*v[1] + tm[3][2]*v[2] + tm[3][3]*v[3];
+
+}
+
 
 void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSpoint_3 *overloadPlane) {
     double A, B, C, D;

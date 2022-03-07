@@ -93,6 +93,8 @@ typedef GKSint      GKSpolygon_3[GKS_MIN_VERTEX_COUNT];
 
 typedef GKSpoint_3      *GKSvertexArrPtr;       // list of 3D points for each polygon
 typedef GKSpolygon_3    *GKSpolygonArrPtr;      // polygon list
+typedef GKSpoint_2      *GKSDCArrPtr;
+typedef GKSpoint_3      *GKSnormalArrPtr;       // normal vector to each polygon
 
 
 typedef struct
@@ -101,6 +103,7 @@ typedef struct
     GKSint polynum;
     GKSvertexArrPtr vertices;
     GKSpolygonArrPtr polygons;
+    GKSnormalArrPtr normals;
 } GKSobject_3;
 
 
