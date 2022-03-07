@@ -18,6 +18,18 @@ typedef enum {
     kHouseKind
 } ObjectKind;
 
+typedef struct
+{
+    ObjectKind kind;
+    GKScolor its_color;
+    GKScolor line_color;
+    GKSmatrix_3 instanceTransform;
+    GKSobject_3 instanceObject;    //@FIXME: this should be a pointer
+    GKSpoint_3 scaleVector;
+    GKSpoint_3 rotateVector;
+    GKSpoint_3 translateVector;
+} Actor;
+
 #define GKS_CUBE_VERTEX_COUNT    8
 #define GKS_CUBE_POLYGON_COUNT   6
 

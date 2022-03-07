@@ -6,15 +6,21 @@
 //
 
 #import "GKSContentViewController.h"
+#import "GKSConstants.h"
 #import "GKSCameraRep.h"
 #import "GKSCameraController.h"
-#import "GKSConstants.h"
+#import "GKS3DObjectRep.h"
+#import "GKSScene.h"
 
 @interface GKSContentViewController ()
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, weak) IBOutlet NSView* cameraView;
 @property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
+
+
+@property (nonatomic, strong) GKS3DObjectRep* object3DRep;
+@property (nonatomic, strong) GKSScene* worldScene;
 
 @end
 
@@ -60,6 +66,28 @@
     NSNumber *prtype =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
     self.cameraRep.projectionType = prtype;
 
+    // Add an 3D object representation to try the transformation matrices
+    self.object3DRep =  [[GKS3DObjectRep alloc] init];
+    self.worldScene = [[GKSScene alloc] initWithCamera:self.cameraRep];
+
+    // This gives a volume bounds to the GKS 3D world, also add
+    // functions to adjust this volume and maybe initialize there.
+    GKSlimits_3 world_volume;
+    world_volume.xmin = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMinX];
+    world_volume.xmax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxX];
+    world_volume.ymin = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMinY];
+    world_volume.ymax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxY];
+    world_volume.zmin = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMinZ];
+    world_volume.zmax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxZ];
+    // esoteric calls to set world volume
+    // this seems very cumbersome;
+    GKSfloat r_min = 0.0;              // r_min = WindowRect.left;
+    GKSfloat r_max = 400.0;            // r_max = WindowRect.right;
+    GKSfloat s_min = 0.0;              // s_min = WindowRect.bottom;
+    GKSfloat s_max = 400.0;            // s_max = WindowRect.top;
+    gks_trans_create_transform_at_idx(0, r_min, r_max, s_min, s_max, world_volume);
+
+    
     
 }
 

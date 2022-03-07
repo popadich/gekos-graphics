@@ -365,6 +365,11 @@
             <point key="canvasLocation" x="23" y="369.5"/>
         </customView>
         <viewController id="NFN-fq-5sy" customClass="GKSCameraController"/>
+        <viewController id="sxa-LD-8zy" customClass="GKSDrawingController">
+            <connections>
+                <outlet property="view" destination="p2B-JL-RKD" id="IMi-jl-hWl"/>
+            </connections>
+        </viewController>
         <userDefaultsController representsSharedInstance="YES" id="HFF-pk-F7y"/>
     </objects>
 </document>
