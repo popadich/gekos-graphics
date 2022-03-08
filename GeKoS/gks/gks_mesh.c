@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include "gks_mesh.h"
+#include "gks_3d_matrix.h"
 
 GKSobject_3 *CubeMesh(void)
 {
@@ -31,11 +32,20 @@ GKSobject_3 *CubeMesh(void)
 
     GKSpoint_3 *p, *q;
     GKSobject_3 *aCube;
+    
+    //normal
+    GKSpoint_3 p1;
+    GKSpoint_3 p2;
+    GKSpoint_3 p3;
+    GKSpoint_3 normal;
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_3));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    
+    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpoint_3));
+    GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_3));
+    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
+
     // copy vertices using pointer arithmetic
     p = cubevert;
     q = vertexList;
@@ -52,11 +62,21 @@ GKSobject_3 *CubeMesh(void)
         for(int j=0; j<polygonSize; j++) {
             polygonList[i][j] = cubepoly[i][j];
         }
+        // compute normals polygon vertices are numbered from 1 vertex array is zero based.
+        p1 = cubevert[cubepoly[i][1] - 1];
+        p2 = cubevert[cubepoly[i][2] - 1];
+        p3 = cubevert[cubepoly[i][3] - 1];
+        gks_plane_equation_3(p1, p2, p3, &normal);
+        normalList[i] = normal;
+        
     }
 
     aCube = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
     aCube->vertices = vertexList;
     aCube->polygons = polygonList;
+    aCube->normals = normalList;
+    aCube->transverts = transVertList;
+    aCube->devcoords = devCoordList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
     aCube->polynum = GKS_CUBE_POLYGON_COUNT;
     
@@ -67,14 +87,14 @@ GKSobject_3 *CubeMesh(void)
 GKSobject_3 *PyramidMesh(void)
 {
     // Put some code here to configure a Pyramid.
-    static GKSpoint_3 pyramidVertices[GKS_PYRAMID_VERTEX_COUNT] = {
+    static GKSpoint_3 pyrverts[GKS_PYRAMID_VERTEX_COUNT] = {
         {0.0, 0.0, 0.0},
         {1.0, 0.0, 0.0},
         {1.0, 0.0, 1.0},
         {0.0, 0.0, 1.0},
         {0.5, 0.6636661, 0.5}
     };
-    static GKSpolygon_3 pyramidPolys[GKS_PYRAMID_POLYGON_COUNT] = {
+    static GKSpolygon_3 pyrpolys[GKS_PYRAMID_POLYGON_COUNT] = {
         {4,1,2,3,4},
         {3,1,5,2},
         {3,2,5,3},
@@ -85,12 +105,22 @@ GKSobject_3 *PyramidMesh(void)
     GKSpoint_3 *p, *q;
     GKSobject_3 *aPyramid = NULL;
 
+    //normal
+    GKSpoint_3 p1;
+    GKSpoint_3 p2;
+    GKSpoint_3 p3;
+    GKSpoint_3 normal;
+    
+    
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_3));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
+    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpoint_3));
+    GKSvertexArrPtr transList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_3));
+    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_2));
 
     // copy vertices using pointer arithmetic
-    p = pyramidVertices;
+    p = pyrverts;
     q = vertexList;
     for(int i=0; i<GKS_PYRAMID_VERTEX_COUNT; i++) {
         q->x=p->x;
@@ -101,10 +131,17 @@ GKSobject_3 *PyramidMesh(void)
 
     // copy polygon data using array indexing
     for(int i=0; i<GKS_PYRAMID_POLYGON_COUNT; i++) {
-        int polygonSize = pyramidPolys[i][0] + 1;
+        int polygonSize = pyrpolys[i][0] + 1;
         for(int j=0; j<polygonSize; j++) {
-            polygonList[i][j] = pyramidPolys[i][j];
+            polygonList[i][j] = pyrpolys[i][j];
         }
+        // compute normals polygon vertices are numbered from 1 vertex array is zero based.
+        p1 = pyrverts[pyrpolys[i][1] - 1];
+        p2 = pyrverts[pyrpolys[i][2] - 1];
+        p3 = pyrverts[pyrpolys[i][3] - 1];
+        gks_plane_equation_3(p1, p2, p3, &normal);
+        normalList[i] = normal;
+
     }
     
     aPyramid = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
@@ -112,6 +149,9 @@ GKSobject_3 *PyramidMesh(void)
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
     aPyramid->polygons = polygonList;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
+    aPyramid->normals = normalList;
+    aPyramid->transverts = transList;
+    aPyramid->devcoords = devCoordList;
     
     return aPyramid;
 }

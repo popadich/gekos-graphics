@@ -53,7 +53,7 @@
     
     GKSScene *scene = self.representedObject;
     GKSCameraRep *camera = scene.camera;
-    BOOL useLookAtPoint = YES; //TODO: hard coded value must be replaced
+    BOOL useLookAtPoint = NO; //TODO: hard coded value must be replaced
     if (camera != nil) {
         //
         // init 3D camera view and window viewport

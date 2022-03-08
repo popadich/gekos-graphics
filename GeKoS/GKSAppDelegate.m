@@ -77,9 +77,7 @@ static NSDictionary *defaultValues() {
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
     
-    // init gks
-    // this needs to be done early in the application lifecycle
-    gks_init();
+
 
 }
 

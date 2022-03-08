@@ -133,6 +133,8 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)changeRoll:(NSNumber *)angle
 {
+    GKSpoint_3 vector_y = {0.0, 1.0, 0.0, 1.0};  // unit vector along the y-axis
+
     GKSpoint_3 comp;
     GKSmatrix_3 T;
 
@@ -145,15 +147,17 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
 
-    gks_transform_point_3(T, &up_vect, &comp);
+    gks_transform_point_3(T, &vector_y, &comp);
     
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"vHatX"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"vHatY"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"vHatZ"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
 }
 
 - (void)changePitch:(NSNumber *)angle
 {
+    GKSpoint_3 vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
+
     GKSpoint_3 comp;
     GKSmatrix_3 T;
     
@@ -166,7 +170,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_y_rotation_matrix_3(theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
-    gks_transform_point_3(T, &up_vect, &comp);
+    gks_transform_point_3(T, &vector_z, &comp);
     
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
     [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
@@ -176,7 +180,9 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)changeYaw:(NSNumber *)angle
 {
-    GKSpoint_3 comp;
+    GKSpoint_3 vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
+
+    GKSpoint_3 trans_point;
     GKSmatrix_3 T;
 
     double theta = [angle doubleValue];
@@ -188,11 +194,11 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_y_rotation_matrix_3(theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
-    gks_transform_point_3(T, &up_vect, &comp);
+    gks_transform_point_3(T, &vector_z, &trans_point);
 
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.x] forKey:@"dirX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.y] forKey:@"dirY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.z] forKey:@"dirZ"];
 
 }
 

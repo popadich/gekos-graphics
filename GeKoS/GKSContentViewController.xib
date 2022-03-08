@@ -8,8 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GKSContentViewController">
             <connections>
-                <outlet property="cameraView" destination="TxN-l7-jPx" id="aJz-1v-zOA"/>
+                <outlet property="cameraCustomView" destination="TxN-l7-jPx" id="aJz-1v-zOA"/>
                 <outlet property="cameraViewController" destination="NFN-fq-5sy" id="r2C-xL-U5N"/>
+                <outlet property="drawingViewController" destination="sxa-LD-8zy" id="Lna-fI-O4D"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -236,9 +237,20 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nEs-3y-xBz">
+                                        <rect key="frame" x="84" y="13" width="60" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ish-CD-RhP">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="performAddQuick:" target="-2" id="jfL-8m-fV1"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Mix-rk-seE" firstAttribute="top" secondItem="njp-xH-cE3" secondAttribute="bottom" constant="15" id="0Zw-hB-vbq"/>
+                                    <constraint firstAttribute="bottom" secondItem="nEs-3y-xBz" secondAttribute="bottom" constant="20" symbolic="YES" id="5wf-F6-DAU"/>
                                     <constraint firstItem="OGB-Ki-yx7" firstAttribute="trailing" secondItem="FPo-o2-hTr" secondAttribute="trailing" id="6FU-yr-QB1"/>
                                     <constraint firstItem="mF6-0w-HYc" firstAttribute="trailing" secondItem="FPo-o2-hTr" secondAttribute="trailing" id="6bn-Qh-pv4"/>
                                     <constraint firstItem="cLz-kx-zxp" firstAttribute="top" secondItem="kop-1p-NlA" secondAttribute="bottom" constant="15" id="ASg-LZ-88j"/>
@@ -283,6 +295,7 @@
                                     <constraint firstItem="HMK-iO-O5i" firstAttribute="leading" secondItem="YqF-q3-twU" secondAttribute="leading" id="eZb-za-ag8"/>
                                     <constraint firstItem="3cY-IA-RoB" firstAttribute="trailing" secondItem="Uf5-b4-Kq6" secondAttribute="trailing" id="fnM-EM-yf9"/>
                                     <constraint firstItem="q5f-gl-PZS" firstAttribute="leading" secondItem="cLz-kx-zxp" secondAttribute="trailing" constant="16" id="hfk-LU-TkN"/>
+                                    <constraint firstItem="nEs-3y-xBz" firstAttribute="centerX" secondItem="yfN-Af-ZrN" secondAttribute="centerX" id="iMs-xq-QDd"/>
                                     <constraint firstItem="Uf5-b4-Kq6" firstAttribute="leading" secondItem="q5f-gl-PZS" secondAttribute="leading" id="jEC-zX-MYB"/>
                                     <constraint firstItem="Got-x8-U1K" firstAttribute="leading" secondItem="k6S-tw-kni" secondAttribute="trailing" constant="12" id="k9x-V8-L8T"/>
                                     <constraint firstItem="Got-x8-U1K" firstAttribute="top" secondItem="q5f-gl-PZS" secondAttribute="bottom" constant="10" symbolic="YES" id="kQm-X8-H5o"/>

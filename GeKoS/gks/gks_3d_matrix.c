@@ -146,14 +146,15 @@ void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, 
 //    [           ] [pz]
 //    [           ] [1]
 //
-void gks_transform_point_3(GKSmatrix_3 tm, GKSpoint_3 *p1, GKSpoint_3 *p2)
+void gks_transform_point_3(GKSmatrix_3 tm, GKSpoint_3 *p1, GKSpoint_3 *result)
 {
-    p2->x = tm[0][3] + tm[0][0]*p1->x + tm[0][1]*p1->y + tm[0][2]*p1->z;
-    p2->y = tm[1][3] + tm[1][0]*p1->x + tm[1][1]*p1->y + tm[1][2]*p1->z;
-    p2->z = tm[2][3] + tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z;
+    result->x = tm[0][3] + tm[0][0]*p1->x + tm[0][1]*p1->y + tm[0][2]*p1->z;
+    result->y = tm[1][3] + tm[1][0]*p1->x + tm[1][1]*p1->y + tm[1][2]*p1->z;
+    result->z = tm[2][3] + tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z;
 }
 
-// New point computed using homogenuous coordinates, but the order of multiplication
+
+// New vector computed using homogenuous coordinates, but the order of multiplication
 // is different.
 // I think that the book states that Matrix multiplies Vector to transform a vector.
 // this, but Im not sure.
@@ -169,11 +170,6 @@ void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result)
     result[1] = tm[0][1]*v[0] + tm[1][1]*v[1] + tm[2][1]*v[2] + tm[3][1]*v[3];
     result[2] = tm[0][2]*v[0] + tm[1][2]*v[1] + tm[2][2]*v[2] + tm[3][2]*v[3];
     result[3] = tm[0][3]*v[0] + tm[1][3]*v[1] + tm[2][3]*v[2] + tm[3][3]*v[3];
-
-//    result[0] = tm[0][0]*v[0] + tm[0][1]*v[1] + tm[0][2]*v[2] + tm[0][3]*v[3];
-//    result[1] = tm[1][0]*v[0] + tm[1][1]*v[1] + tm[1][2]*v[2] + tm[1][3]*v[3];
-//    result[2] = tm[2][0]*v[0] + tm[2][1]*v[1] + tm[2][2]*v[2] + tm[2][3]*v[3];
-//    result[3] = tm[3][0]*v[0] + tm[3][1]*v[1] + tm[3][2]*v[2] + tm[3][3]*v[3];
 
 }
 

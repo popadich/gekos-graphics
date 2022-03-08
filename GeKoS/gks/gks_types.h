@@ -101,9 +101,11 @@ typedef struct
 {
     GKSint vertnum;
     GKSint polynum;
-    GKSvertexArrPtr vertices;
+    GKSvertexArrPtr  vertices;
     GKSpolygonArrPtr polygons;
-    GKSnormalArrPtr normals;
+    GKSnormalArrPtr  normals;
+    GKSvertexArrPtr  transverts;      // transformed points
+    GKSDCArrPtr      devcoords;
 } GKSobject_3;
 
 

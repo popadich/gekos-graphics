@@ -193,9 +193,9 @@ void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSu
     
     vertexList = theObject->vertices;
     polygonList = theObject->polygons;
-//    normalList = theObject->normals;
-//    transVertList = theObject->transverts;
-//    devcoordList = theObject->devcoords;
+    normalList = theObject->normals;
+    transVertList = theObject->transverts;
+    devcoordList = theObject->devcoords;
     
     // TODO: transform object vertices first
     // to speed things up I should transform all the vertices of the object

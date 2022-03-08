@@ -24,7 +24,7 @@ void gks_objarr_draw_object(Actor anActor);
 //
 //Actor gks_objarr_object_at_index(int index);
 //
-//void gks_objarr_add(ObjectKind kind, Object_3 *object, Gpt_3 transVec, Gpt_3 scaleVec, Gpt_3 rotVec, Gcolor lineColor);
+void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSpoint_3 transVec, GKSpoint_3 scaleVec, GKSpoint_3 rotVec, GKScolor lineColor);
 //void gks_objarr_update_object(int index, int kind, Gfloat tx, Gfloat ty, Gfloat tz, Gfloat sx, Gfloat sy, Gfloat sz, Gfloat rx, Gfloat ry, Gfloat rz);
 //
 //void gks_objarr_delete_last(void);
