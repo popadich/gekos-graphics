@@ -46,7 +46,7 @@ void gks_set_perspective_projection(void)
 {
     gProjectionMatrix_3[0][0] = 1.0; gProjectionMatrix_3[0][1] = 0.0; gProjectionMatrix_3[0][2] = 0.0; gProjectionMatrix_3[0][3] = 0.0;
     gProjectionMatrix_3[1][0] = 0.0; gProjectionMatrix_3[1][1] = 1.0; gProjectionMatrix_3[1][2] = 0.0; gProjectionMatrix_3[1][3] = 0.0;
-    gProjectionMatrix_3[2][0] = 0.0; gProjectionMatrix_3[2][1] = 0.0; gProjectionMatrix_3[2][2] = 0.0; gProjectionMatrix_3[2][3] = 1.0/gPerspectiveDepth;       //TODO: should be positive according to the book
+    gProjectionMatrix_3[2][0] = 0.0; gProjectionMatrix_3[2][1] = 0.0; gProjectionMatrix_3[2][2] = 0.0; gProjectionMatrix_3[2][3] = 1.0/gPerspectiveDepth; //TODO: positive according to book?
     gProjectionMatrix_3[3][0] = 0.0; gProjectionMatrix_3[3][1] = 0.0; gProjectionMatrix_3[3][2] = 0.0; gProjectionMatrix_3[3][3] = 1.0;
     
     gProjectionType = kPerspectiveProjection;

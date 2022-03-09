@@ -35,6 +35,7 @@ static NSDictionary *defaultValues() {
                 [NSNumber numberWithInteger:400], gksPrefViewHeight,
                 [NSNumber numberWithBool:YES], gksPrefPerspectiveProjectionFlag,
                 [NSNumber numberWithDouble:1.0], gksPrefPerspectiveDistance,
+                [NSNumber numberWithInteger:kPerspective], gksPrefProjectionType,
                 [NSNumber numberWithBool:NO], gksPrefVisibleSurfaceFlag,
                 [NSKeyedArchiver archivedDataWithRootObject:bluePrintBlue requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
                 [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], gksPrefFillColor,
@@ -62,6 +63,11 @@ static NSDictionary *defaultValues() {
         [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaultValues()];
         
     }
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+    return YES;
 }
 
 

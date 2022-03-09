@@ -13,6 +13,7 @@
 #import "GKS3DObjectRep.h"
 #import "GKSScene.h"
 
+
 @interface GKSContentViewController ()
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
@@ -25,6 +26,12 @@
 @property (nonatomic, strong) GKSScene* worldScene;
 
 @end
+
+
+static void *ObserverDistanceContext = &ObserverDistanceContext;
+static void *ObserverPoistionContext = &ObserverPoistionContext;
+static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
+
 
 @implementation GKSContentViewController
 
@@ -69,7 +76,15 @@
     
     NSNumber *prtype =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
     self.cameraRep.projectionType = prtype;
-
+    
+    if (prtype.intValue == kOrthogonalProjection) {
+        gks_set_orthogonal_projection();
+    }
+    else if (prtype.intValue == kPerspectiveProjection) {
+        gks_set_perspective_projection();
+        gks_set_perspective_depth([distance doubleValue]);
+    }
+    
 
 
     // This gives a volume bounds to the GKS 3D world, also add
@@ -93,6 +108,8 @@
     // Add an 3D object representation to try the transformation matrices
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.worldScene = [[GKSScene alloc] initWithCamera:self.cameraRep];
+    
+    [self registerAsObserverForCamera];
 }
 
 - (void)awakeFromNib {
@@ -104,6 +121,37 @@
     self.drawingViewController.representedObject =  self.worldScene;
 }
 
+
+- (void)registerAsObserverForCamera
+{
+    GKSCameraRep *camera = self.cameraRep;
+    [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverDistanceContext];
+    [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"dirX" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"dirY" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"dirZ" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"upX" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"upY" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"upZ" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == ObserverDistanceContext) {
+        NSLog(@"%@", keyPath);
+        [self.drawingViewController setCenterOfProjection];
+        [self.view setNeedsDisplay:YES];
+    }
+    else if (context == ObserverPlaneNormalContext) {
+        [self.drawingViewController cameraChange];
+        [self.view setNeedsDisplay:YES];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
 // Object List Stuff
 
@@ -201,6 +249,16 @@
     [self addObject3DOfKind:kCubeKind];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
+}
+
+- (IBAction)performUpdateQuick:(id)sender {
+    NSInteger addTag = [sender tag];
+    NSLog(@"Quick Update Object From Menu Tag: %ld",addTag);
+
+    // Add  3d object: a 3D object to the  3d object list
+    // some other controller needs to handle this?
+    
+    [self.drawingViewController.view setNeedsDisplay:YES];
 }
 
 @end

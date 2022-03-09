@@ -281,6 +281,9 @@
                                 <binding destination="XI3-BN-hwX" name="selectedIndex" keyPath="values.perspectiveType" id="pDX-Zc-Rc7"/>
                             </connections>
                         </popUpButtonCell>
+                        <connections>
+                            <binding destination="XI3-BN-hwX" name="selectedIndex" keyPath="values.projectionTypeIndex" id="xua-Ah-0FO"/>
+                        </connections>
                     </popUpButton>
                 </subviews>
                 <constraints>

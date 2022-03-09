@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerAsObserverForObserver:(GKSCameraRep*)camera;
 - (void)cameraChange;
+- (void)setCenterOfProjection;
 
 @end
 

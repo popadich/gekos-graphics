@@ -6,6 +6,7 @@
 //
 
 #import "GKSDrawingController.h"
+#import "GKSConstants.h"
 #import "GKSCameraRep.h"
 #import "GKSScene.h"
 
@@ -29,7 +30,7 @@
     GKSCameraRep *camera = scene.camera;
     if (camera != nil) {
         NSNumber *prtype = camera.projectionType;
-        if (prtype.intValue == kPerspectiveProjection) {
+        if (prtype.intValue == kPerspective) {
             //Set perspective distance
             double distance = [camera.focalLength doubleValue];
             gks_set_perspective_depth(distance);
@@ -53,7 +54,7 @@
     
     GKSScene *scene = self.representedObject;
     GKSCameraRep *camera = scene.camera;
-    BOOL useLookAtPoint = NO; //TODO: hard coded value must be replaced
+    BOOL useLookAtPoint = YES; //TODO: hard coded value must be replaced
     if (camera != nil) {
         //
         // init 3D camera view and window viewport

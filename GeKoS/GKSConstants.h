@@ -12,7 +12,7 @@
 #define gksPrefViewHeight @"viewHeight"
 #define gksPrefVirtualWidth @"virtualWidth"
 #define gksPrefVirtualHeight @"virtualHeight"
-#define gksPrefProjectionType @"projectionType"
+#define gksPrefProjectionType @"projectionTypeIndex"
 #define gksPrefPerspectiveProjectionFlag @"perspectiveProjectionFlag"
 #define gksPrefPerspectiveDistance @"perspectiveDepth"
 #define gksPrefVisibleSurfaceFlag @"visibleSurfaceFlag"
@@ -28,5 +28,10 @@
 #define gksPrefWorldVolumeMaxZ @"worldVolumeMaxZ"
 #define gksPrefLookAtPoint @"lookAtFlag"
 
+typedef enum ProjectionIndex : NSUInteger {
+    kOrthogonal,
+    kPerspective,
+    kStereo
+} ProjectionIndex;
 
 #endif /* GKSConstants_h */
