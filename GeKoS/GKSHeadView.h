@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber* headRoll;
 @property (nonatomic, weak) NSNumber* headPitch;
 @property (nonatomic, weak) NSNumber* headYaw;
-@property (nonatomic, weak) NSNumber* headFocalLength;
+@property (nonatomic, strong) NSNumber* headFocalLength;
 
 @end
 

@@ -13,7 +13,6 @@
 #define gksPrefVirtualWidth @"virtualWidth"
 #define gksPrefVirtualHeight @"virtualHeight"
 #define gksPrefProjectionType @"projectionTypeIndex"
-#define gksPrefPerspectiveProjectionFlag @"perspectiveProjectionFlag"
 #define gksPrefPerspectiveDistance @"perspectiveDepth"
 #define gksPrefVisibleSurfaceFlag @"visibleSurfaceFlag"
 #define gksPrefBackgroundColor @"backgroundColor"

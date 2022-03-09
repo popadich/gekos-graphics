@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSDrawingController : NSViewController
 
 - (void)registerAsObserverForObserver:(GKSCameraRep*)camera;
-- (void)cameraChange;
+- (void)cameraClampTransform;
 - (void)setCenterOfProjection;
 
 @end

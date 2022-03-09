@@ -6,10 +6,9 @@
 //
 
 #import "GKSCameraRep.h"
-#include "gks/gks_types.h"
+#import "GKSConstants.h"
 
 @interface GKSCameraRep () {
-    GKSpoint_3 unit_vect;
 
 }
 
@@ -44,14 +43,15 @@
         _pitch = @0.0;
         _roll = @0.0;
 
-        // TODO: get from preference
-        _perspectiveProjectionFlag = [NSNumber numberWithBool:YES];
-        
-        _visibleSurfaceFlag = [NSNumber numberWithBool:NO];
-        _useLookAt = [NSNumber numberWithBool:NO];
         _lookX = @0.0;
         _lookY = @0.0;
         _lookZ = @0.0;
+        
+        // TODO: get from preference
+        _projectionType = [NSNumber numberWithInteger:kOrthogonal];
+        
+        _visibleSurfaceFlag = [NSNumber numberWithBool:NO];
+
    }
     return self;
 }

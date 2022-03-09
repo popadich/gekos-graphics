@@ -49,7 +49,7 @@
     }
 }
 
-- (void)cameraChange {
+- (void)cameraClampTransform {
     GKSmatrix_3    aViewMatrix;
     
     GKSScene *scene = self.representedObject;

@@ -9,6 +9,8 @@
 #import "GKSCameraRep.h"
 #include "gks/gks.h"
 
+static double head_size_adjust = 1.0;
+
 @interface GKSCameraController () {
     GKSpoint_3 up_vect;
 }
@@ -95,7 +97,11 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)setFocus:(NSNumber *)focal;
 {
-    self.headView.headFocalLength = focal;
+    // increase focal length on head by a bit, so that the
+    // head is visible in its frame.
+    double focal_length = [focal doubleValue] + head_size_adjust;
+    NSNumber *fl = [NSNumber numberWithDouble:focal_length];
+    self.headView.headFocalLength = fl;
     [self.headView setNeedsDisplay:YES];
 
 }

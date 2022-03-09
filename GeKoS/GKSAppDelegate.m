@@ -22,7 +22,7 @@ static NSDictionary *defaultValues() {
     static NSDictionary *dict = nil;
     if (!dict) {
         // some data types require more work to store to defaults.
-        NSColor* bluePrintBlue = [NSColor colorWithRed:0.066 green:0.510 blue:0.910 alpha:1.0];
+        NSColor* blueprintColor = [NSColor colorWithRed:0.066 green:0.510 blue:0.910 alpha:1.0];
         NSColor* greypenColor = [NSColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
         NSColor* manillafillColor = [NSColor colorWithRed:1.0 green:1.0 blue:0.8 alpha:1.0];
         
@@ -33,11 +33,10 @@ static NSDictionary *defaultValues() {
         dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                 [NSNumber numberWithInteger:400], gksPrefViewWidth,
                 [NSNumber numberWithInteger:400], gksPrefViewHeight,
-                [NSNumber numberWithBool:YES], gksPrefPerspectiveProjectionFlag,
                 [NSNumber numberWithDouble:1.0], gksPrefPerspectiveDistance,
                 [NSNumber numberWithInteger:kPerspective], gksPrefProjectionType,
                 [NSNumber numberWithBool:NO], gksPrefVisibleSurfaceFlag,
-                [NSKeyedArchiver archivedDataWithRootObject:bluePrintBlue requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
+                [NSKeyedArchiver archivedDataWithRootObject:blueprintColor requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
                 [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], gksPrefFillColor,
                 [NSKeyedArchiver archivedDataWithRootObject:greypenColor requiringSecureCoding:NO error:&error], gksPrefPenColor,
                 [NSNumber numberWithBool:NO], gksPrefLookAtPoint,

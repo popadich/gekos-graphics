@@ -68,7 +68,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     
     self.cameraRep.positionX = @0.0;
     self.cameraRep.positionY = @0.0;
-    self.cameraRep.positionZ = @2.0;
+    self.cameraRep.positionZ = @5.0;
     
     
     NSNumber *distance =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
@@ -108,7 +108,8 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     // Add an 3D object representation to try the transformation matrices
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.worldScene = [[GKSScene alloc] initWithCamera:self.cameraRep];
-    
+    [self.drawingViewController cameraClampTransform];
+
     [self registerAsObserverForCamera];
 }
 
@@ -146,7 +147,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
         [self.view setNeedsDisplay:YES];
     }
     else if (context == ObserverPlaneNormalContext) {
-        [self.drawingViewController cameraChange];
+        [self.drawingViewController cameraClampTransform];
         [self.view setNeedsDisplay:YES];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -257,7 +258,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 
     // Add  3d object: a 3D object to the  3d object list
     // some other controller needs to handle this?
-    
+
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 
