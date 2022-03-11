@@ -42,5 +42,6 @@ typedef struct
 GKSobject_3 *CubeMesh(void);
 GKSobject_3 *PyramidMesh(void);
 GKSobject_3 *HouseMesh(void);
+GKSobject_3 *SphereMesh(void);
 
 #endif /* gks_mesh_h */

@@ -94,7 +94,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 }
 
 
-#pragma mark User Interaction
+#pragma mark USER Interaction
 
 - (void)setFocus:(NSNumber *)focal;
 {
@@ -219,7 +219,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 }
 
 
-//MARK: Library interactions
+//MARK: LIBRARY interactions
 
 - (void)cameraSetCenterOfProjectionG {
     GKSCameraRep *camera = self.camera;

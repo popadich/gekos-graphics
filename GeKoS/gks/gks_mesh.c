@@ -6,6 +6,7 @@
 //
 
 #include <stdlib.h>
+#include <math.h>
 #include "gks_mesh.h"
 #include "gks_3d_matrix.h"
 
@@ -216,3 +217,78 @@ GKSobject_3 *HouseMesh(void)
     
     return anObject;
 }
+
+GKSobject_3 *SphereMesh(void)
+{
+    double          sini;
+    int             vertexCount = 0;
+    int             polygonCount = 0;
+
+    // degreeDelta and facetCount
+    // parameters describing sphere sampling size this controls
+    // the number of total vertices and polygons. It goes without
+    // saying that the 'degreeDelta' value needs to be a even
+    // denomintor of 360.
+    int degreeDelta = 10;               // should be a parameter
+    int facetCount = 360/degreeDelta;
+    int computedVertexCount = (180/degreeDelta + 1) * (360/degreeDelta);
+    int computedPolygonCount = computedVertexCount - facetCount;
+
+    // allocate sub arrays and then the container structure object
+    // use calloc to clear allocatted memory to zeros
+    GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSpoint_3));
+    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(computedPolygonCount, sizeof(GKSpolygon_3));
+    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(computedPolygonCount, sizeof(GKSpoint_3));
+    
+    GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSpoint_3));
+    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(computedVertexCount, sizeof(GKSpoint_2));
+
+    GKSobject_3 *aSphere = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
+    
+    // construct verteces
+   for (int i=0; i<=180; i+=degreeDelta) {
+        for (int j=0; j<360; j+=degreeDelta) {
+            sini = sin(i*DEG_TO_RAD);
+            int idx = (j+(i*facetCount))/degreeDelta;
+            vertexList[idx].x = 0.5 * sini * cos(j*DEG_TO_RAD);
+            vertexList[idx].y = 0.5 * sini * sin(j*DEG_TO_RAD);
+            vertexList[idx].z = 0.5 * cos(i*DEG_TO_RAD);
+            vertexCount += 1;
+        }
+    }
+    
+    // cpmstruct polygons
+    for (int i=0; i<computedPolygonCount; i+=facetCount) {
+        for (int j=0; j<facetCount; j++) {
+            polygonList[j+i][0]= 4;
+            polygonList[j+i][1]= j+i+1;
+            polygonList[j+i][2] = ((j+1) % facetCount) + i + 1;;
+            polygonList[j+i][3] = polygonList[j+i][2]+facetCount;
+            polygonList[j+i][4] = polygonList[j+i][1]+facetCount;
+            polygonCount += 1;
+        }
+    }
+
+    if (computedPolygonCount != polygonCount) {
+        // Should throw something, because this should never happen
+        // printf("Something is wrong !!\n");
+        return NULL;
+    }
+    
+    if (computedVertexCount != vertexCount) {
+        // throw something here, because this should never happen
+        // NSLog(@"ERROR: vertex counts do not match.");
+        return NULL;
+    }
+    
+    aSphere->vertices = vertexList;
+    aSphere->polygons = polygonList;
+    aSphere->normals = normalList;
+    aSphere->vertnum = vertexCount;
+    aSphere->polynum = polygonCount;
+    aSphere->transverts = transVertList;
+    aSphere->devcoords = devCoordList;
+
+    return aSphere;
+}
+

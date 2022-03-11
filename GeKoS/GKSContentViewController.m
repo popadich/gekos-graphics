@@ -68,8 +68,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     
     self.cameraRep.positionX = @0.0;
     self.cameraRep.positionY = @0.0;
-    self.cameraRep.positionZ = @5.0;
-    
+    self.cameraRep.positionZ = @2.0;
     
     NSNumber *distance =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
     self.cameraRep.focalLength = distance;
@@ -85,8 +84,6 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
         gks_set_perspective_depth([distance doubleValue]);
     }
     
-
-
     // This gives a volume bounds to the GKS 3D world, also add
     // functions to adjust this volume and maybe initialize there.
     GKSlimits_3 world_volume;
@@ -96,18 +93,22 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     world_volume.ymax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxY];
     world_volume.zmin = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMinZ];
     world_volume.zmax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxZ];
+    
     // esoteric calls to set world volume
     // this seems very cumbersome;
-    GKSfloat r_min = 0.0;              // r_min = WindowRect.left;
-    GKSfloat r_max = 400.0;            // r_max = WindowRect.right;
-    GKSfloat s_min = 0.0;              // s_min = WindowRect.bottom;
-    GKSfloat s_max = 400.0;            // s_max = WindowRect.top;
-    gks_trans_create_transform_at_idx(0, r_min, r_max, s_min, s_max, world_volume);
-
+    NSView *drawView = self.drawingViewController.view;
+    NSRect viewRect = drawView.frame;
+    GKSfloat r_min = viewRect.origin.x;              // r_min = WindowRect.left;
+    GKSfloat r_max = viewRect.size.width;            // r_max = WindowRect.right;
+    GKSfloat s_min = viewRect.origin.y;              // s_min = WindowRect.bottom;
+    GKSfloat s_max = viewRect.size.height;            // s_max = WindowRect.top;
     
-    // Add an 3D object representation to try the transformation matrices
+    // Set normalization value transform from world to camera to view coordinates
+    gks_trans_create_transform_at_idx(0, r_min, r_max, s_min, s_max, world_volume);
+    
+    // Store one 3D object representation to test the transformation matrices
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
-    self.worldScene = [[GKSScene alloc] initWithCamera:self.cameraRep];
+    
     [self.cameraViewController cameraSetViewMatrixG];
 
     [self registerAsObserverForCamera];
@@ -119,7 +120,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     
     // TODO: this should come from a document
     self.worldScene = [[GKSScene alloc] initWithCamera:self.cameraRep];
-    self.drawingViewController.representedObject =  self.worldScene;
+    self.drawingViewController.representedObject = self.worldScene;
 }
 
 
@@ -206,21 +207,21 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
         [self addObjectToRootOfKind:kCubeKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
     }
     
-//    if (addTag==kSphereKind) {
-//        GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
-//        trans.x=0.0; trans.y=0.0; trans.z=0.0; trans.w=1.0;
-//        scale.x=1.0; scale.y=1.0; scale.z=1.0; scale.w=1.0;
-//        rotate.x=0.0; rotate.y=0.0; rotate.z=0.0; rotate.w=1.0;
-//
-//        GKSobject_3 *objPtr = SphereMesh();
-//
-//        // add a 3d object to the c model world
-//        gks_objarr_add(kSphereKind, objPtr, trans, scale, rotate, lineColor);
-//        free(objPtr);  //free object it is copied when added
-//
-//        // add a 3d object to the object GUI world
-//        [self addObjectToRootOfKind:kSphereKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
-//    }
+    if (addTag==kSphereKind) {
+        GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
+        trans.x=0.0; trans.y=0.0; trans.z=0.0; trans.w=1.0;
+        scale.x=1.0; scale.y=1.0; scale.z=1.0; scale.w=1.0;
+        rotate.x=0.0; rotate.y=0.0; rotate.z=0.0; rotate.w=1.0;
+
+        GKSobject_3 *objPtr = SphereMesh();
+
+        // add a 3d object to the c model world
+        gks_objarr_add(kSphereKind, objPtr, trans, scale, rotate, lineColor);
+        free(objPtr);  //free object it is copied when added
+
+        // add a 3d object to the object GUI world
+        [self addObjectToRootOfKind:kSphereKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
+    }
     
     if (addTag==kPyramidKind) {
         GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
@@ -244,10 +245,10 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     NSInteger addTag = [sender tag];
     NSLog(@"Quick Add Object From Menu Tag: %ld",addTag);
 
-    // Add  3d object: a 3D object to the  3d object list
+    // Add 3d object to the object list
     // some other controller needs to handle this?
     
-    [self addObject3DOfKind:kCubeKind];
+    [self addObject3DOfKind:kPyramidKind];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
@@ -255,9 +256,6 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 - (IBAction)performUpdateQuick:(id)sender {
     NSInteger addTag = [sender tag];
     NSLog(@"Quick Update Object From Menu Tag: %ld",addTag);
-
-    // Add  3d object: a 3D object to the  3d object list
-    // some other controller needs to handle this?
 
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
