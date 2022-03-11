@@ -108,7 +108,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     // Add an 3D object representation to try the transformation matrices
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.worldScene = [[GKSScene alloc] initWithCamera:self.cameraRep];
-    [self.drawingViewController cameraClampTransform];
+    [self.cameraViewController cameraSetViewMatrixG];
 
     [self registerAsObserverForCamera];
 }
@@ -143,12 +143,12 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 {
     if (context == ObserverDistanceContext) {
         NSLog(@"%@", keyPath);
-        [self.drawingViewController setCenterOfProjection];
-        [self.view setNeedsDisplay:YES];
+        [self.cameraViewController cameraSetCenterOfProjectionG];
+        [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverPlaneNormalContext) {
-        [self.drawingViewController cameraClampTransform];
-        [self.view setNeedsDisplay:YES];
+        [self.cameraViewController cameraSetViewMatrixG];
+        [self.drawingViewController.view setNeedsDisplay:YES];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

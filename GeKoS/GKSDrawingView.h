@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSColor *lineColor;
 @property (nonatomic, copy) NSColor *fillColor;
 @property (nonatomic, copy) NSColor *backgroundColor;
-@property (nonatomic, assign) BOOL showSurface;
+@property (nonatomic, assign) BOOL visibleSurfaceOnly;
 
 @end
 

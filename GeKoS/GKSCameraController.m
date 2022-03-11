@@ -6,6 +6,7 @@
 //
 
 #import "GKSCameraController.h"
+#import "GKSConstants.h"
 #import "GKSCameraRep.h"
 #include "gks/gks.h"
 
@@ -216,5 +217,63 @@ static void *CameraRotationContext = &CameraRotationContext;
         NSLog(@"Visible Surfaces Only: %d", onState);
     }
 }
+
+
+//MARK: Library interactions
+
+- (void)cameraSetCenterOfProjectionG {
+    GKSCameraRep *camera = self.camera;
+    if (camera != nil) {
+        NSNumber *prtype = camera.projectionType;
+        if (prtype.intValue == kPerspective) {
+            //Set perspective distance
+            double distance = [camera.focalLength doubleValue];
+            gks_set_perspective_depth(distance);
+        }
+    }
+}
+
+
+- (void)cameraSetViewMatrixG {
+    GKSmatrix_3    aViewMatrix;
+    
+    GKSCameraRep *camera = self.camera;
+    BOOL useLookAtPoint = YES; //TODO: hard coded value must be replaced
+    if (camera != nil) {
+        //
+        // init 3D camera view and window viewport
+        // sets up aView matrix based on VRP, VPN and VUP
+        //Set View Up Vector
+        GKSpoint_3 up_vector;
+        up_vector.x = [camera.upX doubleValue];
+        up_vector.y = [camera.upY doubleValue];
+        up_vector.z = [camera.upZ doubleValue];
+        
+        //Set View Plane Normal
+        // the view plane is like a tv screen in front of your face.
+        // this vector sets the normal to that "screen". The plane is
+        // actually an infinite plane.
+        GKSpoint_3 normal_vector;
+        normal_vector.x = [camera.dirX doubleValue];
+        normal_vector.y = [camera.dirY doubleValue];
+        normal_vector.z = [camera.dirZ doubleValue];
+        
+        //Set View Reference Point
+        GKSpoint_3 cam_ref;
+        cam_ref.x = [camera.positionX doubleValue];
+        cam_ref.y = [camera.positionY doubleValue];
+        cam_ref.z = [camera.positionZ doubleValue];
+        
+        if (useLookAtPoint) {
+            gks_compute_look_at_matrix(cam_ref.x, cam_ref.y, cam_ref.z, normal_vector.x, normal_vector.y, normal_vector.z, up_vector.x, up_vector.y, up_vector.z, aViewMatrix);
+        } else {
+            gks_create_view_matrix(cam_ref.x, cam_ref.y, cam_ref.z, normal_vector.x, normal_vector.y, normal_vector.z, up_vector.x, up_vector.y, up_vector.z, aViewMatrix);
+        }
+        gks_set_view_matrix(aViewMatrix);
+        
+        [self cameraSetCenterOfProjectionG];
+    }
+}
+
 
 @end

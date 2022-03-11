@@ -50,7 +50,7 @@
     
     bluePrintBlueColor = [NSColor colorWithRed:0.066 green:0.510 blue:0.910 alpha:1.0];
     maizeColor = [NSColor colorWithRed:1.0 green:203.0/255.0 blue:5.0/255.0 alpha:1.0];
-    _showSurface = NO;
+    _visibleSurfaceOnly = NO;
     _itemLineWidth = 1.0;
 }
 
@@ -127,7 +127,7 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr tran
     
     // Callback registration. Look into putting this in the awake method.
     struct mystery_data polylinedata = {3, NO, "polyliner", NULL};
-    polylinedata.hiddenLineRemovalFlag = self.showSurface;
+    polylinedata.hiddenLineRemovalFlag = self.visibleSurfaceOnly;
     localpolyline_cb_register(my_polyline_cb, &polylinedata);
     
     
