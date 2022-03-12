@@ -56,13 +56,45 @@
     return self;
 }
 
+- (void)initColorWellDefaults {
+    
+    NSError* error;
+    // background color
+    NSData* colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
+    if (colorData != nil) {
+        self.backgroundDefaultColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+    }
+    // line color
+    colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
+    if (colorData != nil) {
+        self.lineDefaultColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+    }
+    // fill color
+    colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
+    if (colorData != nil) {
+        self.fillDefaultColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+    }
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    [self initColorWellDefaults];
 }
 
 
+- (IBAction)resetAllPreferences:(id)sender
+{
+
+    // clear the non-default values
+    NSDictionary *defaultsDict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    for (NSString *key in [defaultsDict allKeys])
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+
+    // update the preference window to reflect the new defaults
+    [self initColorWellDefaults];
+}
 
 - (void)setBackgroundDefaultColor:(NSColor *)backgroundDefaultColor {
     NSError* error = nil;

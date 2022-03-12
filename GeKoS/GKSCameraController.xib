@@ -354,8 +354,8 @@
                     </constraints>
                 </customView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iKE-UF-9xd">
-                    <rect key="frame" x="13" y="13" width="70" height="32"/>
-                    <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="i95-RH-BUW">
+                    <rect key="frame" x="13" y="13" width="120" height="32"/>
+                    <buttonCell key="cell" type="push" title="Camera Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="i95-RH-BUW">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
