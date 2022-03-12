@@ -10,6 +10,7 @@
 
 @interface GKSPreferences ()
 
+@property (strong) NSNumber* projectionTypeDefault;
 @property (nonatomic, strong) NSColor* backgroundDefaultColor;
 @property (nonatomic, strong) NSColor* fillDefaultColor;
 @property (nonatomic, strong) NSColor* lineDefaultColor;
@@ -37,9 +38,10 @@
         _etherealStringPropery = @"Some ethereal string";
         _enableEtherealOptions = NO;
         
-        _backgroundDefaultColor = [NSColor whiteColor];
-        _fillDefaultColor = [NSColor lightGrayColor];
-        _lineDefaultColor = [NSColor blackColor];
+        _projectionTypeDefault = @(kPerspective);
+        _backgroundDefaultColor = [NSColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        _fillDefaultColor = [NSColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+        _lineDefaultColor = [NSColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         
         NSError* error;
         NSData* theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
