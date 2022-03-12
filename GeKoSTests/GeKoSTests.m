@@ -42,7 +42,7 @@
 - (void)testUserDefaults {
 
     NSNumber* lookAtFlag = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefLookAtPoint];
-    XCTAssertEqual([lookAtFlag boolValue], NO);
+    XCTAssertEqual([lookAtFlag boolValue], YES);
     
     NSNumber* projectionType = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
     XCTAssertEqual([projectionType integerValue], 1);

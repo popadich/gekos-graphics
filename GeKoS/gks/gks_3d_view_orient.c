@@ -53,36 +53,51 @@ GKSmatrix_3 *gks_get_view_matrix(void)
 
 // @TODO: problems when view plane normal matches up vector
 // When (xn,yn,zn) is set to (0,1,0) things blow up
-void gks_create_view_matrix(double xo, double yo, double zo,
-                        double xn, double yn, double zn,
-                        double xv, double yv, double zv, GKSmatrix_3 result) {
-    GKSpoint_3 u,v,un,vn,nn;
+void gks_create_view_matrix(double obsX, double obsY, double obsZ,
+                        double dirX, double dirY, double dirZ,
+                        double upX, double upY, double upZ, GKSmatrix_3 result) {
+    GKSpoint_3 u, v, un, vn, nn;
     GKSpoint_3 x;
     GKSfloat normalization_coeff;
     
-    GKSpoint_3 myUp, myNorm, myObs;
-    myUp.x = xv; myUp.y = yv; myUp.z = zv;
-    myNorm.x = xn; myNorm.y = yn; myNorm.z = zn;
-    myObs.x = xo; myObs.y = yo; myObs.z = zo;
+    // FIXME: use GKSvector_3d type
+    // stuff values into data structures
+    GKSpoint_3 myUp, myDir, myObs;
+    myUp.x = upX; myUp.y = upY; myUp.z = upZ;
+    myDir.x = dirX; myDir.y = dirY; myDir.z = dirZ;
+    myObs.x = obsX; myObs.y = obsY; myObs.z = obsZ;
     
+    // cast to needed pointer type
+    // up vector pointer
     GKSfloat *vup_ptr = (GKSfloat *)(&myUp);
-    GKSfloat *vpn_ptr = (GKSfloat *)(&myNorm);
+    // direction vector pointer
+    GKSfloat *vdir_ptr = (GKSfloat *)(&myDir);
     
+    
+    // u_ptr points to vector along uHat
     GKSfloat *u_ptr = (GKSfloat *)(&u);
+    vecprod(vup_ptr, vdir_ptr, u_ptr);
+    
+    // not sure how this works, this is  (vup • vdir)/ ||vdir||
+    GKSfloat *x_ptr = (GKSfloat *)(&x);
+    normalization_coeff = vecdot(vup_ptr, vdir_ptr) / vecdot(vdir_ptr, vdir_ptr);
+    vecscale(normalization_coeff, vdir_ptr, x_ptr);
+    
+    // v_ptr points to vector along vHat
     GKSfloat *v_ptr = (GKSfloat *)(&v);
+    vecsub(vup_ptr, x_ptr, v_ptr);
+    
     GKSfloat *un_ptr = (GKSfloat *)(&un);
     GKSfloat *vn_ptr = (GKSfloat *)(&vn);
     GKSfloat *nn_ptr = (GKSfloat *)(&nn);
-    GKSfloat *x_ptr = (GKSfloat *)(&x);
-
-    normalization_coeff = vecdot(vup_ptr, vpn_ptr) / vecdot(vpn_ptr, vpn_ptr);
-    vecscale(normalization_coeff, vpn_ptr, x_ptr);
-    vecsub(vup_ptr, x_ptr, v_ptr);
-    vecprod(vup_ptr, vpn_ptr, u_ptr);
     
+    // un = uHat normalized
     vecnormal(u_ptr, un_ptr);
+    // vn = vHat normalized
     vecnormal(v_ptr, vn_ptr);
-    vecnormal(vpn_ptr, nn_ptr);
+    
+    // nn = dirVector normalized
+    vecnormal(vdir_ptr, nn_ptr);
 
     result[0][0] = un.x;
     result[0][1] = un.y;
