@@ -34,6 +34,8 @@ static void *CameraRotationContext = &CameraRotationContext;
     up_vect.y = 1.0;
     up_vect.z = 0.0;
     
+    self.useLookAtFlag = [NSNumber numberWithBool:NO];
+    
     GKSCameraRep *camera = self.representedObject;
     // observe focal length of camera
     [self registerAsObserverForCamera:camera];
@@ -219,6 +221,43 @@ static void *CameraRotationContext = &CameraRotationContext;
 }
 
 
+
+- (IBAction)cameraReset:(id)sender
+{
+    GKSCameraRep *camera = self.camera;
+    
+    if (self.useLookAtFlag.boolValue == YES) {
+        camera.upX = @0.0;
+        camera.upY = @1.0;
+        camera.upZ = @0.0;
+        camera.positionX = @0.0;
+        camera.positionY = @0.0;
+        camera.positionZ = @-2.0;
+        camera.dirX = @0.0;
+        camera.dirY = @0.0;
+        camera.dirZ = @0.0;
+    } else {
+        camera.upX = @0.0;
+        camera.upY = @1.0;
+        camera.upZ = @0.0;
+        camera.positionX = @0.0;
+        camera.positionY = @0.0;
+        camera.positionZ = @2.0;
+        camera.dirX = @0.0;
+        camera.dirY = @0.0;
+        camera.dirZ = @-1.0;
+    }
+
+    camera.focalLength = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
+    
+    self.camera.roll = @0.0;
+    self.camera.pitch = @0.0;
+    self.camera.yaw = @0.0;
+    
+}
+
+
+
 //MARK: LIBRARY interactions
 
 - (void)cameraSetCenterOfProjectionG {
@@ -238,7 +277,8 @@ static void *CameraRotationContext = &CameraRotationContext;
     GKSmatrix_3    aViewMatrix;
     
     GKSCameraRep *camera = self.camera;
-    BOOL useLookAtPoint = YES; //TODO: hard coded value must be replaced
+    
+    BOOL useLookAtPoint = [self.useLookAtFlag boolValue]; //TODO: hard coded value must be replaced
     if (camera != nil) {
         //
         // init 3D camera view and window viewport

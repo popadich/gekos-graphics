@@ -46,7 +46,7 @@
                     <rect key="frame" x="206" y="236" width="63" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Roll:" id="Dy3-Ce-8zj">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -54,7 +54,7 @@
                     <rect key="frame" x="206" y="207" width="39" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Pitch:" id="7LR-2j-per">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -62,7 +62,7 @@
                     <rect key="frame" x="206" y="179" width="32" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Yaw:" id="sl5-FL-4Gc">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -70,7 +70,7 @@
                     <rect key="frame" x="206" y="151" width="61" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Focus:" id="ibh-3e-sVp">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -79,7 +79,7 @@
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Sbo-Wn-AOL">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="6fe-1N-JQB"/>
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -91,7 +91,7 @@
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="cSl-F2-6sy">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Kas-DJ-iG7"/>
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -103,7 +103,7 @@
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="jEP-w6-jTa">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="wfx-U1-y3o"/>
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -115,7 +115,7 @@
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="zyg-MX-jYL">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="J2q-mi-R7C"/>
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
@@ -130,8 +130,8 @@
                     </connections>
                 </slider>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LR6-BI-tcW">
-                    <rect key="frame" x="17" y="44" width="138" height="27"/>
-                    <buttonCell key="cell" type="check" title="Visible Surfaces" bezelStyle="regularSquare" imagePosition="left" borderStyle="border" inset="2" id="Sh0-eE-Mcg">
+                    <rect key="frame" x="18" y="51" width="124" height="18"/>
+                    <buttonCell key="cell" type="check" title="Visible Surfaces" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Sh0-eE-Mcg">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -150,7 +150,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="iXC-bK-XAx">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="nQH-SB-fqF"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -162,7 +162,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="hJ0-4R-u54">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="yJ5-I2-FfQ"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -174,7 +174,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="WF8-X1-pDA">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="AZZ-fv-sJJ"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -186,7 +186,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="sTx-WN-nB5">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="bDz-jh-SXn"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -198,7 +198,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="ElV-OA-4gh">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="ILR-z3-kRu"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -210,7 +210,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="vDw-y9-saI">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Usn-5b-kU9"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -222,7 +222,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="7oE-Gj-NQ1">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="p0P-zH-31x"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -234,7 +234,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="2fK-Ho-QoM">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="RIb-zG-9qM"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -246,7 +246,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Ppb-rv-AXt">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="S72-In-u4L"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -258,7 +258,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Y" id="rMV-s0-eVZ">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="3si-Vo-N9J"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -267,7 +267,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Z" id="PMP-KX-TFQ">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="1hI-cB-MW6"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -275,7 +275,7 @@
                                 <rect key="frame" x="52" y="91" width="13" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="X" id="ZZy-aq-IlY">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -284,7 +284,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="vht:" id="pRf-VX-qeY">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Nka-a8-FHI"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -293,7 +293,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="dir:" id="3Ad-ng-A9Q">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="IyE-1C-68e"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -302,7 +302,7 @@
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="loc:" id="SbD-uK-2wc">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Lo7-wd-sje"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -353,6 +353,26 @@
                         <constraint firstAttribute="width" constant="189" id="zjj-Gu-0CQ"/>
                     </constraints>
                 </customView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iKE-UF-9xd">
+                    <rect key="frame" x="13" y="13" width="70" height="32"/>
+                    <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="i95-RH-BUW">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cameraReset:" target="-2" id="zTe-6t-pG4"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dMi-GR-fCg">
+                    <rect key="frame" x="18" y="73" width="99" height="18"/>
+                    <buttonCell key="cell" type="check" title="Use Look At" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Zjw-pT-2jJ">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.useLookAtFlag" id="mPS-Y5-NZ2"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="Ezx-uv-pjo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lfP-U2-WOE" secondAttribute="trailing" constant="95" id="0yG-L5-hPu"/>
@@ -362,6 +382,7 @@
                 <constraint firstItem="ZFo-a9-4zp" firstAttribute="leading" secondItem="IJC-mu-i9v" secondAttribute="trailing" constant="38" id="1Z9-WS-73n"/>
                 <constraint firstItem="pZS-0I-YEc" firstAttribute="top" secondItem="utE-Yr-fbs" secondAttribute="bottom" constant="8" symbolic="YES" id="1f3-1H-nDQ"/>
                 <constraint firstItem="2qG-eK-CKO" firstAttribute="leading" secondItem="iWx-7M-byz" secondAttribute="leading" id="3Nk-5f-x18"/>
+                <constraint firstItem="LR6-BI-tcW" firstAttribute="leading" secondItem="dMi-GR-fCg" secondAttribute="leading" id="5hw-4j-1L4"/>
                 <constraint firstItem="IJC-mu-i9v" firstAttribute="firstBaseline" secondItem="pZS-0I-YEc" secondAttribute="firstBaseline" id="8Qy-sf-01s"/>
                 <constraint firstItem="Zzv-ZE-YXy" firstAttribute="trailing" secondItem="utE-Yr-fbs" secondAttribute="trailing" id="8hz-0y-4fP"/>
                 <constraint firstItem="Qgq-8w-Aon" firstAttribute="leading" secondItem="iWx-7M-byz" secondAttribute="trailing" constant="9" id="9d7-Xx-Ven"/>
@@ -378,8 +399,11 @@
                 <constraint firstItem="Ezx-uv-pjo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qgq-8w-Aon" secondAttribute="trailing" constant="95" id="TAT-ZQ-ltG"/>
                 <constraint firstItem="YsV-SS-ctN" firstAttribute="top" secondItem="pZS-0I-YEc" secondAttribute="bottom" constant="8" symbolic="YES" id="Tma-6D-qtY"/>
                 <constraint firstItem="ZFo-a9-4zp" firstAttribute="leading" secondItem="lfP-U2-WOE" secondAttribute="leading" id="VyQ-E8-Tl9"/>
+                <constraint firstItem="iKE-UF-9xd" firstAttribute="bottom" secondItem="GQB-q9-TdK" secondAttribute="bottom" id="W9c-SN-lwE"/>
                 <constraint firstItem="vZR-EG-tOp" firstAttribute="leading" secondItem="lfP-U2-WOE" secondAttribute="leading" id="X1L-9v-NW3"/>
+                <constraint firstItem="LR6-BI-tcW" firstAttribute="top" secondItem="dMi-GR-fCg" secondAttribute="bottom" constant="6" symbolic="YES" id="Yhc-gW-RX7"/>
                 <constraint firstItem="GQB-q9-TdK" firstAttribute="top" secondItem="Ezx-uv-pjo" secondAttribute="bottom" constant="8" symbolic="YES" id="fQJ-Ws-uDp"/>
+                <constraint firstItem="iKE-UF-9xd" firstAttribute="leading" secondItem="LR6-BI-tcW" secondAttribute="leading" id="faJ-2Z-cPH"/>
                 <constraint firstItem="LR6-BI-tcW" firstAttribute="leading" secondItem="YsV-SS-ctN" secondAttribute="leading" id="gTz-oe-CWv"/>
                 <constraint firstItem="utE-Yr-fbs" firstAttribute="leading" secondItem="pZS-0I-YEc" secondAttribute="leading" id="kAc-PY-l05"/>
                 <constraint firstItem="Qgq-8w-Aon" firstAttribute="leading" secondItem="lfP-U2-WOE" secondAttribute="leading" id="khg-fA-vmv"/>

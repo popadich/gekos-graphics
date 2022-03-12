@@ -12,6 +12,8 @@
 @interface GKSDrawingView () {
     NSColor *bluePrintBlueColor;
     NSColor *maizeColor;
+    NSColor *andBlueColor;
+
 }
 @property (nonatomic, assign) CGFloat itemLineWidth;
 
@@ -50,6 +52,7 @@
     
     bluePrintBlueColor = [NSColor colorWithRed:0.066 green:0.510 blue:0.910 alpha:1.0];
     maizeColor = [NSColor colorWithRed:1.0 green:203.0/255.0 blue:5.0/255.0 alpha:1.0];
+    andBlueColor = [NSColor colorWithRed:0.0 green:39.0/255.0 blue:76.0/255.0 alpha:1.0];
     _visibleSurfaceOnly = NO;
     _itemLineWidth = 1.0;
 }
@@ -136,10 +139,10 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr tran
     [maizeColor set];
     [NSBezierPath fillRect:dirtyRect];
     
-    NSRect blueprintBox = NSInsetRect(self.bounds, 20.0, 20.0);
-    gks_trans_adjust_device_viewport(blueprintBox.origin.x, blueprintBox.size.width, blueprintBox.origin.y, blueprintBox.size.height);
+    gks_trans_adjust_device_viewport(dirtyRect.origin.x, dirtyRect.size.width, dirtyRect.origin.y, dirtyRect.size.height);
     
     [self.backgroundColor set];
+    NSRect blueprintBox = NSInsetRect(self.bounds, 20.0, 20.0);
     NSBezierPath *boxPath = [NSBezierPath bezierPathWithRect:blueprintBox];
     [NSBezierPath fillRect:blueprintBox];
     
