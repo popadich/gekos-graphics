@@ -9,7 +9,7 @@
 #include "gks_3d_matrix.h"
 
 // P R I V A T E    O K
-static GKSmatrix_3      gViewMatrix_4;       // View Plane Orientation Matrix
+static GKSmatrix_3      gViewMatrix;       // View Plane Orientation Matrix
 
 void gks_init_view_plane(void)
 {
@@ -21,7 +21,7 @@ void gks_init_view_plane(void)
     };
 
     // Set View Plane properties  (like a TV screen)
-    gks_create_view_matrix(0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, viewTransMatrix);
+    gks_create_view_matrix(0.0, 0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0, viewTransMatrix);
     gks_set_view_matrix(viewTransMatrix);
 
 }
@@ -43,49 +43,53 @@ void gks_set_view_matrix(GKSmatrix_3 viewMatrix)
 {
     for(int i=0; i<4; i++)
         for (int j=0; j<4; j++)
-            gViewMatrix_4[i][j] = viewMatrix[i][j];
+            gViewMatrix[i][j] = viewMatrix[i][j];
 }
 
 GKSmatrix_3 *gks_get_view_matrix(void)
 {
-    return &gViewMatrix_4;
+    return &gViewMatrix;
 }
+
+
 
 // @TODO: problems when view plane normal matches up vector
 // When (xn,yn,zn) is set to (0,1,0) things blow up
 void gks_create_view_matrix(double obsX, double obsY, double obsZ,
                         double dirX, double dirY, double dirZ,
                         double upX, double upY, double upZ, GKSmatrix_3 result) {
-    GKSpoint_3 u, v, un, vn, nn;
+    GKSpoint_3 u, v;
+    GKSpoint_3 un, vn, nn;
     GKSpoint_3 x;
     GKSfloat normalization_coeff;
     
-    // FIXME: use GKSvector_3d type
     // stuff values into data structures
     GKSpoint_3 myUp, myDir, myObs;
     myUp.x = upX; myUp.y = upY; myUp.z = upZ;
     myDir.x = dirX; myDir.y = dirY; myDir.z = dirZ;
     myObs.x = obsX; myObs.y = obsY; myObs.z = obsZ;
     
-    // cast to needed pointer type
+    // weird cast for needed pointer type
+    
     // up vector pointer
-    GKSfloat *vup_ptr = (GKSfloat *)(&myUp);
+    GKSfloat *up_vector_ptr = (GKSfloat *)(&myUp);
     // direction vector pointer
-    GKSfloat *vdir_ptr = (GKSfloat *)(&myDir);
+    GKSfloat *dir_vector_ptr = (GKSfloat *)(&myDir);
     
     
     // u_ptr points to vector along uHat
     GKSfloat *u_ptr = (GKSfloat *)(&u);
-    vecprod(vup_ptr, vdir_ptr, u_ptr);
+    // TODO: specific order is important
+    vecprod(dir_vector_ptr, up_vector_ptr, u_ptr);
     
     // not sure how this works, this is  (vup • vdir)/ ||vdir||
     GKSfloat *x_ptr = (GKSfloat *)(&x);
-    normalization_coeff = vecdot(vup_ptr, vdir_ptr) / vecdot(vdir_ptr, vdir_ptr);
-    vecscale(normalization_coeff, vdir_ptr, x_ptr);
+    normalization_coeff = vecdot(up_vector_ptr, dir_vector_ptr) / vecdot(dir_vector_ptr, dir_vector_ptr);
+    vecscale(normalization_coeff, dir_vector_ptr, x_ptr);
     
     // v_ptr points to vector along vHat
     GKSfloat *v_ptr = (GKSfloat *)(&v);
-    vecsub(vup_ptr, x_ptr, v_ptr);
+    vecsub(up_vector_ptr, x_ptr, v_ptr);
     
     GKSfloat *un_ptr = (GKSfloat *)(&un);
     GKSfloat *vn_ptr = (GKSfloat *)(&vn);
@@ -97,20 +101,77 @@ void gks_create_view_matrix(double obsX, double obsY, double obsZ,
     vecnormal(v_ptr, vn_ptr);
     
     // nn = dirVector normalized
-    vecnormal(vdir_ptr, nn_ptr);
+    vecnormal(dir_vector_ptr, nn_ptr);
 
     result[0][0] = un.x;
     result[0][1] = un.y;
     result[0][2] = un.z;
     result[0][3] = -myObs.x;
+    
     result[1][0] = vn.x;
     result[1][1] = vn.y;
     result[1][2] = vn.z;
     result[1][3] = -myObs.y;
+    
     result[2][0] = nn.x;
     result[2][1] = nn.y;
     result[2][2] = nn.z;
     result[2][3] = -myObs.z;
+    
+    result[3][0] = 0.0;
+    result[3][1] = 0.0;
+    result[3][2] = 0.0;
+    result[3][3] = 1.0;
+
+}
+
+void gks_create_camera_view_matrix(double obsX, double obsY, double obsZ,
+                        double dirX, double dirY, double dirZ,
+                        double upX, double upY, double upZ, GKSmatrix_3 result) {
+
+    GKSpoint_3 myUp, myDir;
+    myUp.x = upX;
+    myUp.y = upY;
+    myUp.z = upZ;
+    myUp.w = 1.0;
+    myDir.x = dirX;
+    myDir.y = dirY;
+    myDir.z = dirZ;
+    myDir.w = 1.0;
+
+    GKSvector3d up_vector;
+    GKSvector3d dir_vector;
+    GKSvector3d u_vector;           // u_vector points along uHat
+    GKSvector3d v_vector;           // v_vector points along vHat
+    up_vector.crd = myUp;
+    dir_vector.crd = myDir;
+    
+    // cross product to find uHat
+    vectorcrossproduct(dir_vector, up_vector, &u_vector);
+    vectornormal(u_vector, &u_vector);  //uHat
+    
+    // cross product to find vHat
+    vectorcrossproduct(u_vector, dir_vector, &v_vector);
+    vectornormal(v_vector, &v_vector);  //vHat
+    
+    // normalize view direction vector
+    vectornormal(dir_vector, &dir_vector);
+
+    result[0][0] = u_vector.crd.x;
+    result[0][1] = u_vector.crd.y;
+    result[0][2] = u_vector.crd.z;
+    result[0][3] = -obsX;
+    
+    result[1][0] = v_vector.crd.x;
+    result[1][1] = v_vector.crd.y;
+    result[1][2] = v_vector.crd.z;
+    result[1][3] = -obsY;
+    
+    result[2][0] = dir_vector.crd.x;
+    result[2][1] = dir_vector.crd.y;
+    result[2][2] = dir_vector.crd.z;
+    result[2][3] = -obsZ;
+    
     result[3][0] = 0.0;
     result[3][1] = 0.0;
     result[3][2] = 0.0;
@@ -119,16 +180,16 @@ void gks_create_view_matrix(double obsX, double obsY, double obsZ,
 }
 
 
-void gks_compute_look_at_matrix(double xo, double yo, double zo,
-                            double xa, double ya, double za,
-                            double xv, double yv, double zv, GKSmatrix_3 result)
+void gks_compute_look_at_matrix(double obsX, double obsY, double obsZ,
+                            double lookX, double lookY, double lookZ,
+                            double upX, double upY, double upZ, GKSmatrix_3 result)
 {
     GKSpoint_3 U, V, N, un, vn, nn;
 
     GKSpoint_3 myUp, myLook, myObs;
-    myUp.x = xv; myUp.y = yv; myUp.z = zv;
-    myLook.x = xa; myLook.y = ya; myLook.z = za;
-    myObs.x = xo; myObs.y = yo; myObs.z = zo;
+    myUp.x = upX; myUp.y = upY; myUp.z = upZ;
+    myLook.x = lookX; myLook.y = lookY; myLook.z = lookZ;
+    myObs.x = obsX; myObs.y = obsY; myObs.z = obsZ;
 
     // This seems very kludgy. Hacking time!
     // I'm forcing a struct to be a pointer to an array of floats.
@@ -171,5 +232,38 @@ void gks_compute_look_at_matrix(double xo, double yo, double zo,
     result[3][3] = 1.0;
     
 //    gks_set_view_plane_normal(nn.x, nn.y, nn.z);
+
+}
+
+void gks_compute_dir_vector(GKSvector3d location, GKSvector3d look, GKSvector3dPtr dir)
+{
+    
+    vectorsubtract(look, location, dir);
+    vectornormal(*dir, dir);
+}
+
+void gks_compute_camera_look_at_matrix(double obsX, double obsY, double obsZ,
+                                       double lookX, double lookY, double lookZ,
+                                       double upX, double upY, double upZ, GKSmatrix_3 result)
+{
+    GKSpoint_3 myLook, myLocation;
+    GKSvector3d dir_vector, look_vector, location_vector;
+    
+    myLocation.x = obsX;
+    myLocation.y = obsY;
+    myLocation.z = obsZ;
+    myLocation.w = 1.0;
+    location_vector.crd = myLocation;
+    
+    myLook.x = lookX;
+    myLook.y = lookY;
+    myLook.z = lookZ;
+    myLook.w = 1.0;
+    look_vector.crd = myLook;
+    
+//    vectorsubtract(look_vector, location_vector, &dir_vector);
+//    vectornormal(dir_vector, &dir_vector);
+    gks_compute_dir_vector(location_vector, look_vector, &dir_vector);
+    gks_create_camera_view_matrix(obsX, obsY, obsZ, dir_vector.crd.x, dir_vector.crd.y, dir_vector.crd.z, upX, upY, upZ, result);
 
 }

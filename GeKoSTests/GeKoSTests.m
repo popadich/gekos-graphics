@@ -39,21 +39,6 @@
     }];
 }
 
-- (void)testUserDefaults {
-
-    NSNumber* lookAtFlag = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefLookAtPoint];
-    XCTAssertEqual([lookAtFlag boolValue], YES);
-    
-    NSNumber* projectionType = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
-    XCTAssertEqual([projectionType integerValue], 1);
-    
-    NSNumber* perpectiveDistance = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-    XCTAssertEqual([perpectiveDistance floatValue], 1.0);
-    
-    NSNumber* viewPortWidth = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefViewWidth];
-    XCTAssertEqual([viewPortWidth floatValue], 400.0);
-    
-}
 
 - (void)testAppDelegateInit {
     // get app delegate

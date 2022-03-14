@@ -51,9 +51,10 @@ GKSobject_3 *CubeMesh(void)
     p = cubevert;
     q = vertexList;
     for(int i=0; i<GKS_CUBE_VERTEX_COUNT; i++) {
-        q->x=p->x;
-        q->y=p->y;
-        q->z=p->z;
+        q->x = p->x;
+        q->y = p->y;
+        q->z = p->z;
+        q->w = 1.0;
         p++; q++;
     }
 
@@ -124,9 +125,10 @@ GKSobject_3 *PyramidMesh(void)
     p = pyrverts;
     q = vertexList;
     for(int i=0; i<GKS_PYRAMID_VERTEX_COUNT; i++) {
-        q->x=p->x;
-        q->y=p->y;
-        q->z=p->z;
+        q->x = p->x;
+        q->y = p->y;
+        q->z = p->z;
+        q->w = 1.0;
         p++; q++;
     }
 
@@ -194,9 +196,10 @@ GKSobject_3 *HouseMesh(void)
     p = objectvert;
     q = vertexList;
     for(int i=0; i<GKS_HOUSE_VERTEX_COUNT; i++) {
-        q->x=p->x;
-        q->y=p->y;
-        q->z=p->z;
+        q->x = p->x;
+        q->y = p->y;
+        q->z = p->z;
+        q->w = 1.0;
         p++; q++;
     }
 
@@ -245,7 +248,7 @@ GKSobject_3 *SphereMesh(void)
 
     GKSobject_3 *aSphere = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
     
-    // construct verteces
+    // construct vertices
    for (int i=0; i<=180; i+=degreeDelta) {
         for (int j=0; j<360; j+=degreeDelta) {
             sini = sin(i*DEG_TO_RAD);
@@ -253,11 +256,12 @@ GKSobject_3 *SphereMesh(void)
             vertexList[idx].x = 0.5 * sini * cos(j*DEG_TO_RAD);
             vertexList[idx].y = 0.5 * sini * sin(j*DEG_TO_RAD);
             vertexList[idx].z = 0.5 * cos(i*DEG_TO_RAD);
+            vertexList[idx].w = 1.0;
             vertexCount += 1;
         }
     }
     
-    // cpmstruct polygons
+    // construct polygons
     for (int i=0; i<computedPolygonCount; i+=facetCount) {
         for (int j=0; j<facetCount; j++) {
             polygonList[j+i][0]= 4;

@@ -53,8 +53,8 @@ typedef GKSfloat GKSvector_3[4];
 
 // Union of Gpt_3 points and Vector_4 arrays
 union GKSvector3d {
-    GKSpoint_3 vec_pos;
-    GKSvector_3 vec_arr;
+    GKSpoint_3 crd;
+    GKSvector_3 arr;
 };
 typedef union GKSvector3d GKSvector3d;
 typedef GKSvector3d *GKSvector3dPtr;

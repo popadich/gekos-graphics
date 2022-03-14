@@ -8,6 +8,8 @@
 #import <XCTest/XCTest.h>
 #include "../GeKoS/gks/gks.h"
 
+#define epsilon  0.001
+
 @interface GeKoSCoreTests : XCTestCase {
     GKSfloat A;
     GKSfloat B;
@@ -549,9 +551,9 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSvector3d vc;
     
     vectorsubtract(va, vb, &vc);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.x, -1.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.y, 2.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.z, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.x, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.y, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.z, 2.0, 0.001);
 }
 
 - (void)testVecAdd {
@@ -560,9 +562,9 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSvector3d vc = {0.0, 0.0, 0.0, 0.0};
     
     vectoradd(va, vb, &vc);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.x, 3.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.y, 2.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.z, 4.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.x, 3.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.y, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.z, 4.0, 0.001);
 }
 
 - (void)testVecScale {
@@ -580,9 +582,9 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSvector3d vc;
     
     vectorscale(1.5, va, &vc);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.x, 1.5, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.y, 3.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.z, 4.5, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.x, 1.5, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.y, 3.0, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.z, 4.5, 0.001);
 }
 
 - (void)testVecProduct {
@@ -603,9 +605,9 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     vectorcrossproduct(A, B, &C);
     
-    XCTAssertEqualWithAccuracy(C.vec_pos.x, 2.0, 0.001);
-    XCTAssertEqualWithAccuracy(C.vec_pos.y, 5.0, 0.001);
-    XCTAssertEqualWithAccuracy(C.vec_pos.z, -4.0, 0.001);
+    XCTAssertEqualWithAccuracy(C.crd.x, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(C.crd.y, 5.0, 0.001);
+    XCTAssertEqualWithAccuracy(C.crd.z, -4.0, 0.001);
 }
 
 - (void)testVecNormal {
@@ -623,9 +625,9 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSvector3d vc;
     
     vectornormal(va, &vc);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.x, 0.267261241912424, 0.001, @"1/sqrt(14)");
-    XCTAssertEqualWithAccuracy(vc.vec_pos.y, 0.534522483824849, 0.001);
-    XCTAssertEqualWithAccuracy(vc.vec_pos.z, 0.801783725737273, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.x, 0.267261241912424, 0.001, @"1/sqrt(14)");
+    XCTAssertEqualWithAccuracy(vc.crd.y, 0.534522483824849, 0.001);
+    XCTAssertEqualWithAccuracy(vc.crd.z, 0.801783725737273, 0.001);
 }
 
 - (void)testVecAbsoluteValue {
@@ -941,7 +943,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     theViewMatrixPtr = gks_get_view_matrix();
     XCTAssertEqual((*theViewMatrixPtr)[0][0], 1.0);
     XCTAssertEqual((*theViewMatrixPtr)[1][2], 0.0);
-    XCTAssertEqual((*theViewMatrixPtr)[2][2], 1.0);
+    XCTAssertEqual((*theViewMatrixPtr)[2][2], -1.0);
 }
 
 - (void)testViewOrientSetMatrix {
@@ -961,30 +963,92 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 - (void)testViewOrientCreateViewMatrix {
     // TODO: needs more testing and module needs better design.
-    GKSpoint_3 camera;
-    GKSpoint_3 plane;
-    GKSpoint_3 v;
-    GKSmatrix_3 theResultMatrix;
+    GKSpoint_3 location;
+    GKSpoint_3 dir_vec;
+    GKSpoint_3 up_vector;
+    GKSmatrix_3 result_matrix;
+    
+    location.x = 0.0;
+    location.y = 0.0;
+    location.z = 3.0;
+    
+    dir_vec.x = 0.0;
+    dir_vec.y = 0.0;
+    dir_vec.z = -1.0;
+    
+    up_vector.x = 0.0;
+    up_vector.y = 1.0;
+    up_vector.z = 0.0;
+    up_vector.w = 1.0;
     
     gks_init_view_plane();
+    gks_create_view_matrix(location.x, location.y, location.z, dir_vec.x, dir_vec.y, dir_vec.z, up_vector.x, up_vector.y, up_vector.z, result_matrix);
     
-    camera.x = 0.0;
-    camera.y = 0.0;
-    camera.z = 3.0;
+    XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[0][1], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[0][2], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[0][3], 0.0, epsilon);
     
-    plane.x = 0.0;
-    plane.y = 0.0;
-    plane.z = -1.0;
+    XCTAssertEqualWithAccuracy(result_matrix[1][0], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][1], 1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][2], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][3], 0.0, epsilon);
+
+    XCTAssertEqualWithAccuracy(result_matrix[2][0], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][1], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][2], -1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][3], -3.0, epsilon);
+
+    XCTAssertEqualWithAccuracy(result_matrix[3][0], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[3][1], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[3][2], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[3][3], 1.0, epsilon);
+
+}
+
+- (void)testViewOrientCreateCameraViewMatrix {
+    GKSpoint_3 location;
+    GKSpoint_3 dir_vec;
+    GKSpoint_3 up_vector;
+    GKSmatrix_3 result_matrix;
+
     
-    v.x = 1.0;
-    v.y = 0.0;
-    v.z = 0.0;
+    location.x = 0.0;
+    location.y = 0.0;
+    location.z = 3.0;
+    
+    dir_vec.x = 0.0;
+    dir_vec.y = 0.0;
+    dir_vec.z = -1.0;
+    
+    up_vector.x = 0.0;
+    up_vector.y = 1.0;
+    up_vector.z = 0.0;
+    up_vector.w = 1.0;
     
     
-    gks_create_view_matrix(camera.x, camera.y, camera.z, plane.x, plane.y, plane.z, v.x, v.y, v.z, theResultMatrix);
+    gks_init_view_plane();
+    gks_create_camera_view_matrix(location.x, location.y, location.z, dir_vec.x, dir_vec.y, dir_vec.z, up_vector.x, up_vector.y, up_vector.z, result_matrix);
+
+    XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[0][1], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[0][2], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[0][3], 0.0, epsilon);
     
-    XCTAssertEqual(theResultMatrix[0][0], 0.0);
-    
+    XCTAssertEqualWithAccuracy(result_matrix[1][0], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][1], 1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][2], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][3], 0.0, epsilon);
+
+    XCTAssertEqualWithAccuracy(result_matrix[2][0], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][1], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][2], -1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][3], -3.0, epsilon);
+
+    XCTAssertEqualWithAccuracy(result_matrix[3][0], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[3][1], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[3][2], 0.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[3][3], 1.0, epsilon);
 }
 
 - (void)testViewOrientLookAtZero {

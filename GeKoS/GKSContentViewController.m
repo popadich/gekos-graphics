@@ -256,7 +256,9 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 - (IBAction)performUpdateQuick:(id)sender {
     NSInteger addTag = [sender tag];
     NSLog(@"Quick Update Object From Menu Tag: %ld",addTag);
-
+    
+    [self.cameraViewController cameraDoLookAt];
+    
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 

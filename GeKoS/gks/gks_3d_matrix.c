@@ -320,7 +320,7 @@ GKSfloat vecdot(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b)
 
 GKSfloat vectordotproduct(GKSvector3d a, GKSvector3d b)
 {
-    return (a.vec_pos.x*b.vec_pos.x + a.vec_pos.y*b.vec_pos.y + a.vec_pos.z*b.vec_pos.z);
+    return (a.crd.x*b.crd.x + a.crd.y*b.crd.y + a.crd.z*b.crd.z);
 }
 
 void vecprod(GKSfloat *a, GKSfloat *b, GKSfloat *c)
@@ -331,9 +331,9 @@ void vecprod(GKSfloat *a, GKSfloat *b, GKSfloat *c)
 }
 
 void vectorcrossproduct(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c){
-    c->vec_arr[0] = a.vec_arr[1]*b.vec_arr[2]-b.vec_arr[1]*a.vec_arr[2];
-    c->vec_arr[1] = b.vec_arr[0]*a.vec_arr[2]-b.vec_arr[2]*a.vec_arr[0];  // clever reverse for sign change
-    c->vec_arr[2] = a.vec_arr[0]*b.vec_arr[1]-b.vec_arr[0]*a.vec_arr[1];
+    c->arr[0] = a.arr[1]*b.arr[2]-b.arr[1]*a.arr[2];
+    c->arr[1] = b.arr[0]*a.arr[2]-b.arr[2]*a.arr[0];  // clever reverse for sign change
+    c->arr[2] = a.arr[0]*b.arr[1]-b.arr[0]*a.arr[1];
 }
 
 void vecsub(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b, GKSpoint_3_Ptr c)
@@ -345,14 +345,14 @@ void vecsub(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b, GKSpoint_3_Ptr c)
 void vectorsubtract(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c)
 {
     GKSint k;
-    for (k=0; k<3; k++) c->vec_arr[k]=a.vec_arr[k]-b.vec_arr[k];
+    for (k=0; k<3; k++) c->arr[k]=a.arr[k]-b.arr[k];
 }
 
 void vectoradd(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c)
 {
     GKSint k;
     for (k=0; k<3; k++) {
-        c->vec_arr[k] = a.vec_arr[k]+b.vec_arr[k];
+        c->arr[k] = a.arr[k]+b.arr[k];
     }
 }
 
@@ -364,9 +364,9 @@ void vecscale(GKSfloat k, GKSpoint_3_Ptr a, GKSpoint_3_Ptr b)
 }
 
 void vectorscale(GKSfloat k, GKSvector3d a, GKSvector3dPtr result) {
-    result->vec_arr[0] = a.vec_arr[0]*k;
-    result->vec_arr[1] = a.vec_arr[1]*k;
-    result->vec_arr[2] = a.vec_arr[2]*k;
+    result->arr[0] = a.arr[0]*k;
+    result->arr[1] = a.arr[1]*k;
+    result->arr[2] = a.arr[2]*k;
 }
 
 void vecnormal(GKSpoint_3_Ptr vec, GKSpoint_3_Ptr normal)
@@ -380,17 +380,17 @@ void vecnormal(GKSpoint_3_Ptr vec, GKSpoint_3_Ptr normal)
 }
 
 void vectornormal(GKSvector3d vec, GKSvector3dPtr normal) {
-    GKSfloat length = sqrt (vec.vec_arr[0]*vec.vec_arr[0]
-                            + vec.vec_arr[1]*vec.vec_arr[1]
-                            + vec.vec_arr[2]*vec.vec_arr[2]);
+    GKSfloat length = sqrt (vec.arr[0]*vec.arr[0]
+                            + vec.arr[1]*vec.arr[1]
+                            + vec.arr[2]*vec.arr[2]);
 
-    normal->vec_pos.x = vec.vec_pos.x/length;
-    normal->vec_pos.y = vec.vec_pos.y/length;
-    normal->vec_pos.z = vec.vec_pos.z/length;
+    normal->crd.x = vec.crd.x/length;
+    normal->crd.y = vec.crd.y/length;
+    normal->crd.z = vec.crd.z/length;
 
 }
 
 GKSfloat vecabsolutevalue(GKSvector3d vec)
 {
-    return sqrt (vec.vec_arr[0]*vec.vec_arr[0] + vec.vec_arr[1]*vec.vec_arr[1] + vec.vec_arr[2]*vec.vec_arr[2]);
+    return sqrt (vec.arr[0]*vec.arr[0] + vec.arr[1]*vec.arr[1] + vec.arr[2]*vec.arr[2]);
 }
