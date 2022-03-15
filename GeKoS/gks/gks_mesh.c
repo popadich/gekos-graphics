@@ -38,7 +38,7 @@ GKSobject_3 *CubeMesh(void)
     GKSpoint_3 p1;
     GKSpoint_3 p2;
     GKSpoint_3 p3;
-    GKSpoint_3 normal;
+    GKSvector3d normal;
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_3));
@@ -64,12 +64,14 @@ GKSobject_3 *CubeMesh(void)
         for(int j=0; j<polygonSize; j++) {
             polygonList[i][j] = cubepoly[i][j];
         }
+        
         // compute normals polygon vertices are numbered from 1 vertex array is zero based.
         p1 = cubevert[cubepoly[i][1] - 1];
         p2 = cubevert[cubepoly[i][2] - 1];
         p3 = cubevert[cubepoly[i][3] - 1];
         gks_plane_equation_3(p1, p2, p3, &normal);
-        normalList[i] = normal;
+        //TODO: normals list should be list of vectors
+        normalList[i] = normal.crd;
         
     }
 
@@ -111,7 +113,7 @@ GKSobject_3 *PyramidMesh(void)
     GKSpoint_3 p1;
     GKSpoint_3 p2;
     GKSpoint_3 p3;
-    GKSpoint_3 normal;
+    GKSvector3d normal;
     
     
     // clear memory allocation to zeros
@@ -143,7 +145,8 @@ GKSobject_3 *PyramidMesh(void)
         p2 = pyrverts[pyrpolys[i][2] - 1];
         p3 = pyrverts[pyrpolys[i][3] - 1];
         gks_plane_equation_3(p1, p2, p3, &normal);
-        normalList[i] = normal;
+        // TODO: normal list of vectors
+        normalList[i] = normal.crd;
 
     }
     

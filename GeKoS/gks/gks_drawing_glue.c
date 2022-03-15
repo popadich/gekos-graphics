@@ -30,15 +30,18 @@ void gks_preppolyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_
 
     
     GKSint     r, s, r1, s1;
+    
+    // Get transformation matrices
     GKSmatrix_3 *view_matrix = gks_get_view_matrix();
     GKSmatrix_3 *world_matrix = gks_get_world_model_matrix();
     GKSmatrix_3 *projection_matrix = gks_get_projection_matrix();
     
     GKSvector_3 hmvector;
+    
     GKSpoint_3 p1;
     GKSpoint_3 p2;
     GKSpoint_3 p3;
-    GKSpoint_3 normal_vector;
+    GKSvector3d normal_vector;
 
     // transform point 0
     gks_transform_point_3(*world_matrix, &vertex_array[0], &mwc);
@@ -100,11 +103,12 @@ void gks_preppolyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_
     // this would be smarter at mesh instantiation
     // and then just transform normal vectors with the rest of
     // the vertices.
+    //TODO: plane equations should result in a vector type not a 3d point
     p1.w = p2.w = p3.w = 1.0; // not sure is necessary or correct
     gks_plane_equation_3(p1, p2, p3, &normal_vector);
     
     // store the normal to the polygon
-    norms[polygonID] = normal_vector;
+    norms[polygonID] = normal_vector.crd;
 
 }
 

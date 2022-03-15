@@ -174,7 +174,7 @@ void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result)
 }
 
 
-void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSpoint_3 *overloadPlane) {
+void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSvector3dPtr plane) {
     double A, B, C, D;
     
     // compute the plane equation from 3 points on the plane
@@ -187,10 +187,10 @@ void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSpoint_
     D = -p1.x*(p2.y*p3.z - p3.y*p2.z)
         -p2.x*(p3.y*p1.z - p1.y*p3.z)
         -p3.x*(p1.y*p2.z - p2.y*p1.z);
-    overloadPlane->x = A;
-    overloadPlane->y = B;
-    overloadPlane->z = C;
-    overloadPlane->w = D;
+    plane->crd.x = A;
+    plane->crd.y = B;
+    plane->crd.z = C;
+    plane->crd.w = D;
 
 }
 

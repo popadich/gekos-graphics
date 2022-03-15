@@ -470,48 +470,48 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSpoint_3 p7 = {1.0, 1.0, 1.0};
     GKSpoint_3 p8 = {0.0, 1.0, 1.0};
     
-    GKSpoint_3 testPlane = {0.0, 0.0, 0.0, 0.0};    // this is weird using a point type for a plane type.
+    GKSvector3d testPlane = {0.0, 0.0, 0.0, 0.0};    // this is weird using a point type for a plane type.
     
     // polygon 4
     gks_plane_equation_3(p2, p3, p7, &testPlane);
-    XCTAssertEqualWithAccuracy(testPlane.x, 1.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.w, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.x, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.z, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.w, -1.0, 0.001);
     
     // polygon 1
     gks_plane_equation_3(p3, p2, p1, &testPlane);
-    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.z, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.z, -1.0, 0.001);
     gks_plane_equation_3(p1, p4, p3, &testPlane);
-    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.z, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.z, -1.0, 0.001);
 
     // polygon 6
     gks_plane_equation_3(p3, p4, p8, &testPlane);
-    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.y, 1.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.y, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.z, 0.0, 0.001);
     
     // polygon 3
     gks_plane_equation_3(p8, p4, p1, &testPlane);
-    XCTAssertEqualWithAccuracy(testPlane.x, -1.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.x, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.z, 0.0, 0.001);
     
     // polygon 2
     gks_plane_equation_3(p5, p6, p7, &testPlane);
-    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.y, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.z, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.y, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.z, 1.0, 0.001);
     
     // polygon 5
     gks_plane_equation_3(p1, p2, p6, &testPlane);
-    XCTAssertEqualWithAccuracy(testPlane.x, 0.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.y, -1.0, 0.001);
-    XCTAssertEqualWithAccuracy(testPlane.z, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.x, 0.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.y, -1.0, 0.001);
+    XCTAssertEqualWithAccuracy(testPlane.crd.z, 0.0, 0.001);
     
 }
 
@@ -962,32 +962,25 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 - (void)testViewOrientCreateViewMatrix {
-    // TODO: needs more testing and module needs better design.
-    GKSpoint_3 location;
-    GKSpoint_3 dir_vec;
-    GKSpoint_3 up_vector;
     GKSmatrix_3 result_matrix;
     GKSvector3d loc, dir, up;
     
-    location.x = 0.0;
-    location.y = 0.0;
-    location.z = 3.0;
-    loc.crd = location;
+    loc.crd.x = 0.0;
+    loc.crd.y = 0.0;
+    loc.crd.z = 3.0;
+    loc.crd.w = 1.0;
     
-    dir_vec.x = 0.0;
-    dir_vec.y = 0.0;
-    dir_vec.z = -1.0;
-    dir.crd = dir_vec;
+    dir.crd.x = 0.0;
+    dir.crd.y = 0.0;
+    dir.crd.z = -1.0;
+    dir.crd.w = 1.0;
     
-    up_vector.x = 0.0;
-    up_vector.y = 1.0;
-    up_vector.z = 0.0;
-    up_vector.w = 1.0;
-    up.crd = up_vector;
+    up.crd.x = 0.0;
+    up.crd.y = 1.0;
+    up.crd.z = 0.0;
+    up.crd.w = 1.0;
     
     gks_init_view_matrix();
-    gks_create_camera_view_matrix(location.x, location.y, location.z, dir_vec.x, dir_vec.y, dir_vec.z, up_vector.x, up_vector.y, up_vector.z, result_matrix);
-//    gks_compute_look_at_view_matrix(loc, dir, up, result_matrix);
     gks_gen_view_matrix(loc, dir, up, result_matrix);
     
     XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
@@ -1013,32 +1006,28 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 - (void)testViewOrientCreateCameraViewMatrix {
-    GKSpoint_3 location;
-    GKSpoint_3 dir_vec;
-    GKSpoint_3 up_vector;
+
     GKSmatrix_3 result_matrix;
     GKSvector3d loc, dir, up;
 
+    loc.crd.x = 0.0;
+    loc.crd.y = 0.0;
+    loc.crd.z = 3.0;
+    loc.crd.w = 1.0;
     
-    location.x = 0.0;
-    location.y = 0.0;
-    location.z = 3.0;
-    loc.crd = location;
+    dir.crd.x = 0.0;
+    dir.crd.y = 0.0;
+    dir.crd.z = -1.0;
+    dir.crd.w = 1.0;
     
-    dir_vec.x = 0.0;
-    dir_vec.y = 0.0;
-    dir_vec.z = -1.0;
-    dir.crd = dir_vec;
-    
-    up_vector.x = 0.0;
-    up_vector.y = 1.0;
-    up_vector.z = 0.0;
-    up_vector.w = 1.0;
-    up.crd = up_vector;
+    up.crd.x = 0.0;
+    up.crd.y = 1.0;
+    up.crd.z = 0.0;
+    up.crd.w = 1.0;
     
     
     gks_init_view_matrix();
-//    gks_create_camera_view_matrix(location.x, location.y, location.z, dir_vec.x, dir_vec.y, dir_vec.z, up_vector.x, up_vector.y, up_vector.z, result_matrix);
+
     gks_gen_view_matrix(loc, dir, up, result_matrix);
 
     XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);

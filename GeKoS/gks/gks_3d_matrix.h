@@ -38,7 +38,7 @@ void gks_transpose_matrix_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_trans);
 void gks_multiply_matrix_3(GKSmatrix_3 a, GKSmatrix_3 b, GKSmatrix_3 matrix_result);
 GKSfloat gks_determinant_matrix_3(GKSmatrix_3 M);
 
-void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSpoint_3 *overloadPlane);
+void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSvector3dPtr plane_ptr);
 
 // Vector Operations
 GKSfloat vecdot(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b);
