@@ -35,12 +35,12 @@ void gks_trans_compute_view_3(GKSint view_num);
 static GKSint         g_curr_transform_idx;
 
 // Make room for 10 transforms, use only one for now
-static GKSlimits_3       g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][2];
-static bool         g_setup_check_list[GKS_MAX_VIEW_TRANSFORMS][2];
+static GKSlimits_3    g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][2];
+static bool           g_setup_check_list[GKS_MAX_VIEW_TRANSFORMS][2];
 
 static GKSfloat       g_r_min3, g_r_max3, g_s_min3, g_s_max3;
-static GKSlimits_3       g_world_volume;
-static GKSlimits_3       g_viewport_volume;
+static GKSlimits_3    g_world_volume;
+static GKSlimits_3    g_viewport_volume;
 
 static GKSfloat       g_wrld_xscale, g_wrld_xcoord;
 static GKSfloat       g_wrld_yscale, g_wrld_ycoord;

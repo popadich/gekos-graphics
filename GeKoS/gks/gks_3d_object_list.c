@@ -179,23 +179,26 @@ void gks_objarr_delete_all(void) {
 
 void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSurfaceRemoveFlag)
 {
-    GKSvertexArrPtr      vertexList;
-    GKSpolygonArrPtr     polygonList;
-    GKSnormalArrPtr      normalList;
-    GKSvertexArrPtr      transVertList;
-    GKSDCArrPtr          devcoordList;
+    GKSvertexArrPtr     vertexList;
+    GKSpolygonArrPtr    polygonList;
+    GKSvertexArrPtr     transVertList;
+    GKSDCArrPtr         devcoordList;
+    
+    GKSint              polygonID;
+    GKSint              polygonCount;
+    GKSint              vertexNumber;
+    GKSint              polygon_point_count;
     
     GKSvector3d         temp_vertex_array[GKS_MIN_VERTEX_COUNT];
-    
-    
-    int                 polygonID, j;
-    int                 polygonCount;
-    int                 vertexNumber;
-    int                 polygon_point_count;
+    for (GKSint i=0; i<GKS_MIN_VERTEX_COUNT; i++) {
+        temp_vertex_array[i].crd.x = 0.0;
+        temp_vertex_array[i].crd.y = 0.0;
+        temp_vertex_array[i].crd.z = 0.0;
+        temp_vertex_array[i].crd.w = 1.0;
+    }
     
     vertexList = theObject->vertices;
     polygonList = theObject->polygons;
-    normalList = theObject->normals;
     transVertList = theObject->transverts;
     devcoordList = theObject->devcoords;
     
@@ -206,30 +209,21 @@ void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSu
     
     polygonCount = theObject->polynum;
 //    totalVerteces = theObject->vertnum;
-    
-//    Gfloat minz = FLT_MAX;
 
     for(polygonID=0; polygonID<polygonCount; polygonID++) {
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
         polygon_point_count = polygonList[polygonID][0];
-        for(j=0; j<polygon_point_count; j++){
+        for(GKSint j=0; j<polygon_point_count; j++){
             vertexNumber = polygonList[polygonID][j+1] - 1;     // this is a gotcha
-            // TODO: just assign vector_3d
-            temp_vertex_array[j].crd.x = vertexList[vertexNumber].crd.x;
-            temp_vertex_array[j].crd.y = vertexList[vertexNumber].crd.y;
-            temp_vertex_array[j].crd.z = vertexList[vertexNumber].crd.z;
-            temp_vertex_array[j].crd.w = vertexList[vertexNumber].crd.w;
+            // TODO: verfiy that this is a copy
+            temp_vertex_array[j] = vertexList[vertexNumber];
         }
 
-        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, normalList, object_color, hiddenSurfaceRemoveFlag);
-
-        gks_localpolyline_3(polygonID, polygon_point_count, transVertList, devcoordList, normalList, object_color, hiddenSurfaceRemoveFlag);
+        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, object_color);
+        gks_localpolyline_3(polygonID, polygon_point_count, transVertList, devcoordList, object_color);
         
-//        for (j=0; j<polygon_point_count; j++) {
-//            minz = fmin(minz, transVertList[j].z);
-//        }
     }
 }
 

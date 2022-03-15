@@ -65,7 +65,7 @@ struct mystery_data {
     void* ns_bezier_path;
 };
 
-static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr trans_array, GKSDCArrPtr dc_array, GKSnormalArrPtr norms, GKScolor *lineColor, bool hiddenSurfaceRemoveFlag, void* userdata)
+static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr trans_array, GKSDCArrPtr dc_array, GKScolor *lineColor, void* userdata)
 {
     int             vertexID;
     GKSpoint_2      dc;             // device coordinate
@@ -90,9 +90,6 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr tran
     
     for (vertexID=1; vertexID<num_pt; vertexID++) {
 
-        // restore transformed point
-//        vrc = trans_array[vertexID];
-        
         // restore device coordinate
         dc = dc_array[vertexID];
         
@@ -101,26 +98,8 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr tran
     }
     // LineTo call on Cocoa object
     [polyPath lineToPoint:NSMakePoint(r0, s0)];
+    [polyPath stroke];
     
-    // this might be smarter at mesh instantiation
-    // and then just transform normal vectors with the rest of
-    // the vertices.
-    // restore the normal for polygon
-    GKSvector3d normal_vector = norms[polygonID];
-    
-    // Primitive surface removal in order to test normal vectors
-    //hiddenSurfaceRemoveFlag = mr_data->hiddenLineRemovalFlag;
-    if (hiddenSurfaceRemoveFlag) {
-        if (normal_vector.crd.z > 0) {
-            // Stroke and Fill call on Cocoa object
-            // colors get set in GKSDrawingView:  - (void)drawRect
-            [polyPath fill];
-            [polyPath stroke];
-        }
-    }
-    else {
-        [polyPath stroke];
-    }
 }
 
 
