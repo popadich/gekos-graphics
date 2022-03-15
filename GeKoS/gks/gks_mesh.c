@@ -31,7 +31,8 @@ GKSobject_3 *CubeMesh(void)
         {4,3,4,8,7}
     };
 
-    GKSpoint_3 *p, *q;
+    GKSpoint_3 *p;
+    GKSvector3dPtr q;
     GKSobject_3 *aCube;
     
     //normal
@@ -43,7 +44,7 @@ GKSobject_3 *CubeMesh(void)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_3));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpoint_3));
+    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSvector3d));
     GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_3));
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
 
@@ -51,10 +52,10 @@ GKSobject_3 *CubeMesh(void)
     p = cubevert;
     q = vertexList;
     for(int i=0; i<GKS_CUBE_VERTEX_COUNT; i++) {
-        q->x = p->x;
-        q->y = p->y;
-        q->z = p->z;
-        q->w = 1.0;
+        q->crd.x = p->x;
+        q->crd.y = p->y;
+        q->crd.z = p->z;
+        q->crd.w = 1.0;
         p++; q++;
     }
 
@@ -70,8 +71,7 @@ GKSobject_3 *CubeMesh(void)
         p2 = cubevert[cubepoly[i][2] - 1];
         p3 = cubevert[cubepoly[i][3] - 1];
         gks_plane_equation_3(p1, p2, p3, &normal);
-        //TODO: normals list should be list of vectors
-        normalList[i] = normal.crd;
+        normalList[i] = normal;
         
     }
 
@@ -106,7 +106,8 @@ GKSobject_3 *PyramidMesh(void)
         {3,4,5,1}
     };
 
-    GKSpoint_3 *p, *q;
+    GKSpoint_3 *p;
+    GKSvector3dPtr q;
     GKSobject_3 *aPyramid = NULL;
 
     //normal
@@ -127,10 +128,10 @@ GKSobject_3 *PyramidMesh(void)
     p = pyrverts;
     q = vertexList;
     for(int i=0; i<GKS_PYRAMID_VERTEX_COUNT; i++) {
-        q->x = p->x;
-        q->y = p->y;
-        q->z = p->z;
-        q->w = 1.0;
+        q->crd.x = p->x;
+        q->crd.y = p->y;
+        q->crd.z = p->z;
+        q->crd.w = 1.0;
         p++; q++;
     }
 
@@ -145,8 +146,7 @@ GKSobject_3 *PyramidMesh(void)
         p2 = pyrverts[pyrpolys[i][2] - 1];
         p3 = pyrverts[pyrpolys[i][3] - 1];
         gks_plane_equation_3(p1, p2, p3, &normal);
-        // TODO: normal list of vectors
-        normalList[i] = normal.crd;
+        normalList[i] = normal;
 
     }
     
@@ -186,7 +186,8 @@ GKSobject_3 *HouseMesh(void)
         {4, 4, 5, 10, 9}
     };
     
-    GKSpoint_3 *p, *q;
+    GKSpoint_3 *p;
+    GKSvector3dPtr q;
     GKSobject_3 *anObject = NULL;
 
     // clear memory allocation to zeros
@@ -199,10 +200,10 @@ GKSobject_3 *HouseMesh(void)
     p = objectvert;
     q = vertexList;
     for(int i=0; i<GKS_HOUSE_VERTEX_COUNT; i++) {
-        q->x = p->x;
-        q->y = p->y;
-        q->z = p->z;
-        q->w = 1.0;
+        q->crd.x = p->x;
+        q->crd.y = p->y;
+        q->crd.z = p->z;
+        q->crd.w = 1.0;
         p++; q++;
     }
 
@@ -256,10 +257,10 @@ GKSobject_3 *SphereMesh(void)
         for (int j=0; j<360; j+=degreeDelta) {
             sini = sin(i*DEG_TO_RAD);
             int idx = (j+(i*facetCount))/degreeDelta;
-            vertexList[idx].x = 0.5 * sini * cos(j*DEG_TO_RAD);
-            vertexList[idx].y = 0.5 * sini * sin(j*DEG_TO_RAD);
-            vertexList[idx].z = 0.5 * cos(i*DEG_TO_RAD);
-            vertexList[idx].w = 1.0;
+            vertexList[idx].crd.x = 0.5 * sini * cos(j*DEG_TO_RAD);
+            vertexList[idx].crd.y = 0.5 * sini * sin(j*DEG_TO_RAD);
+            vertexList[idx].crd.z = 0.5 * cos(i*DEG_TO_RAD);
+            vertexList[idx].crd.w = 1.0;
             vertexCount += 1;
         }
     }

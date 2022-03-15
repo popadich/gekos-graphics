@@ -106,12 +106,12 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr tran
     // and then just transform normal vectors with the rest of
     // the vertices.
     // restore the normal for polygon
-    GKSpoint_3 normal_vector = norms[polygonID];
+    GKSvector3d normal_vector = norms[polygonID];
     
     // Primitive surface removal in order to test normal vectors
     //hiddenSurfaceRemoveFlag = mr_data->hiddenLineRemovalFlag;
     if (hiddenSurfaceRemoveFlag) {
-        if (normal_vector.z > 0) {
+        if (normal_vector.crd.z > 0) {
             // Stroke and Fill call on Cocoa object
             // colors get set in GKSDrawingView:  - (void)drawRect
             [polyPath fill];

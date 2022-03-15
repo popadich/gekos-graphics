@@ -44,14 +44,16 @@ void gks_preppolyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_
     GKSvector3d normal_vector;
 
     // transform point 0
-    gks_transform_point_3(*world_matrix, &vertex_array[0], &mwc);
+    // TODO: transform vector_4 instead
+    gks_transform_point_3(*world_matrix, &vertex_array[0].crd, &mwc);
     gks_trans_wc_to_ndc_3(&mwc,&ndc);
     
     gks_transform_point_3(*view_matrix, &ndc, &vrc);
     vrc.w = 1.0;
 
     // store point 0
-    trans_array[0] = vrc;
+    // TODO: transformed array should be vectors
+    trans_array[0].crd = vrc;
     
     // projection transformation
     gks_transform_vector_4(*projection_matrix, (GKSfloat *)&vrc, hmvector);
@@ -73,14 +75,16 @@ void gks_preppolyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_
     dc_array[0] = dc;
     
     for (i=1;i<num_pt;i++) {
-        gks_transform_point_3(*world_matrix, &vertex_array[i], &mwc);
+        // TODO: use vector_4 transform
+        gks_transform_point_3(*world_matrix, &vertex_array[i].crd, &mwc);
         gks_trans_wc_to_ndc_3(&mwc,&ndc);
         
         gks_transform_point_3(*view_matrix, &ndc, &vrc);
         vrc.w = 1.0;
 
         // store transformed point
-        trans_array[i] = vrc;
+        // TODO: transformed array should be vectors
+        trans_array[i].crd = vrc;
         
         // projection transformation/no z info after this
         gks_transform_vector_4(*projection_matrix, (GKSfloat *)&vrc, hmvector);
@@ -100,15 +104,10 @@ void gks_preppolyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_
         dc_array[i] = dc;
     }
     
-    // this would be smarter at mesh instantiation
-    // and then just transform normal vectors with the rest of
-    // the vertices.
-    //TODO: plane equations should result in a vector type not a 3d point
-    p1.w = p2.w = p3.w = 1.0; // not sure is necessary or correct
     gks_plane_equation_3(p1, p2, p3, &normal_vector);
     
     // store the normal to the polygon
-    norms[polygonID] = normal_vector.crd;
+    norms[polygonID] = normal_vector;
 
 }
 

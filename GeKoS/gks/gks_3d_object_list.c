@@ -185,7 +185,9 @@ void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSu
     GKSvertexArrPtr      transVertList;
     GKSDCArrPtr          devcoordList;
     
-    GKSpoint_3           temp_vertex_array[GKS_MIN_VERTEX_COUNT];
+    GKSvector3d         temp_vertex_array[GKS_MIN_VERTEX_COUNT];
+    
+    
     int                 polygonID, j;
     int                 polygonCount;
     int                 vertexNumber;
@@ -214,10 +216,11 @@ void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSu
         polygon_point_count = polygonList[polygonID][0];
         for(j=0; j<polygon_point_count; j++){
             vertexNumber = polygonList[polygonID][j+1] - 1;     // this is a gotcha
-            temp_vertex_array[j].x = vertexList[vertexNumber].x;
-            temp_vertex_array[j].y = vertexList[vertexNumber].y;
-            temp_vertex_array[j].z = vertexList[vertexNumber].z;
-            temp_vertex_array[j].w = vertexList[vertexNumber].w;
+            // TODO: just assign vector_3d
+            temp_vertex_array[j].crd.x = vertexList[vertexNumber].crd.x;
+            temp_vertex_array[j].crd.y = vertexList[vertexNumber].crd.y;
+            temp_vertex_array[j].crd.z = vertexList[vertexNumber].crd.z;
+            temp_vertex_array[j].crd.w = vertexList[vertexNumber].crd.w;
         }
 
         gks_preppolyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, normalList, object_color, hiddenSurfaceRemoveFlag);
