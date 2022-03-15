@@ -35,6 +35,8 @@ GKSlimits_2 gks_trans_get_device_viewport(void);
 void gks_trans_adjust_device_viewport(GKSfloat r_mini, GKSfloat r_maxi, GKSfloat s_mini, GKSfloat s_maxi);
 
 void gks_trans_wc_to_ndc_3 (GKSpoint_3 *wc_pt, GKSpoint_3 *ndc_pt);
+void gks_trans_wc_to_ndc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt);
 void gks_trans_ndc_3_to_dc_2 (GKSpoint_3 *ndc_pt, GKSint *r, GKSint *s);
+void gks_trans_ndc_to_dc (GKSvector3d ndc_pt, GKSint *r, GKSint *s);
 
 #endif /* gks_3d_transforms_h */

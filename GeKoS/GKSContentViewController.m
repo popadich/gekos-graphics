@@ -68,7 +68,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     
     self.cameraRep.positionX = @0.0;
     self.cameraRep.positionY = @0.0;
-    self.cameraRep.positionZ = @2.0;
+    self.cameraRep.positionZ = @2.7;
     
     NSNumber *distance =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
     self.cameraRep.focalLength = distance;

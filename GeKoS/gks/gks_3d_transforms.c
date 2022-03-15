@@ -267,6 +267,16 @@ void gks_trans_wc_to_ndc_3 (GKSpoint_3 *wc_pt, GKSpoint_3 *ndc_pt)
     ndc_pt->z = g_wrld_zscale * wc_pt->z + g_wrld_zcoord;
 }
 
+
+// World coordinates (wc) to Normalized Device Coordinates (ndc)
+void gks_trans_wc_to_ndc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt)
+{
+    ndc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
+    ndc_pt->crd.y = g_wrld_yscale * wc_pt.crd.y + g_wrld_ycoord;
+    ndc_pt->crd.z = g_wrld_zscale * wc_pt.crd.z + g_wrld_zcoord;
+}
+
+
 // Normalized Device Coordinates (ndc) to Device Coordinates (dc) 2D
 // If I were to build a 2D drawing library, this function would be
 // part of that.
@@ -275,4 +285,11 @@ void gks_trans_ndc_3_to_dc_2 (GKSpoint_3 *ndc_pt, GKSint *r, GKSint *s)
     *r = g_dev_xscale * ndc_pt->x + g_dex_xcoord;
     *s = g_dev_yscale * ndc_pt->y + g_dev_ycoord;
 }
+
+void gks_trans_ndc_to_dc (GKSvector3d ndc_pt, GKSint *r, GKSint *s)
+{
+    *r = g_dev_xscale * ndc_pt.crd.x + g_dex_xcoord;
+    *s = g_dev_yscale * ndc_pt.crd.y + g_dev_ycoord;
+}
+
 

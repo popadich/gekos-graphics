@@ -223,7 +223,7 @@ void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSu
             temp_vertex_array[j].crd.w = vertexList[vertexNumber].crd.w;
         }
 
-        gks_preppolyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, normalList, object_color, hiddenSurfaceRemoveFlag);
+        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, normalList, object_color, hiddenSurfaceRemoveFlag);
 
         gks_localpolyline_3(polygonID, polygon_point_count, transVertList, devcoordList, normalList, object_color, hiddenSurfaceRemoveFlag);
         

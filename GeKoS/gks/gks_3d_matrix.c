@@ -153,6 +153,13 @@ void gks_transform_point_3(GKSmatrix_3 tm, GKSpoint_3 *p1, GKSpoint_3 *result)
     result->z = tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z + tm[2][3];
 }
 
+void gks_transform_point(GKSmatrix_3 tm, GKSvector3d p1, GKSvector3dPtr result)
+{
+    result->crd.x = tm[0][0]*p1.crd.x + tm[0][1]*p1.crd.y + tm[0][2]*p1.crd.z + tm[0][3];
+    result->crd.y = tm[1][0]*p1.crd.x + tm[1][1]*p1.crd.y + tm[1][2]*p1.crd.z + tm[1][3];
+    result->crd.z = tm[2][0]*p1.crd.x + tm[2][1]*p1.crd.y + tm[2][2]*p1.crd.z + tm[2][3];
+}
+
 
 // New vector computed using homogenuous coordinates, but the order of multiplication
 // is different.
@@ -173,6 +180,35 @@ void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result)
 
 }
 
+void gks_transform_vector_projection(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result)
+{
+    result->arr[0] = tm[0][0]*v.arr[0] + tm[1][0]*v.arr[1] + tm[2][0]*v.arr[2] + tm[3][0]*v.arr[3];
+    result->arr[1] = tm[0][1]*v.arr[0] + tm[1][1]*v.arr[1] + tm[2][1]*v.arr[2] + tm[3][1]*v.arr[3];
+    result->arr[2] = tm[0][2]*v.arr[0] + tm[1][2]*v.arr[1] + tm[2][2]*v.arr[2] + tm[3][2]*v.arr[3];
+    result->arr[3] = tm[0][3]*v.arr[0] + tm[1][3]*v.arr[1] + tm[2][3]*v.arr[2] + tm[3][3]*v.arr[3];
+
+}
+
+
+
+void gks_transform_vector(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result)
+{
+    result->crd.x = tm[0][0]*v.arr[0] + tm[0][1]*v.arr[1] + tm[0][2]*v.arr[2] + tm[0][3];
+    result->crd.y = tm[1][0]*v.arr[0] + tm[1][1]*v.arr[1] + tm[1][2]*v.arr[2] + tm[1][3];
+    result->crd.z = tm[2][0]*v.arr[0] + tm[2][1]*v.arr[1] + tm[2][2]*v.arr[2] + tm[2][3];
+//    result->crd.w = tm[3][0]*v.arr[0] + tm[3][1]*v.arr[1] + tm[3][2]*v.arr[2] + tm[3][3]*v.arr[3];
+
+}
+
+void gks_transform_vector_hom(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result)
+{
+    result->crd.x = tm[0][0]*v.arr[0] + tm[0][1]*v.arr[1] + tm[0][2]*v.arr[2] + tm[0][3]*v.arr[3];
+    result->crd.y = tm[1][0]*v.arr[0] + tm[1][1]*v.arr[1] + tm[1][2]*v.arr[2] + tm[1][3]*v.arr[3];
+    result->crd.z = tm[2][0]*v.arr[0] + tm[2][1]*v.arr[1] + tm[2][2]*v.arr[2] + tm[2][3]*v.arr[3];
+    result->crd.w = tm[3][0]*v.arr[0] + tm[3][1]*v.arr[1] + tm[3][2]*v.arr[2] + tm[3][3]*v.arr[3];
+
+}
+
 
 void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSvector3dPtr plane) {
     double A, B, C, D;
@@ -187,6 +223,26 @@ void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSvector
     D = -p1.x*(p2.y*p3.z - p3.y*p2.z)
         -p2.x*(p3.y*p1.z - p1.y*p3.z)
         -p3.x*(p1.y*p2.z - p2.y*p1.z);
+    plane->crd.x = A;
+    plane->crd.y = B;
+    plane->crd.z = C;
+    plane->crd.w = D;
+
+}
+
+void gks_plane_equation(GKSvector3d p1, GKSvector3d p2, GKSvector3d p3, GKSvector3dPtr plane) {
+    double A, B, C, D;
+    
+    // compute the plane equation from 3 points on the plane
+    // this will generate 4 double numbers A, B, C, D.
+    // A, B, C are the normal vector and D is distance from
+    // origin.
+    A = p1.crd.y*(p2.crd.z - p3.crd.z) + p2.crd.y*(p3.crd.z - p1.crd.z) + p3.crd.y*(p1.crd.z - p2.crd.z);
+    B = p1.crd.z*(p2.crd.x - p3.crd.x) + p2.crd.z*(p3.crd.x - p1.crd.x) + p3.crd.z*(p1.crd.x - p2.crd.x);
+    C = p1.crd.x*(p2.crd.y - p3.crd.y) + p2.crd.x*(p3.crd.y - p1.crd.y) + p3.crd.x*(p1.crd.y - p2.crd.y);
+    D = -p1.crd.x*(p2.crd.y*p3.crd.z - p3.crd.y*p2.crd.z)
+        -p2.crd.x*(p3.crd.y*p1.crd.z - p1.crd.y*p3.crd.z)
+        -p3.crd.x*(p1.crd.y*p2.crd.z - p2.crd.y*p1.crd.z);
     plane->crd.x = A;
     plane->crd.y = B;
     plane->crd.z = C;
