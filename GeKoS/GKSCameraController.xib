@@ -202,7 +202,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.positionX" id="xH0-jV-26r"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatX" id="pia-ax-PeI"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-kr-0Iw">
@@ -238,7 +238,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.positionY" id="75K-Xk-9b1"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatY" id="Hzl-ma-j0t"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U9B-Nt-32E">
@@ -250,7 +250,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.positionZ" id="1ad-B2-2ca"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatZ" id="qUr-oF-IdN"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fw2-eU-vpc">
@@ -298,8 +298,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zDa-V3-LIw">
-                                <rect key="frame" x="7" y="21" width="26" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="loc:" id="SbD-uK-2wc">
+                                <rect key="frame" x="9" y="21" width="24" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="uht" id="SbD-uK-2wc">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Lo7-wd-sje"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -363,16 +363,6 @@
                         <action selector="cameraReset:" target="-2" id="zTe-6t-pG4"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dMi-GR-fCg">
-                    <rect key="frame" x="18" y="73" width="99" height="18"/>
-                    <buttonCell key="cell" type="check" title="Use Look At" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Zjw-pT-2jJ">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="self.useLookAtFlag" id="mPS-Y5-NZ2"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="Ezx-uv-pjo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lfP-U2-WOE" secondAttribute="trailing" constant="95" id="0yG-L5-hPu"/>
@@ -382,7 +372,6 @@
                 <constraint firstItem="ZFo-a9-4zp" firstAttribute="leading" secondItem="IJC-mu-i9v" secondAttribute="trailing" constant="38" id="1Z9-WS-73n"/>
                 <constraint firstItem="pZS-0I-YEc" firstAttribute="top" secondItem="utE-Yr-fbs" secondAttribute="bottom" constant="8" symbolic="YES" id="1f3-1H-nDQ"/>
                 <constraint firstItem="2qG-eK-CKO" firstAttribute="leading" secondItem="iWx-7M-byz" secondAttribute="leading" id="3Nk-5f-x18"/>
-                <constraint firstItem="LR6-BI-tcW" firstAttribute="leading" secondItem="dMi-GR-fCg" secondAttribute="leading" id="5hw-4j-1L4"/>
                 <constraint firstItem="IJC-mu-i9v" firstAttribute="firstBaseline" secondItem="pZS-0I-YEc" secondAttribute="firstBaseline" id="8Qy-sf-01s"/>
                 <constraint firstItem="Zzv-ZE-YXy" firstAttribute="trailing" secondItem="utE-Yr-fbs" secondAttribute="trailing" id="8hz-0y-4fP"/>
                 <constraint firstItem="Qgq-8w-Aon" firstAttribute="leading" secondItem="iWx-7M-byz" secondAttribute="trailing" constant="9" id="9d7-Xx-Ven"/>
@@ -401,7 +390,6 @@
                 <constraint firstItem="ZFo-a9-4zp" firstAttribute="leading" secondItem="lfP-U2-WOE" secondAttribute="leading" id="VyQ-E8-Tl9"/>
                 <constraint firstItem="iKE-UF-9xd" firstAttribute="bottom" secondItem="GQB-q9-TdK" secondAttribute="bottom" id="W9c-SN-lwE"/>
                 <constraint firstItem="vZR-EG-tOp" firstAttribute="leading" secondItem="lfP-U2-WOE" secondAttribute="leading" id="X1L-9v-NW3"/>
-                <constraint firstItem="LR6-BI-tcW" firstAttribute="top" secondItem="dMi-GR-fCg" secondAttribute="bottom" constant="6" symbolic="YES" id="Yhc-gW-RX7"/>
                 <constraint firstItem="GQB-q9-TdK" firstAttribute="top" secondItem="Ezx-uv-pjo" secondAttribute="bottom" constant="8" symbolic="YES" id="fQJ-Ws-uDp"/>
                 <constraint firstItem="iKE-UF-9xd" firstAttribute="leading" secondItem="LR6-BI-tcW" secondAttribute="leading" id="faJ-2Z-cPH"/>
                 <constraint firstItem="LR6-BI-tcW" firstAttribute="leading" secondItem="YsV-SS-ctN" secondAttribute="leading" id="gTz-oe-CWv"/>

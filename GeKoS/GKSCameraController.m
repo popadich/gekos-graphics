@@ -298,10 +298,7 @@ static void *CameraRotationContext = &CameraRotationContext;
         camera.dirZ = @(dir_vector.crd.z);
         
         GKSmatrix_3    aViewMatrix;
-        gks_compute_camera_look_at_matrix(pos.crd.x, pos.crd.y, pos.crd.z,
-                                          look_at.crd.x, look_at.crd.y, look_at.crd.z,
-                                          up_vector.crd.x, up_vector.crd.y, up_vector.crd.z,
-                                          aViewMatrix);
+        gks_compute_camera_look_view_matrix(pos, look_at, up_vector, aViewMatrix);
         gks_set_view_matrix(aViewMatrix);
 
         [self cameraSetCenterOfProjectionG];

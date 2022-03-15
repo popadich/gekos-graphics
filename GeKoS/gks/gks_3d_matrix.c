@@ -141,16 +141,16 @@ void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, 
 // The textbook states that Matrix multiplies a vector to transform the vector.
 // Like this, but I'm not convinced.
 //
-//    [m1 m2 m3 m4] [px]
-//    [           ] [py]
-//    [           ] [pz]
-//    [           ] [1]
+//    [m00 m01 m02 m03] [px]
+//    [m10            ] [py]
+//    [m20            ] [pz]
+//    [m30            ] [1]
 //
 void gks_transform_point_3(GKSmatrix_3 tm, GKSpoint_3 *p1, GKSpoint_3 *result)
 {
-    result->x = tm[0][3] + tm[0][0]*p1->x + tm[0][1]*p1->y + tm[0][2]*p1->z;
-    result->y = tm[1][3] + tm[1][0]*p1->x + tm[1][1]*p1->y + tm[1][2]*p1->z;
-    result->z = tm[2][3] + tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z;
+    result->x = tm[0][0]*p1->x + tm[0][1]*p1->y + tm[0][2]*p1->z + tm[0][3];
+    result->y = tm[1][0]*p1->x + tm[1][1]*p1->y + tm[1][2]*p1->z + tm[1][3];
+    result->z = tm[2][0]*p1->x + tm[2][1]*p1->y + tm[2][2]*p1->z + tm[2][3];
 }
 
 
