@@ -24,6 +24,8 @@
 		FA53417027C82C6800015433 /* GKSDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA53416F27C82C6800015433 /* GKSDrawingView.m */; };
 		FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */ = {isa = PBXBuildFile; fileRef = FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */; };
 		FA9842CC2782023E00EBDC7D /* gks.c in Sources */ = {isa = PBXBuildFile; fileRef = FA9842CB2782023E00EBDC7D /* gks.c */; };
+		FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE7BF27E24E1A005A4150 /* GKSSceneInspector.m */; };
+		FA9EE7C227E24E1A005A4150 /* GKSSceneInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */; };
 		FAA02D472756D6E800A0C454 /* GKSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D462756D6E800A0C454 /* GKSAppDelegate.m */; };
 		FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D492756D6E800A0C454 /* GKSDocument.m */; };
 		FAA02D4D2756D6E800A0C454 /* GKSDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D4B2756D6E800A0C454 /* GKSDocument.xib */; };
@@ -93,6 +95,9 @@
 		FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_projection.c; sourceTree = "<group>"; };
 		FA9842CA2781FDE400EBDC7D /* GKSConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSConstants.h; sourceTree = "<group>"; };
 		FA9842CB2782023E00EBDC7D /* gks.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks.c; sourceTree = "<group>"; };
+		FA9EE7BE27E24E1A005A4150 /* GKSSceneInspector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSSceneInspector.h; sourceTree = "<group>"; };
+		FA9EE7BF27E24E1A005A4150 /* GKSSceneInspector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSSceneInspector.m; sourceTree = "<group>"; };
+		FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GKSSceneInspector.xib; sourceTree = "<group>"; };
 		FAA02D422756D6E800A0C454 /* GeKoS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeKoS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA02D452756D6E800A0C454 /* GKSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSAppDelegate.h; sourceTree = "<group>"; };
 		FAA02D462756D6E800A0C454 /* GKSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSAppDelegate.m; sourceTree = "<group>"; };
@@ -230,15 +235,18 @@
 				FA081B7B27D121D10070056A /* GKSHeadView.m */,
 				FA081B7427CFC5F60070056A /* GKSCameraView.h */,
 				FA081B7527CFC5F60070056A /* GKSCameraView.m */,
-				FA3C4E862794E3B000A1196D /* GKSPreferences.h */,
-				FA3C4E872794E3B000A1196D /* GKSPreferences.m */,
-				FA3C4E882794E3B000A1196D /* GKSPreferences.xib */,
 				FA081B6C27CFB7700070056A /* GKSCameraRep.h */,
 				FA081B6D27CFB7700070056A /* GKSCameraRep.m */,
+				FA9EE7BE27E24E1A005A4150 /* GKSSceneInspector.h */,
+				FA9EE7BF27E24E1A005A4150 /* GKSSceneInspector.m */,
+				FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */,
 				FAE5E74E27D59380008E793F /* GKSScene.h */,
 				FAE5E74F27D59380008E793F /* GKSScene.m */,
 				FAE5E74C27D591DF008E793F /* GKS3DObjectRep.h */,
 				FAE5E74B27D591DF008E793F /* GKS3DObjectRep.m */,
+				FA3C4E862794E3B000A1196D /* GKSPreferences.h */,
+				FA3C4E872794E3B000A1196D /* GKSPreferences.m */,
+				FA3C4E882794E3B000A1196D /* GKSPreferences.xib */,
 				FAA02D512756D6F600A0C454 /* Assets.xcassets */,
 				FAA02D532756D6F600A0C454 /* MainMenu.xib */,
 				FAA02D562756D6F600A0C454 /* Info.plist */,
@@ -372,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAA02D522756D6F600A0C454 /* Assets.xcassets in Resources */,
+				FA9EE7C227E24E1A005A4150 /* GKSSceneInspector.xib in Resources */,
 				FAA02D4D2756D6E800A0C454 /* GKSDocument.xib in Resources */,
 				FA081B7327CFBAF40070056A /* GKSCameraController.xib in Resources */,
 				FA3C4E8A2794E3B000A1196D /* GKSPreferences.xib in Resources */,
@@ -415,6 +424,7 @@
 				FA274D65276BF659005104A4 /* gks_3d_view_orient.c in Sources */,
 				FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */,
 				FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */,
+				FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */,
 				FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */,
 				FABC626B27D65C330088AC42 /* gks_drawing_glue.c in Sources */,
 				FA0146DB27C6B88200AE01E8 /* GKSWindowController.m in Sources */,

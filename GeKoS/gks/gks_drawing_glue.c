@@ -28,8 +28,7 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     GKSvector3d   view_coord;     // view reference coordinate
     GKSpoint_2    dc;             // device coordinate
 
-    
-    GKSint     r, s;
+    GKSfloat      r, s;           // viewport coordinates
     
     // Get transformation matrices
     GKSmatrix_3 *view_matrix = gks_get_view_matrix();
@@ -37,7 +36,7 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     GKSmatrix_3 *projection_matrix = gks_get_projection_matrix();
     
     // homogeneous coordinate point
-    GKSvector3d homogenous_vector;
+    GKSvector3d homogenous_vector = GKSMakeVector(0.0, 0.0, 0.0);
 
 
     // transform point 0
@@ -47,8 +46,9 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     gks_trans_wc_to_ndc(world_model_coord, &normalized_device_coord);
     
     gks_transform_point(*view_matrix, normalized_device_coord, &view_coord);
-    view_coord.crd.w = 1.0;
+    view_coord.crd.w = 1.0; // code smell. phew!
 
+    // TODO: assert that array exists
     // store point 0
     trans_array[0] = view_coord;
     
@@ -61,25 +61,18 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     normalized_device_coord.crd.z = homogenous_vector.arr[2]/homogenous_vector.arr[3];
     normalized_device_coord.crd.z = 1.0;
 
-    // init normal points
-//    p1 = normalized_device_coord;
-//    p2 = normalized_device_coord; //this is temp
-//    p3 = normalized_device_coord; //ditto
 
-    gks_trans_ndc_to_dc (normalized_device_coord,  &r, &s);
+    gks_trans_ndc_3_to_dc_2 (normalized_device_coord,  &r, &s);
 
     dc.x = r;
     dc.y = s;
     dc_array[0] = dc;
     
     for (i=1;i<num_pt;i++) {
-        // TODO: use vector_4 transform
         gks_transform_point(*world_matrix, vertex_array[i], &world_model_coord);
-
         gks_trans_wc_to_ndc(world_model_coord, &normalized_device_coord);
-
         gks_transform_point(*view_matrix, normalized_device_coord, &view_coord);
-        view_coord.crd.w = 1.0;
+        view_coord.crd.w = 1.0;     // TODO: code smell
         
         // store transformed point
         trans_array[i] = view_coord;
@@ -87,15 +80,12 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
         // projection transformation/no z info after this
         gks_transform_vector_projection(*projection_matrix, view_coord, &homogenous_vector);
 
-        
         normalized_device_coord.crd.x = homogenous_vector.arr[0]/homogenous_vector.arr[3];
         normalized_device_coord.crd.y = homogenous_vector.arr[1]/homogenous_vector.arr[3];
         normalized_device_coord.crd.z = homogenous_vector.arr[2]/homogenous_vector.arr[3];
         normalized_device_coord.crd.z = 1.0;
         
-
-
-        gks_trans_ndc_to_dc (normalized_device_coord,  &r, &s);
+        gks_trans_ndc_3_to_dc_2 (normalized_device_coord,  &r, &s);
 
         dc.x = r;
         dc.y = s;

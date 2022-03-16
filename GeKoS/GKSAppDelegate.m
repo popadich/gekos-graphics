@@ -8,11 +8,14 @@
 #import "GKSAppDelegate.h"
 #import "GKSConstants.h"
 #import "GKSPreferences.h"
+#import "GKSSceneInspector.h"
+
 #include "gks/gks.h"
 
 @interface GKSAppDelegate ()
 
 @end
+
 
 @implementation GKSAppDelegate
 
@@ -77,6 +80,17 @@ static NSDictionary *defaultValues() {
     [preferences showWindow:sender];
     
 }
+
+- (IBAction)showSceneInspectorWindow:(id)sender
+{
+    GKSSceneInspector *inspector = [GKSSceneInspector sharedInspector];
+    NSViewController *vc = [inspector contentViewController];
+    NSLog(@"Sender: %@", [sender class]);
+    vc.representedObject = nil;
+    [inspector showWindow:sender];
+}
+
+
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

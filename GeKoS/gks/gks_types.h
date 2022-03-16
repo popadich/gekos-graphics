@@ -8,6 +8,18 @@
 #ifndef gks_types_h
 #define gks_types_h
 
+
+#if !defined(GKS_INLINE)
+    #if defined(__GNUC__)
+        #define GKS_INLINE static __inline__ __attribute__((always_inline))
+    #elif defined(__MWERKS__) || defined(__cplusplus)
+        #define GKS_INLINE static inline
+    #elif defined(_MSC_VER)
+        #define GKS_INLINE static __inline
+    #endif
+#endif
+
+
 #define GKS_MIN_VERTEX_COUNT    7
 
 typedef int GKSint;
@@ -108,5 +120,14 @@ typedef struct
     GKSDCArrPtr      devcoords;
 } GKSobject_3;
 
+
+GKS_INLINE GKSvector3d GKSMakeVector(GKSfloat x, GKSfloat y, GKSfloat z) {
+    GKSvector3d v;
+    v.crd.x = x;
+    v.crd.y = y;
+    v.crd.z = z;
+    v.crd.w = 1.0;
+    return v;
+}
 
 #endif /* gks_types_h */
