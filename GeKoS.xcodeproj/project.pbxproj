@@ -40,6 +40,7 @@
 		FAE5E75027D59380008E793F /* GKSScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E74F27D59380008E793F /* GKSScene.m */; };
 		FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E75227D59C52008E793F /* GKSDrawingController.m */; };
 		FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */ = {isa = PBXBuildFile; fileRef = FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */; };
+		FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA1AD227E163F8009FCA8B /* GKSContent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,8 @@
 		FAE5E75227D59C52008E793F /* GKSDrawingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSDrawingController.m; sourceTree = "<group>"; };
 		FAF2DE1E276ADBA600E1B29C /* gks_3d_world.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_world.h; sourceTree = "<group>"; };
 		FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_world.c; sourceTree = "<group>"; };
+		FAFA1AD127E163F8009FCA8B /* GKSContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSContent.h; sourceTree = "<group>"; };
+		FAFA1AD227E163F8009FCA8B /* GKSContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSContent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +209,8 @@
 				FA9842CA2781FDE400EBDC7D /* GKSConstants.h */,
 				FAA02D452756D6E800A0C454 /* GKSAppDelegate.h */,
 				FAA02D462756D6E800A0C454 /* GKSAppDelegate.m */,
+				FAFA1AD127E163F8009FCA8B /* GKSContent.h */,
+				FAFA1AD227E163F8009FCA8B /* GKSContent.m */,
 				FAA02D482756D6E800A0C454 /* GKSDocument.h */,
 				FAA02D492756D6E800A0C454 /* GKSDocument.m */,
 				FAA02D4B2756D6E800A0C454 /* GKSDocument.xib */,
@@ -415,6 +420,7 @@
 				FA0146DB27C6B88200AE01E8 /* GKSWindowController.m in Sources */,
 				FABC626827D65A720088AC42 /* gks_3d_object_list.c in Sources */,
 				FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */,
+				FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */,
 				FAA5C30F2760F2E20005ACAE /* gks_3d_transforms.c in Sources */,
 				FAA02D582756D6F600A0C454 /* main.m in Sources */,
 				FAA02D472756D6E800A0C454 /* GKSAppDelegate.m in Sources */,

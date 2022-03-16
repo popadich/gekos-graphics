@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) addObjectRep:(GKS3DObjectRep*) anObject3D;
 
-@property (nonatomic, weak) GKSCameraRep* camera;
+@property (nonatomic,strong) GKSCameraRep* camera;
 
 @property (nonatomic,strong) NSNumber* worldVolumeMinX;
 @property (nonatomic,strong) NSNumber* worldVolumeMinY;

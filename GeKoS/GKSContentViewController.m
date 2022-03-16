@@ -7,6 +7,7 @@
 
 #import "GKSContentViewController.h"
 #import "GKSConstants.h"
+#import "GKSContent.h"
 #import "GKSCameraRep.h"
 #import "GKSCameraController.h"
 #import "GKSDrawingController.h"
@@ -115,11 +116,18 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 }
 
 - (void)awakeFromNib {
-    self.cameraRep = [[GKSCameraRep alloc] init];
-    self.cameraViewController.representedObject = self.cameraRep;
+    // content should be populated by the document read methods
+    GKSContent *content = self.representedObject;
     
-    // TODO: this should come from a document
-    self.worldScene = [[GKSScene alloc] initWithCamera:self.cameraRep];
+    //scene at index 0 is pre-populated with empty world
+    NSMutableArray *frames = content.keyFrames;
+    GKSScene *scene = [frames objectAtIndex:0];
+    GKSCameraRep *scene_camera = scene.camera;
+    
+    self.cameraRep = scene_camera;
+    self.cameraViewController.representedObject = self.cameraRep;
+
+    self.worldScene = scene;
     self.drawingViewController.representedObject = self.worldScene;
 }
 

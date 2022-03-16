@@ -6,9 +6,11 @@
 //
 
 #import "GKSDocument.h"
+#import "GKSContent.h"
 #import "GKSConstants.h"
 #import "GKSWindowController.h"
 #import "GKSContentViewController.h"
+
 
 @interface GKSDocument ()
 
@@ -20,7 +22,7 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-
+        _content = [[GKSContent alloc] init];
     }
     return self;
 }
@@ -35,7 +37,7 @@
     
     // No need to specify nib file if it has the same name as the class
     GKSContentViewController *contentController = [[GKSContentViewController alloc] init];
-    contentController.representedObject = nil;
+    contentController.representedObject = self.content;
     windowController.contentViewController = contentController;
 }
 
