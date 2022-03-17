@@ -259,16 +259,9 @@ GKSlimits_2 gks_trans_get_device_viewport(void)
     return vpt;
 }
 
-// World coordinates (wc) to Normalized Device Coordinates (ndc)
-void gks_trans_wc_to_ndc_3 (GKSpoint_3 *wc_pt, GKSpoint_3 *ndc_pt)
-{
-    ndc_pt->x = g_wrld_xscale * wc_pt->x + g_wrld_xcoord;
-    ndc_pt->y = g_wrld_yscale * wc_pt->y + g_wrld_ycoord;
-    ndc_pt->z = g_wrld_zscale * wc_pt->z + g_wrld_zcoord;
-}
-
 
 // World coordinates (wc) to Normalized Device Coordinates (ndc)
+// World space -> Normalized World space
 void gks_trans_wc_to_ndc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt)
 {
     ndc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
