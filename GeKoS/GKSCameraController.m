@@ -33,9 +33,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     up_vect.x = 0.0;
     up_vect.y = 1.0;
     up_vect.z = 0.0;
-    
-    self.useLookAtFlag = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefLookAtPoint];
-    
+        
     GKSCameraRep *camera = self.representedObject;
     // observe focal length of camera
     [self registerAsObserverForCamera:camera];

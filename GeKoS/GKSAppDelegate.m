@@ -42,7 +42,6 @@ static NSDictionary *defaultValues() {
                 [NSKeyedArchiver archivedDataWithRootObject:blueprintColor requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
                 [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], gksPrefFillColor,
                 [NSKeyedArchiver archivedDataWithRootObject:greypenColor requiringSecureCoding:NO error:&error], gksPrefPenColor,
-                [NSNumber numberWithBool:NO], gksPrefLookAtPoint,
                 worldVolumeData, gksPrefWorldVolumeData,
                 [NSNumber numberWithDouble:world_volume[0]], gksPrefWorldVolumeMinX,
                 [NSNumber numberWithDouble:world_volume[1]], gksPrefWorldVolumeMaxX,

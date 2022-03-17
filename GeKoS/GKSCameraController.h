@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSCameraController : NSViewController
 
-@property (strong)IBOutlet NSNumber *useLookAtFlag;
-
 - (void)cameraSetViewMatrixG;
 - (void)cameraSetCenterOfProjectionG;
 - (void)cameraDoLookAt;

@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do view setup here.
     NSLog(@"Drawing Controller Here! Ready to go.");
-    NSLog(@"theScene (representedObject) should not be set, so it is: %@ ", self.representedObject);
+    NSLog(@"theScene (representedObject): %@ ", self.representedObject);
     
 }
 

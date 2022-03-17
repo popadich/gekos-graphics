@@ -25,7 +25,6 @@
 #define gksPrefWorldVolumeMaxY @"worldVolumeMaxY"
 #define gksPrefWorldVolumeMinZ @"worldVolumeMinZ"
 #define gksPrefWorldVolumeMaxZ @"worldVolumeMaxZ"
-#define gksPrefLookAtPoint @"lookAtFlag"
 
 typedef enum ProjectionIndex : NSUInteger {
     kOrthogonal,
