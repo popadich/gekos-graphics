@@ -855,8 +855,8 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 - (void)testTransformWCToNDC3 {
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
-    GKSpoint_3 p1 = {1.0, 1.0, 1.0, 1.0};
-    GKSpoint_3 p2 = {0.0, 0.0, 0.0, 0.0};
+    GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
+    GKSvector3d p2 = {0.0, 0.0, 0.0, 0.0};
     GKSint viewNum = 0;
     
     gks_trans_init_3();
@@ -866,11 +866,11 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(view_num_get, viewNum);
     
     // not a verified test, try some different values for p1 and limits
-    gks_trans_wc_to_ndc_3 (&p1, &p2);
+    gks_trans_wc_to_ndc (p1, &p2);
     
-    XCTAssertEqual(p1.x, 1.0);
-    XCTAssertEqual(p1.y, 1.0);
-    XCTAssertEqual(p1.z, 1.0);
+    XCTAssertEqual(p1.crd.x, 1.0);
+    XCTAssertEqual(p1.crd.y, 1.0);
+    XCTAssertEqual(p1.crd.z, 1.0);
     
 }
 
