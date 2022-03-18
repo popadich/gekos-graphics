@@ -6,12 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GKSScene.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContent : NSObject
 
-@property (strong)NSMutableArray *keyFrames;
+@property (strong)GKSScene *theScene;
 
 @end
 

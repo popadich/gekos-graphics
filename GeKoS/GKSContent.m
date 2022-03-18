@@ -7,7 +7,6 @@
 
 #import "GKSContent.h"
 #import "GKSCameraRep.h"
-#import "GKSScene.h"
 
 @implementation GKSContent
 
@@ -17,7 +16,7 @@
     if (self) {
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
         GKSScene *frameOne = [[GKSScene alloc] initWithCamera:cameraRep];
-        _keyFrames = [[NSMutableArray alloc] initWithObjects:frameOne, nil];
+        _theScene = frameOne;
     }
     return self;
 }

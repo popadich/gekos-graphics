@@ -119,9 +119,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
     
-    //scene at index 0 is pre-populated with empty world
-    NSMutableArray *frames = content.keyFrames;
-    GKSScene *scene = [frames objectAtIndex:0];
+    GKSScene *scene = content.theScene;
     GKSCameraRep *scene_camera = scene.camera;
     
     self.cameraRep = scene_camera;

@@ -9,6 +9,7 @@
 #import "GKSConstants.h"
 #import "GKSPreferences.h"
 #import "GKSSceneInspector.h"
+#import "GKSContent.h"
 
 #include "gks/gks.h"
 
@@ -80,16 +81,14 @@ static NSDictionary *defaultValues() {
     
 }
 
+
 - (IBAction)showSceneInspectorWindow:(id)sender
 {
     GKSSceneInspector *inspector = [GKSSceneInspector sharedInspector];
-    NSViewController *vc = [inspector contentViewController];
-    NSLog(@"Sender: %@", [sender class]);
-    vc.representedObject = nil;
+ 
     [inspector showWindow:sender];
+
 }
-
-
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
