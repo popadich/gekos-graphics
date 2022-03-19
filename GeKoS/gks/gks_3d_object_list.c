@@ -59,9 +59,11 @@ Actor gks_objarr_object_at_index(int index) {
     return object3d;
 }
 
-void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d scaleVec, GKSvector3d rotVec, GKScolor lineColor)
+bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d scaleVec, GKSvector3d rotVec, GKScolor lineColor)
 {
     //add_object_new(object, transVec, scaleVec, rotVec);
+    bool did_add = false;
+    
     if (_object_count<XS_MAX_SCENE_OBJECTS) {
 
         object_array[_object_count].kind = kind;
@@ -69,6 +71,7 @@ void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, 
 
         gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].instanceTransform);
         
+        // ORDER MATTERS S x R x T
         gks_accumulate_x_rotation_matrix_3(rotVec.crd.x,object_array[_object_count].instanceTransform);
         gks_accumulate_y_rotation_matrix_3(rotVec.crd.y,object_array[_object_count].instanceTransform);
         gks_accumulate_z_rotation_matrix_3(rotVec.crd.z,object_array[_object_count].instanceTransform);
@@ -76,7 +79,6 @@ void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, 
         
         // !!!: This copies the object
         object_array[_object_count].instanceObject = *object;
-        
         
         object_array[_object_count].scaleVector = scaleVec;
         object_array[_object_count].rotateVector = rotVec;
@@ -87,9 +89,10 @@ void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, 
         // Add to some kind of list that can be displayed in the GUI
         //AddObjectToList(gTopOfIndex,actorList[gTopOfIndex].instanceKind,tx,ty,tz,rx,ry,rz,sx,sy,sz);
         _object_count += 1;
+        did_add = true;
     }
 
-    
+    return did_add;
 }
 
 void gks_objarr_update_object(GKSint index, GKSint kind, GKSfloat tx, GKSfloat ty, GKSfloat tz, GKSfloat sx, GKSfloat sy, GKSfloat sz, GKSfloat rx, GKSfloat ry, GKSfloat rz)

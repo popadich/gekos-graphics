@@ -52,6 +52,28 @@
     return self;
 }
 
+- (GKSvector3d)positionVector
+{
+    GKSvector3d pos;
+    pos = GKSMakeVector([self.transX doubleValue], [self.transY doubleValue], [self.transZ doubleValue]);
+    return pos;
+}
+
+- (GKSvector3d)rotationVector
+{
+    GKSvector3d rot;
+    rot = GKSMakeVector([self.rotX doubleValue], [self.rotY doubleValue], [self.rotZ doubleValue]);
+    return rot;
+}
+
+- (GKSvector3d)scaleVector
+{
+    GKSvector3d rot;
+    rot = GKSMakeVector([self.scaleX doubleValue], [self.scaleY doubleValue], [self.scaleZ doubleValue]);
+    return rot;
+}
+
+
 
 // In the implementation
 -(id)copyWithZone:(NSZone *)zone

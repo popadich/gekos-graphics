@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (id)initWithStructure:(Actor)actorStruct;
+- (GKSvector3d)positionVector;
+- (GKSvector3d)rotationVector;
+- (GKSvector3d)scaleVector;
 
 @end
 

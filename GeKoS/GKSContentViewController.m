@@ -163,30 +163,11 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 
 // Object List Stuff
 
-- (void)addObjectToRootOfKind:(GKSint)objectKind lineColor:(const GKScolor *)lineColor rotate:(const GKSvector3dPtr)rotate scale:(const GKSvector3dPtr)scale trans:(const GKSvector3dPtr)trans {
+- (BOOL)addObject3DKind:(ObjectKind)kind atLocation:(GKSvector3d)loc withRotation:(GKSvector3d)rot andScale:(GKSvector3d)sca
+{
+    BOOL didAdd = NO;
+    GKSobject_3 *objPtr = NULL;
     
-    GKS3DObjectRep* objRep = [[GKS3DObjectRep alloc] init];
-    
-    objRep.objectKind = [NSNumber numberWithInt:objectKind];
-    
-    objRep.lineColor = [NSColor colorWithRed:lineColor->red green:lineColor->green blue:lineColor->blue alpha:lineColor->alpha];
-    objRep.transX = [NSNumber numberWithDouble:trans->crd.x];
-    objRep.transY = [NSNumber numberWithDouble:trans->crd.y];
-    objRep.transZ = [NSNumber numberWithDouble:trans->crd.z];
-    objRep.scaleX = [NSNumber numberWithDouble:scale->crd.x];
-    objRep.scaleY = [NSNumber numberWithDouble:scale->crd.y];
-    objRep.scaleZ = [NSNumber numberWithDouble:scale->crd.z];
-    objRep.rotX = [NSNumber numberWithDouble:rotate->crd.x];
-    objRep.rotY = [NSNumber numberWithDouble:rotate->crd.y];
-    objRep.rotZ = [NSNumber numberWithDouble:rotate->crd.z];
-    
-    [self.worldScene addObjectRep:objRep];
-
-}
-
-
-
-- (void)addObject3DOfKind:(NSInteger)addTag {
     GKScolor lineColor;
     NSColor* theColor = self.worldScene.worldLineColor;
     
@@ -195,87 +176,98 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     lineColor.blue = [theColor blueComponent];
     lineColor.alpha = [theColor alphaComponent];
     
-
-    if (addTag==kCubeKind) {
-        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
-        
-        trans = GKSMakeVector(-0.5, -0.5, -0.5);
-        scale = GKSMakeVector(1.0, 1.0, 1.0);
-        rotate = GKSMakeVector(0.0, 0.0, 0.0);
-
-        GKSobject_3 *objPtr = CubeMesh();
-        
-        // add a 3d object to the c model world
-        gks_objarr_add(kCubeKind, objPtr, trans, scale, rotate, lineColor);
-        free(objPtr);  //free object it is copied when added
-        
-        // add a 3d object to the object GUI world
-        [self addObjectToRootOfKind:kCubeKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
+    
+    GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
+    trans = loc;
+    scale = sca;
+    rotate = rot;
+    
+    switch (kind) {
+        case kCubeKind:
+            objPtr = CubeMesh();
+            break;
+        case kSphereKind:
+            objPtr = SphereMesh();
+            break;
+        case kPyramidKind:
+            objPtr = PyramidMesh();
+            break;
+        case kHouseKind:
+            objPtr = HouseMesh();
+            break;
+            
+        default:
+            break;
     }
     
-    if (addTag==kSphereKind) {
-        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
-        trans = GKSMakeVector(0.0, 0.0, 0.0);
-        scale = GKSMakeVector(1.0, 1.0, 1.0);
-        rotate = GKSMakeVector(0.0, 0.0, 0.0);
+    if (objPtr != NULL) {
         
-        GKSobject_3 *objPtr = SphereMesh();
-
         // add a 3d object to the c model world
-        gks_objarr_add(kSphereKind, objPtr, trans, scale, rotate, lineColor);
-        free(objPtr);  //free object it is copied when added
+        if (gks_objarr_add(kind, objPtr, trans, scale, rotate, lineColor)) {
+            free(objPtr);  //free object it is copied when added
 
-        // add a 3d object to the object GUI world
-        [self addObjectToRootOfKind:kSphereKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
+            didAdd = YES;
+        }
     }
+    return didAdd;
+}
+
+
+// add a 3d object to the object GUI world
+- (void)addObjectToRootOfKind:(ObjectKind)objectKind lineColor:(const GKScolor *)lineColor rotate:(const GKSvector3d)rotate scale:(const GKSvector3d)scale trans:(const GKSvector3d)location
+{
+    BOOL didAdd = NO;
     
-    if (addTag==kPyramidKind) {
-        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
-        trans = GKSMakeVector(-0.5, -0.5, -0.5);
-        scale = GKSMakeVector(1.0, 1.0, 1.0);
-        rotate = GKSMakeVector(0.0, 0.0, 0.0);
-        GKSobject_3 *objPtr = PyramidMesh();
-
-        // add a 3d object to the c model world
-        gks_objarr_add(kPyramidKind, objPtr, trans, scale, rotate, lineColor);
-        free(objPtr);  //free object it is copied when added
-
-        // add a 3d object to the object GUI world
-        [self addObjectToRootOfKind:kPyramidKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
-    }
+    GKS3DObjectRep* objRep = [[GKS3DObjectRep alloc] init];
     
-    if (addTag==kHouseKind) {
-        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
-        trans = GKSMakeVector(-8.5, -8.5, -20.5);
-        scale = GKSMakeVector(1.0, 1.0, 1.0);
-        rotate = GKSMakeVector(0.0, 0.0, 0.0);
-        GKSobject_3 *objPtr = HouseMesh();
+    objRep.objectKind = [NSNumber numberWithInt:objectKind];
+    objRep.lineColor = [NSColor colorWithRed:lineColor->red green:lineColor->green blue:lineColor->blue alpha:lineColor->alpha];
+    objRep.transX = [NSNumber numberWithDouble:location.crd.x];
+    objRep.transY = [NSNumber numberWithDouble:location.crd.y];
+    objRep.transZ = [NSNumber numberWithDouble:location.crd.z];
+    objRep.scaleX = [NSNumber numberWithDouble:scale.crd.x];
+    objRep.scaleY = [NSNumber numberWithDouble:scale.crd.y];
+    objRep.scaleZ = [NSNumber numberWithDouble:scale.crd.z];
+    objRep.rotX = [NSNumber numberWithDouble:rotate.crd.x];
+    objRep.rotY = [NSNumber numberWithDouble:rotate.crd.y];
+    objRep.rotZ = [NSNumber numberWithDouble:rotate.crd.z];
 
-        // add a 3d object to the c model world
-        gks_objarr_add(kHouseKind, objPtr, trans, scale, rotate, lineColor);
-        free(objPtr);  //free object it is copied when added
-
-        // add a 3d object to the object GUI world
-        [self addObjectToRootOfKind:kHouseKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
+    didAdd = [self addObject3DKind:objectKind atLocation:location withRotation:objRep.rotationVector andScale:objRep.scaleVector];
+    if (didAdd) {
+        [self.worldScene addObjectRep:objRep];
     }
+    else
+        NSBeep();
     
 }
 
 
 - (IBAction)performAddQuick:(id)sender {
-    NSInteger addTag = [sender tag];
+    GKScolor lineColor;
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
-    addTag = [self.object3DRep.objectKind integerValue];
-    NSLog(@"Quick Add Object From Menu Tag: %ld",addTag);
-    [self addObject3DOfKind:addTag];
+    NSInteger kind = [self.object3DRep.objectKind integerValue];
+    NSColor* theColor = self.worldScene.worldLineColor;
+    
+    lineColor.red = [theColor redComponent];
+    lineColor.green = [theColor greenComponent];
+    lineColor.blue = [theColor blueComponent];
+    lineColor.alpha = [theColor alphaComponent];
+    
+    GKSvector3d position = self.object3DRep.positionVector;
+    GKSvector3d rotation = self.object3DRep.rotationVector;
+    GKSvector3d scaling = self.object3DRep.scaleVector;
+    [self addObject3DKind:(ObjectKind)kind atLocation:position withRotation:rotation andScale:scaling];
+    [self addObjectToRootOfKind:(ObjectKind)kind lineColor:&lineColor rotate:rotation scale:scaling trans:position];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
 
 - (IBAction)performDeleteQuick:(id)sender {
     NSLog(@"Quick Delete Object From Top of Stack");
+    gks_objarr_delete_last();
+    [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
 
