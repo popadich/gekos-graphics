@@ -16,15 +16,15 @@
     self = [super init];
     if (self) {
         _objectKind = [NSNumber numberWithInteger:actorStruct.kind];
-        _scaleX = [NSNumber numberWithDouble:actorStruct.scaleVector.x];
-        _scaleY = [NSNumber numberWithDouble:actorStruct.scaleVector.y];
-        _scaleZ = [NSNumber numberWithDouble:actorStruct.scaleVector.z];
-        _rotX = [NSNumber numberWithDouble:actorStruct.rotateVector.x];
-        _rotY = [NSNumber numberWithDouble:actorStruct.rotateVector.y];
-        _rotZ = [NSNumber numberWithDouble:actorStruct.rotateVector.z];
-        _transX = [NSNumber numberWithDouble:actorStruct.translateVector.x];
-        _transY = [NSNumber numberWithDouble:actorStruct.translateVector.y];
-        _transZ = [NSNumber numberWithDouble:actorStruct.translateVector.z];
+        _scaleX = [NSNumber numberWithDouble:actorStruct.scaleVector.crd.x];
+        _scaleY = [NSNumber numberWithDouble:actorStruct.scaleVector.crd.y];
+        _scaleZ = [NSNumber numberWithDouble:actorStruct.scaleVector.crd.z];
+        _rotX = [NSNumber numberWithDouble:actorStruct.rotateVector.crd.x];
+        _rotY = [NSNumber numberWithDouble:actorStruct.rotateVector.crd.y];
+        _rotZ = [NSNumber numberWithDouble:actorStruct.rotateVector.crd.z];
+        _transX = [NSNumber numberWithDouble:actorStruct.translateVector.crd.x];
+        _transY = [NSNumber numberWithDouble:actorStruct.translateVector.crd.y];
+        _transZ = [NSNumber numberWithDouble:actorStruct.translateVector.crd.z];
         _lineColor = [NSColor greenColor];
         _fillColor = [NSColor lightGrayColor];
     }

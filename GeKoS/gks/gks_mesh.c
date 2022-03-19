@@ -34,17 +34,10 @@ GKSobject_3 *CubeMesh(void)
     GKSpoint_3 *p;
     GKSvector3dPtr q;
     GKSobject_3 *aCube;
-    
-    //normal
-//    GKSpoint_3 p1;
-//    GKSpoint_3 p2;
-//    GKSpoint_3 p3;
-//    GKSvector3d normal;
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-//    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSvector3d));
     GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
 
@@ -65,14 +58,6 @@ GKSobject_3 *CubeMesh(void)
         for(int j=0; j<polygonSize; j++) {
             polygonList[i][j] = cubepoly[i][j];
         }
-        
-        // compute normals polygon vertices are numbered from 1 vertex array is zero based.
-//        p1 = cubevert[cubepoly[i][1] - 1];
-//        p2 = cubevert[cubepoly[i][2] - 1];
-//        p3 = cubevert[cubepoly[i][3] - 1];
-//        gks_plane_equation_3(p1, p2, p3, &normal);
-//        normalList[i] = normal;
-        
     }
 
     aCube = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
@@ -109,15 +94,10 @@ GKSobject_3 *PyramidMesh(void)
     GKSpoint_3 *p;
     GKSvector3dPtr q;
     GKSobject_3 *aPyramid = NULL;
-
-    //normal
-// //    GKSvector3d normal;
-    
     
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
-//    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSvector3d));
     GKSvertexArrPtr transList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_2));
 
@@ -138,13 +118,6 @@ GKSobject_3 *PyramidMesh(void)
         for(int j=0; j<polygonSize; j++) {
             polygonList[i][j] = pyrpolys[i][j];
         }
-        // compute normals polygon vertices are numbered from 1 vertex array is zero based.
-//        p1 = pyrverts[pyrpolys[i][1] - 1];
-//        p2 = pyrverts[pyrpolys[i][2] - 1];
-//        p3 = pyrverts[pyrpolys[i][3] - 1];
-//        gks_plane_equation_3(p1, p2, p3, &normal);
-//        normalList[i] = normal;
-
     }
     
     aPyramid = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));

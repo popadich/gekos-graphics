@@ -163,22 +163,22 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 
 // Object List Stuff
 
-- (void)addObjectToRootOfKind:(GKSint)objectKind lineColor:(const GKScolor *)lineColor rotate:(const GKSpoint_3 *)rotate scale:(const GKSpoint_3 *)scale trans:(const GKSpoint_3 *)trans {
+- (void)addObjectToRootOfKind:(GKSint)objectKind lineColor:(const GKScolor *)lineColor rotate:(const GKSvector3dPtr)rotate scale:(const GKSvector3dPtr)scale trans:(const GKSvector3dPtr)trans {
     
     GKS3DObjectRep* objRep = [[GKS3DObjectRep alloc] init];
     
     objRep.objectKind = [NSNumber numberWithInt:objectKind];
     
     objRep.lineColor = [NSColor colorWithRed:lineColor->red green:lineColor->green blue:lineColor->blue alpha:lineColor->alpha];
-    objRep.transX = [NSNumber numberWithDouble:trans->x];
-    objRep.transY = [NSNumber numberWithDouble:trans->y];
-    objRep.transZ = [NSNumber numberWithDouble:trans->z];
-    objRep.scaleX = [NSNumber numberWithDouble:scale->x];
-    objRep.scaleY = [NSNumber numberWithDouble:scale->y];
-    objRep.scaleZ = [NSNumber numberWithDouble:scale->z];
-    objRep.rotX = [NSNumber numberWithDouble:rotate->x];
-    objRep.rotY = [NSNumber numberWithDouble:rotate->y];
-    objRep.rotZ = [NSNumber numberWithDouble:rotate->z];
+    objRep.transX = [NSNumber numberWithDouble:trans->crd.x];
+    objRep.transY = [NSNumber numberWithDouble:trans->crd.y];
+    objRep.transZ = [NSNumber numberWithDouble:trans->crd.z];
+    objRep.scaleX = [NSNumber numberWithDouble:scale->crd.x];
+    objRep.scaleY = [NSNumber numberWithDouble:scale->crd.y];
+    objRep.scaleZ = [NSNumber numberWithDouble:scale->crd.z];
+    objRep.rotX = [NSNumber numberWithDouble:rotate->crd.x];
+    objRep.rotY = [NSNumber numberWithDouble:rotate->crd.y];
+    objRep.rotZ = [NSNumber numberWithDouble:rotate->crd.z];
     
     [self.worldScene addObjectRep:objRep];
 
@@ -197,11 +197,11 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     
 
     if (addTag==kCubeKind) {
-        GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
+        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
         
-        trans.x=-0.5; trans.y=-0.5; trans.z=-0.5; trans.w=1.0;
-        scale.x=1.0; scale.y=1.0; scale.z=1.0; scale.w=1.0;
-        rotate.x=0.0; rotate.y=0.0; rotate.z=0.0; rotate.w=1.0;
+        trans = GKSMakeVector(-0.5, -0.5, -0.5);
+        scale = GKSMakeVector(1.0, 1.0, 1.0);
+        rotate = GKSMakeVector(0.0, 0.0, 0.0);
 
         GKSobject_3 *objPtr = CubeMesh();
         
@@ -214,11 +214,11 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     }
     
     if (addTag==kSphereKind) {
-        GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
-        trans.x=0.0; trans.y=0.0; trans.z=0.0; trans.w=1.0;
-        scale.x=1.0; scale.y=1.0; scale.z=1.0; scale.w=1.0;
-        rotate.x=0.0; rotate.y=0.0; rotate.z=0.0; rotate.w=1.0;
-
+        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
+        trans = GKSMakeVector(0.0, 0.0, 0.0);
+        scale = GKSMakeVector(1.0, 1.0, 1.0);
+        rotate = GKSMakeVector(0.0, 0.0, 0.0);
+        
         GKSobject_3 *objPtr = SphereMesh();
 
         // add a 3d object to the c model world
@@ -230,10 +230,10 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     }
     
     if (addTag==kPyramidKind) {
-        GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
-        trans.x=-0.5; trans.y=-0.5; trans.z=-0.5; trans.w=1.0;
-        scale.x=1.0; scale.y=1.0; scale.z=1.0; scale.w=1.0;
-        rotate.x=0.0; rotate.y=0.0; rotate.z=0.0; rotate.w=1.0;
+        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
+        trans = GKSMakeVector(-0.5, -0.5, -0.5);
+        scale = GKSMakeVector(1.0, 1.0, 1.0);
+        rotate = GKSMakeVector(0.0, 0.0, 0.0);
         GKSobject_3 *objPtr = PyramidMesh();
 
         // add a 3d object to the c model world
@@ -245,10 +245,10 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     }
     
     if (addTag==kHouseKind) {
-        GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
-        trans.x=-8.5; trans.y=-8.5; trans.z=-20.5; trans.w=1.0;
-        scale.x=1.0; scale.y=1.0; scale.z=1.0; scale.w=1.0;
-        rotate.x=0.0; rotate.y=0.0; rotate.z=0.0; rotate.w=1.0;
+        GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
+        trans = GKSMakeVector(-8.5, -8.5, -20.5);
+        scale = GKSMakeVector(1.0, 1.0, 1.0);
+        rotate = GKSMakeVector(0.0, 0.0, 0.0);
         GKSobject_3 *objPtr = HouseMesh();
 
         // add a 3d object to the c model world

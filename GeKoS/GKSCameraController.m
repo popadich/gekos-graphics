@@ -13,7 +13,7 @@
 static double head_size_adjust = 1.0;
 
 @interface GKSCameraController () {
-    GKSpoint_3 up_vect;
+    GKSvector3d up_vect;
 }
 
 @property (strong)GKSCameraRep *camera;
@@ -30,9 +30,9 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    up_vect.x = 0.0;
-    up_vect.y = 1.0;
-    up_vect.z = 0.0;
+    up_vect.crd.x = 0.0;
+    up_vect.crd.y = 1.0;
+    up_vect.crd.z = 0.0;
         
     GKSCameraRep *camera = self.representedObject;
     // observe focal length of camera
@@ -140,9 +140,9 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)changeRoll:(NSNumber *)angle
 {
-    GKSpoint_3 vector_y = {0.0, 1.0, 0.0, 1.0};  // unit vector along the y-axis
+    GKSvector3d vector_y = {0.0, 1.0, 0.0, 1.0};  // unit vector along the y-axis
 
-    GKSpoint_3 comp;
+    GKSvector3d comp;
     GKSmatrix_3 T;
 
     double theta = [self.camera.yaw doubleValue];
@@ -154,18 +154,18 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
 
-    gks_transform_point_3(T, &vector_y, &comp);
+    gks_transform_point_3(T, &vector_y.crd, &comp.crd);
     
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.crd.x] forKey:@"dirX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.crd.y] forKey:@"dirY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.crd.z] forKey:@"dirZ"];
 }
 
 - (void)changePitch:(NSNumber *)angle
 {
-    GKSpoint_3 vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
+    GKSvector3d vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
 
-    GKSpoint_3 comp;
+    GKSvector3d comp;
     GKSmatrix_3 T;
     
     double psi = [angle doubleValue];
@@ -177,19 +177,19 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_y_rotation_matrix_3(theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
-    gks_transform_point_3(T, &vector_z, &comp);
+    gks_transform_point_3(T, &vector_z.crd, &comp.crd);
     
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.x] forKey:@"dirX"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.y] forKey:@"dirY"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:comp.z] forKey:@"dirZ"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.crd.x] forKey:@"dirX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.crd.y] forKey:@"dirY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:comp.crd.z] forKey:@"dirZ"];
 
 }
 
 - (void)changeYaw:(NSNumber *)angle
 {
-    GKSpoint_3 vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
+    GKSvector3d vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
 
-    GKSpoint_3 trans_point;
+    GKSvector3d trans_point;
     GKSmatrix_3 T;
 
     double theta = [angle doubleValue];
@@ -201,11 +201,11 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_y_rotation_matrix_3(theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
-    gks_transform_point_3(T, &vector_z, &trans_point);
+    gks_transform_point_3(T, &vector_z.crd, &trans_point.crd);
 
-    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.x] forKey:@"dirX"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.y] forKey:@"dirY"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.z] forKey:@"dirZ"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.x] forKey:@"dirX"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.y] forKey:@"dirY"];
+    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.z] forKey:@"dirZ"];
 
 }
 
@@ -313,35 +313,29 @@ static void *CameraRotationContext = &CameraRotationContext;
         // init 3D camera view and window viewport
         // sets up aView matrix based on VRP, VPN and VUP
         //Set View Up Vector
-        GKSvector3d up;
-        GKSpoint_3 up_vector;
-        up_vector.x = [camera.upX doubleValue];
-        up_vector.y = [camera.upY doubleValue];
-        up_vector.z = [camera.upZ doubleValue];
-        up.crd = up_vector;
+        GKSvector3d up_vector;
+        up_vector.crd.x = [camera.upX doubleValue];
+        up_vector.crd.y = [camera.upY doubleValue];
+        up_vector.crd.z = [camera.upZ doubleValue];
         
         //Set View Plane Normal
         // the view plane is like a tv screen in front of your face.
         // this vector sets the normal to that "screen". The plane is
         // actually an infinite plane.
-        GKSvector3d dir;
-        GKSpoint_3 dir_vector;
-        dir_vector.x = [camera.dirX doubleValue];
-        dir_vector.y = [camera.dirY doubleValue];
-        dir_vector.z = [camera.dirZ doubleValue];
-        dir.crd = dir_vector;
+        GKSvector3d dir_vector;
+        dir_vector.crd.x = [camera.dirX doubleValue];
+        dir_vector.crd.y = [camera.dirY doubleValue];
+        dir_vector.crd.z = [camera.dirZ doubleValue];
         
         //Set View Reference Point
-        GKSvector3d pos;
-        GKSpoint_3 position;
-        position.x = [camera.positionX doubleValue];
-        position.y = [camera.positionY doubleValue];
-        position.z = [camera.positionZ doubleValue];
-        pos.crd = position;
+        GKSvector3d position;
+        position.crd.x = [camera.positionX doubleValue];
+        position.crd.y = [camera.positionY doubleValue];
+        position.crd.z = [camera.positionZ doubleValue];
         
 //        gks_create_camera_view_matrix(position.x, position.y, position.z, dir_vector.x, dir_vector.y, dir_vector.z, up_vector.x, up_vector.y, up_vector.z, aViewMatrix);
         
-        gks_gen_view_matrix(pos, dir, up, aViewMatrix);
+        gks_gen_view_matrix(position, dir_vector, up_vector, aViewMatrix);
         gks_set_view_matrix(aViewMatrix);
         
         [self cameraSetCenterOfProjectionG];

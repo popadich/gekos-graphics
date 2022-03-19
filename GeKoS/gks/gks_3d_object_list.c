@@ -30,7 +30,7 @@
 
 static bool         _hidden_Surface_Removal_Flag;
 static int          _object_count;                      // count of objects 3D
-static Actor    object_array[XS_MAX_SCENE_OBJECTS];  // world Scene max objects
+static Actor        object_array[XS_MAX_SCENE_OBJECTS];  // world Scene max objects
 
 void gks_init_object_list(void)
 {
@@ -59,7 +59,7 @@ Actor gks_objarr_object_at_index(int index) {
     return object3d;
 }
 
-void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSpoint_3 transVec, GKSpoint_3 scaleVec, GKSpoint_3 rotVec, GKScolor lineColor)
+void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d scaleVec, GKSvector3d rotVec, GKScolor lineColor)
 {
     //add_object_new(object, transVec, scaleVec, rotVec);
     if (_object_count<XS_MAX_SCENE_OBJECTS) {
@@ -67,12 +67,12 @@ void gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSpoint_3 transVec, G
         object_array[_object_count].kind = kind;
         object_array[_object_count].its_color = lineColor;
 
-        gks_create_scaling_matrix_3(scaleVec.x,scaleVec.y,scaleVec.z,object_array[_object_count].instanceTransform);
+        gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].instanceTransform);
         
-        gks_accumulate_x_rotation_matrix_3(rotVec.x,object_array[_object_count].instanceTransform);
-        gks_accumulate_y_rotation_matrix_3(rotVec.y,object_array[_object_count].instanceTransform);
-        gks_accumulate_z_rotation_matrix_3(rotVec.z,object_array[_object_count].instanceTransform);
-        gks_accumulate_translation_matrix_3(transVec.x, transVec.y, transVec.z, object_array[_object_count].instanceTransform);
+        gks_accumulate_x_rotation_matrix_3(rotVec.crd.x,object_array[_object_count].instanceTransform);
+        gks_accumulate_y_rotation_matrix_3(rotVec.crd.y,object_array[_object_count].instanceTransform);
+        gks_accumulate_z_rotation_matrix_3(rotVec.crd.z,object_array[_object_count].instanceTransform);
+        gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, object_array[_object_count].instanceTransform);
         
         // !!!: This copies the object
         object_array[_object_count].instanceObject = *object;
@@ -101,15 +101,15 @@ void gks_objarr_update_object(GKSint index, GKSint kind, GKSfloat tx, GKSfloat t
             gks_accumulate_y_rotation_matrix_3(ry, object_array[index].instanceTransform);
             gks_accumulate_z_rotation_matrix_3(rz, object_array[index].instanceTransform);
             gks_accumulate_translation_matrix_3(tx,ty,tz, object_array[index].instanceTransform);
-            object_array[index].scaleVector.x = sx;
-            object_array[index].scaleVector.y = sy;
-            object_array[index].scaleVector.z = sz;
-            object_array[index].translateVector.x = tx;
-            object_array[index].translateVector.y = ty;
-            object_array[index].translateVector.z = tz;
-            object_array[index].rotateVector.x = rx;
-            object_array[index].rotateVector.y = ry;
-            object_array[index].rotateVector.z = rz;
+            object_array[index].scaleVector.crd.x = sx;
+            object_array[index].scaleVector.crd.y = sy;
+            object_array[index].scaleVector.crd.z = sz;
+            object_array[index].translateVector.crd.x = tx;
+            object_array[index].translateVector.crd.y = ty;
+            object_array[index].translateVector.crd.z = tz;
+            object_array[index].rotateVector.crd.x = rx;
+            object_array[index].rotateVector.crd.y = ry;
+            object_array[index].rotateVector.crd.z = rz;
             // UpdateObjectList(index,kind,tx,ty,tz,rx,ry,rz,sx,sy,sz);
         }
     }

@@ -25,9 +25,9 @@ typedef struct
     GKScolor line_color;
     GKSmatrix_3 instanceTransform;
     GKSobject_3 instanceObject;    //@FIXME: this should be a pointer
-    GKSpoint_3 scaleVector;
-    GKSpoint_3 rotateVector;
-    GKSpoint_3 translateVector;
+    GKSvector3d scaleVector;
+    GKSvector3d rotateVector;
+    GKSvector3d translateVector;
 } Actor;
 
 #define GKS_CUBE_VERTEX_COUNT    8
