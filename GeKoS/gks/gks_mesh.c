@@ -36,15 +36,15 @@ GKSobject_3 *CubeMesh(void)
     GKSobject_3 *aCube;
     
     //normal
-    GKSpoint_3 p1;
-    GKSpoint_3 p2;
-    GKSpoint_3 p3;
-    GKSvector3d normal;
+//    GKSpoint_3 p1;
+//    GKSpoint_3 p2;
+//    GKSpoint_3 p3;
+//    GKSvector3d normal;
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSvector3d));
+//    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSvector3d));
     GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
 
@@ -67,18 +67,18 @@ GKSobject_3 *CubeMesh(void)
         }
         
         // compute normals polygon vertices are numbered from 1 vertex array is zero based.
-        p1 = cubevert[cubepoly[i][1] - 1];
-        p2 = cubevert[cubepoly[i][2] - 1];
-        p3 = cubevert[cubepoly[i][3] - 1];
-        gks_plane_equation_3(p1, p2, p3, &normal);
-        normalList[i] = normal;
+//        p1 = cubevert[cubepoly[i][1] - 1];
+//        p2 = cubevert[cubepoly[i][2] - 1];
+//        p3 = cubevert[cubepoly[i][3] - 1];
+//        gks_plane_equation_3(p1, p2, p3, &normal);
+//        normalList[i] = normal;
         
     }
 
     aCube = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
     aCube->vertices = vertexList;
     aCube->polygons = polygonList;
-    aCube->normals = normalList;
+    aCube->normals = NULL;
     aCube->transverts = transVertList;
     aCube->devcoords = devCoordList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
@@ -111,16 +111,13 @@ GKSobject_3 *PyramidMesh(void)
     GKSobject_3 *aPyramid = NULL;
 
     //normal
-    GKSpoint_3 p1;
-    GKSpoint_3 p2;
-    GKSpoint_3 p3;
-    GKSvector3d normal;
+// //    GKSvector3d normal;
     
     
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSvector3d));
+//    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSvector3d));
     GKSvertexArrPtr transList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_2));
 
@@ -142,11 +139,11 @@ GKSobject_3 *PyramidMesh(void)
             polygonList[i][j] = pyrpolys[i][j];
         }
         // compute normals polygon vertices are numbered from 1 vertex array is zero based.
-        p1 = pyrverts[pyrpolys[i][1] - 1];
-        p2 = pyrverts[pyrpolys[i][2] - 1];
-        p3 = pyrverts[pyrpolys[i][3] - 1];
-        gks_plane_equation_3(p1, p2, p3, &normal);
-        normalList[i] = normal;
+//        p1 = pyrverts[pyrpolys[i][1] - 1];
+//        p2 = pyrverts[pyrpolys[i][2] - 1];
+//        p3 = pyrverts[pyrpolys[i][3] - 1];
+//        gks_plane_equation_3(p1, p2, p3, &normal);
+//        normalList[i] = normal;
 
     }
     
@@ -155,7 +152,7 @@ GKSobject_3 *PyramidMesh(void)
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
     aPyramid->polygons = polygonList;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
-    aPyramid->normals = normalList;
+    aPyramid->normals = NULL;
     aPyramid->transverts = transList;
     aPyramid->devcoords = devCoordList;
     
@@ -188,13 +185,13 @@ GKSobject_3 *HouseMesh(void)
     
     GKSpoint_3 *p;
     GKSvector3dPtr q;
-    GKSobject_3 *anObject = NULL;
+    GKSobject_3 *aHouse = NULL;
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-
-    
+    GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
+    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSpoint_2));
     
     // copy vertices using pointer arithmetic
     p = objectvert;
@@ -207,7 +204,6 @@ GKSobject_3 *HouseMesh(void)
         p++; q++;
     }
 
-
     // copy polygon data using array indexing
     for(int i=0; i<GKS_HOUSE_POLYGON_COUNT; i++) {
         int polygonSize = objectpoly[i][0] + 1;
@@ -216,18 +212,20 @@ GKSobject_3 *HouseMesh(void)
         }
     }
 
-    anObject = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
-    anObject->vertices = vertexList;
-    anObject->vertnum = GKS_HOUSE_VERTEX_COUNT;
-    anObject->polygons = polygonList;
-    anObject->polynum = GKS_HOUSE_POLYGON_COUNT;
+    aHouse = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
+    aHouse->vertices = vertexList;
+    aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
+    aHouse->polygons = polygonList;
+    aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
+    aHouse->transverts = transVertList;
+    aHouse->devcoords = devCoordList;
     
-    return anObject;
+    return aHouse;
 }
 
 GKSobject_3 *SphereMesh(void)
 {
-    double          sini;
+    double          sine_of_i;
     int             vertexCount = 0;
     int             polygonCount = 0;
 
@@ -235,7 +233,7 @@ GKSobject_3 *SphereMesh(void)
     // parameters describing sphere sampling size this controls
     // the number of total vertices and polygons. It goes without
     // saying that the 'degreeDelta' value needs to be a even
-    // denomintor of 360.
+    // denominator of 360.
     int degreeDelta = 10;               // should be a parameter
     int facetCount = 360/degreeDelta;
     int computedVertexCount = (180/degreeDelta + 1) * (360/degreeDelta);
@@ -245,7 +243,7 @@ GKSobject_3 *SphereMesh(void)
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(computedPolygonCount, sizeof(GKSpolygon_3));
-    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(computedPolygonCount, sizeof(GKSvector3d));
+//    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(computedPolygonCount, sizeof(GKSvector3d));
     
     GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(computedVertexCount, sizeof(GKSpoint_2));
@@ -255,10 +253,10 @@ GKSobject_3 *SphereMesh(void)
     // construct vertices
    for (int i=0; i<=180; i+=degreeDelta) {
         for (int j=0; j<360; j+=degreeDelta) {
-            sini = sin(i*DEG_TO_RAD);
+            sine_of_i = sin(i*DEG_TO_RAD);
             int idx = (j+(i*facetCount))/degreeDelta;
-            vertexList[idx].crd.x = 0.5 * sini * cos(j*DEG_TO_RAD);
-            vertexList[idx].crd.y = 0.5 * sini * sin(j*DEG_TO_RAD);
+            vertexList[idx].crd.x = 0.5 * sine_of_i * cos(j*DEG_TO_RAD);
+            vertexList[idx].crd.y = 0.5 * sine_of_i * sin(j*DEG_TO_RAD);
             vertexList[idx].crd.z = 0.5 * cos(i*DEG_TO_RAD);
             vertexList[idx].crd.w = 1.0;
             vertexCount += 1;
@@ -291,7 +289,7 @@ GKSobject_3 *SphereMesh(void)
     
     aSphere->vertices = vertexList;
     aSphere->polygons = polygonList;
-    aSphere->normals = normalList;
+    aSphere->normals = NULL;
     aSphere->vertnum = vertexCount;
     aSphere->polynum = polygonCount;
     aSphere->transverts = transVertList;

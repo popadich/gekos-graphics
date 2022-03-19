@@ -244,24 +244,43 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
         [self addObjectToRootOfKind:kPyramidKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
     }
     
+    if (addTag==kHouseKind) {
+        GKSpoint_3 trans; GKSpoint_3 scale; GKSpoint_3 rotate;
+        trans.x=-8.5; trans.y=-8.5; trans.z=-20.5; trans.w=1.0;
+        scale.x=1.0; scale.y=1.0; scale.z=1.0; scale.w=1.0;
+        rotate.x=0.0; rotate.y=0.0; rotate.z=0.0; rotate.w=1.0;
+        GKSobject_3 *objPtr = HouseMesh();
+
+        // add a 3d object to the c model world
+        gks_objarr_add(kHouseKind, objPtr, trans, scale, rotate, lineColor);
+        free(objPtr);  //free object it is copied when added
+
+        // add a 3d object to the object GUI world
+        [self addObjectToRootOfKind:kHouseKind lineColor:&lineColor rotate:&rotate scale:&scale trans:&trans];
+    }
+    
 }
 
 
 - (IBAction)performAddQuick:(id)sender {
     NSInteger addTag = [sender tag];
-    NSLog(@"Quick Add Object From Menu Tag: %ld",addTag);
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
-    
-    [self addObject3DOfKind:kPyramidKind];
+    addTag = [self.object3DRep.objectKind integerValue];
+    NSLog(@"Quick Add Object From Menu Tag: %ld",addTag);
+    [self addObject3DOfKind:addTag];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
 
+- (IBAction)performDeleteQuick:(id)sender {
+    NSLog(@"Quick Delete Object From Top of Stack");
+
+}
+
 - (IBAction)performUpdateQuick:(id)sender {
-    NSInteger addTag = [sender tag];
-    NSLog(@"Quick Update Object From Menu Tag: %ld",addTag);
+    NSLog(@"Quick Update Object");
     
     [self.cameraViewController cameraDoLookAt];
     

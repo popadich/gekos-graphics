@@ -44,6 +44,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.scaleZ" id="M3P-Il-bgj"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mHj-Mo-wzv">
                                         <rect key="frame" x="68" y="354" width="140" height="21"/>
@@ -53,15 +56,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Got-x8-U1K">
-                                        <rect key="frame" x="68" y="75" width="140" height="21"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="Kgo-Rc-toz">
-                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="L04-w4-isY"/>
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.transX" id="XYS-gc-ifN"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qc3-i5-UZT">
                                         <rect key="frame" x="68" y="323" width="140" height="21"/>
@@ -71,6 +68,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.transY" id="HNx-Tw-Rhy"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uf5-b4-Kq6">
                                         <rect key="frame" x="68" y="137" width="140" height="21"/>
@@ -80,6 +80,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.scaleY" id="pNp-m8-h4N"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HMK-iO-O5i">
                                         <rect key="frame" x="68" y="292" width="140" height="21"/>
@@ -89,6 +92,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.transZ" id="oYG-KM-Reo"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3cY-IA-RoB">
                                         <rect key="frame" x="68" y="168" width="140" height="21"/>
@@ -98,6 +104,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.scaleX" id="qtv-oV-kQ6"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YqF-q3-twU">
                                         <rect key="frame" x="68" y="261" width="140" height="21"/>
@@ -107,6 +116,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.rotX" id="UFG-qm-g37"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0R0-mA-OLs">
                                         <rect key="frame" x="68" y="230" width="140" height="21"/>
@@ -116,6 +128,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.rotY" id="G0i-5r-eNq"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FbE-CF-Jc9">
                                         <rect key="frame" x="68" y="199" width="140" height="21"/>
@@ -125,9 +140,12 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.object3DRep.rotZ" id="Nt9-mv-OCx"/>
+                                        </connections>
                                     </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nEs-3y-xBz">
-                                        <rect key="frame" x="84" y="13" width="60" height="32"/>
+                                        <rect key="frame" x="83" y="13" width="60" height="32"/>
                                         <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ish-CD-RhP">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -209,16 +227,50 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RA9-1S-Cnf">
-                                        <rect key="frame" x="17" y="78" width="32" height="16"/>
+                                        <rect key="frame" x="17" y="76" width="32" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Kind" id="sVo-Yf-306">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LrE-Fg-lZf">
+                                        <rect key="frame" x="65" y="70" width="147" height="25"/>
+                                        <popUpButtonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="kc1-MJ-eSD" id="mjX-vS-Z1G">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="c6D-gn-SEK">
+                                                <items>
+                                                    <menuItem title="Cube" state="on" tag="1" id="kc1-MJ-eSD"/>
+                                                    <menuItem title="Sphere" tag="2" id="sDt-rZ-S1C"/>
+                                                    <menuItem title="Pyramid" tag="3" id="BCa-G7-aog"/>
+                                                    <menuItem title="Shuttle" tag="4" id="Hle-Zf-WeR">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="House" tag="5" id="3q3-kx-Mun">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <binding destination="-2" name="selectedTag" keyPath="self.object3DRep.objectKind" id="mCy-Nu-9eK"/>
+                                        </connections>
+                                    </popUpButton>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gZW-Ml-bTp">
+                                        <rect key="frame" x="141" y="13" width="74" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Delete" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oLg-QD-dKF">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="performDeleteQuick:" target="-2" id="7BM-nJ-K66"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="nEs-3y-xBz" secondAttribute="bottom" constant="20" symbolic="YES" id="5wf-F6-DAU"/>
+                                    <constraint firstAttribute="trailing" secondItem="gZW-Ml-bTp" secondAttribute="trailing" constant="20" symbolic="YES" id="9Lo-a5-4SA"/>
                                     <constraint firstItem="WSS-jZ-0cR" firstAttribute="centerX" secondItem="zWb-wo-OR7" secondAttribute="centerX" id="AHh-1V-m0x"/>
                                     <constraint firstItem="Uf5-b4-Kq6" firstAttribute="top" secondItem="3cY-IA-RoB" secondAttribute="bottom" constant="10" symbolic="YES" id="AYd-iF-PO5"/>
                                     <constraint firstItem="eWA-YQ-cVU" firstAttribute="centerX" secondItem="zWb-wo-OR7" secondAttribute="centerX" id="CTu-xk-U0h"/>
@@ -245,23 +297,24 @@
                                     <constraint firstItem="0R0-mA-OLs" firstAttribute="centerY" secondItem="WSS-jZ-0cR" secondAttribute="centerY" id="UUm-t6-jVx"/>
                                     <constraint firstItem="mHj-Mo-wzv" firstAttribute="centerY" secondItem="zWb-wo-OR7" secondAttribute="centerY" id="Vjw-Af-kTy"/>
                                     <constraint firstItem="FbE-CF-Jc9" firstAttribute="top" secondItem="0R0-mA-OLs" secondAttribute="bottom" constant="10" symbolic="YES" id="W5F-Ww-kx5"/>
+                                    <constraint firstItem="LrE-Fg-lZf" firstAttribute="leading" secondItem="q5f-gl-PZS" secondAttribute="leading" id="Xjd-3i-6hj"/>
                                     <constraint firstItem="kBJ-Ud-2XI" firstAttribute="centerX" secondItem="zWb-wo-OR7" secondAttribute="centerX" id="YgP-Ee-J61"/>
                                     <constraint firstItem="mHj-Mo-wzv" firstAttribute="trailing" secondItem="qc3-i5-UZT" secondAttribute="trailing" id="Ygl-9d-3KI"/>
                                     <constraint firstItem="3cY-IA-RoB" firstAttribute="leading" secondItem="Uf5-b4-Kq6" secondAttribute="leading" id="aQI-DQ-p29"/>
+                                    <constraint firstItem="gZW-Ml-bTp" firstAttribute="leading" secondItem="nEs-3y-xBz" secondAttribute="trailing" constant="12" symbolic="YES" id="dfd-5a-PYD"/>
                                     <constraint firstItem="0R0-mA-OLs" firstAttribute="leading" secondItem="FbE-CF-Jc9" secondAttribute="leading" id="dhg-ni-Xxu"/>
                                     <constraint firstItem="HMK-iO-O5i" firstAttribute="top" secondItem="qc3-i5-UZT" secondAttribute="bottom" constant="10" symbolic="YES" id="dup-eE-SH8"/>
                                     <constraint firstItem="HMK-iO-O5i" firstAttribute="leading" secondItem="YqF-q3-twU" secondAttribute="leading" id="eZb-za-ag8"/>
+                                    <constraint firstItem="LrE-Fg-lZf" firstAttribute="centerY" secondItem="RA9-1S-Cnf" secondAttribute="centerY" id="fHK-4j-k4m"/>
                                     <constraint firstItem="3cY-IA-RoB" firstAttribute="trailing" secondItem="Uf5-b4-Kq6" secondAttribute="trailing" id="fnM-EM-yf9"/>
-                                    <constraint firstItem="Got-x8-U1K" firstAttribute="centerY" secondItem="RA9-1S-Cnf" secondAttribute="centerY" id="fy7-De-mfg"/>
-                                    <constraint firstItem="nEs-3y-xBz" firstAttribute="centerX" secondItem="yfN-Af-ZrN" secondAttribute="centerX" id="iMs-xq-QDd"/>
                                     <constraint firstItem="Uf5-b4-Kq6" firstAttribute="centerY" secondItem="JJA-A3-VSE" secondAttribute="centerY" id="iRy-JW-OfM"/>
                                     <constraint firstItem="Uf5-b4-Kq6" firstAttribute="leading" secondItem="q5f-gl-PZS" secondAttribute="leading" id="jEC-zX-MYB"/>
                                     <constraint firstItem="mHj-Mo-wzv" firstAttribute="top" secondItem="yfN-Af-ZrN" secondAttribute="top" constant="20" symbolic="YES" id="kHf-2u-zse"/>
-                                    <constraint firstItem="Got-x8-U1K" firstAttribute="top" secondItem="q5f-gl-PZS" secondAttribute="bottom" constant="10" symbolic="YES" id="kIO-9r-Arw"/>
+                                    <constraint firstItem="LrE-Fg-lZf" firstAttribute="top" secondItem="q5f-gl-PZS" secondAttribute="bottom" constant="12" id="lXD-gu-zdG"/>
                                     <constraint firstItem="YqF-q3-twU" firstAttribute="top" secondItem="HMK-iO-O5i" secondAttribute="bottom" constant="10" symbolic="YES" id="lb0-8D-Sas"/>
-                                    <constraint firstItem="q5f-gl-PZS" firstAttribute="trailing" secondItem="Got-x8-U1K" secondAttribute="trailing" id="ng3-km-Hup"/>
-                                    <constraint firstItem="q5f-gl-PZS" firstAttribute="leading" secondItem="Got-x8-U1K" secondAttribute="leading" id="oLb-5K-nrl"/>
                                     <constraint firstAttribute="trailing" secondItem="mHj-Mo-wzv" secondAttribute="trailing" constant="20" symbolic="YES" id="opf-AI-tjH"/>
+                                    <constraint firstItem="gZW-Ml-bTp" firstAttribute="centerY" secondItem="nEs-3y-xBz" secondAttribute="centerY" id="q9m-d4-1CL"/>
+                                    <constraint firstItem="LrE-Fg-lZf" firstAttribute="trailing" secondItem="q5f-gl-PZS" secondAttribute="trailing" id="rK3-RR-swc"/>
                                     <constraint firstItem="mHj-Mo-wzv" firstAttribute="leading" secondItem="qc3-i5-UZT" secondAttribute="leading" id="szM-3P-R7t"/>
                                     <constraint firstItem="q5f-gl-PZS" firstAttribute="centerY" secondItem="AoS-Ga-YoB" secondAttribute="centerY" id="wMG-pR-9fb"/>
                                     <constraint firstItem="1Rw-oH-HWd" firstAttribute="centerX" secondItem="zWb-wo-OR7" secondAttribute="centerX" id="wVT-76-bYz"/>
