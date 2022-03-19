@@ -8,6 +8,7 @@
 #import "GKSSceneInspector.h"
 #import "GKSScene.h"
 #import "GKSContent.h"
+#import "GKSWindowController.h"
 
 
 @interface GKSSceneInspector ()
@@ -34,10 +35,14 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    
+    //Get main window, check its kind before accessing the content data.
+    // TODO: become an observer for changes to mainWindow
     NSWindowController *wc =  [[NSApplication.sharedApplication mainWindow] windowController];
-    GKSContent *repobj = wc.contentViewController.representedObject;
-
-    self.theScene = repobj.theScene;
+    if ([wc isKindOfClass:[GKSWindowController class]]) {
+        GKSContent *repobj = wc.contentViewController.representedObject;
+        self.theScene = repobj.theScene;
+    }
     
 }
 

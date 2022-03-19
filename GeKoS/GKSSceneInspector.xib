@@ -159,16 +159,25 @@
                         <rect key="frame" x="20" y="63" width="44" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="self.theScene.worldBackColor" id="0ep-zt-jIc"/>
+                        </connections>
                     </colorWell>
                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKU-cs-9e7">
                         <rect key="frame" x="158" y="63" width="44" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="self.theScene.worldFillColor" id="dpH-Ph-LsW"/>
+                        </connections>
                     </colorWell>
                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4wM-5Y-lHB">
                         <rect key="frame" x="89" y="63" width="44" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="self.theScene.worldLineColor" id="pwl-gg-I0o"/>
+                        </connections>
                     </colorWell>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Xa-Fd-UTd">
                         <rect key="frame" x="24" y="94" width="34" height="16"/>
@@ -208,7 +217,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="performActivate:" target="-1" id="ypi-eC-7oD"/>
+                            <action selector="performUpdateQuick:" target="-1" id="V6p-Ip-tiS"/>
                         </connections>
                     </button>
                 </subviews>
