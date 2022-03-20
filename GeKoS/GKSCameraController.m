@@ -232,14 +232,15 @@ static void *CameraRotationContext = &CameraRotationContext;
         camera.dirX = @0.0;
         camera.dirY = @0.0;
         camera.dirZ = @-1.0;
+    
+        camera.focalLength = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
+        camera.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
+        camera.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
+        
+        camera.roll = @0.0;
+        camera.pitch = @0.0;
+        camera.yaw = @0.0;
     }
-
-    camera.focalLength = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-    
-    self.camera.roll = @0.0;
-    self.camera.pitch = @0.0;
-    self.camera.yaw = @0.0;
-    
 }
 
 
@@ -253,7 +254,7 @@ static void *CameraRotationContext = &CameraRotationContext;
         if (prtype.intValue == kPerspective) {
             //Set perspective distance
             double distance = [camera.focalLength doubleValue];
-            gks_set_perspective_depth(distance);
+            gks_set_perspective_simple(distance);
         }
     }
 }
@@ -271,6 +272,7 @@ static void *CameraRotationContext = &CameraRotationContext;
         up_vector.crd.x = [camera.upX doubleValue];
         up_vector.crd.y = [camera.upY doubleValue];
         up_vector.crd.z = [camera.upZ doubleValue];
+        up_vector.crd.w = 1.0;
         
         //Set View Plane Normal
         // the view plane is like a tv screen in front of your face.
@@ -280,12 +282,14 @@ static void *CameraRotationContext = &CameraRotationContext;
         look_at.crd.x = [camera.lookX doubleValue];
         look_at.crd.y = [camera.lookY doubleValue];
         look_at.crd.z = [camera.lookZ doubleValue];
+        look_at.crd.w = 1.0;
         
         //Set View Reference Point
         GKSvector3d pos;
         pos.crd.x = [camera.positionX doubleValue];
         pos.crd.y = [camera.positionY doubleValue];
         pos.crd.z = [camera.positionZ doubleValue];
+        pos.crd.w = 1.0;
         
         GKSvector3d dir_vector;
         gks_gen_dir_vector(pos, look_at, &dir_vector);
@@ -293,15 +297,15 @@ static void *CameraRotationContext = &CameraRotationContext;
         camera.dirY = @(dir_vector.crd.y);
         camera.dirZ = @(dir_vector.crd.z);
         
+        // Set Camera View Matrix
         GKSmatrix_3    aViewMatrix;
         gks_gen_lookat_view_matrix(pos, look_at, up_vector, aViewMatrix);
         gks_set_view_matrix(aViewMatrix);
 
-        [self cameraSetCenterOfProjectionG];
     }
 }
 
-- (void)cameraSetViewMatrixG {
+- (void)cameraClampViewMatrixG {
     GKSmatrix_3    aViewMatrix;
     
     GKSCameraRep *camera = self.camera;
@@ -310,13 +314,13 @@ static void *CameraRotationContext = &CameraRotationContext;
         //
         // init 3D camera view and window viewport
         // sets up aView matrix based on VRP, VPN and VUP
-        //Set View Up Vector
+        //Set Up Vector
         GKSvector3d up_vector;
         up_vector.crd.x = [camera.upX doubleValue];
         up_vector.crd.y = [camera.upY doubleValue];
         up_vector.crd.z = [camera.upZ doubleValue];
         
-        //Set View Plane Normal
+        //Set Direction Vector
         // the view plane is like a tv screen in front of your face.
         // this vector sets the normal to that "screen". The plane is
         // actually an infinite plane.
@@ -325,18 +329,15 @@ static void *CameraRotationContext = &CameraRotationContext;
         dir_vector.crd.y = [camera.dirY doubleValue];
         dir_vector.crd.z = [camera.dirZ doubleValue];
         
-        //Set View Reference Point
+        //Set Camera Position
         GKSvector3d position;
         position.crd.x = [camera.positionX doubleValue];
         position.crd.y = [camera.positionY doubleValue];
         position.crd.z = [camera.positionZ doubleValue];
         
-//        gks_create_camera_view_matrix(position.x, position.y, position.z, dir_vector.x, dir_vector.y, dir_vector.z, up_vector.x, up_vector.y, up_vector.z, aViewMatrix);
-        
         gks_gen_view_matrix(position, dir_vector, up_vector, aViewMatrix);
         gks_set_view_matrix(aViewMatrix);
         
-        [self cameraSetCenterOfProjectionG];
     }
 }
 

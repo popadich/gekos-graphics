@@ -70,22 +70,26 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.cameraRep.upY = @1.0;
     self.cameraRep.upZ = @0;
     
-    self.cameraRep.positionX = @0.0;
-    self.cameraRep.positionY = @0.0;
-    self.cameraRep.positionZ = @2.7;
+    self.cameraRep.positionX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocX];
+    self.cameraRep.positionY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocY];
+    self.cameraRep.positionZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocZ];
     
     NSNumber *focalLength =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
     self.cameraRep.focalLength = focalLength;
     
+    self.cameraRep.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
+    self.cameraRep.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
+    
     NSNumber *prtype =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
     self.cameraRep.projectionType = prtype;
-    
+
+    // seems like this should be part of a set method in the camera view controller
     if (prtype.intValue == kOrthogonalProjection) {
         gks_set_orthogonal_projection();
     }
     else if (prtype.intValue == kPerspectiveProjection) {
-        gks_set_perspective_projection();
-        gks_set_perspective_depth([focalLength doubleValue]);
+        double fl = [focalLength doubleValue];
+        gks_set_perspective_simple(fl);
     }
     
     NSError *error;
@@ -123,8 +127,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     // Store one 3D object representation to act as a data entry buffer
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     
-    
-    [self.cameraViewController cameraSetViewMatrixG];
+    [self.cameraViewController cameraClampViewMatrixG];
 
     [self registerAsObserverForCamera];
 }
@@ -169,7 +172,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverPlaneNormalContext) {
-        [self.cameraViewController cameraSetViewMatrixG];
+        [self.cameraViewController cameraClampViewMatrixG];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverProjectionContext) {
@@ -180,8 +183,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
             gks_set_orthogonal_projection();
         }
         else if (projTypeIdx == kPerspectiveProjection) {
-            gks_set_perspective_projection();
-            gks_set_perspective_depth([self.cameraRep.focalLength doubleValue]);
+            double fl = [self.cameraRep.focalLength doubleValue];
+            gks_set_perspective_simple(fl);
         }
     }
     else {
@@ -284,17 +287,14 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 }
 
 - (IBAction)performDeleteQuick:(id)sender {
-    NSLog(@"Quick Delete Object From Top of Stack");
     gks_objarr_delete_last();
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
 
 - (IBAction)performUpdateQuick:(id)sender {
-    NSLog(@"Refresh Drawing");
     
-    [self.cameraViewController cameraSetViewMatrixG];
-    
+    [self.cameraViewController cameraClampViewMatrixG];
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 

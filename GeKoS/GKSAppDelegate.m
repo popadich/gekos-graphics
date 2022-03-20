@@ -22,6 +22,10 @@
 
 static NSDictionary *defaultValues() {
     double world_volume[6] = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0};
+    double locX = 0.0;
+    double locY = 0.0;
+    double locZ = 2.7;
+
     
     static NSDictionary *dict = nil;
     if (!dict) {
@@ -41,6 +45,9 @@ static NSDictionary *defaultValues() {
                 [NSNumber numberWithInteger:kPerspective], gksPrefProjectionType,
                 [NSNumber numberWithDouble:4.0], gksPrefNearPlaneDistance,
                 [NSNumber numberWithDouble:30.0], gksPrefFarPlaneDistance,
+                [NSNumber numberWithDouble:locX], gksPrefCameraLocX,
+                [NSNumber numberWithDouble:locY], gksPrefCameraLocY,
+                [NSNumber numberWithDouble:locZ], gksPrefCameraLocZ,
                 [NSNumber numberWithBool:NO], gksPrefVisibleSurfaceFlag,
                 [NSKeyedArchiver archivedDataWithRootObject:blueprintColor requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
                 [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], gksPrefFillColor,

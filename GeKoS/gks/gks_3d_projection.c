@@ -63,10 +63,10 @@ void gks_set_orthogonal_projection(void)
 /*
     1 0 0 0
     0 1 0 0
-    0 0 0 1/f
+    0 0 0 1/d
     0 0 0 1
-
-void gks_set_perspective_projection(void)
+*/
+void gks_set_perspective_simple(GKSfloat d)
 {
     gProjectionMatrix[0][0] = 1.0;
     gProjectionMatrix[0][1] = 0.0;
@@ -79,17 +79,19 @@ void gks_set_perspective_projection(void)
     gProjectionMatrix[2][0] = 0.0;
     gProjectionMatrix[2][1] = 0.0;
     gProjectionMatrix[2][2] = 0.0;
-    gProjectionMatrix[2][3] = -1.0/gPerspectiveDepth; //TODO: positive according to book?
+    gProjectionMatrix[2][3] = 1.0/d; //TODO: positive according to book?
     gProjectionMatrix[3][0] = 0.0;
     gProjectionMatrix[3][1] = 0.0;
     gProjectionMatrix[3][2] = 0.0;
     gProjectionMatrix[3][3] = 1.0;
     
     gProjectionType = kPerspectiveProjection;
+    gPerspectiveDepth = d;
+
 }
- */
 
 
+/*
 void gks_set_perspective_projection(void)
 {
     gNear = 4.0;
@@ -115,24 +117,9 @@ void gks_set_perspective_projection(void)
     
     gProjectionType = kPerspectiveProjection;
 }
-
-
-
-/*
-    1 0 0 0
-    0 1 0 0
-    0 0 0 1/d
-    0 0 0 1
 */
-void gks_set_perspective_depth(GKSfloat d)
-{
-    //FIXME: sly hack, probably not a good idea
-    if (gProjectionType == kPerspectiveProjection) {
-        // TODO: pay attention to the sign, should be positive
-//        gProjectionMatrix[2][3] = -1.0/d;
-        gPerspectiveDepth = d;
-    }
-}
+
+
 
 GKSfloat gks_get_perspective_depth(void)
 {

@@ -742,8 +742,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionPerspectiveEnable {
     GKSmatrix_3 *projMatrix;
 
-    gks_set_perspective_projection();
-    gks_set_perspective_depth(1.0);
+    gks_set_perspective_simple(1.0);
     projMatrix = gks_get_projection_matrix();
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);

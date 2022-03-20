@@ -21,11 +21,12 @@ void gks_init_projection(void);
 ProjectionType gks_get_projection_type(void);
 
 void gks_set_orthogonal_projection(void);
-void gks_set_perspective_projection(void);
+void gks_set_perspective_simple(GKSfloat focalDistance);
 
+// Getter
 GKSmatrix_3 *gks_get_projection_matrix(void);
 
-void gks_set_perspective_depth(GKSfloat distance);
+//void gks_set_perspective_depth(GKSfloat distance);
 GKSfloat gks_get_perspective_depth(void);
 
 #endif /* gks_3d_projection_h */
