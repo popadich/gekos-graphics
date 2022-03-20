@@ -36,7 +36,7 @@ void gks_trans_adjust_device_viewport(GKSfloat r_min, GKSfloat r_max, GKSfloat s
 
 
 // the heart of the matter
-void gks_trans_wc_to_ndc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt);
+void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt);
 void gks_trans_ndc_3_to_dc_2 (GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s);
 
 #endif /* gks_3d_transforms_h */

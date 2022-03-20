@@ -330,11 +330,11 @@
                         </tabViewItem>
                         <tabViewItem label="View" identifier="2" id="C8m-h0-NnB">
                             <view key="view" id="RyS-4c-ou8">
-                                <rect key="frame" x="10" y="33" width="228" height="398"/>
+                                <rect key="frame" x="10" y="33" width="228" height="395"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N0A-m2-i8T">
-                                        <rect key="frame" x="15" y="379" width="37" height="16"/>
+                                        <rect key="frame" x="15" y="376" width="37" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Near:" id="f0o-3H-vg5">
                                             <font key="font" usesAppearanceFont="YES"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -342,16 +342,19 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wXk-yI-Tev">
-                                        <rect key="frame" x="115" y="376" width="96" height="21"/>
+                                        <rect key="frame" x="115" y="373" width="96" height="21"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="Uav-pA-Xic">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="3oI-Tq-QMI"/>
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.cameraRep.near" id="V9E-1g-cqm"/>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5dt-7N-qYv">
-                                        <rect key="frame" x="15" y="353" width="27" height="16"/>
+                                        <rect key="frame" x="15" y="350" width="27" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Far:" id="fAM-0k-zGz">
                                             <font key="font" usesAppearanceFont="YES"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -359,13 +362,16 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="36J-4P-1sS">
-                                        <rect key="frame" x="115" y="350" width="96" height="21"/>
+                                        <rect key="frame" x="115" y="347" width="96" height="21"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="30" drawsBackground="YES" id="Lid-vs-OJg">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="cV9-HA-xaL"/>
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.cameraRep.far" id="EFu-zf-47C"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <constraints>

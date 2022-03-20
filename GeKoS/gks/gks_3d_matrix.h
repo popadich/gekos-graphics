@@ -17,6 +17,7 @@
 void gks_set_identity_matrix_2(GKSmatrix_2 result);
 void gks_set_identity_matrix_3(GKSmatrix_3 result);
 
+// TODO: scaling matrix not needed
 void gks_create_scaling_matrix_3(GKSfloat sx, GKSfloat sy, GKSfloat sz, GKSmatrix_3 result);
 void gks_create_x_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 result);
 void gks_create_y_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 result);
@@ -32,7 +33,7 @@ void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, 
 void gks_transform_point_3(GKSmatrix_3 trans_matrix, GKSpoint_3 *old_point, GKSpoint_3 *new_point);
 void gks_transform_point(GKSmatrix_3 tm, GKSvector3d p1, GKSvector3dPtr result);
 void gks_transform_vector(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
-void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result);
+//void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result);
 void gks_transform_vector_projection(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
 void gks_transform_vector_hom(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
 

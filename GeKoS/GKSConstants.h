@@ -14,6 +14,8 @@
 #define gksPrefVirtualHeight @"virtualHeight"
 #define gksPrefProjectionType @"projectionTypeIndex"
 #define gksPrefPerspectiveDistance @"perspectiveDepth"
+#define gksPrefNearPlaneDistance @"nearPlaneDistance"
+#define gksPrefFarPlaneDistance @"farPlaneDistance"
 #define gksPrefVisibleSurfaceFlag @"visibleSurfaceFlag"
 #define gksPrefBackgroundColor @"backgroundColor"
 #define gksPrefFillColor @"fillColor"

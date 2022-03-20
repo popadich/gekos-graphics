@@ -511,7 +511,7 @@ DQ
                     </buttonCell>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8cR-Uw-lhp">
-                    <rect key="frame" x="271" y="104" width="120" height="25"/>
+                    <rect key="frame" x="271" y="104" width="125" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Orthographic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="k8s-UG-fym" id="dCD-ZC-fhs">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

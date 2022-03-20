@@ -166,17 +166,17 @@ void gks_transform_point(GKSmatrix_3 tm, GKSvector3d p1, GKSvector3dPtr result)
 // I think that the book states that Matrix multiplies Vector to transform a vector.
 // this, but Im not sure.
 //
-//   [v0]  [m1 m2 m3 m4]
-//   [v1]  [           ]
-//   [v2]  [           ]
-//   [v3]  [           ]
+//   [v0]  [m00 m01 m02 m03]
+//   [v1]  [               ]
+//   [v2]  [               ]
+//   [v3]  [               ]
 //
-void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result)
+void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector3dPtr result)
 {
-    result[0] = tm[0][0]*v[0] + tm[1][0]*v[1] + tm[2][0]*v[2] + tm[3][0]*v[3];
-    result[1] = tm[0][1]*v[0] + tm[1][1]*v[1] + tm[2][1]*v[2] + tm[3][1]*v[3];
-    result[2] = tm[0][2]*v[0] + tm[1][2]*v[1] + tm[2][2]*v[2] + tm[3][2]*v[3];
-    result[3] = tm[0][3]*v[0] + tm[1][3]*v[1] + tm[2][3]*v[2] + tm[3][3]*v[3];
+    result->arr[0] = tm[0][0]*v[0] + tm[1][0]*v[1] + tm[2][0]*v[2] + tm[3][0]*v[3];
+    result->arr[1] = tm[0][1]*v[0] + tm[1][1]*v[1] + tm[2][1]*v[2] + tm[3][1]*v[3];
+    result->arr[2] = tm[0][2]*v[0] + tm[1][2]*v[1] + tm[2][2]*v[2] + tm[3][2]*v[3];
+    result->arr[3] = tm[0][3]*v[0] + tm[1][3]*v[1] + tm[2][3]*v[2] + tm[3][3]*v[3];
 
 }
 
@@ -186,6 +186,13 @@ void gks_transform_vector_projection(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dP
     result->arr[1] = tm[0][1]*v.arr[0] + tm[1][1]*v.arr[1] + tm[2][1]*v.arr[2] + tm[3][1]*v.arr[3];
     result->arr[2] = tm[0][2]*v.arr[0] + tm[1][2]*v.arr[1] + tm[2][2]*v.arr[2] + tm[3][2]*v.arr[3];
     result->arr[3] = tm[0][3]*v.arr[0] + tm[1][3]*v.arr[1] + tm[2][3]*v.arr[2] + tm[3][3]*v.arr[3];
+    
+    if (result->crd.w != 1) {
+        result->arr[0] = result->arr[0]/result->arr[3];
+        result->arr[1] = result->arr[1]/result->arr[3];
+        result->arr[2] = result->arr[2]/result->arr[3];
+        result->crd.w = 1.0;
+    }
 
 }
 
@@ -197,9 +204,15 @@ void gks_transform_vector(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result)
     result->crd.y = tm[1][0]*v.arr[0] + tm[1][1]*v.arr[1] + tm[1][2]*v.arr[2] + tm[1][3];
     result->crd.z = tm[2][0]*v.arr[0] + tm[2][1]*v.arr[1] + tm[2][2]*v.arr[2] + tm[2][3];
 //    result->crd.w = tm[3][0]*v.arr[0] + tm[3][1]*v.arr[1] + tm[3][2]*v.arr[2] + tm[3][3]*v.arr[3];
+    result->crd.w = 1.0;
 
 }
 
+//   [m00 m01 m02 m03]  [v0]
+//   [               ]  [v1]
+//   [               ]  [v2]
+//   [               ]  [v3]
+//
 void gks_transform_vector_hom(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result)
 {
     result->crd.x = tm[0][0]*v.arr[0] + tm[0][1]*v.arr[1] + tm[0][2]*v.arr[2] + tm[0][3]*v.arr[3];

@@ -262,11 +262,12 @@ GKSlimits_2 gks_trans_get_device_viewport(void)
 
 // World coordinates (wc) to Normalized Device Coordinates (ndc)
 // World space -> Normalized World space
-void gks_trans_wc_to_ndc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt)
+void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt)
 {
     ndc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
     ndc_pt->crd.y = g_wrld_yscale * wc_pt.crd.y + g_wrld_ycoord;
     ndc_pt->crd.z = g_wrld_zscale * wc_pt.crd.z + g_wrld_zcoord;
+    ndc_pt->crd.w = 1.0;
 }
 
 

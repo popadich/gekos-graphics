@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber* projectionType;
 @property (nonatomic, strong) NSNumber* visibleSurfaceFlag;
 
+@property (strong) NSNumber* near;
+@property (strong) NSNumber* far;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -58,6 +58,9 @@
         _dirX = [NSNumber numberWithFloat:0.0];
         _dirY = [NSNumber numberWithFloat:0.0];
         _dirZ = [NSNumber numberWithFloat:-1.0];
+        
+        _near = @4.0;
+        _far = @30.0;
 
    }
     

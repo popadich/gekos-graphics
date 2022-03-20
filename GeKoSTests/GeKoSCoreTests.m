@@ -866,7 +866,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(view_num_get, viewNum);
     
     // not a verified test, try some different values for p1 and limits
-    gks_trans_wc_to_ndc (p1, &p2);
+    gks_trans_wc_to_nwc (p1, &p2);
     
     XCTAssertEqual(p1.crd.x, 1.0);
     XCTAssertEqual(p1.crd.y, 1.0);

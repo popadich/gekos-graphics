@@ -159,7 +159,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)changePitch:(NSNumber *)angle
 {
-    GKSvector3d vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
+    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit vector along the z-axis
 
     GKSvector3d comp;
     GKSmatrix_3 T;
@@ -183,7 +183,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)changeYaw:(NSNumber *)angle
 {
-    GKSvector3d vector_z = {0.0, 0.0, 1.0, 1.0};  // unit vector along the z-axis
+    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit vector along the z-axis
 
     GKSvector3d trans_point;
     GKSmatrix_3 T;
@@ -194,10 +194,11 @@ static void *CameraRotationContext = &CameraRotationContext;
 
     // maybe theta needs be negative? Or control min and max switched?
     gks_set_identity_matrix_3(T);
-    gks_create_y_rotation_matrix_3(theta, T);
+    gks_create_y_rotation_matrix_3(-theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
-    gks_transform_point_3(T, &vector_z.crd, &trans_point.crd);
+    
+    gks_transform_point(T, vector_z, &trans_point);
 
     [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.x] forKey:@"dirX"];
     [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.y] forKey:@"dirY"];

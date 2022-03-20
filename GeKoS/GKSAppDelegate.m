@@ -39,6 +39,8 @@ static NSDictionary *defaultValues() {
                 [NSNumber numberWithInteger:400], gksPrefViewHeight,
                 [NSNumber numberWithDouble:1.0], gksPrefPerspectiveDistance,
                 [NSNumber numberWithInteger:kPerspective], gksPrefProjectionType,
+                [NSNumber numberWithDouble:4.0], gksPrefNearPlaneDistance,
+                [NSNumber numberWithDouble:30.0], gksPrefFarPlaneDistance,
                 [NSNumber numberWithBool:NO], gksPrefVisibleSurfaceFlag,
                 [NSKeyedArchiver archivedDataWithRootObject:blueprintColor requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
                 [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], gksPrefFillColor,
