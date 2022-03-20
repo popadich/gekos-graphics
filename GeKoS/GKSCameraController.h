@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)cameraSetViewMatrixG;
 - (void)cameraSetCenterOfProjectionG;
-- (void)cameraDoLookAt;
+- (void)cameraDoLookAtG;
 
 @end
 

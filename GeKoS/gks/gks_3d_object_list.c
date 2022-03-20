@@ -59,7 +59,7 @@ Actor gks_objarr_object_at_index(int index) {
     return object3d;
 }
 
-bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d scaleVec, GKSvector3d rotVec, GKScolor lineColor)
+bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d scaleVec, GKSvector3d rotVec, GKScolor lineColor, GKScolor fillColor)
 {
     //add_object_new(object, transVec, scaleVec, rotVec);
     bool did_add = false;
@@ -67,7 +67,8 @@ bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, 
     if (_object_count<XS_MAX_SCENE_OBJECTS) {
 
         object_array[_object_count].kind = kind;
-        object_array[_object_count].its_color = lineColor;
+        object_array[_object_count].its_color = fillColor;
+        object_array[_object_count].line_color = lineColor;
 
         gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].instanceTransform);
         
@@ -235,7 +236,8 @@ void gks_objarr_draw_object(Actor the_object)
 {
     gks_set_world_model_matrix(the_object.instanceTransform);
     
-    draw_object_3(&the_object.instanceObject, &the_object.its_color, _hidden_Surface_Removal_Flag);
+    // TODO: arguments smell
+    draw_object_3(&the_object.instanceObject, &the_object.line_color, _hidden_Surface_Removal_Flag);
     
 }
 

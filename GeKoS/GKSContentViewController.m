@@ -17,12 +17,14 @@
 
 @interface GKSContentViewController ()
 
-@property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
+@property (strong) IBOutlet NSColorWell* contentLineColor;
+@property (strong) IBOutlet NSColorWell* contentFillColor;
 @property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
 @property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
 
 
+@property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
 @property (nonatomic, strong) GKSScene* worldScene;
 
@@ -32,6 +34,7 @@
 static void *ObserverDistanceContext = &ObserverDistanceContext;
 static void *ObserverPoistionContext = &ObserverPoistionContext;
 static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
+static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 
 @implementation GKSContentViewController
@@ -71,8 +74,8 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     self.cameraRep.positionY = @0.0;
     self.cameraRep.positionZ = @2.7;
     
-    NSNumber *distance =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-    self.cameraRep.focalLength = distance;
+    NSNumber *focalLength =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
+    self.cameraRep.focalLength = focalLength;
     
     NSNumber *prtype =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
     self.cameraRep.projectionType = prtype;
@@ -82,7 +85,17 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     }
     else if (prtype.intValue == kPerspectiveProjection) {
         gks_set_perspective_projection();
-        gks_set_perspective_depth([distance doubleValue]);
+        gks_set_perspective_depth([focalLength doubleValue]);
+    }
+    
+    NSError *error;
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
+    if (colorData != nil) {
+        self.contentLineColor.color = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+    }
+    colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
+    if (colorData != nil) {
+        self.contentFillColor.color = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
     }
     
     // This gives a volume bounds to the GKS 3D world, also add
@@ -107,8 +120,9 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     // Set normalization value transform from world to camera to view coordinates
     gks_trans_create_transform_at_idx(0, r_min, r_max, s_min, s_max, world_volume);
     
-    // Store one 3D object representation to test the transformation matrices
+    // Store one 3D object representation to act as a data entry buffer
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
+    
     
     [self.cameraViewController cameraSetViewMatrixG];
 
@@ -134,6 +148,7 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 {
     GKSCameraRep *camera = self.cameraRep;
     [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverDistanceContext];
+    [camera addObserver:self forKeyPath:@"projectionType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
@@ -156,7 +171,20 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     else if (context == ObserverPlaneNormalContext) {
         [self.cameraViewController cameraSetViewMatrixG];
         [self.drawingViewController.view setNeedsDisplay:YES];
-    } else {
+    }
+    else if (context == ObserverProjectionContext) {
+        NSNumber *newValue = [change valueForKey:@"new"];
+        NSInteger projTypeIdx = [newValue integerValue];
+
+        if (projTypeIdx == kOrthogonalProjection) {
+            gks_set_orthogonal_projection();
+        }
+        else if (projTypeIdx == kPerspectiveProjection) {
+            gks_set_perspective_projection();
+            gks_set_perspective_depth([self.cameraRep.focalLength doubleValue]);
+        }
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -169,13 +197,17 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     GKSobject_3 *objPtr = NULL;
     
     GKScolor lineColor;
-    NSColor* theColor = self.worldScene.worldLineColor;
-    
+    NSColor* theColor = self.contentLineColor.color;
     lineColor.red = [theColor redComponent];
     lineColor.green = [theColor greenComponent];
     lineColor.blue = [theColor blueComponent];
     lineColor.alpha = [theColor alphaComponent];
-    
+    GKScolor fillColor;
+    theColor = self.contentFillColor.color;
+    fillColor.red = [theColor redComponent];
+    fillColor.green = [theColor greenComponent];
+    fillColor.blue = [theColor blueComponent];
+    fillColor.alpha = [theColor alphaComponent];
     
     GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
     trans = loc;
@@ -201,11 +233,9 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     }
     
     if (objPtr != NULL) {
-        
         // add a 3d object to the c model world
-        if (gks_objarr_add(kind, objPtr, trans, scale, rotate, lineColor)) {
+        if (gks_objarr_add(kind, objPtr, trans, scale, rotate, lineColor, fillColor)) {
             free(objPtr);  //free object it is copied when added
-
             didAdd = YES;
         }
     }
@@ -214,14 +244,12 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 
 
 // add a 3d object to the object GUI world
-- (void)addObjectToRootOfKind:(ObjectKind)objectKind lineColor:(const GKScolor *)lineColor rotate:(const GKSvector3d)rotate scale:(const GKSvector3d)scale trans:(const GKSvector3d)location
+- (void)addObjectToListOfKind:(ObjectKind)objectKind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rotate andScale:(GKSvector3d)scale
 {
-    BOOL didAdd = NO;
-    
     GKS3DObjectRep* objRep = [[GKS3DObjectRep alloc] init];
     
+    // TODO: make a copy?
     objRep.objectKind = [NSNumber numberWithInt:objectKind];
-    objRep.lineColor = [NSColor colorWithRed:lineColor->red green:lineColor->green blue:lineColor->blue alpha:lineColor->alpha];
     objRep.transX = [NSNumber numberWithDouble:location.crd.x];
     objRep.transY = [NSNumber numberWithDouble:location.crd.y];
     objRep.transZ = [NSNumber numberWithDouble:location.crd.z];
@@ -232,8 +260,8 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
     objRep.rotY = [NSNumber numberWithDouble:rotate.crd.y];
     objRep.rotZ = [NSNumber numberWithDouble:rotate.crd.z];
 
-    didAdd = [self addObject3DKind:objectKind atLocation:location withRotation:objRep.rotationVector andScale:objRep.scaleVector];
-    if (didAdd) {
+    if ([self addObject3DKind:objectKind atLocation:location withRotation:objRep.rotationVector andScale:objRep.scaleVector]) {
+        // add object representation to mutable array
         [self.worldScene addObjectRep:objRep];
     }
     else
@@ -243,23 +271,14 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 
 
 - (IBAction)performAddQuick:(id)sender {
-    GKScolor lineColor;
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
     NSInteger kind = [self.object3DRep.objectKind integerValue];
-    NSColor* theColor = self.worldScene.worldLineColor;
-    
-    lineColor.red = [theColor redComponent];
-    lineColor.green = [theColor greenComponent];
-    lineColor.blue = [theColor blueComponent];
-    lineColor.alpha = [theColor alphaComponent];
-    
     GKSvector3d position = self.object3DRep.positionVector;
     GKSvector3d rotation = self.object3DRep.rotationVector;
     GKSvector3d scaling = self.object3DRep.scaleVector;
-    [self addObject3DKind:(ObjectKind)kind atLocation:position withRotation:rotation andScale:scaling];
-    [self addObjectToRootOfKind:(ObjectKind)kind lineColor:&lineColor rotate:rotation scale:scaling trans:position];
+    [self addObjectToListOfKind:(ObjectKind)kind atLocation:position withRotation:rotation andScale:scaling];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
@@ -272,9 +291,9 @@ static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 }
 
 - (IBAction)performUpdateQuick:(id)sender {
-    NSLog(@"Quick Update Object");
+    NSLog(@"Refresh Drawing");
     
-    [self.cameraViewController cameraDoLookAt];
+    [self.cameraViewController cameraSetViewMatrixG];
     
     [self.drawingViewController.view setNeedsDisplay:YES];
 }

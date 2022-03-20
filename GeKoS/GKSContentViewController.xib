@@ -10,6 +10,8 @@
             <connections>
                 <outlet property="cameraCustomView" destination="TxN-l7-jPx" id="aJz-1v-zOA"/>
                 <outlet property="cameraViewController" destination="NFN-fq-5sy" id="r2C-xL-U5N"/>
+                <outlet property="contentFillColor" destination="s1z-aH-ovA" id="PNr-oK-lyB"/>
+                <outlet property="contentLineColor" destination="chw-36-zXs" id="dpQ-01-Vex"/>
                 <outlet property="drawingViewController" destination="sxa-LD-8zy" id="Lna-fI-O4D"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -387,6 +389,34 @@
                     <rect key="frame" x="20" y="0.0" width="715" height="309"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cze-FV-zKV">
+                    <rect key="frame" x="18" y="320" width="34" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Line:" id="ADL-1g-nJR">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bDf-1w-YKg">
+                    <rect key="frame" x="119" y="320" width="25" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Fill:" id="Q8Q-2P-VFD">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="chw-36-zXs">
+                    <rect key="frame" x="58" y="317" width="44" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </colorWell>
+                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s1z-aH-ovA">
+                    <rect key="frame" x="150" y="317" width="44" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </colorWell>
             </subviews>
             <constraints>
                 <constraint firstItem="TCR-Jr-Xrg" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="12" symbolic="YES" id="1Ga-mf-3sn"/>

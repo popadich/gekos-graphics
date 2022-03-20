@@ -510,6 +510,24 @@ DQ
                         </connections>
                     </buttonCell>
                 </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8cR-Uw-lhp">
+                    <rect key="frame" x="271" y="104" width="120" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Orthographic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="k8s-UG-fym" id="dCD-ZC-fhs">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="gvB-e5-JvV">
+                            <items>
+                                <menuItem title="Orthographic" state="on" id="k8s-UG-fym"/>
+                                <menuItem title="Perspective" id="Aa8-cW-TiW"/>
+                                <menuItem title="Stereo" id="Sxi-ZO-hW0"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="selectedIndex" keyPath="self.camera.projectionType" id="Mco-JC-rCG"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <constraints>
                 <constraint firstItem="Ezx-uv-pjo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lfP-U2-WOE" secondAttribute="trailing" constant="95" id="0yG-L5-hPu"/>

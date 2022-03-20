@@ -12,9 +12,7 @@
 
 static double head_size_adjust = 1.0;
 
-@interface GKSCameraController () {
-    GKSvector3d up_vect;
-}
+@interface GKSCameraController ()
 
 @property (strong)GKSCameraRep *camera;
 @property (weak)IBOutlet GKSHeadView *headView;
@@ -30,10 +28,6 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    up_vect.crd.x = 0.0;
-    up_vect.crd.y = 1.0;
-    up_vect.crd.z = 0.0;
-        
     GKSCameraRep *camera = self.representedObject;
     // observe focal length of camera
     [self registerAsObserverForCamera:camera];
@@ -73,7 +67,8 @@ static void *CameraRotationContext = &CameraRotationContext;
         // Do something with focal length value
         NSNumber *newLength = [change valueForKey:@"new"];
         [self setFocus:newLength];
-    } else if (context == CameraRotationContext) {
+    }
+    else if (context == CameraRotationContext) {
         NSNumber *newValue = [change valueForKey:@"new"];
         if ([keyPath isEqualToString:@"yaw"]) {
             [self adjustCameraWithYaw:newValue];
@@ -84,7 +79,8 @@ static void *CameraRotationContext = &CameraRotationContext;
         else if([keyPath isEqualToString:@"roll"]) {
             [self adjustCameraWithRoll:newValue];
         }
-    } else {
+    }
+    else {
         // Any unrecognized context must belong to super
         [super observeValueForKeyPath:keyPath
                              ofObject:object
@@ -209,6 +205,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 }
 
+
 - (IBAction)changeVisibleSurface:(id)sender
 {
     if ([sender isKindOfClass:[NSButton class]]) {
@@ -261,7 +258,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 }
 
 
-- (void)cameraDoLookAt {
+- (void)cameraDoLookAtG {
     GKSCameraRep *camera = self.camera;
 
     if (camera != nil) {
