@@ -31,7 +31,6 @@
 @end
 
 
-static void *ObserverDistanceContext = &ObserverDistanceContext;
 static void *ObserverPoistionContext = &ObserverPoistionContext;
 static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
 static void *ObserverProjectionContext = &ObserverProjectionContext;
@@ -82,15 +81,11 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     
     NSNumber *prtype =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
     self.cameraRep.projectionType = prtype;
+    
+    // TODO: method with projection type needed
+    // need a method to explicitly set the projection type on the camera controller
+    [self.cameraViewController cameraSetProjectionType:[prtype integerValue]];
 
-    // seems like this should be part of a set method in the camera view controller
-    if (prtype.intValue == kOrthogonalProjection) {
-        gks_set_orthogonal_projection();
-    }
-    else if (prtype.intValue == kPerspectiveProjection) {
-        double fl = [focalLength doubleValue];
-        gks_set_perspective_simple(fl);
-    }
     
     NSError *error;
     NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
@@ -150,7 +145,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 - (void)registerAsObserverForCamera
 {
     GKSCameraRep *camera = self.cameraRep;
-    [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverDistanceContext];
+    [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"projectionType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
@@ -166,26 +161,17 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == ObserverDistanceContext) {
-        NSLog(@"%@", keyPath);
-        [self.cameraViewController cameraSetCenterOfProjectionG];
-        [self.drawingViewController.view setNeedsDisplay:YES];
-    }
-    else if (context == ObserverPlaneNormalContext) {
+    if (context == ObserverPlaneNormalContext) {
         [self.cameraViewController cameraClampViewMatrixG];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverProjectionContext) {
         NSNumber *newValue = [change valueForKey:@"new"];
         NSInteger projTypeIdx = [newValue integerValue];
-
-        if (projTypeIdx == kOrthogonalProjection) {
-            gks_set_orthogonal_projection();
-        }
-        else if (projTypeIdx == kPerspectiveProjection) {
-            double fl = [self.cameraRep.focalLength doubleValue];
-            gks_set_perspective_simple(fl);
-        }
+        
+        // TODO: need a better way to set the projection type on camera controller
+        [self.cameraViewController cameraSetProjectionType:projTypeIdx];
+        
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

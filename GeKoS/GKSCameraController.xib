@@ -124,7 +124,7 @@
                 </textField>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YsV-SS-ctN">
                     <rect key="frame" x="18" y="142" width="184" height="28"/>
-                    <sliderCell key="cell" state="on" alignment="left" minValue="0.10000000000000001" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="RlP-fA-Dow"/>
+                    <sliderCell key="cell" state="on" alignment="left" minValue="0.10000000000000001" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="RlP-fA-Dow"/>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="due-cD-Rru"/>
                     </connections>
@@ -519,8 +519,11 @@ DQ
                         <menu key="menu" id="gvB-e5-JvV">
                             <items>
                                 <menuItem title="Orthographic" state="on" id="k8s-UG-fym"/>
-                                <menuItem title="Perspective" id="Aa8-cW-TiW"/>
-                                <menuItem title="Stereo" id="Sxi-ZO-hW0"/>
+                                <menuItem title="Simple" id="Aa8-cW-TiW"/>
+                                <menuItem title="Perspective" id="Sxi-ZO-hW0"/>
+                                <menuItem title="Axonometric" id="YpW-gP-S09">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>

@@ -266,8 +266,11 @@
                             <menu key="menu" id="tKm-I9-OG4">
                                 <items>
                                     <menuItem title="Orthographic" state="on" id="WOp-ld-ktT"/>
+                                    <menuItem title="Simple" id="ekW-UK-sPf">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
                                     <menuItem title="Perspective" id="1Yx-7S-T7q"/>
-                                    <menuItem title="Stereo" id="Ntg-tf-D66"/>
+                                    <menuItem title="Axonometric" id="Ntg-tf-D66"/>
                                 </items>
                             </menu>
                             <connections>

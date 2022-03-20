@@ -33,8 +33,9 @@
 
 typedef enum ProjectionIndex : NSUInteger {
     kOrthogonal,
+    kPerspectiveSimple,
     kPerspective,
-    kStereo
+    kAxonometric
 } ProjectionIndex;
 
 #endif /* GKSConstants_h */

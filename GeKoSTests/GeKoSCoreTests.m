@@ -752,7 +752,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     ProjectionType pt;
     pt = gks_get_projection_type();
-    XCTAssertEqual(pt, kPerspectiveProjection, @"Perspective was just enabled");
+    XCTAssertEqual(pt, kPerspectiveSimpleProjection, @"Perspective was just enabled");
 }
 
 //MARK: TRANSFORM

@@ -28,13 +28,13 @@
     self = [super init];
     if (self) {
         _focalLength = [NSNumber numberWithFloat:1.0];
-        _upX = [NSNumber numberWithFloat:0.0];
-        _upY = [NSNumber numberWithFloat:1.0];
-        _upZ = [NSNumber numberWithFloat:0.0];
+        _upX = [NSNumber numberWithDouble:0.0];
+        _upY = [NSNumber numberWithDouble:1.0];
+        _upZ = [NSNumber numberWithDouble:0.0];
 
-        _positionX = [NSNumber numberWithFloat:0.0];
-        _positionY = [NSNumber numberWithFloat:0.0];
-        _positionZ = [NSNumber numberWithFloat:1.0];
+        _positionX = [NSNumber numberWithDouble:0.0];
+        _positionY = [NSNumber numberWithDouble:0.0];
+        _positionZ = [NSNumber numberWithDouble:1.0];
 
         _lookX = @0.0;
         _lookY = @0.0;
@@ -55,12 +55,12 @@
         _vHatY = @1.0;
         _vHatZ = @0.0;
 
-        _dirX = [NSNumber numberWithFloat:0.0];
-        _dirY = [NSNumber numberWithFloat:0.0];
-        _dirZ = [NSNumber numberWithFloat:-1.0];
+        _dirX = [NSNumber numberWithDouble:0.0];
+        _dirY = [NSNumber numberWithDouble:0.0];
+        _dirZ = [NSNumber numberWithDouble:-1.0];
         
-        _near = @4.0;
-        _far = @30.0;
+        _near = @0.0;
+        _far =  @0.0;
 
    }
     

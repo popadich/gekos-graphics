@@ -11,8 +11,6 @@
 static GKSmatrix_3         gProjectionMatrix;
 static ProjectionType      gProjectionType = kOrthogonalProjection;
 static GKSfloat            gPerspectiveDepth;
-static GKSfloat            gNear;
-static GKSfloat            gFar;
 
 
 void gks_init_projection(void)
@@ -85,47 +83,35 @@ void gks_set_perspective_simple(GKSfloat d)
     gProjectionMatrix[3][2] = 0.0;
     gProjectionMatrix[3][3] = 1.0;
     
-    gProjectionType = kPerspectiveProjection;
+    gProjectionType = kPerspectiveSimpleProjection;
     gPerspectiveDepth = d;
 
 }
 
 
-/*
-void gks_set_perspective_projection(void)
+
+void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
-    gNear = 4.0;
-    gFar = 10.0;
-    
-    
-    gProjectionMatrix[0][0] = 1.0;
+    double scale = 1 / tan(alpha * 0.5 * M_PI / 180);
+    gProjectionMatrix[0][0] = scale;
     gProjectionMatrix[0][1] = 0.0;
     gProjectionMatrix[0][2] = 0.0;
     gProjectionMatrix[0][3] = 0.0;
     gProjectionMatrix[1][0] = 0.0;
-    gProjectionMatrix[1][1] = 1.0;
+    gProjectionMatrix[1][1] = scale;
     gProjectionMatrix[1][2] = 0.0;
     gProjectionMatrix[1][3] = 0.0;
     gProjectionMatrix[2][0] = 0.0;
     gProjectionMatrix[2][1] = 0.0;
-    gProjectionMatrix[2][2] = -gFar/(gFar - gNear);
+    gProjectionMatrix[2][2] = -far/(far - near);
     gProjectionMatrix[2][3] = -1.0;
     gProjectionMatrix[3][0] = 0.0;
     gProjectionMatrix[3][1] = 0.0;
-    gProjectionMatrix[3][2] = -1.0*(gFar * gNear)/(gFar - gNear);
-    gProjectionMatrix[3][3] = 0;
+    gProjectionMatrix[3][2] = -far * near/(far - near);
+    gProjectionMatrix[3][3] = 0.0;
     
     gProjectionType = kPerspectiveProjection;
 }
-*/
-
-
-
-GKSfloat gks_get_perspective_depth(void)
-{
-    return gPerspectiveDepth;
-}
-
 
 
 /*

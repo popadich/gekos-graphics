@@ -246,15 +246,46 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 
 //MARK: LIBRARY interactions
+- (void)cameraSetProjectionType:(NSInteger)projectionType {
+    GKSCameraRep *camera = self.camera;
+    if (camera != nil) {
+        if (projectionType == kOrthogonalProjection) {
+            gks_set_orthogonal_projection();
+        }
+        else if (projectionType == kPerspectiveSimple) {
+            //Set perspective distance
+            double distance = [camera.focalLength doubleValue];
+            gks_set_perspective_simple(distance);
+        }
+        else if (projectionType == kPerspective) {
+            double alpha = [camera.focalLength doubleValue];
+            double near = [camera.near doubleValue];
+            double far = [camera.far doubleValue];
+            gks_set_perspective_projection(alpha, near, far);
+        }
+    }
+}
 
 - (void)cameraSetCenterOfProjectionG {
     GKSCameraRep *camera = self.camera;
     if (camera != nil) {
         NSNumber *prtype = camera.projectionType;
-        if (prtype.intValue == kPerspective) {
+        
+        if (prtype.intValue == kOrthogonalProjection) {
+            gks_set_orthogonal_projection();
+        }
+        else if (prtype.intValue == kPerspectiveSimple) {
             //Set perspective distance
             double distance = [camera.focalLength doubleValue];
             gks_set_perspective_simple(distance);
+        }
+        else if (prtype.intValue == kPerspective) {
+            double distance = [camera.focalLength doubleValue];
+            double alpha = distance;
+            double near = [camera.near doubleValue];
+            double far = [camera.far doubleValue];
+            
+            gks_set_perspective_projection(alpha, near, far);
         }
     }
 }
