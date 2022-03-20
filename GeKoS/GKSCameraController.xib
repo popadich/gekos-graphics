@@ -519,15 +519,16 @@ DQ
                         <menu key="menu" id="gvB-e5-JvV">
                             <items>
                                 <menuItem title="Orthographic" state="on" id="k8s-UG-fym"/>
-                                <menuItem title="Simple" id="Aa8-cW-TiW"/>
-                                <menuItem title="Perspective" id="Sxi-ZO-hW0"/>
-                                <menuItem title="Axonometric" id="YpW-gP-S09">
+                                <menuItem title="Simple" tag="1" id="Aa8-cW-TiW"/>
+                                <menuItem title="Perspective" tag="2" id="Sxi-ZO-hW0"/>
+                                <menuItem title="Axonometric" tag="3" id="YpW-gP-S09">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <action selector="changeProjectionType:" target="-2" id="5nb-gf-daV"/>
                         <binding destination="-2" name="selectedIndex" keyPath="self.camera.projectionType" id="Mco-JC-rCG"/>
                     </connections>
                 </popUpButton>

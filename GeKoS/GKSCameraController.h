@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // direct action
 - (void)cameraSetProjectionType:(NSInteger)projectionType;
+- (IBAction)changeProjectionType:(id)sender;
 
 @end
 

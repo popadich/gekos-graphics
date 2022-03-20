@@ -22,6 +22,10 @@
 
 @implementation GKSDrawingView
 
+- (BOOL)isFlipped {
+    return YES;
+}
+
 - (void)awakeFromNib {
     
     NSError* error;
@@ -128,6 +132,13 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr tran
     [NSColor.whiteColor set];
     [boxPath setLineWidth:self.itemLineWidth];
     [boxPath stroke];
+    
+    // tracking dot possible look
+    NSPoint redDotPoint = NSMakePoint(80.0, 50.0);
+    NSRect dotRect = NSMakeRect(redDotPoint.x, redDotPoint.y, 12, 12.0);
+    NSBezierPath *redDot = [NSBezierPath bezierPathWithOvalInRect:dotRect];
+    [[NSColor redColor] setFill];
+    [redDot fill];
     
     // render objects
     [self.lineColor setStroke];

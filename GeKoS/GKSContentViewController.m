@@ -146,7 +146,6 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 {
     GKSCameraRep *camera = self.cameraRep;
     [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
-    [camera addObserver:self forKeyPath:@"projectionType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
@@ -166,11 +165,9 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverProjectionContext) {
-        NSNumber *newValue = [change valueForKey:@"new"];
-        NSInteger projTypeIdx = [newValue integerValue];
-        
-        // TODO: need a better way to set the projection type on camera controller
-        [self.cameraViewController cameraSetProjectionType:projTypeIdx];
+        // this is for focal length changes only, go direct!
+        [self.cameraViewController cameraSetCenterOfProjectionG];
+        [self.drawingViewController.view setNeedsDisplay:YES];
         
     }
     else {

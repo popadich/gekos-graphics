@@ -216,6 +216,13 @@ static void *CameraRotationContext = &CameraRotationContext;
     }
 }
 
+- (IBAction)changeProjectionType:(id)sender;
+{
+    NSInteger projectionType = [sender selectedTag];
+    NSLog(@"Sender: %@", [sender class]);
+    NSLog(@"Projection Type: %ld", projectionType);
+    [self cameraSetProjectionType:projectionType];
+}
 
 
 - (IBAction)cameraReset:(id)sender
@@ -245,7 +252,8 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 
 
-//MARK: LIBRARY interactions
+//MARK: Projection Matrix Interactions
+
 - (void)cameraSetProjectionType:(NSInteger)projectionType {
     GKSCameraRep *camera = self.camera;
     if (camera != nil) {
@@ -258,7 +266,8 @@ static void *CameraRotationContext = &CameraRotationContext;
             gks_set_perspective_simple(distance);
         }
         else if (projectionType == kPerspective) {
-            double alpha = [camera.focalLength doubleValue];
+            double distance = [camera.focalLength doubleValue];
+            double alpha = 90.0 / distance;
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
             gks_set_perspective_projection(alpha, near, far);
@@ -281,16 +290,16 @@ static void *CameraRotationContext = &CameraRotationContext;
         }
         else if (prtype.intValue == kPerspective) {
             double distance = [camera.focalLength doubleValue];
-            double alpha = distance;
+            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1; // alpha > 0
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
-            
             gks_set_perspective_projection(alpha, near, far);
         }
     }
 }
 
 
+// MARK: View Matrix Interactions
 - (void)cameraDoLookAtG {
     GKSCameraRep *camera = self.camera;
 
