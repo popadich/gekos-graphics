@@ -19,7 +19,6 @@ static double head_size_adjust = 1.0;
 
 @end
 
-static void *CameraFocalLengthContext = &CameraFocalLengthContext;
 static void *CameraRotationContext = &CameraRotationContext;
 
 
@@ -32,18 +31,13 @@ static void *CameraRotationContext = &CameraRotationContext;
     // observe focal length of camera
     [self registerAsObserverForCamera:camera];
     self.camera = camera;
-
+    [self cameraReset:self];
+    [self setFocus:@1.0];    // do not change the focal length for the head view for now
 }
 
 
 - (void)registerAsObserverForCamera:(GKSCameraRep*)camera
 {
-    [camera addObserver:self
-              forKeyPath:@"focalLength"
-                 options:(NSKeyValueObservingOptionNew |
-                          NSKeyValueObservingOptionOld)
-                 context:CameraFocalLengthContext];
-
     [camera addObserver:self
               forKeyPath:@"yaw"
                  options:(NSKeyValueObservingOptionNew |
@@ -63,12 +57,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
-    if (context == CameraFocalLengthContext) {
-        // Do something with focal length value
-        NSNumber *newLength = [change valueForKey:@"new"];
-        [self setFocus:newLength];
-    }
-    else if (context == CameraRotationContext) {
+    if (context == CameraRotationContext) {
         NSNumber *newValue = [change valueForKey:@"new"];
         if ([keyPath isEqualToString:@"yaw"]) {
             [self adjustCameraWithYaw:newValue];
@@ -87,6 +76,7 @@ static void *CameraRotationContext = &CameraRotationContext;
                                change:change
                                context:context];
     }
+    
 }
 
 
@@ -233,9 +223,9 @@ static void *CameraRotationContext = &CameraRotationContext;
         camera.upX = @0.0;
         camera.upY = @1.0;
         camera.upZ = @0.0;
-        camera.positionX = @0.0;
-        camera.positionY = @0.0;
-        camera.positionZ = @2.0;
+        camera.positionX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocX];
+        camera.positionY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocY];
+        camera.positionZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocZ];
         camera.dirX = @0.0;
         camera.dirY = @0.0;
         camera.dirZ = @-1.0;
