@@ -84,7 +84,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     
     // TODO: method with projection type needed
     // need a method to explicitly set the projection type on the camera controller
-    [self.cameraViewController cameraSetProjectionType:[prtype integerValue]];
+    [self.cameraViewController cameraSetProjectionType:prtype];
 
     
     NSError *error;
@@ -166,9 +166,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     }
     else if (context == ObserverProjectionContext) {
         // this is for focal length changes only, go direct!
-        [self.cameraViewController cameraSetCenterOfProjectionG];
         [self.drawingViewController.view setNeedsDisplay:YES];
-        
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

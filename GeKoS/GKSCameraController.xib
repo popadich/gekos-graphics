@@ -126,6 +126,7 @@
                     <rect key="frame" x="18" y="142" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="0.10000000000000001" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="RlP-fA-Dow"/>
                     <connections>
+                        <action selector="changeFocalLength:" target="-2" id="plW-7c-602"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="due-cD-Rru"/>
                     </connections>
                 </slider>
@@ -532,6 +533,50 @@ DQ
                         <binding destination="-2" name="selectedIndex" keyPath="self.camera.projectionType" id="Mco-JC-rCG"/>
                     </connections>
                 </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JiX-dO-mSu">
+                    <rect key="frame" x="293" y="81" width="33" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Near:" id="L2W-Ia-zkf">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="it3-8Y-2gg">
+                    <rect key="frame" x="336" y="79" width="36" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="4" drawsBackground="YES" id="SR1-Lp-GUE">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="8Up-nF-K1I"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.near" id="Uyb-tL-wVl"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r3Z-Wu-CMy">
+                    <rect key="frame" x="293" y="55" width="24" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Far:" id="Xs9-dC-K7T">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DnQ-vh-YEw">
+                    <rect key="frame" x="336" y="53" width="36" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="30" drawsBackground="YES" id="489-3K-seU">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="tjw-4m-fMe"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.representedObject.far" id="oXI-ue-1nd"/>
+                    </connections>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="Ezx-uv-pjo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lfP-U2-WOE" secondAttribute="trailing" constant="95" id="0yG-L5-hPu"/>

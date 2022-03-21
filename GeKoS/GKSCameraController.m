@@ -17,6 +17,7 @@ static double head_size_adjust = 1.0;
 @property (strong)GKSCameraRep *camera;
 @property (weak)IBOutlet GKSHeadView *headView;
 
+
 @end
 
 static void *CameraRotationContext = &CameraRotationContext;
@@ -28,7 +29,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     [super viewDidLoad];
     // Do view setup here.
     GKSCameraRep *camera = self.representedObject;
-    // observe focal length of camera
+    
     [self registerAsObserverForCamera:camera];
     self.camera = camera;
     [self cameraReset:self];
@@ -209,9 +210,15 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (IBAction)changeProjectionType:(id)sender;
 {
     NSInteger projectionType = [sender selectedTag];
-    NSLog(@"Sender: %@", [sender class]);
-    NSLog(@"Projection Type: %ld", projectionType);
-    [self cameraSetProjectionType:projectionType];
+    NSNumber *prType = [NSNumber numberWithInteger:projectionType];
+    [self cameraSetProjectionType:prType];
+}
+
+- (IBAction)changeFocalLength:(id)sender
+{
+    GKSfloat focal = [sender floatValue];
+    NSLog(@"Now Focus %lf", focal);
+    [self cameraAdjustProjectionMatrix];
 }
 
 
@@ -244,9 +251,10 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 //MARK: Projection Matrix Interactions
 
-- (void)cameraSetProjectionType:(NSInteger)projectionType {
+- (void)cameraSetProjectionType:(NSNumber *)prType {
     GKSCameraRep *camera = self.camera;
     if (camera != nil) {
+        NSInteger projectionType = [prType integerValue];
         if (projectionType == kOrthogonalProjection) {
             gks_set_orthogonal_projection();
         }
@@ -257,7 +265,7 @@ static void *CameraRotationContext = &CameraRotationContext;
         }
         else if (projectionType == kPerspective) {
             double distance = [camera.focalLength doubleValue];
-            double alpha = 90.0 / distance;
+            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
             gks_set_perspective_projection(alpha, near, far);
@@ -265,26 +273,25 @@ static void *CameraRotationContext = &CameraRotationContext;
     }
 }
 
-- (void)cameraSetCenterOfProjectionG {
+- (void)cameraAdjustProjectionMatrix {
     GKSCameraRep *camera = self.camera;
     if (camera != nil) {
-        NSNumber *prtype = camera.projectionType;
-        
-        if (prtype.intValue == kOrthogonalProjection) {
-            gks_set_orthogonal_projection();
-        }
-        else if (prtype.intValue == kPerspectiveSimple) {
+        NSNumber *prType = camera.projectionType;
+        NSInteger projectionType = [prType integerValue];
+
+        if (projectionType == kPerspectiveSimple) {
             //Set perspective distance
             double distance = [camera.focalLength doubleValue];
             gks_set_perspective_simple(distance);
         }
-        else if (prtype.intValue == kPerspective) {
+        else if (projectionType == kPerspective) {
             double distance = [camera.focalLength doubleValue];
-            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1; // alpha > 0
+            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
             gks_set_perspective_projection(alpha, near, far);
         }
+        
     }
 }
 
