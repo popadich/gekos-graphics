@@ -23,6 +23,8 @@ ProjectionType gks_get_projection_type(void);
 void gks_set_orthogonal_projection(void);
 void gks_set_perspective_simple(GKSfloat focalDistance);
 void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far);
+void gks_set_perspective_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far);
+
 
 // Getter
 GKSmatrix_3 *gks_get_projection_matrix(void);

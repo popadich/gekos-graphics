@@ -70,14 +70,19 @@ void gks_set_perspective_simple(GKSfloat d)
     gProjectionMatrix[0][1] = 0.0;
     gProjectionMatrix[0][2] = 0.0;
     gProjectionMatrix[0][3] = 0.0;
+    
     gProjectionMatrix[1][0] = 0.0;
     gProjectionMatrix[1][1] = 1.0;
     gProjectionMatrix[1][2] = 0.0;
     gProjectionMatrix[1][3] = 0.0;
+    
     gProjectionMatrix[2][0] = 0.0;
     gProjectionMatrix[2][1] = 0.0;
     gProjectionMatrix[2][2] = 0.0;
-    gProjectionMatrix[2][3] = 1.0/d; //TODO: positive according to book?
+    
+    // !!!: positive according to book?
+    gProjectionMatrix[2][3] = 1.0/d;
+    
     gProjectionMatrix[3][0] = 0.0;
     gProjectionMatrix[3][1] = 0.0;
     gProjectionMatrix[3][2] = 0.0;
@@ -89,25 +94,36 @@ void gks_set_perspective_simple(GKSfloat d)
 }
 
 
-
 void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
-    double scale = 1 / tan(alpha * 0.5 * M_PI / 180);
+
+    GKSfloat scale = 1 / tan(alpha * 0.5 * M_PI / 180);
+    
+    // for math check
+    GKSfloat n = near;
+    GKSfloat f = far;
+    
+    GKSfloat a = -f / (f - n);
+    GKSfloat b = -f * n / (f - n);
+    
     gProjectionMatrix[0][0] = scale;
     gProjectionMatrix[0][1] = 0.0;
     gProjectionMatrix[0][2] = 0.0;
     gProjectionMatrix[0][3] = 0.0;
+    
     gProjectionMatrix[1][0] = 0.0;
     gProjectionMatrix[1][1] = scale;
     gProjectionMatrix[1][2] = 0.0;
     gProjectionMatrix[1][3] = 0.0;
+    
     gProjectionMatrix[2][0] = 0.0;
     gProjectionMatrix[2][1] = 0.0;
-    gProjectionMatrix[2][2] = -far/(far - near);
+    gProjectionMatrix[2][2] = a;
     gProjectionMatrix[2][3] = -1.0;
+    
     gProjectionMatrix[3][0] = 0.0;
     gProjectionMatrix[3][1] = 0.0;
-    gProjectionMatrix[3][2] = -far * near/(far - near);
+    gProjectionMatrix[3][2] = b;
     gProjectionMatrix[3][3] = 0.0;
     
     gProjectionType = kPerspectiveProjection;
@@ -122,15 +138,31 @@ void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
     0    0    a  -1
     0    0    b   0
 */
-void gks_set_camera_perspective(GKSfloat near, GKSfloat far, GKSfloat alpha)
+void gks_set_perspective_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
     GKSfloat n = near;
     GKSfloat f = far;
-    
+ 
+    GKSfloat scale = 1 / tan(alpha * 0.5 * M_PI / 180);
     GKSfloat a = (f + n) / (f - n);
     GKSfloat b = (2 * n * f) / (f - n);
-    gProjectionMatrix[0][0] = 1.0/tan(alpha); gProjectionMatrix[0][1] = 0.0; gProjectionMatrix[0][2] = 0.0; gProjectionMatrix[0][3] = 0.0;
-    gProjectionMatrix[1][0] = 0.0; gProjectionMatrix[1][1] = 1.0/tan(alpha); gProjectionMatrix[1][2] = 0.0; gProjectionMatrix[1][3] = 0.0;
-    gProjectionMatrix[2][0] = 0.0; gProjectionMatrix[2][1] = 0.0; gProjectionMatrix[2][2] = a; gProjectionMatrix[2][3] = -1.0;
-    gProjectionMatrix[3][0] = 0.0; gProjectionMatrix[3][1] = 0.0; gProjectionMatrix[3][2] = b; gProjectionMatrix[3][3] = 0.0;
+    gProjectionMatrix[0][0] = scale;
+    gProjectionMatrix[0][1] = 0.0;
+    gProjectionMatrix[0][2] = 0.0;
+    gProjectionMatrix[0][3] = 0.0;
+    
+    gProjectionMatrix[1][0] = 0.0;
+    gProjectionMatrix[1][1] = scale;
+    gProjectionMatrix[1][2] = 0.0;
+    gProjectionMatrix[1][3] = 0.0;
+    
+    gProjectionMatrix[2][0] = 0.0;
+    gProjectionMatrix[2][1] = 0.0;
+    gProjectionMatrix[2][2] = a;
+    gProjectionMatrix[2][3] = -1.0;
+    
+    gProjectionMatrix[3][0] = 0.0;
+    gProjectionMatrix[3][1] = 0.0;
+    gProjectionMatrix[3][2] = b;
+    gProjectionMatrix[3][3] = 0.0;
 }

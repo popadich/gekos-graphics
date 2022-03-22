@@ -277,6 +277,13 @@ static void *CameraRotationContext = &CameraRotationContext;
             double far = [camera.far doubleValue];
             gks_set_perspective_projection(alpha, near, far);
         }
+        else if (projectionType == kAxonometric) {
+            double distance = [camera.focalLength doubleValue];
+            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
+            double near = [camera.near doubleValue];
+            double far = [camera.far doubleValue];
+            gks_set_perspective_alternate(alpha, near, far);
+        }
     }
 }
 
@@ -298,7 +305,13 @@ static void *CameraRotationContext = &CameraRotationContext;
             double far = [camera.far doubleValue];
             gks_set_perspective_projection(alpha, near, far);
         }
-        
+        else if (projectionType == kAxonometric) {
+            double distance = [camera.focalLength doubleValue];
+            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
+            double near = [camera.near doubleValue];
+            double far = [camera.far doubleValue];
+            gks_set_perspective_alternate(alpha, near, far);
+        }
     }
 }
 

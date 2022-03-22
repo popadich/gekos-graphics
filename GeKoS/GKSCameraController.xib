@@ -519,10 +519,16 @@ DQ
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="gvB-e5-JvV">
                             <items>
-                                <menuItem title="Orthographic" state="on" id="k8s-UG-fym"/>
-                                <menuItem title="Simple" tag="1" id="Aa8-cW-TiW"/>
-                                <menuItem title="Perspective" tag="2" id="Sxi-ZO-hW0"/>
-                                <menuItem title="Axonometric" tag="3" id="YpW-gP-S09">
+                                <menuItem title="Orthographic" state="on" id="k8s-UG-fym">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Simple" tag="1" id="Aa8-cW-TiW">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Perspective" tag="2" id="Sxi-ZO-hW0">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Alternative" tag="3" id="YpW-gP-S09">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
