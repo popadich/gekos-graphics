@@ -10,25 +10,6 @@
 
 #include "gks_types.h"
 
-typedef enum {
-    kCubeKind = 1,
-    kSphereKind,
-    kPyramidKind,
-    kSpaceShuttleKind,
-    kHouseKind
-} ObjectKind;
-
-typedef struct
-{
-    ObjectKind kind;
-    GKScolor its_color;
-    GKScolor line_color;
-    GKSmatrix_3 instanceTransform;
-    GKSobject_3 instanceObject;    //@FIXME: this should be a pointer
-    GKSvector3d scaleVector;
-    GKSvector3d rotateVector;
-    GKSvector3d translateVector;
-} Actor;
 
 #define GKS_CUBE_VERTEX_COUNT    8
 #define GKS_CUBE_POLYGON_COUNT   6

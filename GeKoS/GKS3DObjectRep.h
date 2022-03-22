@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSColor* fillColor;
 
 
-- (id)initWithStructure:(Actor)actorStruct;
+- (id)initWithStructure:(GKSactor)actorStruct;
 - (GKSvector3d)positionVector;
 - (GKSvector3d)rotationVector;
 - (GKSvector3d)scaleVector;

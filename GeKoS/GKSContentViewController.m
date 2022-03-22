@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
-@property (nonatomic, strong) GKSScene* worldScene;
+@property (nonatomic, strong) GKSScene* theScene;
 
 @end
 
@@ -114,8 +114,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.cameraRep = scene_camera;
     self.cameraViewController.representedObject = self.cameraRep;
 
-    self.worldScene = scene;
-    self.drawingViewController.representedObject = self.worldScene;
+    self.theScene = scene;
+    self.drawingViewController.representedObject = self.theScene;
 }
 
 
@@ -223,7 +223,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
     if ([self addObject3DKind:objectKind atLocation:location withRotation:objRep.rotationVector andScale:objRep.scaleVector]) {
         // add object representation to mutable array
-        [self.worldScene addObjectRep:objRep];
+        [self.theScene addObjectRep:objRep];
     }
     else
         NSBeep();

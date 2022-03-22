@@ -38,7 +38,7 @@ GKSobject_3 *CubeMesh(void)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
+    GKSvertexArrPtr transList = NULL;
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
 
     // copy vertices using pointer arithmetic
@@ -64,7 +64,7 @@ GKSobject_3 *CubeMesh(void)
     aCube->vertices = vertexList;
     aCube->polygons = polygonList;
     aCube->normals = NULL;
-    aCube->transverts = transVertList;
+    aCube->transverts = transList;
     aCube->devcoords = devCoordList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
     aCube->polynum = GKS_CUBE_POLYGON_COUNT;
@@ -98,7 +98,7 @@ GKSobject_3 *PyramidMesh(void)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSvertexArrPtr transList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
+    GKSvertexArrPtr transList = NULL;
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_2));
 
     // copy vertices using pointer arithmetic
@@ -163,7 +163,7 @@ GKSobject_3 *HouseMesh(void)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
+    GKSvertexArrPtr transList = NULL;
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSpoint_2));
     
     // copy vertices using pointer arithmetic
@@ -190,7 +190,7 @@ GKSobject_3 *HouseMesh(void)
     aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
     aHouse->polygons = polygonList;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
-    aHouse->transverts = transVertList;
+    aHouse->transverts = transList;
     aHouse->devcoords = devCoordList;
     
     return aHouse;
@@ -216,9 +216,7 @@ GKSobject_3 *SphereMesh(void)
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(computedPolygonCount, sizeof(GKSpolygon_3));
-//    GKSnormalArrPtr normalList = (GKSnormalArrPtr)calloc(computedPolygonCount, sizeof(GKSvector3d));
-    
-    GKSvertexArrPtr transVertList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
+    GKSvertexArrPtr transList = NULL;
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(computedVertexCount, sizeof(GKSpoint_2));
 
     GKSobject_3 *aSphere = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
@@ -265,7 +263,7 @@ GKSobject_3 *SphereMesh(void)
     aSphere->normals = NULL;
     aSphere->vertnum = vertexCount;
     aSphere->polynum = polygonCount;
-    aSphere->transverts = transVertList;
+    aSphere->transverts = transList;
     aSphere->devcoords = devCoordList;
 
     return aSphere;

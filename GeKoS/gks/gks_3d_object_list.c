@@ -30,7 +30,7 @@
 
 static bool         _visble_Surface_Only_Flag;
 static int          _object_count;                          // count of objects 3D
-static Actor        object_array[GKS_MAX_SCENE_OBJECTS];    // world Scene max objects
+static GKSactor        object_array[GKS_MAX_SCENE_OBJECTS];    // world Scene max objects
 
 void gks_init_object_list(void)
 {
@@ -54,8 +54,8 @@ int gks_objarr_count(void)
 }
 
 // TODO: return a pointer instead
-Actor gks_objarr_object_at_index(int index) {
-    Actor object3d = object_array[index];
+GKSactor gks_objarr_object_at_index(int index) {
+    GKSactor object3d = object_array[index];
     return object3d;
 }
 
@@ -181,7 +181,7 @@ void gks_objarr_delete_all(void) {
 }
 
 
-void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSurfaceRemoveFlag)
+void draw_object_3(GKSactor *theObject)
 {
     GKSvertexArrPtr     vertexList;
     GKSpolygonArrPtr    polygonList;
@@ -201,17 +201,17 @@ void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSu
         temp_vertex_array[i].crd.w = 1.0;
     }
     
-    vertexList = theObject->vertices;
-    polygonList = theObject->polygons;
-    transVertList = theObject->transverts;
-    devcoordList = theObject->devcoords;
+    vertexList = theObject->instanceObject.vertices;
+    polygonList = theObject->instanceObject.polygons;
+    transVertList = theObject->instanceObject.transverts;
+    devcoordList = theObject->instanceObject.devcoords;
     
     // TODO: transform object vertices first
     // to speed things up I should transform all the vertices of the object
     // to viewport space coordinates, and then test normals and then draw
     // polygons. Use a seperate vertex buffer like the one for polygons.
     
-    polygonCount = theObject->polynum;
+    polygonCount = theObject->instanceObject.polynum;
 //    totalVerteces = theObject->vertnum;
 
     for(polygonID=0; polygonID<polygonCount; polygonID++) {
@@ -225,19 +225,19 @@ void draw_object_3(GKSobject_3 *theObject, GKScolor *object_color, bool hiddenSu
             temp_vertex_array[j] = vertexList[vertexNumber];
         }
 
-        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, object_color);
-        gks_localpolyline_3(polygonID, polygon_point_count, transVertList, devcoordList, object_color);
+        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, &theObject->line_color);
+        gks_localpolyline_3(polygonID, polygon_point_count, transVertList, devcoordList, &theObject->line_color);
         
     }
 }
 
 
-void gks_objarr_draw_object(Actor the_object)
+void gks_objarr_draw_object(GKSactor the_object)
 {
     gks_set_world_model_matrix(the_object.instanceTransform);
     
     // TODO: arguments smell
-    draw_object_3(&the_object.instanceObject, &the_object.line_color, _visble_Surface_Only_Flag);
+    draw_object_3(&the_object);
     
 }
 

@@ -15,7 +15,7 @@
 
 void gks_init_object_list(void);
 void gks_objarr_draw_list(void);
-void gks_objarr_draw_object(Actor anActor);
+void gks_objarr_draw_object(GKSactor anActor);
 
 //void gks_objarr_set_hidden_surface_removal(bool isHiddenSurfaceFlag);
 //bool gks_objarr_get_hidden_surface_removal(void);

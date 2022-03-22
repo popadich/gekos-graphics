@@ -11,7 +11,7 @@
 @implementation GKS3DObjectRep
 
 
-- (id)initWithStructure:(Actor)actorStruct
+- (id)initWithStructure:(GKSactor)actorStruct
 {
     self = [super init];
     if (self) {
