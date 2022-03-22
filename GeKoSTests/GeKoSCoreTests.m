@@ -988,7 +988,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(result_matrix[0][3], 0.0, epsilon);
     
     XCTAssertEqualWithAccuracy(result_matrix[1][0], 0.0, epsilon);
-    XCTAssertEqualWithAccuracy(result_matrix[1][1], -1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][1], 1.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[1][2], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[1][3], 0.0, epsilon);
 
@@ -1035,7 +1035,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(result_matrix[0][3], 0.0, epsilon);
     
     XCTAssertEqualWithAccuracy(result_matrix[1][0], 0.0, epsilon);
-    XCTAssertEqualWithAccuracy(result_matrix[1][1], -1.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[1][1], 1.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[1][2], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[1][3], 0.0, epsilon);
 

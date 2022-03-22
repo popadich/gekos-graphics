@@ -26,26 +26,26 @@
 #include "gks_3d_matrix.h"
 #include "gks_3d_world.h"
 
-#define XS_MAX_SCENE_OBJECTS    32
+#define GKS_MAX_SCENE_OBJECTS    32
 
-static bool         _hidden_Surface_Removal_Flag;
-static int          _object_count;                      // count of objects 3D
-static Actor        object_array[XS_MAX_SCENE_OBJECTS];  // world Scene max objects
+static bool         _visble_Surface_Only_Flag;
+static int          _object_count;                          // count of objects 3D
+static Actor        object_array[GKS_MAX_SCENE_OBJECTS];    // world Scene max objects
 
 void gks_init_object_list(void)
 {
     _object_count = 0;
-    _hidden_Surface_Removal_Flag = false;
+    _visble_Surface_Only_Flag = false;
 }
 
 void gks_objarr_set_hidden_surface_removal(bool flag)
 {
-    _hidden_Surface_Removal_Flag = flag;
+    _visble_Surface_Only_Flag = flag;
 }
 
 bool gks_objarr_get_hidden_surface_removal(void)
 {
-    return _hidden_Surface_Removal_Flag;
+    return _visble_Surface_Only_Flag;
 }
 
 int gks_objarr_count(void)
@@ -59,12 +59,12 @@ Actor gks_objarr_object_at_index(int index) {
     return object3d;
 }
 
-bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d scaleVec, GKSvector3d rotVec, GKScolor lineColor, GKScolor fillColor)
+bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d rotVec, GKSvector3d scaleVec, GKScolor lineColor, GKScolor fillColor)
 {
     //add_object_new(object, transVec, scaleVec, rotVec);
     bool did_add = false;
     
-    if (_object_count<XS_MAX_SCENE_OBJECTS) {
+    if (_object_count<GKS_MAX_SCENE_OBJECTS) {
 
         object_array[_object_count].kind = kind;
         object_array[_object_count].its_color = fillColor;
@@ -237,7 +237,7 @@ void gks_objarr_draw_object(Actor the_object)
     gks_set_world_model_matrix(the_object.instanceTransform);
     
     // TODO: arguments smell
-    draw_object_3(&the_object.instanceObject, &the_object.line_color, _hidden_Surface_Removal_Flag);
+    draw_object_3(&the_object.instanceObject, &the_object.line_color, _visble_Surface_Only_Flag);
     
 }
 

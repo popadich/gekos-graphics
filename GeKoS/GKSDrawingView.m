@@ -23,7 +23,7 @@
 @implementation GKSDrawingView
 
 - (BOOL)isFlipped {
-    return YES;
+    return NO;
 }
 
 - (void)awakeFromNib {

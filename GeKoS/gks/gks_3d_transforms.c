@@ -203,6 +203,7 @@ void gks_trans_set_curr_view_idx(GKSint view_num)
     }
 }
 
+// MARK: Volume Matrix
 //
 //  r and s are device coordinates, as in the ones you would plot to the screen in
 //  a Mac window view.
@@ -223,11 +224,8 @@ void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat
     if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
         g_curr_transform_idx = view_num;
             
-        // Three ports have to be set: 2D_DevicePort, 3D_World (Volume/Port)
-        // and 3D_ViewPort (Volume/Port), before the selecting a transformation
-        // view. Creating a view transformation stores critical
-        // input parameters and side effect performs the math
-        // which sets up the global transformation values.
+        // Three ports have to be set: 2D_Device_Port, 3D_World_Space (Volume/Port)
+        // and 3D_Normalized_World_Space (Volume/Port).
         
         // 2D_DevicePort
         GKSlimits_2 deviceport_2 = {r_min, r_max, s_min, s_max};
@@ -241,7 +239,7 @@ void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat
         
         // the norm_3 matrix is used to map from 3D world coordinate to
         // normalized device coordinates and device coordinates.
-        // TODO: Look into volume clipping
+        // TODO: Look into object culling
         gks_trans_compute_view_3(view_num);
     }
 }

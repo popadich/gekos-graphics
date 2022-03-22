@@ -63,30 +63,6 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     [self.view addConstraints:vertConstraints];
 
     
-    // Set perspective distance, projection type and other camera properties.
-    // Use default values settings and preferences here
-    self.cameraRep.upX = @0;
-    self.cameraRep.upY = @1.0;
-    self.cameraRep.upZ = @0;
-    
-    self.cameraRep.positionX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocX];
-    self.cameraRep.positionY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocY];
-    self.cameraRep.positionZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocZ];
-    
-    NSNumber *focalLength =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-    self.cameraRep.focalLength = focalLength;
-    
-    self.cameraRep.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
-    self.cameraRep.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
-    
-    NSNumber *prtype =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
-    self.cameraRep.projectionType = prtype;
-    
-    // TODO: method with projection type needed
-    // need a method to explicitly set the projection type on the camera controller
-    [self.cameraViewController cameraSetProjectionType:prtype];
-
-    
     NSError *error;
     NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
     if (colorData != nil) {
@@ -122,6 +98,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     // Store one 3D object representation to act as a data entry buffer
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     
+    // MARK: View Matrix Compute
     [self.cameraViewController cameraClampViewMatrixG];
 
     [self registerAsObserverForCamera];
@@ -146,6 +123,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 {
     GKSCameraRep *camera = self.cameraRep;
     [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
+    [camera addObserver:self forKeyPath:@"near" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
+    [camera addObserver:self forKeyPath:@"far" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
@@ -161,6 +140,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == ObserverPlaneNormalContext) {
+        
+        // MARK: View Matrix
         [self.cameraViewController cameraClampViewMatrixG];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
@@ -175,7 +156,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 // Object List Stuff
 
-- (BOOL)addObject3DKind:(ObjectKind)kind atLocation:(GKSvector3d)loc withRotation:(GKSvector3d)rot andScale:(GKSvector3d)sca
+- (BOOL)addObject3DKind:(ObjectKind)kind atLocation:(GKSvector3d)pos withRotation:(GKSvector3d)rot andScale:(GKSvector3d)sca
 {
     BOOL didAdd = NO;
     GKSobject_3 *objPtr = NULL;
@@ -193,10 +174,6 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     fillColor.blue = [theColor blueComponent];
     fillColor.alpha = [theColor alphaComponent];
     
-    GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
-    trans = loc;
-    scale = sca;
-    rotate = rot;
     
     switch (kind) {
         case kCubeKind:
@@ -218,7 +195,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     
     if (objPtr != NULL) {
         // add a 3d object to the c model world
-        if (gks_objarr_add(kind, objPtr, trans, scale, rotate, lineColor, fillColor)) {
+        if (gks_objarr_add(kind, objPtr, pos, rot, sca, lineColor, fillColor)) {
             free(objPtr);  //free object it is copied when added
             didAdd = YES;
         }
@@ -236,7 +213,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     objRep.objectKind = [NSNumber numberWithInt:objectKind];
     objRep.transX = [NSNumber numberWithDouble:location.crd.x];
     objRep.transY = [NSNumber numberWithDouble:location.crd.y];
-    objRep.transZ = [NSNumber numberWithDouble:location.crd.z];
+    objRep.transZ = [NSNumber numberWithDouble:  location.crd.z];
     objRep.scaleX = [NSNumber numberWithDouble:scale.crd.x];
     objRep.scaleY = [NSNumber numberWithDouble:scale.crd.y];
     objRep.scaleZ = [NSNumber numberWithDouble:scale.crd.z];

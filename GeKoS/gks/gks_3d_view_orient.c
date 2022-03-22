@@ -50,8 +50,15 @@ void gks_gen_view_matrix(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, 
     vectornormal(u_vector, &u_vector);  //uHat
     
     // cross product to find vHat
-    vectorcrossproduct(w_vector, u_vector, &v_vector); //vHat
+    vectorcrossproduct(u_vector, w_vector, &v_vector); //vHat
 
+    
+    // Populating the View Matrix:
+    // Normaly the basis vectors would go in the columns of the matrix M
+    // but we want the inverse of M, which luckily happens to be the same as
+    // the transpose of M and therefore the basis vectors go into the rows
+    // of the matrix.
+    //
     result[0][0] = u_vector.crd.x;
     result[0][1] = u_vector.crd.y;
     result[0][2] = u_vector.crd.z;
