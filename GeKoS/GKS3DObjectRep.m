@@ -25,8 +25,8 @@
         _transX = [NSNumber numberWithDouble:actorStruct.translateVector.crd.x];
         _transY = [NSNumber numberWithDouble:actorStruct.translateVector.crd.y];
         _transZ = [NSNumber numberWithDouble:actorStruct.translateVector.crd.z];
-        _lineColor = [NSColor greenColor];
-        _fillColor = [NSColor lightGrayColor];
+        _lineColor = [NSColor colorWithRed:actorStruct.line_color.red green:actorStruct.line_color.green blue:actorStruct.line_color.blue alpha:actorStruct.line_color.alpha];
+        _fillColor = [NSColor colorWithRed:actorStruct.fill_color.red green:actorStruct.fill_color.green blue:actorStruct.fill_color.blue alpha:actorStruct.fill_color.alpha];
     }
     return self;
 }
@@ -36,7 +36,7 @@
 {
     self = [super init];
     if (self) {
-        _objectKind = [NSNumber numberWithInt:1];
+        _objectKind = [NSNumber numberWithInteger:1];
         _transX = [NSNumber numberWithDouble:0.0];
         _transY = [NSNumber numberWithDouble:0.0];
         _transZ = [NSNumber numberWithDouble:0.0];
@@ -46,8 +46,10 @@
         _rotX = [NSNumber numberWithDouble:0.0];
         _rotY = [NSNumber numberWithDouble:0.0];
         _rotZ = [NSNumber numberWithDouble:0.0];
+        
+        // TODO: better defaults
         _lineColor = [NSColor greenColor];
-        _fillColor = [NSColor lightGrayColor];
+        _fillColor = [NSColor greenColor];
     }
     return self;
 }
@@ -75,8 +77,8 @@
 
 
 
-// In the implementation
--(id)copyWithZone:(NSZone *)zone
+// NSCopying protocol
+- (id)copyWithZone:(NSZone *)zone
 {
     GKS3DObjectRep *another = [[GKS3DObjectRep allocWithZone: zone] init];;
 //    another.objectKind = [_objectKind copyWithZone: zone];

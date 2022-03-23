@@ -59,7 +59,7 @@ GKSactor gks_objarr_object_at_index(int index) {
     return object3d;
 }
 
-bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d rotVec, GKSvector3d scaleVec, GKScolor lineColor, GKScolor fillColor)
+bool gks_objarr_add(GKSobjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d rotVec, GKSvector3d scaleVec, GKScolor lineColor, GKScolor fillColor)
 {
     //add_object_new(object, transVec, scaleVec, rotVec);
     bool did_add = false;
@@ -67,19 +67,19 @@ bool gks_objarr_add(ObjectKind kind, GKSobject_3 *object, GKSvector3d transVec, 
     if (_object_count<GKS_MAX_SCENE_OBJECTS) {
 
         object_array[_object_count].kind = kind;
-        object_array[_object_count].its_color = fillColor;
+        object_array[_object_count].fill_color = fillColor;
         object_array[_object_count].line_color = lineColor;
 
-        gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].instanceTransform);
+        gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].modelTransform);
         
         // ORDER MATTERS S x R x T
-        gks_accumulate_x_rotation_matrix_3(rotVec.crd.x,object_array[_object_count].instanceTransform);
-        gks_accumulate_y_rotation_matrix_3(rotVec.crd.y,object_array[_object_count].instanceTransform);
-        gks_accumulate_z_rotation_matrix_3(rotVec.crd.z,object_array[_object_count].instanceTransform);
-        gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, object_array[_object_count].instanceTransform);
+        gks_accumulate_x_rotation_matrix_3(rotVec.crd.x,object_array[_object_count].modelTransform);
+        gks_accumulate_y_rotation_matrix_3(rotVec.crd.y,object_array[_object_count].modelTransform);
+        gks_accumulate_z_rotation_matrix_3(rotVec.crd.z,object_array[_object_count].modelTransform);
+        gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, object_array[_object_count].modelTransform);
         
         // !!!: This copies the object
-        object_array[_object_count].instanceObject = *object;
+        object_array[_object_count].meshObject = *object;
         
         object_array[_object_count].scaleVector = scaleVec;
         object_array[_object_count].rotateVector = rotVec;
@@ -100,11 +100,11 @@ void gks_objarr_update_object(GKSint index, GKSint kind, GKSfloat tx, GKSfloat t
 {        
     if (index >=0 && index<_object_count) {
         if (object_array[index].kind == kind) {
-            gks_create_scaling_matrix_3(sx,sy,sz, object_array[index].instanceTransform);
-            gks_accumulate_x_rotation_matrix_3(rx, object_array[index].instanceTransform);
-            gks_accumulate_y_rotation_matrix_3(ry, object_array[index].instanceTransform);
-            gks_accumulate_z_rotation_matrix_3(rz, object_array[index].instanceTransform);
-            gks_accumulate_translation_matrix_3(tx,ty,tz, object_array[index].instanceTransform);
+            gks_create_scaling_matrix_3(sx,sy,sz, object_array[index].modelTransform);
+            gks_accumulate_x_rotation_matrix_3(rx, object_array[index].modelTransform);
+            gks_accumulate_y_rotation_matrix_3(ry, object_array[index].modelTransform);
+            gks_accumulate_z_rotation_matrix_3(rz, object_array[index].modelTransform);
+            gks_accumulate_translation_matrix_3(tx,ty,tz, object_array[index].modelTransform);
             object_array[index].scaleVector.crd.x = sx;
             object_array[index].scaleVector.crd.y = sy;
             object_array[index].scaleVector.crd.z = sz;
@@ -131,7 +131,7 @@ void gks_objarr_delete_at_index(int index)
     if (idx < _object_count) {
   
         // Free the memory associated with actor object
-        GKSobject_3 obj = object_array[idx].instanceObject;
+        GKSobject_3 obj = object_array[idx].meshObject;
         GKSvertexArrPtr verts = obj.vertices;
         GKSpolygonArrPtr polys = obj.polygons;
 //        GKSnormalArrPtr norms = obj.normals;
@@ -156,8 +156,8 @@ void gks_objarr_delete_at_index(int index)
         // brute force delete from array by copying elements from idx 0s based
         for (i=idx; i<_object_count; i++) {
             object_array[i].kind = object_array[i+1].kind;
-            gks_copy_matrix_3(object_array[i+1].instanceTransform, object_array[i].instanceTransform);
-            object_array[i].instanceObject = object_array[i+1].instanceObject;
+            gks_copy_matrix_3(object_array[i+1].modelTransform, object_array[i].modelTransform);
+            object_array[i].meshObject = object_array[i+1].meshObject;
             // needs line and fill colors and transforms? to be complete.
             // Better to use linked list instead.
         }
@@ -201,17 +201,17 @@ void draw_object_3(GKSactor *theObject)
         temp_vertex_array[i].crd.w = 1.0;
     }
     
-    vertexList = theObject->instanceObject.vertices;
-    polygonList = theObject->instanceObject.polygons;
-    transVertList = theObject->instanceObject.transverts;
-    devcoordList = theObject->instanceObject.devcoords;
+    vertexList = theObject->meshObject.vertices;
+    polygonList = theObject->meshObject.polygons;
+    transVertList = theObject->meshObject.transverts;
+    devcoordList = theObject->meshObject.devcoords;
     
     // TODO: transform object vertices first
     // to speed things up I should transform all the vertices of the object
     // to viewport space coordinates, and then test normals and then draw
     // polygons. Use a seperate vertex buffer like the one for polygons.
     
-    polygonCount = theObject->instanceObject.polynum;
+    polygonCount = theObject->meshObject.polynum;
 //    totalVerteces = theObject->vertnum;
 
     for(polygonID=0; polygonID<polygonCount; polygonID++) {
@@ -234,7 +234,7 @@ void draw_object_3(GKSactor *theObject)
 
 void gks_objarr_draw_object(GKSactor the_object)
 {
-    gks_set_world_model_matrix(the_object.instanceTransform);
+    gks_set_world_model_matrix(the_object.modelTransform);
     
     // TODO: arguments smell
     draw_object_3(&the_object);

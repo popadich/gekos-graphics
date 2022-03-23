@@ -116,7 +116,7 @@ typedef struct
     GKSvertexArrPtr  vertices;
     GKSpolygonArrPtr polygons;
     GKSnormalArrPtr  normals;
-    GKSvertexArrPtr  transverts;      // transformed points
+    GKSvertexArrPtr  transverts;
     GKSDCArrPtr      devcoords;
 } GKSobject_3;
 
@@ -126,18 +126,19 @@ typedef enum {
     kPyramidKind,
     kSpaceShuttleKind,
     kHouseKind
-} ObjectKind;
+} GKSobjectKind;
 
 typedef struct
 {
-    ObjectKind kind;
-    GKScolor its_color;
-    GKScolor line_color;
-    GKSmatrix_3 instanceTransform;
-    GKSobject_3 instanceObject;    //@FIXME: this should be a pointer
+    GKSobject_3 meshObject;    // TODO: this should be a pointer?
+    GKSobjectKind kind;
+    GKSmatrix_3 modelTransform; // TODO: not necessary
     GKSvector3d scaleVector;
     GKSvector3d rotateVector;
     GKSvector3d translateVector;
+    GKScolor fill_color;
+    GKScolor line_color;
+    
 } GKSactor;
 
 

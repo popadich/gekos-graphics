@@ -97,6 +97,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     
     // Store one 3D object representation to act as a data entry buffer
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
+    self.object3DRep.lineColor = self.contentLineColor.color;
+    self.object3DRep.fillColor = self.contentFillColor.color;
     
     // MARK: View Matrix Compute
     [self.cameraViewController cameraFixViewMatrix];
@@ -149,7 +151,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverProjectionContext) {
-        // this is for projection matrix changes
+        // MARK: Projection Matrix
         [self.cameraViewController cameraFixProjectionMatrix];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
@@ -159,24 +161,13 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 }
 
 // Object List Stuff
-
-- (BOOL)addObject3DKind:(ObjectKind)kind atLocation:(GKSvector3d)pos withRotation:(GKSvector3d)rot andScale:(GKSvector3d)sca
+- (BOOL)addObject3DStruct:(GKS3DObjectRep *)objRep
 {
     BOOL didAdd = NO;
     GKSobject_3 *objPtr = NULL;
     
-    GKScolor lineColor;
-    NSColor* theColor = self.contentLineColor.color;
-    lineColor.red = [theColor redComponent];
-    lineColor.green = [theColor greenComponent];
-    lineColor.blue = [theColor blueComponent];
-    lineColor.alpha = [theColor alphaComponent];
-    GKScolor fillColor;
-    theColor = self.contentFillColor.color;
-    fillColor.red = [theColor redComponent];
-    fillColor.green = [theColor greenComponent];
-    fillColor.blue = [theColor blueComponent];
-    fillColor.alpha = [theColor alphaComponent];
+    GKSobjectKind kind = (GKSobjectKind)[objRep.objectKind integerValue];
+
     
     
     switch (kind) {
@@ -192,14 +183,27 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
         case kHouseKind:
             objPtr = HouseMesh();
             break;
-            
         default:
             break;
     }
     
     if (objPtr != NULL) {
+        GKSvector3d position = [objRep positionVector];
+        GKSvector3d rotation = [objRep rotationVector];
+        GKSvector3d scale = [objRep scaleVector];
+        
+        CGFloat r,g,b,a;
+        
+        NSColor* theColor = objRep.lineColor;
+        [theColor getRed:&r green:&g blue:&b alpha:&a];
+        GKScolor line_color = {r,g,b,a};
+
+        theColor = objRep.fillColor;
+        [theColor getRed:&r green:&g blue:&b alpha:&a];
+        GKScolor fill_color = {r,g,b,a};
+        
         // add a 3d object to the c model world
-        if (gks_objarr_add(kind, objPtr, pos, rot, sca, lineColor, fillColor)) {
+        if (gks_objarr_add(kind, objPtr, position, rotation, scale, line_color, fill_color)) {
             free(objPtr);  //free object it is copied when added
             didAdd = YES;
         }
@@ -209,29 +213,17 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 
 // add a 3d object to the object GUI world
-- (void)addObjectToListOfKind:(ObjectKind)objectKind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rotate andScale:(GKSvector3d)scale
+- (void)addObject3DToList:(GKS3DObjectRep *)templateObject
 {
-    GKS3DObjectRep* objRep = [[GKS3DObjectRep alloc] init];
-    
-    // TODO: make a copy?
-    objRep.objectKind = [NSNumber numberWithInt:objectKind];
-    objRep.transX = [NSNumber numberWithDouble:location.crd.x];
-    objRep.transY = [NSNumber numberWithDouble:location.crd.y];
-    objRep.transZ = [NSNumber numberWithDouble:  location.crd.z];
-    objRep.scaleX = [NSNumber numberWithDouble:scale.crd.x];
-    objRep.scaleY = [NSNumber numberWithDouble:scale.crd.y];
-    objRep.scaleZ = [NSNumber numberWithDouble:scale.crd.z];
-    objRep.rotX = [NSNumber numberWithDouble:rotate.crd.x];
-    objRep.rotY = [NSNumber numberWithDouble:rotate.crd.y];
-    objRep.rotZ = [NSNumber numberWithDouble:rotate.crd.z];
+    GKS3DObjectRep *object3D = [templateObject copy];
 
-    if ([self addObject3DKind:objectKind atLocation:location withRotation:objRep.rotationVector andScale:objRep.scaleVector]) {
+    // try to add to c data structures
+    if ([self addObject3DStruct:object3D]) {
         // add object representation to mutable array
-        [self.theScene addObjectRep:objRep];
+        [self.theScene addObjectRep:object3D];
     }
     else
         NSBeep();
-    
 }
 
 
@@ -239,11 +231,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
-    NSInteger kind = [self.object3DRep.objectKind integerValue];
-    GKSvector3d position = self.object3DRep.positionVector;
-    GKSvector3d rotation = self.object3DRep.rotationVector;
-    GKSvector3d scaling = self.object3DRep.scaleVector;
-    [self addObjectToListOfKind:(ObjectKind)kind atLocation:position withRotation:rotation andScale:scaling];
+    [self addObject3DToList:self.object3DRep];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
