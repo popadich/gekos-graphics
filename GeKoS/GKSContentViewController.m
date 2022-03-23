@@ -99,9 +99,12 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     
     // MARK: View Matrix Compute
-    [self.cameraViewController cameraClampViewMatrixG];
+    [self.cameraViewController cameraFixViewMatrix];
 
     [self registerAsObserverForCamera];
+    
+    [self setIsCenteredObject:@NO];
+    
 }
 
 - (void)awakeFromNib {
@@ -142,11 +145,12 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     if (context == ObserverPlaneNormalContext) {
         
         // MARK: View Matrix
-        [self.cameraViewController cameraClampViewMatrixG];
+        [self.cameraViewController cameraFixViewMatrix];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverProjectionContext) {
-        // this is for focal length changes only, go direct!
+        // this is for projection matrix changes
+        [self.cameraViewController cameraFixProjectionMatrix];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else {
@@ -252,7 +256,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 - (IBAction)performUpdateQuick:(id)sender {
     
-    [self.cameraViewController cameraClampViewMatrixG];
+    [self.cameraViewController cameraFixViewMatrix];
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 

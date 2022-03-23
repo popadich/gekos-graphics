@@ -216,13 +216,6 @@ static void *CameraRotationContext = &CameraRotationContext;
     [self cameraSetProjectionType:prType];
 }
 
-- (IBAction)changeFocalLength:(id)sender
-{
-    GKSfloat focal = [sender floatValue];
-    NSLog(@"Now Focus %lf", focal);
-    [self cameraAdjustProjectionMatrix];
-}
-
 
 - (IBAction)cameraReset:(id)sender
 {
@@ -287,32 +280,13 @@ static void *CameraRotationContext = &CameraRotationContext;
     }
 }
 
-- (void)cameraAdjustProjectionMatrix {
+- (void)cameraFixProjectionMatrix {
     GKSCameraRep *camera = self.camera;
     if (camera != nil) {
         NSNumber *prType = camera.projectionType;
-        NSInteger projectionType = [prType integerValue];
-
-        if (projectionType == kPerspectiveSimple) {
-            //Set perspective distance
-            double distance = [camera.focalLength doubleValue];
-            gks_set_perspective_simple(distance);
-        }
-        else if (projectionType == kPerspective) {
-            double distance = [camera.focalLength doubleValue];
-            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
-            double near = [camera.near doubleValue];
-            double far = [camera.far doubleValue];
-            gks_set_perspective_projection(alpha, near, far);
-        }
-        else if (projectionType == kAxonometric) {
-            double distance = [camera.focalLength doubleValue];
-            double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
-            double near = [camera.near doubleValue];
-            double far = [camera.far doubleValue];
-            gks_set_perspective_alternate(alpha, near, far);
-        }
+        [self cameraSetProjectionType:prType];
     }
+    
 }
 
 
@@ -362,7 +336,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     }
 }
 
-- (void)cameraClampViewMatrixG {
+- (void)cameraFixViewMatrix {
     GKSmatrix_3    aViewMatrix;
     
     GKSCameraRep *camera = self.camera;

@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContentViewController : NSViewController
 
+@property (strong)NSNumber *isCenteredObject;
+
 @end
 
 NS_ASSUME_NONNULL_END

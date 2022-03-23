@@ -19,8 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    NSLog(@"Drawing Controller Here! Ready to go.");
-    NSLog(@"theScene (representedObject): %@ ", self.representedObject);
+
+    //    NSLog(@"theScene (representedObject): %@ ", self.representedObject);
+    
     
 }
 
@@ -33,13 +34,6 @@
         theView.lineColor = scene.worldLineColor;
         theView.fillColor = scene.worldFillColor;
     }
-}
-
-- (void)setHiddenSurface:(BOOL) flag
-{
-    // stub method need access to drawing view property
-    GKSDrawingView* drawview = (GKSDrawingView*)self.view;
-    drawview.visibleSurfaceOnly = flag;
 }
 
 
