@@ -94,12 +94,20 @@ void gks_set_perspective_simple(GKSfloat d)
 }
 
 
+/*
+    t⍺ = tan(alpha)
+ 
+    1/t⍺ 0    0   0
+    0    1/t⍺ 0   0
+    0    0    a  -1
+    0    0    b   0
+*/
 void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
 
     GKSfloat scale = 1 / tan(alpha * 0.5 * M_PI / 180);
     
-    // for math check
+    // TODO: math check
     GKSfloat n = near;
     GKSfloat f = far;
     

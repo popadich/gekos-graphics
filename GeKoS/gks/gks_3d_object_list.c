@@ -96,8 +96,21 @@ bool gks_objarr_add(GKSobjectKind kind, GKSobject_3 *object, GKSvector3d transVe
     return did_add;
 }
 
-void gks_objarr_update_object(GKSint index, GKSint kind, GKSfloat tx, GKSfloat ty, GKSfloat tz, GKSfloat sx, GKSfloat sy, GKSfloat sz, GKSfloat rx, GKSfloat ry, GKSfloat rz)
-{        
+void gks_objarr_update_object(GKSint index, GKSobjectKind kind, GKSvector3d translate, GKSvector3d rotate, GKSvector3d scale)
+{
+    GKSfloat rx, ry, rz;
+    rx = rotate.crd.x;
+    ry = rotate.crd.y;
+    rz = rotate.crd.z;
+    GKSfloat sx, sy, sz;
+    sx = scale.crd.x;
+    sy = scale.crd.y;
+    sz = scale.crd.z;
+    GKSfloat tx, ty, tz;
+    tx = translate.crd.x;
+    ty = translate.crd.y;
+    tz = translate.crd.z;
+    
     if (index >=0 && index<_object_count) {
         if (object_array[index].kind == kind) {
             gks_create_scaling_matrix_3(sx,sy,sz, object_array[index].modelTransform);
@@ -105,15 +118,9 @@ void gks_objarr_update_object(GKSint index, GKSint kind, GKSfloat tx, GKSfloat t
             gks_accumulate_y_rotation_matrix_3(ry, object_array[index].modelTransform);
             gks_accumulate_z_rotation_matrix_3(rz, object_array[index].modelTransform);
             gks_accumulate_translation_matrix_3(tx,ty,tz, object_array[index].modelTransform);
-            object_array[index].scaleVector.crd.x = sx;
-            object_array[index].scaleVector.crd.y = sy;
-            object_array[index].scaleVector.crd.z = sz;
-            object_array[index].translateVector.crd.x = tx;
-            object_array[index].translateVector.crd.y = ty;
-            object_array[index].translateVector.crd.z = tz;
-            object_array[index].rotateVector.crd.x = rx;
-            object_array[index].rotateVector.crd.y = ry;
-            object_array[index].rotateVector.crd.z = rz;
+            object_array[index].scaleVector = scale;
+            object_array[index].translateVector = translate;
+            object_array[index].rotateVector = rotate;
             // UpdateObjectList(index,kind,tx,ty,tz,rx,ry,rz,sx,sy,sz);
         }
     }

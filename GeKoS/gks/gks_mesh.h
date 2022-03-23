@@ -8,6 +8,7 @@
 #ifndef gks_mesh_h
 #define gks_mesh_h
 
+#include <stdbool.h>
 #include "gks_types.h"
 
 
@@ -20,9 +21,9 @@
 #define GKS_HOUSE_VERTEX_COUNT 10
 #define GKS_HOUSE_POLYGON_COUNT 7
 
-GKSobject_3 *CubeMesh(void);
-GKSobject_3 *PyramidMesh(void);
-GKSobject_3 *HouseMesh(void);
-GKSobject_3 *SphereMesh(void);
+GKSobject_3 *CubeMesh(bool centered);
+GKSobject_3 *PyramidMesh(bool centered);
+GKSobject_3 *HouseMesh(bool centered);
+GKSobject_3 *SphereMesh(bool centered);
 
 #endif /* gks_mesh_h */

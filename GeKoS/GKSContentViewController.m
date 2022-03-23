@@ -164,35 +164,32 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 - (BOOL)addObject3DStruct:(GKS3DObjectRep *)objRep
 {
     BOOL didAdd = NO;
-    GKSobject_3 *objPtr = NULL;
+    BOOL isCentered = [self.isCenteredObject boolValue];
+    GKSobject_3 *mesh_object_ptr = NULL;
     
     GKSobjectKind kind = (GKSobjectKind)[objRep.objectKind integerValue];
-
-    
-    
     switch (kind) {
         case kCubeKind:
-            objPtr = CubeMesh();
+            mesh_object_ptr = CubeMesh(isCentered);
             break;
         case kSphereKind:
-            objPtr = SphereMesh();
+            mesh_object_ptr = SphereMesh(isCentered);
             break;
         case kPyramidKind:
-            objPtr = PyramidMesh();
+            mesh_object_ptr = PyramidMesh(isCentered);
             break;
         case kHouseKind:
-            objPtr = HouseMesh();
+            mesh_object_ptr = HouseMesh(isCentered);
             break;
         default:
             break;
     }
     
-    if (objPtr != NULL) {
+    if (mesh_object_ptr != NULL) {
+        CGFloat r,g,b,a;
         GKSvector3d position = [objRep positionVector];
         GKSvector3d rotation = [objRep rotationVector];
         GKSvector3d scale = [objRep scaleVector];
-        
-        CGFloat r,g,b,a;
         
         NSColor* theColor = objRep.lineColor;
         [theColor getRed:&r green:&g blue:&b alpha:&a];
@@ -203,8 +200,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
         GKScolor fill_color = {r,g,b,a};
         
         // add a 3d object to the c model world
-        if (gks_objarr_add(kind, objPtr, position, rotation, scale, line_color, fill_color)) {
-            free(objPtr);  //free object it is copied when added
+        if (gks_objarr_add(kind, mesh_object_ptr, position, rotation, scale, line_color, fill_color)) {
+            free(mesh_object_ptr);  //free object it is copied when added
             didAdd = YES;
         }
     }
