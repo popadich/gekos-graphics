@@ -27,58 +27,42 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    GKSCameraRep *camera = self.representedObject;
+    self.camera = self.representedObject;
     
-    [self registerAsObserverForCamera:camera];
-    self.camera = camera;
-    [self cameraReset:self];
+    [self cameraDefaultSettings:self.representedObject];
 
     // focal length for head view
     [self setFocus:@1.0];    // do not change
 }
 
 
-- (void)registerAsObserverForCamera:(GKSCameraRep*)camera
+- (void) cameraDefaultSettings:(GKSCameraRep *)theCamera
 {
-    [camera addObserver:self
-              forKeyPath:@"yaw"
-                 options:(NSKeyValueObservingOptionNew |
-                          NSKeyValueObservingOptionOld)
-                 context:CameraRotationContext];
-    [camera addObserver:self
-              forKeyPath:@"pitch"
-                 options:(NSKeyValueObservingOptionNew |
-                          NSKeyValueObservingOptionOld)
-                 context:CameraRotationContext];
-    [camera addObserver:self
-              forKeyPath:@"roll"
-                 options:(NSKeyValueObservingOptionNew |
-                          NSKeyValueObservingOptionOld)
-                 context:CameraRotationContext];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
-{
-    if (context == CameraRotationContext) {
-        NSNumber *newValue = [change valueForKey:@"new"];
-        if ([keyPath isEqualToString:@"yaw"]) {
-            [self adjustCameraWithYaw:newValue];
-        }
-        else if ([keyPath isEqualToString:@"pitch"]) {
-            [self adjustCameraWithPitch:newValue];
-        }
-        else if([keyPath isEqualToString:@"roll"]) {
-            [self adjustCameraWithRoll:newValue];
-        }
-    }
-    else {
-        // Any unrecognized context must belong to super
-        [super observeValueForKeyPath:keyPath
-                             ofObject:object
-                               change:change
-                               context:context];
-    }
+    if (theCamera) {
+        theCamera.upX = @0.0;
+        theCamera.upY = @1.0;
+        theCamera.upZ = @0.0;
+        theCamera.positionX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocX];
+        theCamera.positionY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocY];
+        theCamera.positionZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocZ];
+        theCamera.dirX = @0.0;
+        theCamera.dirY = @0.0;
+        theCamera.dirZ = @-1.0;
     
+        theCamera.focalLength = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
+        theCamera.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
+        theCamera.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
+        
+        theCamera.roll = @0.0;
+        theCamera.pitch = @0.0;
+        theCamera.yaw = @0.0;
+        
+        NSNumber *prType =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
+        
+        theCamera.projectionType = prType;
+        [self cameraSetProjectionType:prType];
+    }
+
 }
 
 
@@ -97,19 +81,19 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)adjustCameraWithYaw:(NSNumber *)angle
 {
-    [self changeYaw:angle];
+    [self adjustYawToAngle:angle];
     [self adjustHead];
 }
 
 - (void)adjustCameraWithPitch:(NSNumber *)angle
 {
-    [self changePitch:angle];
+    [self adjustPitchToAngle:angle];
     [self adjustHead];
 }
 
 - (void)adjustCameraWithRoll:(NSNumber *)angle
 {
-    [self changeRoll:angle];
+    [self adjustRollToAngle:angle];
     [self adjustHead];
 }
 
@@ -126,7 +110,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     [self.headView setNeedsDisplay:YES];
 }
 
-- (void)changeRoll:(NSNumber *)angle
+- (void)adjustRollToAngle:(NSNumber *)angle
 {
     GKSvector3d vector_y = {0.0, 0.0, -1.0, 1.0};  // unit vector along the y-axis
 
@@ -149,7 +133,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.z] forKey:@"dirZ"];
 }
 
-- (void)changePitch:(NSNumber *)angle
+- (void)adjustPitchToAngle:(NSNumber *)angle
 {
     GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit vector along the z-axis
 
@@ -173,7 +157,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 }
 
-- (void)changeYaw:(NSNumber *)angle
+- (void)adjustYawToAngle:(NSNumber *)angle
 {
     GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit vector along the z-axis
 
@@ -216,35 +200,29 @@ static void *CameraRotationContext = &CameraRotationContext;
     [self cameraSetProjectionType:prType];
 }
 
+- (IBAction)doChangeYaw:(id)sender
+{
+    NSNumber* slide = [sender objectValue];
+    [self adjustCameraWithYaw:slide];
+    
+}
 
-- (IBAction)cameraReset:(id)sender
+- (IBAction)doChangePitch:(id)sender
+{
+    NSNumber *sliderValue = [sender objectValue];
+    [self adjustCameraWithPitch:sliderValue];
+}
+
+- (IBAction)doChangeRoll:(id)sender
+{
+    NSNumber *sliderValue = [sender objectValue];
+    [self adjustCameraWithRoll:sliderValue];
+}
+
+- (IBAction)doCameraReset:(id)sender
 {
     GKSCameraRep *camera = self.camera;
-    
-    if (camera) {
-        camera.upX = @0.0;
-        camera.upY = @1.0;
-        camera.upZ = @0.0;
-        camera.positionX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocX];
-        camera.positionY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocY];
-        camera.positionZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocZ];
-        camera.dirX = @0.0;
-        camera.dirY = @0.0;
-        camera.dirZ = @-1.0;
-    
-        camera.focalLength = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-        camera.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
-        camera.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
-        
-        camera.roll = @0.0;
-        camera.pitch = @0.0;
-        camera.yaw = @0.0;
-        
-        NSNumber *prType =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
-        
-        camera.projectionType = prType;
-        [self cameraSetProjectionType:prType];
-    }
+    [self cameraDefaultSettings:camera];
 }
 
 
@@ -366,10 +344,7 @@ static void *CameraRotationContext = &CameraRotationContext;
         [self.camera setValue:vhaty forKey:@"vHatY"];
         [self.camera setValue:vhatz forKey:@"vHatZ"];
 
-        
-
         gks_set_view_matrix(aViewMatrix);
-        
     }
 }
 

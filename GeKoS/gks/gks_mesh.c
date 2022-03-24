@@ -38,7 +38,6 @@ GKSobject_3 *CubeMesh(bool centered)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSvertexArrPtr transList = NULL;
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
 
     // copy vertices using pointer arithmetic
@@ -69,7 +68,6 @@ GKSobject_3 *CubeMesh(bool centered)
     aCube->vertices = vertexList;
     aCube->polygons = polygonList;
     aCube->normals = NULL;
-    aCube->transverts = transList;
     aCube->devcoords = devCoordList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
     aCube->polynum = GKS_CUBE_POLYGON_COUNT;
@@ -103,7 +101,6 @@ GKSobject_3 *PyramidMesh(bool centered)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSvertexArrPtr transList = NULL;
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_2));
 
     // copy vertices using pointer arithmetic
@@ -136,7 +133,7 @@ GKSobject_3 *PyramidMesh(bool centered)
     aPyramid->polygons = polygonList;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
     aPyramid->normals = NULL;
-    aPyramid->transverts = transList;
+    aPyramid->transverts = NULL;
     aPyramid->devcoords = devCoordList;
     
     return aPyramid;
@@ -231,7 +228,6 @@ GKSobject_3 *SphereMesh(bool centered)
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(computedPolygonCount, sizeof(GKSpolygon_3));
-    GKSvertexArrPtr transList = NULL;
     GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(computedVertexCount, sizeof(GKSpoint_2));
 
     GKSobject_3 *aSphere = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
@@ -275,10 +271,10 @@ GKSobject_3 *SphereMesh(bool centered)
     
     aSphere->vertices = vertexList;
     aSphere->polygons = polygonList;
-    aSphere->normals = NULL;
     aSphere->vertnum = vertexCount;
     aSphere->polynum = polygonCount;
-    aSphere->transverts = transList;
+    aSphere->normals = NULL;
+    aSphere->transverts = NULL;
     aSphere->devcoords = devCoordList;
 
     return aSphere;
