@@ -159,7 +159,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (void)adjustYawToAngle:(NSNumber *)angle
 {
-    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit vector along the z-axis
+    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit co-linear with z-axis
 
     GKSvector3d trans_point;
     GKSmatrix_3 T;
@@ -175,7 +175,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_accumulate_z_rotation_matrix_3(phi, T);
     
     // is this a 3x3 operation?
-    gks_transform_point(T, vector_z, &trans_point);
+    gks_transform_vector_3(T, vector_z, &trans_point);
     
     self.camera.dirX = [NSNumber numberWithDouble:trans_point.crd.x];
     self.camera.dirY = [NSNumber numberWithDouble:trans_point.crd.y];
@@ -278,43 +278,42 @@ static void *CameraRotationContext = &CameraRotationContext;
     GKSCameraRep *camera = self.camera;
 
     if (camera != nil) {
-        //
-        // init 3D camera view and window viewport
-        // sets up aView matrix based on VRP, VPN and VUP
-        //Set View Up Vector
-        GKSvector3d up_vector;
-        up_vector.crd.x = [camera.upX doubleValue];
-        up_vector.crd.y = [camera.upY doubleValue];
-        up_vector.crd.z = [camera.upZ doubleValue];
-        up_vector.crd.w = 1.0;
+        GKSmatrix_3    aViewMatrix;
         
-        //Set View Plane Normal
-        // the view plane is like a tv screen in front of your face.
-        // this vector sets the normal to that "screen". The plane is
-        // actually an infinite plane.
-        GKSvector3d look_at;
-        look_at.crd.x = [camera.lookX doubleValue];
-        look_at.crd.y = [camera.lookY doubleValue];
-        look_at.crd.z = [camera.lookZ doubleValue];
-        look_at.crd.w = 1.0;
+        GKSvector3d up_vector = GKSMakeVector(camera.upX.doubleValue, camera.upY.doubleValue, camera.upZ.doubleValue);
         
-        //Set View Reference Point
-        GKSvector3d pos;
-        pos.crd.x = [camera.positionX doubleValue];
-        pos.crd.y = [camera.positionY doubleValue];
-        pos.crd.z = [camera.positionZ doubleValue];
-        pos.crd.w = 1.0;
+        GKSvector3d look_at = GKSMakeVector(camera.lookX.doubleValue, camera.lookY.doubleValue, camera.lookZ.doubleValue);
         
-        GKSvector3d dir_vector;
+        GKSvector3d pos = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
+        
+        GKSvector3d dir_vector = GKSMakeVector(0.0, 0.0, 0.0);
         gks_gen_dir_vector(pos, look_at, &dir_vector);
+        NSLog(@"Dir: %lf, %lf, %lf, %lf", dir_vector.crd.x, dir_vector.crd.y, dir_vector.crd.z, dir_vector.crd.w );
+
+        // Set Camera View Matrix
+        gks_gen_view_matrix(pos, dir_vector, up_vector, aViewMatrix);
+        gks_set_view_matrix(aViewMatrix);
+        
+        // Set UI values
+        NSNumber *uhatx = [NSNumber numberWithDouble:aViewMatrix[0][0]];
+        NSNumber *uhaty = [NSNumber numberWithDouble:aViewMatrix[0][1]];
+        NSNumber *uhatz = [NSNumber numberWithDouble:aViewMatrix[0][2]];
+
+        NSNumber *vhatx = [NSNumber numberWithDouble:aViewMatrix[1][0]];
+        NSNumber *vhaty = [NSNumber numberWithDouble:aViewMatrix[1][1]];
+        NSNumber *vhatz = [NSNumber numberWithDouble:aViewMatrix[1][2]];
+        
         camera.dirX = @(dir_vector.crd.x);
         camera.dirY = @(dir_vector.crd.y);
         camera.dirZ = @(dir_vector.crd.z);
         
-        // Set Camera View Matrix
-        GKSmatrix_3    aViewMatrix;
-        gks_gen_lookat_view_matrix(pos, look_at, up_vector, aViewMatrix);
-        gks_set_view_matrix(aViewMatrix);
+        [self.camera setValue:uhatx forKey:@"uHatX"];
+        [self.camera setValue:uhaty forKey:@"uHatY"];
+        [self.camera setValue:uhatz forKey:@"uHatZ"];
+        
+        [self.camera setValue:vhatx forKey:@"vHatX"];
+        [self.camera setValue:vhaty forKey:@"vHatY"];
+        [self.camera setValue:vhatz forKey:@"vHatZ"];
 
     }
 }
@@ -332,7 +331,9 @@ static void *CameraRotationContext = &CameraRotationContext;
         GKSvector3d position = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
 
         gks_gen_view_matrix(position, dir_vector, up_vector, aViewMatrix);
+        gks_set_view_matrix(aViewMatrix);
         
+        // Set UI values
         NSNumber *uhatx = [NSNumber numberWithDouble:aViewMatrix[0][0]];
         NSNumber *uhaty = [NSNumber numberWithDouble:aViewMatrix[0][1]];
         NSNumber *uhatz = [NSNumber numberWithDouble:aViewMatrix[0][2]];
@@ -349,7 +350,6 @@ static void *CameraRotationContext = &CameraRotationContext;
         [self.camera setValue:vhaty forKey:@"vHatY"];
         [self.camera setValue:vhatz forKey:@"vHatZ"];
 
-        gks_set_view_matrix(aViewMatrix);
     }
 }
 

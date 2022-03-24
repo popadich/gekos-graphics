@@ -100,7 +100,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.object3DRep.lineColor = self.contentLineColor.color;
     self.object3DRep.fillColor = self.contentFillColor.color;
     
-    // MARK: View Matrix Compute
+    // MARK: View Matrix Compute and Set Global
     [self.cameraViewController cameraFixViewMatrix];
 
     [self registerAsObserverForCamera];
@@ -146,7 +146,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 {
     if (context == ObserverPlaneNormalContext) {
         
-        // MARK: View Matrix
+        // MARK: View Matrix Compute and Set Global
         [self.cameraViewController cameraFixViewMatrix];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
@@ -241,7 +241,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 - (IBAction)performUpdateQuick:(id)sender {
     
-    [self.cameraViewController cameraFixViewMatrix];
+    [self.cameraViewController cameraDoLookAtG];
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 
