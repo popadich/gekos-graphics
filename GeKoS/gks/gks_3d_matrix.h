@@ -30,12 +30,9 @@ void gks_accumulate_y_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 m);
 void gks_accumulate_z_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 m);
 void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, GKSmatrix_3 m);
 
-void gks_transform_point_3(GKSmatrix_3 trans_matrix, GKSpoint_3 *old_point, GKSpoint_3 *new_point);
-void gks_transform_point(GKSmatrix_3 tm, GKSvector3d p1, GKSvector3dPtr result);
-void gks_transform_vector(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
-//void gks_transform_vector_4(GKSmatrix_3 tm, GKSvector_3 v, GKSvector_3 result);
-void gks_transform_vector_projection(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
-void gks_transform_vector_hom(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
+void gks_transform_point(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
+void gks_vector_transform_projection(GKSvector3d v, GKSmatrix_3 tm, GKSvector3dPtr result);
+void gks_transform_vector_3(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
 
 // Matrix Operations
 void gks_copy_matrix_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_copy);
@@ -43,8 +40,7 @@ void gks_transpose_matrix_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_trans);
 void gks_multiply_matrix_3(GKSmatrix_3 a, GKSmatrix_3 b, GKSmatrix_3 matrix_result);
 GKSfloat gks_determinant_matrix_3(GKSmatrix_3 M);
 
-void gks_plane_equation_3(GKSpoint_3 p1, GKSpoint_3 p2, GKSpoint_3 p3, GKSvector3dPtr plane_ptr);
-void gks_plane_equation(GKSvector3d p1, GKSvector3d p2, GKSvector3d p3, GKSvector3dPtr plane);
+void gks_plane_equation_3(GKSvector3d p1, GKSvector3d p2, GKSvector3d p3, GKSvector3dPtr plane);
 
 // Vector Operations
 GKSfloat vecdot(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b);

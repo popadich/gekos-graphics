@@ -351,28 +351,23 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 - (void)testTransformPoint3 {
-    GKSpoint_3 p0 = {1.0, 1.0, 1.0};
-    GKSpoint_3 p1;
+    GKSvector3d p0 = {1.0, 1.0, 1.0};
+    GKSvector3d p1;
     
     gks_create_y_rotation_matrix_3(theta, im);
-    gks_transform_point_3(im, &p0, &p1);
+    gks_transform_point(im, p0, &p1);
 
-    XCTAssertEqualWithAccuracy(p1.x, 0.966 + 0.259, 0.001);
-    XCTAssertEqualWithAccuracy(p1.y, 1.0, 0.001);
-    XCTAssertEqualWithAccuracy(p1.z, 0.966 - 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(p1.crd.x, 0.966 + 0.259, 0.001);
+    XCTAssertEqualWithAccuracy(p1.crd.y, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(p1.crd.z, 0.966 - 0.259, 0.001);
     
     gks_accumulate_y_rotation_matrix_3(theta, im);
-    gks_transform_point_3(im, &p0, &p1);
+    gks_transform_point(im, p0, &p1);
 
-    XCTAssertEqualWithAccuracy(p1.x, 0.866 + 0.5, 0.001);
-    XCTAssertEqualWithAccuracy(p1.y, 1.0, 0.001);
-    XCTAssertEqualWithAccuracy(p1.z, 0.866 - 0.5, 0.001);
+    XCTAssertEqualWithAccuracy(p1.crd.x, 0.866 + 0.5, 0.001);
+    XCTAssertEqualWithAccuracy(p1.crd.y, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(p1.crd.z, 0.866 - 0.5, 0.001);
 
-    //ac_scale_3(2.0, 2.0, 2.0, m);
-
-    XCTAssertEqualWithAccuracy(p0.x, 1.0, 0.001);
-    XCTAssertEqualWithAccuracy(p0.y, 1.0, 0.001);
-    XCTAssertEqualWithAccuracy(p0.z, 1.0, 0.001);
 }
 
 - (void)testTransposeMatrix3 {
@@ -461,14 +456,14 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 - (void)testPlaneEquation {
-    GKSpoint_3 p1 = {0.0, 0.0, 0.0};
-    GKSpoint_3 p2 = {1.0, 0.0, 0.0};
-    GKSpoint_3 p3 = {1.0, 1.0, 0.0};
-    GKSpoint_3 p4 = {0.0, 1.0, 0.0};
-    GKSpoint_3 p5 = {0.0, 0.0, 1.0};
-    GKSpoint_3 p6 = {1.0, 0.0, 1.0};
-    GKSpoint_3 p7 = {1.0, 1.0, 1.0};
-    GKSpoint_3 p8 = {0.0, 1.0, 1.0};
+    GKSvector3d p1 = {0.0, 0.0, 0.0, 1.0};
+    GKSvector3d p2 = {1.0, 0.0, 0.0, 1.0};
+    GKSvector3d p3 = {1.0, 1.0, 0.0, 1.0};
+    GKSvector3d p4 = {0.0, 1.0, 0.0, 1.0};
+    GKSvector3d p5 = {0.0, 0.0, 1.0, 1.0};
+    GKSvector3d p6 = {1.0, 0.0, 1.0, 1.0};
+    GKSvector3d p7 = {1.0, 1.0, 1.0, 1.0};
+    GKSvector3d p8 = {0.0, 1.0, 1.0, 1.0};
     
     GKSvector3d testPlane = {0.0, 0.0, 0.0, 0.0};    // this is weird using a point type for a plane type.
     

@@ -126,7 +126,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
 
-    gks_transform_point_3(T, &vector_y.crd, &trans_point.crd);
+    gks_transform_point(T, vector_y, &trans_point);
     
     [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.x] forKey:@"dirX"];
     [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.y] forKey:@"dirY"];
@@ -149,7 +149,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_z_rotation_matrix_3(-phi, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
-    gks_transform_point_3(T, &vector_z.crd, &trans_point.crd);
+    gks_transform_point(T, vector_z, &trans_point);
     
     self.camera.dirX = [NSNumber numberWithDouble:trans_point.crd.x];
     self.camera.dirY = [NSNumber numberWithDouble:trans_point.crd.y];
@@ -202,21 +202,26 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 - (IBAction)doChangeYaw:(id)sender
 {
-    NSNumber* slide = [sender objectValue];
-    [self adjustCameraWithYaw:slide];
-    
+    if ([sender isKindOfClass:[NSSlider class]]) {
+        NSNumber* slide = [sender objectValue];
+        [self adjustCameraWithYaw:slide];
+    }
 }
 
 - (IBAction)doChangePitch:(id)sender
 {
-    NSNumber *sliderValue = [sender objectValue];
-    [self adjustCameraWithPitch:sliderValue];
+    if ([sender isKindOfClass:[NSSlider class]]) {
+        NSNumber *sliderValue = [sender objectValue];
+        [self adjustCameraWithPitch:sliderValue];
+    }
 }
 
 - (IBAction)doChangeRoll:(id)sender
 {
-    NSNumber *sliderValue = [sender objectValue];
-    [self adjustCameraWithRoll:sliderValue];
+    if ([sender isKindOfClass:[NSSlider class]]) {
+        NSNumber *sliderValue = [sender objectValue];
+        [self adjustCameraWithRoll:sliderValue];
+    }
 }
 
 - (IBAction)doCameraReset:(id)sender
