@@ -232,8 +232,8 @@ void draw_object_3(GKSactor *theObject)
             temp_vertex_array[j] = vertexList[vertexNumber];
         }
 
-        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, transVertList, devcoordList, &theObject->line_color);
-        gks_localpolyline_3(polygonID, polygon_point_count, transVertList, devcoordList, &theObject->line_color);
+        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, devcoordList, &theObject->line_color);
+        gks_localpolyline_3(polygonID, polygon_point_count, devcoordList, &theObject->line_color);
         
     }
 }

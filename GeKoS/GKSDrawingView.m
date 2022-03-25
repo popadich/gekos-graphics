@@ -59,6 +59,12 @@
     andBlueColor = [NSColor colorWithRed:0.0 green:39.0/255.0 blue:76.0/255.0 alpha:1.0];
     _visibleSurfaceOnly = NO;
     _itemLineWidth = 1.0;
+    
+    
+    // Callback registration.
+    struct mystery_data polylinedata = {3, NO, "polyliner", NULL};
+    polylinedata.hiddenLineRemovalFlag = self.visibleSurfaceOnly;
+    localpolyline_cb_register(my_polyline_cb, &polylinedata);
 }
 
 
@@ -69,39 +75,21 @@ struct mystery_data {
     void* ns_bezier_path;
 };
 
-static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr trans_array, GKSDCArrPtr dc_array, GKScolor *lineColor, void* userdata)
+static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array, GKScolor *lineColor, void* userdata)
 {
-    int             vertexID;
-    GKSpoint_2      dc;             // device coordinate
-    GKSint          r0, s0;
-
-    NSBezierPath* polyPath = [NSBezierPath bezierPath];
-    
     // set pen color to object color
     NSColor* aColor = [NSColor colorWithRed:lineColor->red green:lineColor->green blue:lineColor->blue alpha:lineColor->alpha];
     [aColor setStroke];
 
-    // restore point 0
-//    vrc = trans_array[0];
-    
-    // restore device coordinate
-    dc = dc_array[0];
-    r0 = dc.x;
-    s0 = dc.y;
-    
-    // MoveTo call on Cocoa object
-    [polyPath moveToPoint:NSMakePoint(r0, s0)];
-    
-    for (vertexID=1; vertexID<num_pt; vertexID++) {
-
-        // restore device coordinate
+    // dc_array holds pre-computed device coordinates
+    GKSpoint_2 dc = dc_array[0]; // device coordinate
+    NSBezierPath* polyPath = [NSBezierPath bezierPath];
+    [polyPath moveToPoint:NSMakePoint(dc.x, dc.y)];
+    for (int vertexID=1; vertexID<num_pt; vertexID++) {
         dc = dc_array[vertexID];
-        
-        // LineTo call on Cocoa object
         [polyPath lineToPoint:NSMakePoint(dc.x, dc.y)];
     }
-    // LineTo call on Cocoa object
-    [polyPath lineToPoint:NSMakePoint(r0, s0)];
+    [polyPath closePath];
     [polyPath stroke];
     
 }
@@ -110,11 +98,7 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr tran
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
-    
-    // Callback registration. Look into putting this in the awake method.
-    struct mystery_data polylinedata = {3, NO, "polyliner", NULL};
-    polylinedata.hiddenLineRemovalFlag = self.visibleSurfaceOnly;
-    localpolyline_cb_register(my_polyline_cb, &polylinedata);
+
     
     
     // Drawing code here.
