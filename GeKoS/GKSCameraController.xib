@@ -147,7 +147,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatY" id="pbm-Qx-uXA"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatY" id="dLR-ZX-aej"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-Nb-HnH">
@@ -159,7 +159,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatX" id="ms9-Mx-VnL"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatX" id="rSm-V0-Gmz"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OGA-9b-7I8">
@@ -171,7 +171,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirZ" id="e15-SV-9rW"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatZ" id="vdq-ko-UF9"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yfc-Fh-fBh">
@@ -183,7 +183,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirX" id="OVr-XD-hAi"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatX" id="Tn4-Na-pI3"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5mx-rN-Vzq">
@@ -195,7 +195,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatX" id="pia-ax-PeI"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirX" id="luX-v8-Txc"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-kr-0Iw">
@@ -207,7 +207,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirY" id="p3F-LW-LS3"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatY" id="fu3-dy-hvk"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oRA-ng-btd">
@@ -219,7 +219,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatZ" id="T6J-Ix-Fkd"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatZ" id="OcH-1t-D50"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jBU-da-DlQ">
@@ -231,7 +231,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatY" id="Hzl-ma-j0t"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirY" id="oCm-Qo-e3e"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U9B-Nt-32E">
@@ -243,7 +243,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatZ" id="qUr-oF-IdN"/>
+                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirZ" id="Qkq-F4-pgb"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fw2-eU-vpc">
@@ -273,8 +273,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4LN-lO-1hw">
-                                <rect key="frame" x="6" y="69" width="27" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="vht:" id="pRf-VX-qeY">
+                                <rect key="frame" x="6" y="69" width="28" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="uht:" id="pRf-VX-qeY">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Nka-a8-FHI"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -282,8 +282,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5UB-pX-3gx">
-                                <rect key="frame" x="9" y="45" width="24" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="dir:" id="3Ad-ng-A9Q">
+                                <rect key="frame" x="7" y="45" width="27" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="vht:" id="3Ad-ng-A9Q">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="IyE-1C-68e"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -291,8 +291,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zDa-V3-LIw">
-                                <rect key="frame" x="9" y="21" width="24" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="uht" id="SbD-uK-2wc">
+                                <rect key="frame" x="10" y="21" width="24" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="dir:" id="SbD-uK-2wc">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="3" maximumFractionDigits="3" id="Lo7-wd-sje"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

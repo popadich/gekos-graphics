@@ -1006,7 +1006,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(result_matrix[2][0], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[2][1], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[2][2], -1.0, epsilon);
-    XCTAssertEqualWithAccuracy(result_matrix[2][3], -3.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][3], 3.0, epsilon);
 
     XCTAssertEqualWithAccuracy(result_matrix[3][0], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[3][1], 0.0, epsilon);
@@ -1053,7 +1053,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(result_matrix[2][0], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[2][1], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[2][2], -1.0, epsilon);
-    XCTAssertEqualWithAccuracy(result_matrix[2][3], -3.0, epsilon);
+    XCTAssertEqualWithAccuracy(result_matrix[2][3], 3.0, epsilon);
 
     XCTAssertEqualWithAccuracy(result_matrix[3][0], 0.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[3][1], 0.0, epsilon);
@@ -1091,7 +1091,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(theResultMatrix[0][0], 1.0);
     XCTAssertEqual(theResultMatrix[1][1], 1.0);
     XCTAssertEqual(theResultMatrix[2][2], -1.0);
-    XCTAssertEqual(theResultMatrix[2][3], -4.0);
+    XCTAssertEqual(theResultMatrix[2][3], 4.0);
     XCTAssertEqual(theResultMatrix[3][3], 1.0);
 
 }
@@ -1126,7 +1126,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(theResultMatrix[0][0], 1.0);
     XCTAssertEqual(theResultMatrix[1][1], 1.0);
     XCTAssertEqual(theResultMatrix[2][2], -1.0);
-    XCTAssertEqual(theResultMatrix[2][3], -4.0);
+    XCTAssertEqual(theResultMatrix[2][3], 4.0);
     XCTAssertEqual(theResultMatrix[3][3], 1.0);
 
 }
@@ -1161,7 +1161,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(theResultMatrix[0][0], 0.7071, epsilon);
     XCTAssertEqual(theResultMatrix[0][1], 0.0);
     XCTAssertEqualWithAccuracy(theResultMatrix[0][2], 0.7071, epsilon);
-    XCTAssertEqual(theResultMatrix[0][3], 0.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[0][3], -2.828, epsilon);
     XCTAssertEqual(theResultMatrix[1][0], 0.0);
     XCTAssertEqualWithAccuracy(theResultMatrix[1][1], 1.0, epsilon);
     XCTAssertEqual(theResultMatrix[1][2], 0.0);
@@ -1169,7 +1169,7 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(theResultMatrix[2][0], 0.7071, epsilon);
     XCTAssertEqual(theResultMatrix[2][1], 0.0);
     XCTAssertEqualWithAccuracy(theResultMatrix[2][2], -0.7071, epsilon);
-    XCTAssertEqual(theResultMatrix[2][3], -4.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[2][3], 2.828, epsilon);
     XCTAssertEqual(theResultMatrix[3][0], 0.0);
     XCTAssertEqual(theResultMatrix[3][1], 0.0);
     XCTAssertEqual(theResultMatrix[3][2], 0.0);
@@ -1211,11 +1211,11 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(theResultMatrix[1][0], 0.0);
     XCTAssertEqualWithAccuracy(theResultMatrix[1][1], 0.7071, epsilon);
     XCTAssertEqualWithAccuracy(theResultMatrix[1][2], 0.7071, epsilon);
-    XCTAssertEqual(theResultMatrix[1][3], 0.0);
+    XCTAssertEqualWithAccuracy(theResultMatrix[1][3], -2.828 , epsilon);
     XCTAssertEqual(theResultMatrix[2][0], 0.0);
     XCTAssertEqualWithAccuracy(theResultMatrix[2][1], 0.7071, epsilon);
     XCTAssertEqualWithAccuracy(theResultMatrix[2][2], -0.7071, epsilon);
-    XCTAssertEqualWithAccuracy(theResultMatrix[2][3], -4.0, epsilon);
+    XCTAssertEqualWithAccuracy(theResultMatrix[2][3], 2.828, epsilon);
     XCTAssertEqual(theResultMatrix[3][0], 0.0);
     XCTAssertEqual(theResultMatrix[3][1], 0.0);
     XCTAssertEqual(theResultMatrix[3][2], 0.0);

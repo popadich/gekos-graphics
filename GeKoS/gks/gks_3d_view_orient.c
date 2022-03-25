@@ -53,32 +53,63 @@ void gks_gen_view_matrix(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, 
     vectorcrossproduct(u_vector, w_vector, &v_vector); //vHat
 
     
+    
+    
     // Populating the View Matrix:
     // Normaly the basis vectors would go in the columns of the matrix M
     // but we want the inverse of M, which luckily happens to be the same as
     // the transpose of M and therefore the basis vectors go into the rows
     // of the matrix.
     //
-    result[0][0] = u_vector.crd.x;
-    result[0][1] = u_vector.crd.y;
-    result[0][2] = u_vector.crd.z;
-    result[0][3] = -obs.crd.x;
-    
-    result[1][0] = v_vector.crd.x;
-    result[1][1] = v_vector.crd.y;
-    result[1][2] = v_vector.crd.z;
-    result[1][3] = -obs.crd.y;
-    
-    result[2][0] = w_vector.crd.x;
-    result[2][1] = w_vector.crd.y;
-    result[2][2] = w_vector.crd.z;
-    result[2][3] = -obs.crd.z;
-    
-    result[3][0] = 0.0;
-    result[3][1] = 0.0;
-    result[3][2] = 0.0;
-    result[3][3] = 1.0;
+//    result[0][0] = u_vector.crd.x;
+//    result[0][1] = u_vector.crd.y;
+//    result[0][2] = u_vector.crd.z;
+//    result[0][3] = -obs.crd.x;
+//    
+//    result[1][0] = v_vector.crd.x;
+//    result[1][1] = v_vector.crd.y;
+//    result[1][2] = v_vector.crd.z;
+//    result[1][3] = -obs.crd.y;
+//    
+//    result[2][0] = w_vector.crd.x;
+//    result[2][1] = w_vector.crd.y;
+//    result[2][2] = w_vector.crd.z;
+//    result[2][3] = -obs.crd.z;
+//    
+//    result[3][0] = 0.0;
+//    result[3][1] = 0.0;
+//    result[3][2] = 0.0;
+//    result[3][3] = 1.0;
 
+    
+    GKSmatrix_3 orientation;
+    orientation[0][0] = u_vector.crd.x;
+    orientation[0][1] = u_vector.crd.y;
+    orientation[0][2] = u_vector.crd.z;
+    orientation[0][3] = 0;
+    orientation[1][0] = v_vector.crd.x;
+    orientation[1][1] = v_vector.crd.y;
+    orientation[1][2] = v_vector.crd.z;
+    orientation[1][3] = 0;
+    orientation[2][0] = w_vector.crd.x;
+    orientation[2][1] = w_vector.crd.y;
+    orientation[2][2] = w_vector.crd.z;
+    orientation[2][3] = 0;
+    orientation[3][0] = 0.0;
+    orientation[3][1] = 0.0;
+    orientation[3][2] = 0.0;
+    orientation[3][3] = 1.0;
+
+    // TODO: is this column order?
+    GKSmatrix_3 translation = {
+        1,0,0,-obs.crd.x,
+        0,1,0,-obs.crd.y,
+        0,0,1,-obs.crd.z,
+        0, 0, 0, 1
+    };
+
+    gks_multiply_matrix_3(orientation, translation, result);
+    
 }
 
 void gks_gen_dir_vector(GKSvector3d obs, GKSvector3d look, GKSvector3dPtr dir)
@@ -87,7 +118,6 @@ void gks_gen_dir_vector(GKSvector3d obs, GKSvector3d look, GKSvector3dPtr dir)
     vectorsubtract(look, obs, dir);
     vectornormal(*dir, dir);
 }
-
 
 void gks_gen_lookat_view_matrix(GKSvector3d obs, GKSvector3d look, GKSvector3d up, GKSmatrix_3 result)
 {
@@ -103,21 +133,32 @@ void gks_gen_lookat_view_matrix(GKSvector3d obs, GKSvector3d look, GKSvector3d u
     
     vectorcrossproduct(u_vector, w_vector, &v_vector);
     
-    result[0][0] = u_vector.crd.x;
-    result[0][1] = u_vector.crd.y;
-    result[0][2] = u_vector.crd.z;
-    result[0][3] = -obs.crd.x;
-    result[1][0] = v_vector.crd.x;
-    result[1][1] = v_vector.crd.y;
-    result[1][2] = v_vector.crd.z;
-    result[1][3] = -obs.crd.y;
-    result[2][0] = w_vector.crd.x;
-    result[2][1] = w_vector.crd.y;
-    result[2][2] = w_vector.crd.z;
-    result[2][3] = -obs.crd.z;
-    result[3][0] = 0.0;
-    result[3][1] = 0.0;
-    result[3][2] = 0.0;
-    result[3][3] = 1.0;
+    GKSmatrix_3 orientation;
+    orientation[0][0] = u_vector.crd.x;
+    orientation[0][1] = u_vector.crd.y;
+    orientation[0][2] = u_vector.crd.z;
+    orientation[0][3] = 0;
+    orientation[1][0] = v_vector.crd.x;
+    orientation[1][1] = v_vector.crd.y;
+    orientation[1][2] = v_vector.crd.z;
+    orientation[1][3] = 0;
+    orientation[2][0] = w_vector.crd.x;
+    orientation[2][1] = w_vector.crd.y;
+    orientation[2][2] = w_vector.crd.z;
+    orientation[2][3] = 0;
+    orientation[3][0] = 0.0;
+    orientation[3][1] = 0.0;
+    orientation[3][2] = 0.0;
+    orientation[3][3] = 1.0;
+
+    GKSmatrix_3 translation = {
+        1,0,0,-obs.crd.x,
+        0,1,0,-obs.crd.y,
+        0,0,1,-obs.crd.z,
+        0, 0, 0, 1
+    };
+
+    gks_multiply_matrix_3(orientation, translation, result);
+
 }
 

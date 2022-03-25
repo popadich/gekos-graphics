@@ -170,7 +170,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
     // maybe theta needs be negative? Or control min and max switched?
     gks_create_identity_matrix_3(T);
-    gks_create_y_rotation_matrix_3(theta, T);
+    gks_create_y_rotation_matrix_3(-theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
     
@@ -288,12 +288,16 @@ static void *CameraRotationContext = &CameraRotationContext;
         
         GKSvector3d dir_vector = GKSMakeVector(0.0, 0.0, 0.0);
         gks_gen_dir_vector(pos, look_at, &dir_vector);
-        NSLog(@"Dir: %lf, %lf, %lf, %lf", dir_vector.crd.x, dir_vector.crd.y, dir_vector.crd.z, dir_vector.crd.w );
 
         // Set Camera View Matrix
-//        gks_gen_view_matrix(pos, dir_vector, up_vector, aViewMatrix);
-        gks_gen_lookat_view_matrix(pos, look_at, up_vector, aViewMatrix);
+        gks_gen_view_matrix(pos, dir_vector, up_vector, aViewMatrix);
         gks_set_view_matrix(aViewMatrix);
+        
+//        NSLog(@"uHat: %lf, %lf, %lf, %lf", aViewMatrix[0][0], aViewMatrix[0][1], aViewMatrix[0][2], aViewMatrix[0][3] );
+//        NSLog(@"vHat: %lf, %lf, %lf, %lf", aViewMatrix[1][0], aViewMatrix[1][1], aViewMatrix[1][2], aViewMatrix[1][3] );
+//        NSLog(@"Dir : %lf, %lf, %lf, %lf", aViewMatrix[2][0], aViewMatrix[2][1], aViewMatrix[2][2], aViewMatrix[2][3] );
+//        NSLog(@"Homo: %lf, %lf, %lf, %lf\n.", aViewMatrix[3][0], aViewMatrix[3][1], aViewMatrix[3][2], aViewMatrix[3][3] );
+
         
         // Set UI values
         NSNumber *uhatx = [NSNumber numberWithDouble:aViewMatrix[0][0]];
@@ -333,6 +337,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
         gks_gen_view_matrix(position, dir_vector, up_vector, aViewMatrix);
         gks_set_view_matrix(aViewMatrix);
+        
         
         // Set UI values
         NSNumber *uhatx = [NSNumber numberWithDouble:aViewMatrix[0][0]];
