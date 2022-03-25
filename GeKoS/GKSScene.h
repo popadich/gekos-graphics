@@ -13,9 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSScene : NSObject
 
-- (instancetype)initWithCamera:(GKSCameraRep *)aCamera;
+@property (nonatomic, strong) NSMutableArray* objectList;
 
-- (void) addObjectRep:(GKS3DObjectRep*) anObject3D;
 
 @property (nonatomic,strong) GKSCameraRep* camera;
 
@@ -26,10 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSNumber* worldVolumeMaxY;
 @property (nonatomic,strong) NSNumber* worldVolumeMaxZ;
 
+// TODO: verify this is used
 @property (nonatomic,strong) NSColor* worldBackColor;
 @property (nonatomic,strong) NSColor* worldLineColor;
 @property (nonatomic,strong) NSColor* worldFillColor;
 
+
+- (instancetype)initWithCamera:(GKSCameraRep *)aCamera;
+- (void)addObjectRep:(GKS3DObjectRep*) anObject3D;
 
 
 @end

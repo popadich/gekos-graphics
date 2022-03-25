@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (id)initWithStructure:(GKSactor)actorStruct;
+- (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ;
+- (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ;
+- (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ;
 - (GKSvector3d)positionVector;
 - (GKSvector3d)rotationVector;
 - (GKSvector3d)scaleVector;

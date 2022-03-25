@@ -121,6 +121,11 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
     self.theScene = scene;
     self.drawingViewController.representedObject = self.theScene;
+    
+    // populate c data arrays
+    for (GKS3DObjectRep *objRep in scene.objectList) {
+        [self addObject3DStruct:objRep];
+    }
 }
 
 

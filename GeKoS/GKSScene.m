@@ -12,7 +12,7 @@
     float seg_vect[3];
 }
 
-@property (nonatomic, strong) NSMutableArray* objectList;
+
 
 @end
 

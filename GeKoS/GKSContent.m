@@ -7,6 +7,7 @@
 
 #import "GKSContent.h"
 #import "GKSCameraRep.h"
+#import "GKS3DObjectRep.h"
 
 @implementation GKSContent
 
@@ -16,6 +17,16 @@
     if (self) {
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
         GKSScene *frameOne = [[GKSScene alloc] initWithCamera:cameraRep];
+        
+        
+        for (int i=-3; i<4; i++) {
+            GKS3DObjectRep *object1 = [[GKS3DObjectRep alloc] init];
+            [object1 locateX:1.5 * i Y:0.0 Z:0.0];
+
+            [frameOne addObjectRep:object1];
+        }
+
+
         _theScene = frameOne;
     }
     return self;
