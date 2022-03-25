@@ -121,7 +121,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     double psi = [self.camera.pitch doubleValue];
     double phi = [angle doubleValue];
 
-    gks_set_identity_matrix_3(T);
+    gks_create_identity_matrix_3(T);
     gks_create_z_rotation_matrix_3(-phi, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
@@ -145,7 +145,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     double phi = [self.camera.roll doubleValue];
 
     // maybe theta needs be negative? Or control min and max switched?
-    gks_set_identity_matrix_3(T);
+    gks_create_identity_matrix_3(T);
     gks_create_z_rotation_matrix_3(-phi, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
@@ -169,7 +169,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     double phi = [self.camera.roll doubleValue];
 
     // maybe theta needs be negative? Or control min and max switched?
-    gks_set_identity_matrix_3(T);
+    gks_create_identity_matrix_3(T);
     gks_create_y_rotation_matrix_3(theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
@@ -291,7 +291,8 @@ static void *CameraRotationContext = &CameraRotationContext;
         NSLog(@"Dir: %lf, %lf, %lf, %lf", dir_vector.crd.x, dir_vector.crd.y, dir_vector.crd.z, dir_vector.crd.w );
 
         // Set Camera View Matrix
-        gks_gen_view_matrix(pos, dir_vector, up_vector, aViewMatrix);
+//        gks_gen_view_matrix(pos, dir_vector, up_vector, aViewMatrix);
+        gks_gen_lookat_view_matrix(pos, look_at, up_vector, aViewMatrix);
         gks_set_view_matrix(aViewMatrix);
         
         // Set UI values

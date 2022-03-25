@@ -95,13 +95,13 @@ void gks_gen_lookat_view_matrix(GKSvector3d obs, GKSvector3d look, GKSvector3d u
     GKSvector3d u_vector;           // u_vector points along uHat
     GKSvector3d v_vector;           // v_vector points along vHat
     
-    vectorsubtract(obs, look, &w_vector);
+    vectorsubtract(look, obs, &w_vector);
     vectornormal(w_vector, &w_vector);
     
     vectorcrossproduct(w_vector, up, &u_vector);
     vectornormal(u_vector, &u_vector);
     
-    vectorcrossproduct(w_vector, u_vector, &v_vector);
+    vectorcrossproduct(u_vector, w_vector, &v_vector);
     
     result[0][0] = u_vector.crd.x;
     result[0][1] = u_vector.crd.y;

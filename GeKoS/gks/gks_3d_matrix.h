@@ -15,7 +15,8 @@
 
 
 void gks_set_identity_matrix_2(GKSmatrix_2 result);
-void gks_set_identity_matrix_3(GKSmatrix_3 result);
+void gks_create_identity_matrix_3(GKSmatrix_3 result);
+void gks_create_matrix_3(GKSvector3d v1, GKSvector3d v2, GKSvector3d v3, GKSvector3d v4, GKSmatrix_3 result);
 
 // TODO: scaling matrix not needed
 void gks_create_scaling_matrix_3(GKSfloat sx, GKSfloat sy, GKSfloat sz, GKSmatrix_3 result);

@@ -15,13 +15,36 @@ void gks_set_identity_matrix_2(GKSmatrix_2 result)
     result[0][2] = result[1][2] = result[2][1] = 0.0;
 }
 
-void gks_set_identity_matrix_3(GKSmatrix_3 result)
+void gks_create_identity_matrix_3(GKSmatrix_3 result)
 {
     result[0][0] = result[1][1] = result[2][2] = result[3][3] = 1.0;
     result[0][1] = result[0][2] = result[0][3] = 0.0;
     result[1][0] = result[1][2] = result[1][3] = 0.0;
     result[2][0] = result[2][1] = result[2][3] = 0.0;
     result[3][0] = result[3][1] = result[3][2] = 0.0;
+}
+
+void gks_create_matrix_3(GKSvector3d v1, GKSvector3d v2, GKSvector3d v3, GKSvector3d v4, GKSmatrix_3 result)
+{
+    result[0][0] = v1.arr[0];
+    result[0][1] = v1.arr[1];
+    result[0][2] = v1.arr[2];
+    result[0][3] = v1.arr[3];
+
+    result[1][0] = v2.arr[0];
+    result[1][1] = v2.arr[1];
+    result[1][2] = v2.arr[2];
+    result[1][3] = v2.arr[3];
+
+    result[2][0] = v3.arr[0];
+    result[2][1] = v3.arr[1];
+    result[2][2] = v3.arr[2];
+    result[2][3] = v3.arr[3];
+
+    result[3][0] = v4.arr[0];
+    result[3][1] = v4.arr[1];
+    result[3][2] = v4.arr[2];
+    result[3][3] = v4.arr[3];
 }
 
 // Evaluates a scaling matrix with a fixed point at
