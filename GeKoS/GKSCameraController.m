@@ -184,20 +184,34 @@ static void *CameraRotationContext = &CameraRotationContext;
 }
 
 
-- (IBAction)changeVisibleSurface:(id)sender
-{
-    if ([sender isKindOfClass:[NSButton class]]) {
-        bool onState = [sender state];
-        //gks_objarr_set_hidden_surface_removal(onState);
-        NSLog(@"Visible Surfaces Only: %d", onState);
-    }
-}
+// MARK: IBACTIONS
 
-- (IBAction)changeProjectionType:(id)sender;
+- (IBAction)doChangeProjectionType:(id)sender;
 {
     NSInteger projectionType = [sender selectedTag];
     NSNumber *prType = [NSNumber numberWithInteger:projectionType];
     [self cameraSetProjectionType:prType];
+}
+
+- (IBAction)doChangeFocalLength:(id)sender
+{
+    if ([sender isKindOfClass:[NSSlider class]]) {
+        NSNumber* slide = [sender objectValue];
+        [self setFocus:slide];                  // Head
+        
+        [self cameraFixProjectionMatrix];       // this is a bit overkill,
+                                                // create a method for setting focal length
+                                                // alone and recompute existing projection matrix
+    }
+}
+
+- (IBAction)doChangeNearFar:(id)sender
+{
+    if ([sender isKindOfClass:[NSTextField class]]) {
+        if ([sender tag] == 1 || [sender tag] == 2) {
+            [self cameraFixProjectionMatrix];
+        }
+    }
 }
 
 - (IBAction)doChangeYaw:(id)sender
@@ -232,7 +246,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 
 
 
-//MARK: Projection Matrix Interactions
+// MARK: Projection Matrix Interactions
 
 - (void)cameraSetProjectionType:(NSNumber *)prType {
     GKSCameraRep *camera = self.camera;

@@ -129,6 +129,7 @@
                     <rect key="frame" x="18" y="142" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="0.10000000000000001" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="RlP-fA-Dow"/>
                     <connections>
+                        <action selector="doChangeFocalLength:" target="-2" id="Ywc-zJ-DLo"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="due-cD-Rru"/>
                     </connections>
                 </slider>
@@ -534,7 +535,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="changeProjectionType:" target="-2" id="5nb-gf-daV"/>
+                        <action selector="doChangeProjectionType:" target="-2" id="5nb-gf-daV"/>
                         <binding destination="-2" name="selectedIndex" keyPath="self.camera.projectionType" id="Mco-JC-rCG"/>
                     </connections>
                 </popUpButton>
@@ -547,7 +548,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="it3-8Y-2gg">
+                <textField verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="it3-8Y-2gg">
                     <rect key="frame" x="336" y="79" width="36" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="4" drawsBackground="YES" id="SR1-Lp-GUE">
@@ -557,6 +558,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <action selector="doChangeNearFar:" target="-2" id="G8D-5W-imv"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.near" id="Uyb-tL-wVl"/>
                     </connections>
                 </textField>
@@ -569,7 +571,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DnQ-vh-YEw">
+                <textField verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="DnQ-vh-YEw">
                     <rect key="frame" x="336" y="53" width="36" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="30" drawsBackground="YES" id="489-3K-seU">
@@ -579,6 +581,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <action selector="doChangeNearFar:" target="-2" id="dAr-a5-9Pp"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.far" id="oXI-ue-1nd"/>
                     </connections>
                 </textField>

@@ -167,7 +167,7 @@ void gks_set_perspective_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far)
     gProjectionMatrix[2][0] = 0.0;
     gProjectionMatrix[2][1] = 0.0;
     gProjectionMatrix[2][2] = a;
-    gProjectionMatrix[2][3] = -1.0;
+    gProjectionMatrix[2][3] = 1.0;
     
     gProjectionMatrix[3][0] = 0.0;
     gProjectionMatrix[3][1] = 0.0;

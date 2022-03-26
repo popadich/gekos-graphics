@@ -21,7 +21,7 @@
         
         for (int i=-3; i<4; i++) {
             GKS3DObjectRep *object1 = [[GKS3DObjectRep alloc] init];
-            [object1 locateX:1.5 * i Y:0.0 Z:0.0];
+            [object1 locateX:2.0 * i Y:0.0 Z:0.0];
 
             [frameOne addObjectRep:object1];
         }

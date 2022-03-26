@@ -102,6 +102,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     
     // MARK: View Matrix Compute and Set Global
     [self.cameraViewController cameraFixViewMatrix];
+    [self.cameraViewController cameraFixProjectionMatrix];
 
     [self registerAsObserverForCamera];
     
@@ -135,6 +136,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"near" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"far" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
+    [camera addObserver:self forKeyPath:@"projectionType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
     [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
@@ -151,13 +153,11 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 {
     if (context == ObserverPlaneNormalContext) {
         
-        // MARK: View Matrix Compute and Set Global
+        // TODO: move matrix computation
         [self.cameraViewController cameraFixViewMatrix];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else if (context == ObserverProjectionContext) {
-        // MARK: Projection Matrix
-        [self.cameraViewController cameraFixProjectionMatrix];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else {
