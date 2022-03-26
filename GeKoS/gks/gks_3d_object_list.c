@@ -135,7 +135,7 @@ void gks_objarr_delete_at_index(int index)
     int i;
     
     int idx = index - 1;
-    if (idx < _object_count) {
+    if (idx > 0 && idx < _object_count) {
   
         // Free the memory associated with actor object
         GKSobject_3 obj = object_array[idx].meshObject;

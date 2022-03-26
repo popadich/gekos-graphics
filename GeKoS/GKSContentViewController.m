@@ -95,18 +95,14 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     // Set normalization value transform from world to camera to view coordinates
     gks_trans_create_transform_at_idx(0, r_min, r_max, s_min, s_max, world_volume);
     
+    // TODO: obects need to be added not copied
     // Store one 3D object representation to act as a data entry buffer
+    // which is copied when the object is actually added to the 3D world
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.object3DRep.lineColor = self.contentLineColor.color;
     self.object3DRep.fillColor = self.contentFillColor.color;
-    
-    // TODO: View Matrix Compute and Set Global
-    // this might already be set when camera is loaded
-    [self.cameraViewController cameraFixViewMatrix];
-    [self.cameraViewController cameraFixProjectionMatrix];
 
     [self registerAsObserverForCamera];
-    
     [self setIsCenteredObject:@NO];
     
 }
