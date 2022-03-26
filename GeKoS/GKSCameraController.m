@@ -81,13 +81,25 @@ static void *CameraPositionContext = &CameraPositionContext;
     [camera addObserver:self forKeyPath:@"upY" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
     [camera addObserver:self forKeyPath:@"upZ" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
     
-
+    [camera addObserver:self forKeyPath:@"yaw" options:NSKeyValueObservingOptionNew context:CameraRotationContext];
+    [camera addObserver:self forKeyPath:@"pitch" options:NSKeyValueObservingOptionNew context:CameraRotationContext];
+    [camera addObserver:self forKeyPath:@"roll" options:NSKeyValueObservingOptionNew context:CameraRotationContext];
 }
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == CameraPositionContext || context == CameraRotationContext) {
+    if (context == CameraPositionContext) {
+        [self cameraFixViewMatrix];
+    } else if (context == CameraRotationContext) {
+        NSNumber *newValue = [change valueForKey:@"new"];
+        if ([keyPath isEqualToString:@"yaw"]) {
+            [self adjustCameraWithYaw:newValue];
+        } else if ([keyPath isEqualToString:@"pitch"]) {
+            [self adjustCameraWithPitch:newValue];
+        } else if ([keyPath isEqualToString:@"roll"]) {
+            [self adjustCameraWithRoll:newValue];
+        }
         [self cameraFixViewMatrix];
     }
     else {
@@ -112,21 +124,18 @@ static void *CameraPositionContext = &CameraPositionContext;
 - (void)adjustCameraWithYaw:(NSNumber *)angle
 {
     [self adjustYawToAngle:angle];
-    [self cameraFixViewMatrix];
     [self adjustHead];
 }
 
 - (void)adjustCameraWithPitch:(NSNumber *)angle
 {
     [self adjustPitchToAngle:angle];
-    [self cameraFixViewMatrix];
     [self adjustHead];
 }
 
 - (void)adjustCameraWithRoll:(NSNumber *)angle
 {
     [self adjustRollToAngle:angle];
-    [self cameraFixViewMatrix];
     [self adjustHead];
 }
 
@@ -241,30 +250,6 @@ static void *CameraPositionContext = &CameraPositionContext;
         if ([sender tag] == 1 || [sender tag] == 2) {
             [self cameraFixProjectionMatrix];
         }
-    }
-}
-
-- (IBAction)doChangeYaw:(id)sender
-{
-    if ([sender isKindOfClass:[NSSlider class]]) {
-        NSNumber* slide = [sender objectValue];
-        [self adjustCameraWithYaw:slide];
-    }
-}
-
-- (IBAction)doChangePitch:(id)sender
-{
-    if ([sender isKindOfClass:[NSSlider class]]) {
-        NSNumber *sliderValue = [sender objectValue];
-        [self adjustCameraWithPitch:sliderValue];
-    }
-}
-
-- (IBAction)doChangeRoll:(id)sender
-{
-    if ([sender isKindOfClass:[NSSlider class]]) {
-        NSNumber *sliderValue = [sender objectValue];
-        [self adjustCameraWithRoll:sliderValue];
     }
 }
 

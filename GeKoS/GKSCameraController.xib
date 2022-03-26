@@ -25,7 +25,6 @@
                     </constraints>
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="xjb-W2-2XT"/>
                     <connections>
-                        <action selector="doChangeRoll:" target="-2" id="UJV-3m-uqc"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.roll" id="Zcc-d9-5Xt"/>
                     </connections>
                 </slider>
@@ -33,7 +32,6 @@
                     <rect key="frame" x="18" y="198" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="T5I-FI-dAP"/>
                     <connections>
-                        <action selector="doChangePitch:" target="-2" id="arm-K0-t1t"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.pitch" id="wFb-1k-bHu"/>
                     </connections>
                 </slider>
@@ -41,7 +39,6 @@
                     <rect key="frame" x="18" y="170" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="u0J-3x-yFL"/>
                     <connections>
-                        <action selector="doChangeYaw:" target="-2" id="Ru9-PW-S3E"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.yaw" id="gtq-Zq-0NA"/>
                     </connections>
                 </slider>
