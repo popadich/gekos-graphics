@@ -20,6 +20,7 @@ static double head_size_adjust = 1.0;
 @end
 
 static void *CameraRotationContext = &CameraRotationContext;
+static void *CameraPositionContext = &CameraPositionContext;
 
 
 @implementation GKSCameraController
@@ -33,6 +34,8 @@ static void *CameraRotationContext = &CameraRotationContext;
 
     // focal length for head view
     [self setFocus:@1.0];    // do not change
+    
+    [self registerAsObserverForCamera];
 }
 
 
@@ -61,8 +64,35 @@ static void *CameraRotationContext = &CameraRotationContext;
         
         theCamera.projectionType = prType;
         [self cameraSetProjectionType:prType];
+        [self cameraFixViewMatrix];
     }
 
+}
+
+- (void)registerAsObserverForCamera
+{
+    GKSCameraRep *camera = self.camera;
+
+    [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
+    [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
+    [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
+
+    [camera addObserver:self forKeyPath:@"upX" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
+    [camera addObserver:self forKeyPath:@"upY" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
+    [camera addObserver:self forKeyPath:@"upZ" options:NSKeyValueObservingOptionNew context:CameraPositionContext];
+    
+
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == CameraPositionContext || context == CameraRotationContext) {
+        [self cameraFixViewMatrix];
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 
@@ -82,18 +112,21 @@ static void *CameraRotationContext = &CameraRotationContext;
 - (void)adjustCameraWithYaw:(NSNumber *)angle
 {
     [self adjustYawToAngle:angle];
+    [self cameraFixViewMatrix];
     [self adjustHead];
 }
 
 - (void)adjustCameraWithPitch:(NSNumber *)angle
 {
     [self adjustPitchToAngle:angle];
+    [self cameraFixViewMatrix];
     [self adjustHead];
 }
 
 - (void)adjustCameraWithRoll:(NSNumber *)angle
 {
     [self adjustRollToAngle:angle];
+    [self cameraFixViewMatrix];
     [self adjustHead];
 }
 
@@ -125,8 +158,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_z_rotation_matrix_3(-phi, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
-
-    gks_transform_point(T, vector_y, &trans_point);
+    gks_transform_vector_3(T, vector_y, &trans_point);
     
     [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.x] forKey:@"dirX"];
     [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.y] forKey:@"dirY"];
@@ -149,7 +181,7 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_z_rotation_matrix_3(-phi, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_y_rotation_matrix_3(theta, T);
-    gks_transform_point(T, vector_z, &trans_point);
+    gks_transform_vector_3(T, vector_z, &trans_point);
     
     self.camera.dirX = [NSNumber numberWithDouble:trans_point.crd.x];
     self.camera.dirY = [NSNumber numberWithDouble:trans_point.crd.y];
@@ -173,8 +205,6 @@ static void *CameraRotationContext = &CameraRotationContext;
     gks_create_y_rotation_matrix_3(-theta, T);
     gks_accumulate_x_rotation_matrix_3(-psi, T);
     gks_accumulate_z_rotation_matrix_3(phi, T);
-    
-    // is this a 3x3 operation?
     gks_transform_vector_3(T, vector_z, &trans_point);
     
     self.camera.dirX = [NSNumber numberWithDouble:trans_point.crd.x];
@@ -242,6 +272,7 @@ static void *CameraRotationContext = &CameraRotationContext;
 {
     GKSCameraRep *camera = self.camera;
     [self cameraDefaultSettings:camera];
+    [self.headView setNeedsDisplay:YES];
 }
 
 

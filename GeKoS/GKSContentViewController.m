@@ -100,7 +100,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.object3DRep.lineColor = self.contentLineColor.color;
     self.object3DRep.fillColor = self.contentFillColor.color;
     
-    // MARK: View Matrix Compute and Set Global
+    // TODO: View Matrix Compute and Set Global
+    // this might already be set when camera is loaded
     [self.cameraViewController cameraFixViewMatrix];
     [self.cameraViewController cameraFixProjectionMatrix];
 
@@ -140,9 +141,9 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"dirX" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"dirY" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"dirZ" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"yaw" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"pitch" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
+    [camera addObserver:self forKeyPath:@"roll" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"upX" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"upY" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
     [camera addObserver:self forKeyPath:@"upZ" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
@@ -151,13 +152,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == ObserverPlaneNormalContext) {
-        
-        // TODO: move matrix computation
-        [self.cameraViewController cameraFixViewMatrix];
-        [self.drawingViewController.view setNeedsDisplay:YES];
-    }
-    else if (context == ObserverProjectionContext) {
+    if (context == ObserverPlaneNormalContext || context == ObserverProjectionContext) {
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
     else {
