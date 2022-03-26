@@ -152,73 +152,29 @@ static void *CameraPositionContext = &CameraPositionContext;
     [self.headView setNeedsDisplay:YES];
 }
 
-- (void)adjustRollToAngle:(NSNumber *)angle
+- (void)adjustRollToAngle:(NSNumber *)phi
 {
-    GKSvector3d vector_y = {0.0, 0.0, -1.0, 1.0};  // unit vector along the y-axis
-
-    GKSvector3d trans_point;
-    GKSmatrix_3 T;
-
-    double theta = [self.camera.yaw doubleValue];
-    double psi = [self.camera.pitch doubleValue];
-    double phi = [angle doubleValue];
-
-    gks_create_identity_matrix_3(T);
-    gks_create_z_rotation_matrix_3(-phi, T);
-    gks_accumulate_x_rotation_matrix_3(-psi, T);
-    gks_accumulate_y_rotation_matrix_3(theta, T);
-    gks_transform_vector_3(T, vector_y, &trans_point);
+    NSNumber *psi = self.camera.roll;
+    NSNumber *theta = self.camera.yaw;
     
-    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.x] forKey:@"dirX"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.y] forKey:@"dirY"];
-    [self.representedObject setValue:[NSNumber numberWithDouble:trans_point.crd.z] forKey:@"dirZ"];
+    [self cameraSetEulerTheta:theta eulerPhi:phi eulerPsi:psi];
 }
 
-- (void)adjustPitchToAngle:(NSNumber *)angle
+- (void)adjustPitchToAngle:(NSNumber *)psi
 {
-    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit vector along the z-axis
-
-    GKSvector3d trans_point;
-    GKSmatrix_3 T;
+    NSNumber *phi = self.camera.pitch;
+    NSNumber *theta = self.camera.yaw;
     
-    double psi = [angle doubleValue];
-    double theta = [self.camera.yaw doubleValue];
-    double phi = [self.camera.roll doubleValue];
-
-    // maybe theta needs be negative? Or control min and max switched?
-    gks_create_identity_matrix_3(T);
-    gks_create_z_rotation_matrix_3(-phi, T);
-    gks_accumulate_x_rotation_matrix_3(-psi, T);
-    gks_accumulate_y_rotation_matrix_3(theta, T);
-    gks_transform_vector_3(T, vector_z, &trans_point);
+    [self cameraSetEulerTheta:theta eulerPhi:phi eulerPsi:psi];
     
-    self.camera.dirX = [NSNumber numberWithDouble:trans_point.crd.x];
-    self.camera.dirY = [NSNumber numberWithDouble:trans_point.crd.y];
-    self.camera.dirZ = [NSNumber numberWithDouble:trans_point.crd.z];
-
 }
 
-- (void)adjustYawToAngle:(NSNumber *)angle
+- (void)adjustYawToAngle:(NSNumber *)theta
 {
-    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit co-linear with z-axis
+    NSNumber *phi = self.camera.pitch;
+    NSNumber *psi = self.camera.roll;
 
-    GKSvector3d trans_point;
-    GKSmatrix_3 T;
-
-    double theta = [angle doubleValue];
-    double psi = [self.camera.pitch doubleValue];
-    double phi = [self.camera.roll doubleValue];
-
-    // maybe theta needs be negative? Or control min and max switched?
-    gks_create_identity_matrix_3(T);
-    gks_create_y_rotation_matrix_3(-theta, T);
-    gks_accumulate_x_rotation_matrix_3(-psi, T);
-    gks_accumulate_z_rotation_matrix_3(phi, T);
-    gks_transform_vector_3(T, vector_z, &trans_point);
-    
-    self.camera.dirX = [NSNumber numberWithDouble:trans_point.crd.x];
-    self.camera.dirY = [NSNumber numberWithDouble:trans_point.crd.y];
-    self.camera.dirZ = [NSNumber numberWithDouble:trans_point.crd.z];
+    [self cameraSetEulerTheta:theta eulerPhi:phi eulerPsi:psi];
 
 }
 
@@ -389,5 +345,35 @@ static void *CameraPositionContext = &CameraPositionContext;
     }
 }
 
+- (void)cameraSetEulerTheta:(NSNumber *)thetaNum eulerPhi:(NSNumber *)phiNum eulerPsi:(NSNumber *)psiNum
+{
+    GKSmatrix_3 transform = {1.0, 0.0, 0.0, 0.0,
+                             0.0, 1.0, 0.0, 0.0,
+                             0.0, 0.0, -1.0, 0.0,
+                             0.0, 0.0, 0.0, 1.0
+    };
+    
+    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit co-linear with z-axis
+    
+
+    GKSvector3d trans_point;
+    GKSmatrix_3 T;
+
+    GKSfloat theta = thetaNum.doubleValue;
+    GKSfloat phi = phiNum.doubleValue;
+    GKSfloat psi = psiNum.doubleValue;
+    
+    // maybe theta needs be negative? Or control min and max switched?
+    gks_create_identity_matrix_3(T);
+    gks_create_y_rotation_matrix_3(-theta, T);
+    gks_accumulate_x_rotation_matrix_3(-psi, T);
+    gks_accumulate_z_rotation_matrix_3(phi, T);
+    gks_transform_vector_3(T, vector_z, &trans_point);
+    
+    self.camera.dirX = [NSNumber numberWithDouble:trans_point.crd.x];
+    self.camera.dirY = [NSNumber numberWithDouble:trans_point.crd.y];
+    self.camera.dirZ = [NSNumber numberWithDouble:trans_point.crd.z];
+
+}
 
 @end
