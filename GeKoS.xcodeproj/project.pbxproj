@@ -17,6 +17,7 @@
 		FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA081B7B27D121D10070056A /* GKSHeadView.m */; };
 		FA274D65276BF659005104A4 /* gks_3d_view_orient.c in Sources */ = {isa = PBXBuildFile; fileRef = FA274D64276BF659005104A4 /* gks_3d_view_orient.c */; };
 		FA2D4937275D817300727B7B /* gks_mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = FA2D4936275D817300727B7B /* gks_mesh.c */; };
+		FA3283F527F0B4C600978468 /* gks_utility.c in Sources */ = {isa = PBXBuildFile; fileRef = FA3283F427F0B4C600978468 /* gks_utility.c */; };
 		FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = FA35285A275864C6002B716C /* gks_3d_matrix.c */; };
 		FA352861275875E7002B716C /* GeKoSCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA352860275875E7002B716C /* GeKoSCoreTests.m */; };
 		FA3C4E892794E3B000A1196D /* GKSPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C4E872794E3B000A1196D /* GKSPreferences.m */; };
@@ -81,6 +82,8 @@
 		FA274D64276BF659005104A4 /* gks_3d_view_orient.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_view_orient.c; sourceTree = "<group>"; };
 		FA2D4935275D817300727B7B /* gks_mesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_mesh.h; sourceTree = "<group>"; };
 		FA2D4936275D817300727B7B /* gks_mesh.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_mesh.c; sourceTree = "<group>"; };
+		FA3283F327F0B4C600978468 /* gks_utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_utility.h; sourceTree = "<group>"; };
+		FA3283F427F0B4C600978468 /* gks_utility.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_utility.c; sourceTree = "<group>"; };
 		FA352859275864A8002B716C /* gks_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_types.h; sourceTree = "<group>"; };
 		FA35285A275864C6002B716C /* gks_3d_matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gks_3d_matrix.c; sourceTree = "<group>"; };
 		FA35285B275864C6002B716C /* gks_3d_matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gks_3d_matrix.h; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				FABC626727D65A720088AC42 /* gks_3d_object_list.c */,
 				FABC626A27D65C330088AC42 /* gks_drawing_glue.h */,
 				FABC626927D65C330088AC42 /* gks_drawing_glue.c */,
+				FA3283F327F0B4C600978468 /* gks_utility.h */,
+				FA3283F427F0B4C600978468 /* gks_utility.c */,
 			);
 			path = gks;
 			sourceTree = "<group>";
@@ -426,6 +431,7 @@
 				FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */,
 				FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */,
 				FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */,
+				FA3283F527F0B4C600978468 /* gks_utility.c in Sources */,
 				FABC626B27D65C330088AC42 /* gks_drawing_glue.c in Sources */,
 				FA0146DB27C6B88200AE01E8 /* GKSWindowController.m in Sources */,
 				FABC626827D65A720088AC42 /* gks_3d_object_list.c in Sources */,

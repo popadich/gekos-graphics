@@ -112,7 +112,6 @@ void logMatrix(GKSmatrix_3 M) {
             [self cameraSetEulerTheta:camera.yaw eulerPhi:camera.pitch eulerPsi:newValue];
         }
 
-        [self cameraFixViewMatrix];
         [self adjustHead];
     }
     else {
@@ -311,35 +310,51 @@ void logMatrix(GKSmatrix_3 M) {
 
 - (void)cameraSetEulerTheta:(NSNumber *)yawNum eulerPhi:(NSNumber *)pitchNum eulerPsi:(NSNumber *)rollNum
 {
+    GKSCameraRep *camera = self.camera;
     GKSmatrix_3 earth_coords = {1.0, 0.0, 0.0, 0.0,
                              0.0, 1.0, 0.0, 0.0,
                              0.0, 0.0, -1.0, 0.0,
                              0.0, 0.0, 0.0, 1.0
     };
-    
-    GKSvector3d vector_z = {0.0, 0.0, -1.0, 1.0};  // unit co-linear with z-axis
-    
-
-    GKSvector3d result;
-    GKSmatrix_3 T;
+        
+    GKSmatrix_3 matrixEuler;
+    GKSmatrix_3 translationMatrix;
     GKSmatrix_3 model_coords;
+    GKSmatrix_3 result;
     gks_create_identity_matrix_3(model_coords);
 
-    GKSfloat psi = yawNum.doubleValue * (-1);
+    GKSfloat psi = -yawNum.doubleValue;
     GKSfloat theta = pitchNum.doubleValue;
-    GKSfloat phi = rollNum.doubleValue;
+    GKSfloat phi = rollNum.doubleValue ;
     
     // maybe theta needs be negative? Or control min and max switched?
-    gks_create_identity_matrix_3(T);
-    gks_create_z_rotation_matrix_3(phi, T);
-    gks_accumulate_y_rotation_matrix_3(psi, T);
-    gks_accumulate_x_rotation_matrix_3(theta, T);
+    gks_create_identity_matrix_3(matrixEuler);
+    gks_create_z_rotation_matrix_3(phi, matrixEuler);
+    gks_accumulate_y_rotation_matrix_3(psi, matrixEuler);
+    gks_accumulate_x_rotation_matrix_3(theta, matrixEuler);
     
-    gks_transform_vector_3(T, vector_z, &result);
-    gks_multiply_matrix_3(T, earth_coords, model_coords);
-    logMatrix(model_coords);
+//    NSLog(@"Euler");
+//    logMatrix(matrixEuler);
+    
+    gks_multiply_matrix_3(matrixEuler, earth_coords, model_coords);
+    
+//    NSLog(@"Model");
+//    logMatrix(model_coords);
 
+    GKSvector3d obs = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
+    gks_create_translation_matrix_3(-obs.crd.x, -obs.crd.y, -obs.crd.z, translationMatrix);
+
+//    NSLog(@"Translation");
+//    logMatrix(translationMatrix);
     
+    gks_multiply_matrix_3(model_coords, translationMatrix, result);
+    
+//    NSLog(@"Result");
+//    logMatrix(result);
+    
+    gks_set_view_matrix(result);
+    
+    // set the UI values
     NSNumber *uhatx = [NSNumber numberWithDouble:model_coords[0][0]];
     NSNumber *uhaty = [NSNumber numberWithDouble:model_coords[0][1]];
     NSNumber *uhatz = [NSNumber numberWithDouble:model_coords[0][2]];

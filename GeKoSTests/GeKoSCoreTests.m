@@ -91,6 +91,22 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     return identical;
 }
 
+
+bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
+{
+    bool same = true;
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            if (!areSame(matrix[i][j], matrix_b[i][j])) {
+                same = false;
+                break;
+            }
+        }
+    }
+    return same;
+}
+
+
 - (void)testIdentityMatrix2 {
     GKSmatrix_2 im;
     
@@ -445,6 +461,43 @@ bool isEqual_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     gks_multiply_matrix_3(m1, m2, verify);
     
     XCTAssertTrue(isEqual_3(verify, result));
+
+}
+
+- (void)testMatrixMultiplyViewTranslation {
+     GKSmatrix_3 euler_angles = {
+    {0.770, 0.000, -0.638, 0.000},
+    {0.000, 1.000, 0.000, 0.000},
+    {-0.638, 0.000, -0.770, 0.000},
+    {0.000, 0.000, 0.000, 1.000} };
+
+     GKSmatrix_3 translation = {
+    {1.000, 0.000, 0.000, -0.000},
+    {0.000, 1.000, 0.000, -0.000},
+    {0.000, 0.000, 1.000, -5.700},
+    {0.000, 0.000, 0.000, 1.000} };
+    
+    GKSmatrix_3 result = {
+    {0.770, 0.000, 0.638, -3.636},
+    {0.000, 1.000, 0.000, 0.000},
+    {-0.638, 0.000, 0.770, -4.390},
+    {0.000, 0.000, 0.000, 1.000} };
+    
+    GKSmatrix_3 result2 = {
+    {0.770, 0.000, -0.638, 3.636},
+    {0.000, 1.000, 0.000, 0.000},
+    {-0.638, 0.000, -0.770, 4.390},
+    {0.000, 0.000, 0.000, 1.000} };
+    
+    GKSmatrix_3 verify;
+    
+    gks_multiply_matrix_3(euler_angles, translation, verify);
+    
+    XCTAssertEqualWithAccuracy(verify[0][0], result[0][0], 0.001);
+    
+    
+    XCTAssertTrue(isSame_3(verify, result2));
+//    XCTAssertTrue(isEqual_3(verify, result));
 
 }
 
