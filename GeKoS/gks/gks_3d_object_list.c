@@ -158,7 +158,7 @@ void gks_objarr_delete_at_index(int index)
     }
     
     // TODO: Never tested
-    if (index < _object_count) {
+    if (idx > 0 && index < _object_count) {
         // index is in the middle of the list
         // brute force delete from array by copying elements from idx 0s based
         for (i=idx; i<_object_count; i++) {
