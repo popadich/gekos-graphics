@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSHeadView : NSView
 
 @property (nonatomic, strong) NSNumber* headRoll;
-@property (nonatomic, weak) NSNumber* headPitch;
-@property (nonatomic, weak) NSNumber* headYaw;
+@property (nonatomic, strong) NSNumber* headPitch;
+@property (nonatomic, strong) NSNumber* headYaw;
 @property (nonatomic, strong) NSNumber* headFocalLength;
 
 @end

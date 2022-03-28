@@ -68,10 +68,16 @@ void logMatrix(GKSmatrix_3 M) {
         theCamera.pitch = @0.0;
         theCamera.yaw = @0.0;
         
+        theCamera.lookX = @0.0;
+        theCamera.lookY = @0.0;
+        theCamera.lookZ = @0.0;
+        
         NSNumber *prType =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
         
         theCamera.projectionType = prType;
         [self cameraSetProjectionType:prType];
+        
+        // TODO: use Look At
         [self cameraFixViewMatrix];
     }
 
@@ -98,20 +104,23 @@ void logMatrix(GKSmatrix_3 M) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == CameraPositionContext) {
+        // TODO: use LookAt
         [self cameraFixViewMatrix];
+        [self adjustHead];
+        
     } else if (context == CameraRotationContext) {
         GKSCameraRep *camera = self.camera;
-        NSNumber *newValue = [change valueForKey:@"new"];
-        if ([keyPath isEqualToString:@"yaw"]) {
-            [self cameraSetEulerTheta:newValue eulerPhi:camera.pitch eulerPsi:camera.roll];
-        }
-        else if ([keyPath isEqualToString:@"pitch"]) {
-            [self cameraSetEulerTheta:camera.yaw eulerPhi:newValue eulerPsi:camera.roll];
-        }
-        else if ([keyPath isEqualToString:@"roll"]) {
-            [self cameraSetEulerTheta:camera.yaw eulerPhi:camera.pitch eulerPsi:newValue];
-        }
-
+//        NSNumber *newValue = [change valueForKey:@"new"];
+//        if ([keyPath isEqualToString:@"yaw"]) {
+//            [self cameraSetEulerTheta:newValue eulerPhi:camera.pitch eulerPsi:camera.roll];
+//        }
+//        else if ([keyPath isEqualToString:@"pitch"]) {
+//            [self cameraSetEulerTheta:camera.yaw eulerPhi:newValue eulerPsi:camera.roll];
+//        }
+//        else if ([keyPath isEqualToString:@"roll"]) {
+//            [self cameraSetEulerTheta:camera.yaw eulerPhi:camera.pitch eulerPsi:newValue];
+//        }
+        [self cameraSetEulerTheta:camera.yaw eulerPhi:camera.pitch eulerPsi:camera.roll];
         [self adjustHead];
     }
     else {
@@ -135,13 +144,12 @@ void logMatrix(GKSmatrix_3 M) {
 
 - (void)adjustHead {
     self.headView.headYaw = self.camera.yaw;
-    self.headView.headPitch = self.camera.pitch;
 
     // reverse the roll value because x-axis is coming out at us and a positive rotation
     // from that refererence appears as a negative rotation of our head. The head is
     // oriented as if looking along the negative x-axis direction.
-    double angle =  -1 * [self.camera.roll doubleValue];
-    self.headView.headRoll = [NSNumber numberWithDouble:angle];
+    self.headView.headPitch = [NSNumber numberWithDouble:(-1 * [self.camera.pitch doubleValue])];
+    self.headView.headRoll = [NSNumber numberWithDouble:(-1 * [self.camera.roll doubleValue])];
     
     [self.headView setNeedsDisplay:YES];
 }
@@ -181,7 +189,7 @@ void logMatrix(GKSmatrix_3 M) {
 {
     GKSCameraRep *camera = self.camera;
     [self cameraDefaultSettings:camera];
-    [self.headView setNeedsDisplay:YES];
+    [self adjustHead];
 }
 
 
