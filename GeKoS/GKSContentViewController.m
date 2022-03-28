@@ -18,11 +18,12 @@
 @interface GKSContentViewController ()
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
-@property (strong) IBOutlet NSColorWell* contentLineColor;
-@property (strong) IBOutlet NSColorWell* contentFillColor;
+
 @property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
 @property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
 
+@property (strong) NSColor* contentLineColor;
+@property (strong) NSColor* contentFillColor;
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
@@ -66,11 +67,11 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     NSError *error;
     NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
     if (colorData != nil) {
-        self.contentLineColor.color = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+        self.contentLineColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
     }
     colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
     if (colorData != nil) {
-        self.contentFillColor.color = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+        self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
     }
     
     // This gives a volume bounds to the GKS 3D world, also add
@@ -99,8 +100,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     // Store one 3D object representation to act as a data entry buffer
     // which is copied when the object is actually added to the 3D world
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
-    self.object3DRep.lineColor = self.contentLineColor.color;
-    self.object3DRep.fillColor = self.contentFillColor.color;
+    self.object3DRep.lineColor = self.contentLineColor;
+    self.object3DRep.fillColor = self.contentFillColor;
 
     [self registerAsObserverForCamera];
     [self setIsCenteredObject:@NO];
@@ -159,7 +160,6 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 // Object List Stuff
 - (BOOL)addObject3DStruct:(GKS3DObjectRep *)objRep
 {
-    GKSactor anActor;
     BOOL didAdd = NO;
     BOOL isCentered = [self.isCenteredObject boolValue];
     GKSobject_3 *mesh_object_ptr = NULL;
@@ -184,34 +184,12 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     
     if (mesh_object_ptr != NULL) {
         
-        // TODO: objectRep should do this
+        GKSactor actor = [objRep objectActor];
         // Collect objectRep data as GKS c primitive types
-        GKSvector3d position = [objRep positionVector];
-        GKSvector3d rotation = [objRep rotationVector];
-        GKSvector3d scale = [objRep scaleVector];
+        actor.mesh_object = *mesh_object_ptr;
         
-        CGFloat r,g,b,a;
-        NSColor* theColor = objRep.lineColor;
-        [theColor getRed:&r green:&g blue:&b alpha:&a];
-        GKScolor line_color = {r,g,b,a};
-        theColor = objRep.fillColor;
-        [theColor getRed:&r green:&g blue:&b alpha:&a];
-        GKScolor fill_color = {r,g,b,a};
-        
-        // the Actor
-        anActor.kind = kind;
-        anActor.hidden = objRep.hidden.boolValue;
-        anActor.mesh_object = *mesh_object_ptr;
-        anActor.priority = objRep.priority.doubleValue;
-        anActor.scale_vector = scale;
-        anActor.rotate_vector = rotation;
-        anActor.translate_vector = position;
-        anActor.line_color = line_color;
-        anActor.fill_color = fill_color;
-        
-        
-        // add a 3d object to the c model world
-        if (gks_objarr_actor_add(anActor)){
+        // add a 3d object data structure to the c model world
+        if (gks_objarr_actor_add(actor)){
             free(mesh_object_ptr);  //free object it is copied when added
             didAdd = YES;
         }

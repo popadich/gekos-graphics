@@ -75,6 +75,40 @@
     return rot;
 }
 
+- (GKSactor)objectActor
+{
+    GKSactor anActor;
+
+    
+    GKSvector3d position = [self positionVector];
+    GKSvector3d rotation = [self rotationVector];
+    GKSvector3d scale = [self scaleVector];
+    
+    CGFloat r,g,b,a;
+    NSColor* theColor = self.lineColor;
+    [theColor getRed:&r green:&g blue:&b alpha:&a];
+    GKScolor line_color = {r,g,b,a};
+    theColor = self.fillColor;
+    [theColor getRed:&r green:&g blue:&b alpha:&a];
+    GKScolor fill_color = {r,g,b,a};
+    
+    anActor.kind = self.objectKind.intValue;
+    anActor.hidden = self.hidden.boolValue;
+    
+    //What to do with this
+    //anActor.mesh_object = *mesh_object_ptr;
+    
+    anActor.priority = self.priority.doubleValue;
+    anActor.scale_vector = scale;
+    anActor.rotate_vector = rotation;
+    anActor.translate_vector = position;
+    anActor.line_color = line_color;
+    anActor.fill_color = fill_color;
+    
+    
+    return anActor;
+}
+
 
 // MARK: NSCopying protocol
 - (id)copyWithZone:(NSZone *)zone
