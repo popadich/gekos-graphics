@@ -252,7 +252,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 - (IBAction)performUpdateQuick:(id)sender {
     
-    [self.cameraViewController cameraDoLookAtG];
+    [self.cameraViewController camerSetViewLookAtG];
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 

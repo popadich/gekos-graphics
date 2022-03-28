@@ -36,14 +36,13 @@ void logMatrix(GKSmatrix_3 M) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    self.camera = self.representedObject;
-    
-    [self cameraDefaultSettings:self.representedObject];
+    GKSCameraRep *camera = (GKSCameraRep *)self.representedObject;
+    if (camera) {
+        self.camera = camera;
+        [self cameraDefaultSettings:camera];
+        [self registerAsObserverForCamera];
+    }
 
-    // focal length for head view
-    [self setFocus:@1.0];    // do not change
-    
-    [self registerAsObserverForCamera];
 }
 
 
@@ -64,9 +63,9 @@ void logMatrix(GKSmatrix_3 M) {
         theCamera.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
         theCamera.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
         
-        theCamera.roll = @0.0;
+        theCamera.roll  = @0.0;
         theCamera.pitch = @0.0;
-        theCamera.yaw = @0.0;
+        theCamera.yaw   = @0.0;
         
         theCamera.lookX = @0.0;
         theCamera.lookY = @0.0;
@@ -76,12 +75,11 @@ void logMatrix(GKSmatrix_3 M) {
         
         theCamera.projectionType = prType;
         [self cameraSetProjectionType:prType];
-        
-        // TODO: use Look At
-        [self cameraFixViewMatrix];
+        [self cameraSetViewMatrixG];
     }
 
 }
+
 
 - (void)registerAsObserverForCamera
 {
@@ -104,23 +102,11 @@ void logMatrix(GKSmatrix_3 M) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == CameraPositionContext) {
-        // TODO: use LookAt
-        [self cameraFixViewMatrix];
+        [self cameraSetViewMatrixG];
         [self adjustHead];
         
     } else if (context == CameraRotationContext) {
-        GKSCameraRep *camera = self.camera;
-//        NSNumber *newValue = [change valueForKey:@"new"];
-//        if ([keyPath isEqualToString:@"yaw"]) {
-//            [self cameraSetEulerTheta:newValue eulerPhi:camera.pitch eulerPsi:camera.roll];
-//        }
-//        else if ([keyPath isEqualToString:@"pitch"]) {
-//            [self cameraSetEulerTheta:camera.yaw eulerPhi:newValue eulerPsi:camera.roll];
-//        }
-//        else if ([keyPath isEqualToString:@"roll"]) {
-//            [self cameraSetEulerTheta:camera.yaw eulerPhi:camera.pitch eulerPsi:newValue];
-//        }
-        [self cameraSetEulerTheta:camera.yaw eulerPhi:camera.pitch eulerPsi:camera.roll];
+        [self cameraSetEulerG];
         [self adjustHead];
     }
     else {
@@ -131,7 +117,7 @@ void logMatrix(GKSmatrix_3 M) {
 
 #pragma mark USER Interaction
 
-- (void)setFocus:(NSNumber *)focal;
+- (void)setHeadFocus:(NSNumber *)focal;
 {
     // increase focal length on head by a bit, so that the
     // head is visible in its frame.
@@ -168,9 +154,8 @@ void logMatrix(GKSmatrix_3 M) {
 {
     if ([sender isKindOfClass:[NSSlider class]]) {
         NSNumber* slide = [sender objectValue];
-        [self setFocus:slide];                  // Head
-        
-        [self cameraFixProjectionMatrix];       // this is a bit overkill,
+        [self setHeadFocus:slide];              // Head
+        [self cameraSetProjectionMatrixG];      // this is a bit overkill,
                                                 // create a method for setting focal length
                                                 // alone and recompute existing projection matrix
     }
@@ -180,7 +165,7 @@ void logMatrix(GKSmatrix_3 M) {
 {
     if ([sender isKindOfClass:[NSTextField class]]) {
         if ([sender tag] == 1 || [sender tag] == 2) {
-            [self cameraFixProjectionMatrix];
+            [self cameraSetProjectionMatrixG];
         }
     }
 }
@@ -225,7 +210,7 @@ void logMatrix(GKSmatrix_3 M) {
     }
 }
 
-- (void)cameraFixProjectionMatrix {
+- (void)cameraSetProjectionMatrixG {
     GKSCameraRep *camera = self.camera;
     if (camera != nil) {
         NSNumber *prType = camera.projectionType;
@@ -236,7 +221,12 @@ void logMatrix(GKSmatrix_3 M) {
 
 
 // MARK: View Matrix Interactions
-- (void)cameraDoLookAtG {
+
+
+// This uses the Look At point, camera Location, and Up vector to
+// compute and set the global view matrix in the C library.
+//  LOOK, POS, UP
+- (void)camerSetViewLookAtG {
     GKSCameraRep *camera = self.camera;
 
     if (camera != nil) {
@@ -280,7 +270,11 @@ void logMatrix(GKSmatrix_3 M) {
     }
 }
 
-- (void)cameraFixViewMatrix {
+
+// This uses the view direction vector, camera Location and Up vector to
+// compute and set the global view matrix in the C library.
+// DIR, POS, UP
+- (void)cameraSetViewMatrixG {
     GKSmatrix_3    aViewMatrix;
     
     GKSCameraRep *camera = self.camera;
@@ -316,9 +310,8 @@ void logMatrix(GKSmatrix_3 M) {
     }
 }
 
-- (void)cameraSetEulerTheta:(NSNumber *)yawNum eulerPhi:(NSNumber *)pitchNum eulerPsi:(NSNumber *)rollNum
+- (void)cameraSetEulerTheta:(NSNumber *)yawNum eulerPhi:(NSNumber *)pitchNum eulerPsi:(NSNumber *)rollNum atPosition:(GKSvector3d)pos
 {
-    GKSCameraRep *camera = self.camera;
     GKSmatrix_3 earth_coords = {1.0, 0.0, 0.0, 0.0,
                              0.0, 1.0, 0.0, 0.0,
                              0.0, 0.0, -1.0, 0.0,
@@ -349,8 +342,7 @@ void logMatrix(GKSmatrix_3 M) {
 //    NSLog(@"Model");
 //    logMatrix(model_coords);
 
-    GKSvector3d obs = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
-    gks_create_translation_matrix_3(-obs.crd.x, -obs.crd.y, -obs.crd.z, translationMatrix);
+    gks_create_translation_matrix_3(-pos.crd.x, -pos.crd.y, -pos.crd.z, translationMatrix);
 
 //    NSLog(@"Translation");
 //    logMatrix(translationMatrix);
@@ -363,18 +355,17 @@ void logMatrix(GKSmatrix_3 M) {
     gks_set_view_matrix(result);
     
     // set the UI values
-    NSNumber *uhatx = [NSNumber numberWithDouble:model_coords[0][0]];
-    NSNumber *uhaty = [NSNumber numberWithDouble:model_coords[0][1]];
-    NSNumber *uhatz = [NSNumber numberWithDouble:model_coords[0][2]];
-//    NSNumber *uhatw = [NSNumber numberWithDouble:model_coords[0][3]];
+    NSNumber *uhatx = [NSNumber numberWithDouble:result[0][0]];
+    NSNumber *uhaty = [NSNumber numberWithDouble:result[0][1]];
+    NSNumber *uhatz = [NSNumber numberWithDouble:result[0][2]];
     
-    NSNumber *vhatx = [NSNumber numberWithDouble:model_coords[1][0]];
-    NSNumber *vhaty = [NSNumber numberWithDouble:model_coords[1][1]];
-    NSNumber *vhatz = [NSNumber numberWithDouble:model_coords[1][2]];
+    NSNumber *vhatx = [NSNumber numberWithDouble:result[1][0]];
+    NSNumber *vhaty = [NSNumber numberWithDouble:result[1][1]];
+    NSNumber *vhatz = [NSNumber numberWithDouble:result[1][2]];
     
-    NSNumber *dirx = [NSNumber numberWithDouble:model_coords[2][0]];
-    NSNumber *diry = [NSNumber numberWithDouble:model_coords[2][1]];
-    NSNumber *dirz = [NSNumber numberWithDouble:model_coords[2][2]];
+    NSNumber *dirx = [NSNumber numberWithDouble:result[2][0]];
+    NSNumber *diry = [NSNumber numberWithDouble:result[2][1]];
+    NSNumber *dirz = [NSNumber numberWithDouble:result[2][2]];
     
     [self.camera setValue:uhatx forKey:@"uHatX"];
     [self.camera setValue:uhaty forKey:@"uHatY"];
@@ -388,6 +379,24 @@ void logMatrix(GKSmatrix_3 M) {
     self.camera.dirY = diry;
     self.camera.dirZ = dirz;
 
+
 }
+
+// This uses the rotation angles, and camera Location to
+// compute and set the global view matrix in the C library.
+//
+- (void)cameraSetEulerG {
+    GKSCameraRep *camera = self.camera;
+    if (camera) {
+        NSNumber *yawNum = self.camera.yaw;
+        NSNumber *pitchNum = self.camera.pitch;
+        NSNumber *rollNum = self.camera.roll;
+        
+        GKSvector3d position = [self.camera positionVector];
+        [self cameraSetEulerTheta:yawNum eulerPhi:pitchNum eulerPsi:rollNum atPosition:position];
+    }
+    
+}
+
 
 @end

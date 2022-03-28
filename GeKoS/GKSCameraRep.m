@@ -67,4 +67,17 @@
     return self;
 }
 
+
+- (GKSvector3d)positionVector
+{
+    GKSvector3d pos_vector = GKSMakeVector([self.positionX doubleValue], [self.positionY doubleValue], [self.positionZ doubleValue]);
+    return pos_vector;
+}
+
+- (GKSvector3d)directionVector
+{
+    GKSvector3d dir_vector = GKSMakeVector([self.dirX doubleValue], [self.dirY doubleValue], [self.dirZ doubleValue]);
+    return dir_vector;
+}
+
 @end

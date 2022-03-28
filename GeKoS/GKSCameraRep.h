@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#include "gks/gks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,6 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) NSNumber* near;
 @property (strong) NSNumber* far;
+
+- (GKSvector3d)positionVector;
+- (GKSvector3d)directionVector;
 
 @end
 

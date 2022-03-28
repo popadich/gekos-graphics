@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSCameraController : NSViewController
 
-- (void)cameraFixViewMatrix;
-- (void)cameraDoLookAtG;
+- (void)cameraSetViewMatrixG;
+- (void)camerSetViewLookAtG;
 
 - (void)cameraSetProjectionType:(NSNumber *)projectionType;
-- (void)cameraFixProjectionMatrix;
+- (void)cameraSetProjectionMatrixG;
 
 @end
 

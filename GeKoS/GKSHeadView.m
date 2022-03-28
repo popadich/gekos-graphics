@@ -8,7 +8,7 @@
 #import "GKSHeadView.h"
 #include "gks/gks.h"
 
-
+static double head_size_adjust = 1.0;
 
 @implementation GKSHeadView
 //
@@ -23,6 +23,12 @@
 //
 //
 
+- (void)awakeFromNib
+{
+    double focal_length = 1.0 + head_size_adjust;
+    NSNumber *fl = [NSNumber numberWithDouble:focal_length];
+    _headFocalLength = fl;
+}
 
 - (void)drawHead3DAtPoint:(NSPoint)center yaw:(double)yaw pitch:(double)pitch roll:(double)roll focalLenth:(double)fl
 {
