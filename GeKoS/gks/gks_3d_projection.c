@@ -61,7 +61,7 @@ void gks_set_orthogonal_projection(void)
 /*
     1 0 0 0
     0 1 0 0
-    0 0 0 1/d
+    0 0 0 1/d (positive/negative controls left/right handed coordinate system)
     0 0 0 1
 */
 void gks_set_perspective_simple(GKSfloat d)
@@ -99,7 +99,7 @@ void gks_set_perspective_simple(GKSfloat d)
  
     1/t⍺ 0    0   0
     0    1/t⍺ 0   0
-    0    0    a  -1
+    0    0    a  -1 (positive/negative controls left/right coordinate system)
     0    0    b   0
 */
 void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
@@ -127,7 +127,7 @@ void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
     gProjectionMatrix[2][0] = 0.0;
     gProjectionMatrix[2][1] = 0.0;
     gProjectionMatrix[2][2] = a;
-    gProjectionMatrix[2][3] = -1.0;
+    gProjectionMatrix[2][3] = 1.0;
     
     gProjectionMatrix[3][0] = 0.0;
     gProjectionMatrix[3][1] = 0.0;
@@ -143,7 +143,7 @@ void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
  
     1/t⍺ 0    0   0
     0    1/t⍺ 0   0
-    0    0    a  -1
+    0    0    a  -1 (positive/negative controls left/right coordinate system)
     0    0    b   0
 */
 void gks_set_perspective_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far)

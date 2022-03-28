@@ -33,6 +33,7 @@ void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, 
 
 void gks_transform_point(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
 void gks_vector_transform_projection(GKSvector3d v, GKSmatrix_3 tm, GKSvector3dPtr result);
+void gks_vector_transform_3(GKSvector3d v, GKSmatrix_3 tm,  GKSvector3dPtr result);
 void gks_transform_vector_3(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
 
 // Matrix Operations
