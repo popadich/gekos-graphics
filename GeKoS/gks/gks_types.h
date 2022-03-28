@@ -25,6 +25,7 @@
 typedef int GKSint;
 typedef double GKSfloat;
 typedef char GKSchar;
+typedef int GKSbool;
 
 typedef struct
 {
@@ -130,12 +131,15 @@ typedef enum {
 
 typedef struct
 {
-    GKSobject_3 meshObject;    // TODO: this should be a pointer?
+    GKSint object_id;
+    GKSbool hidden;
+    GKSfloat priority;
     GKSobjectKind kind;
-    GKSmatrix_3 modelTransform; // TODO: not necessary
-    GKSvector3d scaleVector;
-    GKSvector3d rotateVector;
-    GKSvector3d translateVector;
+    GKSobject_3 mesh_object;    // TODO: this should be a pointer?
+    GKSmatrix_3 model_transform; // TODO: not necessary if vectors are kept
+    GKSvector3d scale_vector;
+    GKSvector3d rotate_vector;
+    GKSvector3d translate_vector;
     GKScolor fill_color;
     GKScolor line_color;
     

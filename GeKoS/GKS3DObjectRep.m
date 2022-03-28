@@ -10,33 +10,15 @@
 
 @implementation GKS3DObjectRep
 
-
-- (id)initWithStructure:(GKSactor)actorStruct
-{
-    self = [super init];
-    if (self) {
-        _objectKind = [NSNumber numberWithInteger:actorStruct.kind];
-        _scaleX = [NSNumber numberWithDouble:actorStruct.scaleVector.crd.x];
-        _scaleY = [NSNumber numberWithDouble:actorStruct.scaleVector.crd.y];
-        _scaleZ = [NSNumber numberWithDouble:actorStruct.scaleVector.crd.z];
-        _rotX = [NSNumber numberWithDouble:actorStruct.rotateVector.crd.x];
-        _rotY = [NSNumber numberWithDouble:actorStruct.rotateVector.crd.y];
-        _rotZ = [NSNumber numberWithDouble:actorStruct.rotateVector.crd.z];
-        _transX = [NSNumber numberWithDouble:actorStruct.translateVector.crd.x];
-        _transY = [NSNumber numberWithDouble:actorStruct.translateVector.crd.y];
-        _transZ = [NSNumber numberWithDouble:actorStruct.translateVector.crd.z];
-        _lineColor = [NSColor colorWithRed:actorStruct.line_color.red green:actorStruct.line_color.green blue:actorStruct.line_color.blue alpha:actorStruct.line_color.alpha];
-        _fillColor = [NSColor colorWithRed:actorStruct.fill_color.red green:actorStruct.fill_color.green blue:actorStruct.fill_color.blue alpha:actorStruct.fill_color.alpha];
-    }
-    return self;
-}
-
-
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         _objectKind = [NSNumber numberWithInteger:kCubeKind];
+        _hidden = [NSNumber numberWithBool:NO];
+        _objectID = @0;
+        _priority = @0;
+        
         _transX = [NSNumber numberWithDouble:0.0];
         _transY = [NSNumber numberWithDouble:0.0];
         _transZ = [NSNumber numberWithDouble:0.0];
@@ -94,14 +76,14 @@
 }
 
 
-
-// NSCopying protocol
+// MARK: NSCopying protocol
 - (id)copyWithZone:(NSZone *)zone
 {
     GKS3DObjectRep *another = [[GKS3DObjectRep allocWithZone: zone] init];;
-//    another.objectKind = [_objectKind copyWithZone: zone];
-//    another.objectKind = _objectKind;
     another.objectKind = self.objectKind;
+    another.hidden = self.hidden;
+    another.priority = self.priority;
+    another.objectID = self.objectID;
     another.transX = self.transX;
     another.transY = self.transY;
     another.transZ = self.transZ;

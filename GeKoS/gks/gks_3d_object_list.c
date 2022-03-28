@@ -59,31 +59,38 @@ GKSactor gks_objarr_object_at_index(int index) {
     return object3d;
 }
 
-bool gks_objarr_add(GKSobjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d rotVec, GKSvector3d scaleVec, GKScolor lineColor, GKScolor fillColor)
+
+bool gks_objarr_actor_add(GKSactor actor)
 {
-    //add_object_new(object, transVec, scaleVec, rotVec);
+    GKSvector3d scaleVec;
+    GKSvector3d rotVec;
+    GKSvector3d transVec;
+    
     bool did_add = false;
     
     if (_object_count<GKS_MAX_SCENE_OBJECTS) {
 
-        object_array[_object_count].kind = kind;
-        object_array[_object_count].fill_color = fillColor;
-        object_array[_object_count].line_color = lineColor;
-
-        gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].modelTransform);
+        object_array[_object_count].kind = actor.kind;
+        object_array[_object_count].fill_color = actor.fill_color;
+        object_array[_object_count].line_color = actor.line_color;
+        scaleVec = actor.scale_vector;
+        rotVec = actor.rotate_vector;
+        transVec = actor.translate_vector;
+        
+        gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].model_transform);
         
         // ORDER MATTERS S x R x T
-        gks_accumulate_x_rotation_matrix_3(rotVec.crd.x,object_array[_object_count].modelTransform);
-        gks_accumulate_y_rotation_matrix_3(rotVec.crd.y,object_array[_object_count].modelTransform);
-        gks_accumulate_z_rotation_matrix_3(rotVec.crd.z,object_array[_object_count].modelTransform);
-        gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, object_array[_object_count].modelTransform);
+        gks_accumulate_x_rotation_matrix_3(rotVec.crd.x,object_array[_object_count].model_transform);
+        gks_accumulate_y_rotation_matrix_3(rotVec.crd.y,object_array[_object_count].model_transform);
+        gks_accumulate_z_rotation_matrix_3(rotVec.crd.z,object_array[_object_count].model_transform);
+        gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, object_array[_object_count].model_transform);
         
         // !!!: This copies the object
-        object_array[_object_count].meshObject = *object;
+        object_array[_object_count].mesh_object = actor.mesh_object;
         
-        object_array[_object_count].scaleVector = scaleVec;
-        object_array[_object_count].rotateVector = rotVec;
-        object_array[_object_count].translateVector = transVec;
+        object_array[_object_count].scale_vector = scaleVec;
+        object_array[_object_count].rotate_vector = rotVec;
+        object_array[_object_count].translate_vector = transVec;
         
         
         // @TODO: Add object to Table View
@@ -95,6 +102,7 @@ bool gks_objarr_add(GKSobjectKind kind, GKSobject_3 *object, GKSvector3d transVe
 
     return did_add;
 }
+
 
 void gks_objarr_update_object(GKSint index, GKSobjectKind kind, GKSvector3d translate, GKSvector3d rotate, GKSvector3d scale)
 {
@@ -113,15 +121,14 @@ void gks_objarr_update_object(GKSint index, GKSobjectKind kind, GKSvector3d tran
     
     if (index >=0 && index<_object_count) {
         if (object_array[index].kind == kind) {
-            gks_create_scaling_matrix_3(sx,sy,sz, object_array[index].modelTransform);
-            gks_accumulate_x_rotation_matrix_3(rx, object_array[index].modelTransform);
-            gks_accumulate_y_rotation_matrix_3(ry, object_array[index].modelTransform);
-            gks_accumulate_z_rotation_matrix_3(rz, object_array[index].modelTransform);
-            gks_accumulate_translation_matrix_3(tx,ty,tz, object_array[index].modelTransform);
-            object_array[index].scaleVector = scale;
-            object_array[index].translateVector = translate;
-            object_array[index].rotateVector = rotate;
-            // UpdateObjectList(index,kind,tx,ty,tz,rx,ry,rz,sx,sy,sz);
+            gks_create_scaling_matrix_3(sx,sy,sz, object_array[index].model_transform);
+            gks_accumulate_x_rotation_matrix_3(rx, object_array[index].model_transform);
+            gks_accumulate_y_rotation_matrix_3(ry, object_array[index].model_transform);
+            gks_accumulate_z_rotation_matrix_3(rz, object_array[index].model_transform);
+            gks_accumulate_translation_matrix_3(tx,ty,tz, object_array[index].model_transform);
+            object_array[index].scale_vector = scale;
+            object_array[index].translate_vector = translate;
+            object_array[index].rotate_vector = rotate;
         }
     }
 
@@ -137,23 +144,18 @@ void gks_objarr_delete_at_index(int index)
     int idx = index - 1;
     if (idx > 0 && idx < _object_count) {
   
-        // Free the memory associated with actor object
-        GKSobject_3 obj = object_array[idx].meshObject;
+        GKSobject_3 obj = object_array[idx].mesh_object;
         GKSvertexArrPtr verts = obj.vertices;
         GKSpolygonArrPtr polys = obj.polygons;
-//        GKSnormalArrPtr norms = obj.normals;
-//        GKSvertexArrPtr trans = obj.transverts;
-//        GKSDCArrPtr dvcds = obj.devcoords;
+        GKSDCArrPtr dvcds = obj.devcoords;
+        
+        // Free the memory associated with actor data structure
         free(verts);
         obj.vertices = NULL;
         free(polys);
         obj.polygons = NULL;
-//        free(norms);
-//        obj.normals = NULL;
-//        free(trans);
-//        obj.transverts = NULL;
-//        free(dvcds);
-//        obj.devcoords = NULL;
+        free(dvcds);
+        obj.devcoords = NULL;
         
     }
     
@@ -163,8 +165,8 @@ void gks_objarr_delete_at_index(int index)
         // brute force delete from array by copying elements from idx 0s based
         for (i=idx; i<_object_count; i++) {
             object_array[i].kind = object_array[i+1].kind;
-            gks_copy_matrix_3(object_array[i+1].modelTransform, object_array[i].modelTransform);
-            object_array[i].meshObject = object_array[i+1].meshObject;
+            gks_copy_matrix_3(object_array[i+1].model_transform, object_array[i].model_transform);
+            object_array[i].mesh_object = object_array[i+1].mesh_object;
             // needs line and fill colors and transforms? to be complete.
             // Better to use linked list instead.
         }
@@ -208,17 +210,17 @@ void draw_object_3(GKSactor *theObject)
         temp_vertex_array[i].crd.w = 1.0;
     }
     
-    vertexList = theObject->meshObject.vertices;
-    polygonList = theObject->meshObject.polygons;
-    transVertList = theObject->meshObject.transverts;
-    devcoordList = theObject->meshObject.devcoords;
+    vertexList = theObject->mesh_object.vertices;
+    polygonList = theObject->mesh_object.polygons;
+    transVertList = theObject->mesh_object.transverts;
+    devcoordList = theObject->mesh_object.devcoords;
     
     // TODO: transform object vertices first
     // to speed things up I should transform all the vertices of the object
     // to viewport space coordinates, and then test normals and then draw
     // polygons. Use a seperate vertex buffer like the one for polygons.
     
-    polygonCount = theObject->meshObject.polynum;
+    polygonCount = theObject->mesh_object.polynum;
 //    totalVerteces = theObject->vertnum;
 
     for(polygonID=0; polygonID<polygonCount; polygonID++) {
@@ -239,11 +241,10 @@ void draw_object_3(GKSactor *theObject)
 }
 
 
+// TODO: pipeline objects
 void gks_objarr_draw_object(GKSactor the_object)
 {
-    gks_set_world_model_matrix(the_object.modelTransform);
-    
-    // TODO: arguments smell
+    gks_set_world_model_matrix(the_object.model_transform);
     draw_object_3(&the_object);
     
 }

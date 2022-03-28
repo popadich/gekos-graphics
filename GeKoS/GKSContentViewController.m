@@ -159,6 +159,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 // Object List Stuff
 - (BOOL)addObject3DStruct:(GKS3DObjectRep *)objRep
 {
+    GKSactor anActor;
     BOOL didAdd = NO;
     BOOL isCentered = [self.isCenteredObject boolValue];
     GKSobject_3 *mesh_object_ptr = NULL;
@@ -182,21 +183,35 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     }
     
     if (mesh_object_ptr != NULL) {
-        CGFloat r,g,b,a;
+        
+        // TODO: objectRep should do this
+        // Collect objectRep data as GKS c primitive types
         GKSvector3d position = [objRep positionVector];
         GKSvector3d rotation = [objRep rotationVector];
         GKSvector3d scale = [objRep scaleVector];
         
+        CGFloat r,g,b,a;
         NSColor* theColor = objRep.lineColor;
         [theColor getRed:&r green:&g blue:&b alpha:&a];
         GKScolor line_color = {r,g,b,a};
-
         theColor = objRep.fillColor;
         [theColor getRed:&r green:&g blue:&b alpha:&a];
         GKScolor fill_color = {r,g,b,a};
         
+        // the Actor
+        anActor.kind = kind;
+        anActor.hidden = objRep.hidden.boolValue;
+        anActor.mesh_object = *mesh_object_ptr;
+        anActor.priority = objRep.priority.doubleValue;
+        anActor.scale_vector = scale;
+        anActor.rotate_vector = rotation;
+        anActor.translate_vector = position;
+        anActor.line_color = line_color;
+        anActor.fill_color = fill_color;
+        
+        
         // add a 3d object to the c model world
-        if (gks_objarr_add(kind, mesh_object_ptr, position, rotation, scale, line_color, fill_color)) {
+        if (gks_objarr_actor_add(anActor)){
             free(mesh_object_ptr);  //free object it is copied when added
             didAdd = YES;
         }

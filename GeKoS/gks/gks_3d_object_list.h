@@ -22,10 +22,10 @@ void gks_objarr_draw_object(GKSactor anActor);
 //
 //int  gks_objarr_count(void);
 //
-//Actor gks_objarr_object_at_index(int index);
+//GKSactor gks_objarr_object_at_index(int index);
 //
-bool gks_objarr_add(GKSobjectKind kind, GKSobject_3 *object, GKSvector3d transVec, GKSvector3d rotVec, GKSvector3d scaleVec, GKScolor lineColor, GKScolor fillColor);
-//void gks_objarr_update_object(int index, int kind, Gfloat tx, Gfloat ty, Gfloat tz, Gfloat sx, Gfloat sy, Gfloat sz, Gfloat rx, Gfloat ry, Gfloat rz);
+
+bool gks_objarr_actor_add(GKSactor actor);
 //
 void gks_objarr_delete_last(void);
 //void gks_objarr_delete_at_index(int index);        // 1s based?

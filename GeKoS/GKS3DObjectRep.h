@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKS3DObjectRep : NSObject <NSCopying>
 
+@property (nonatomic, strong) NSNumber* objectID;
+@property (nonatomic, strong) NSNumber* hidden;
+@property (nonatomic, strong) NSNumber* priority;
 @property (nonatomic, strong) NSNumber* objectKind;
 @property (nonatomic, strong) NSNumber* transX;
 @property (nonatomic, strong) NSNumber* transY;
@@ -27,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSColor* fillColor;
 
 
-- (id)initWithStructure:(GKSactor)actorStruct;
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ;
 - (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ;
 - (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ;
