@@ -26,6 +26,18 @@
     return NO;
 }
 
+- (void)redDot {
+    BOOL isDot = NO;
+    
+    if (isDot) {
+        NSPoint redDotPoint = NSMakePoint(80.0, 50.0);
+        NSRect dotRect = NSMakeRect(redDotPoint.x, redDotPoint.y, 12, 12.0);
+        NSBezierPath *redDot = [NSBezierPath bezierPathWithOvalInRect:dotRect];
+        [[NSColor redColor] setFill];
+        [redDot fill];
+    }
+}
+
 - (void)awakeFromNib {
     
     NSError* error;
@@ -36,21 +48,6 @@
         aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
         if (error.code == noErr) {
             self.backgroundColor = aColor;
-        }
-    }
-    theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
-    if (theData != nil) {
-        aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
-        if (error.code == noErr) {
-            self.fillColor = aColor;
-        }
-        
-    }
-    theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
-    if (theData != nil) {
-        aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
-        if (error.code == noErr) {
-            self.lineColor = aColor;
         }
     }
     
@@ -99,15 +96,9 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
 
-    
-    
-    // Drawing code here.
-    // erase the background by drawing background color
     [maizeColor set];
     [NSBezierPath fillRect:dirtyRect];
-    
-    gks_trans_adjust_device_viewport(dirtyRect.origin.x, dirtyRect.size.width, dirtyRect.origin.y, dirtyRect.size.height);
-    
+
     [self.backgroundColor set];
     NSRect blueprintBox = NSInsetRect(self.bounds, 20.0, 20.0);
     NSBezierPath *boxPath = [NSBezierPath bezierPathWithRect:blueprintBox];
@@ -117,18 +108,15 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
     [boxPath setLineWidth:self.itemLineWidth];
     [boxPath stroke];
     
-    // tracking dot possible look
-    NSPoint redDotPoint = NSMakePoint(80.0, 50.0);
-    NSRect dotRect = NSMakeRect(redDotPoint.x, redDotPoint.y, 12, 12.0);
-    NSBezierPath *redDot = [NSBezierPath bezierPathWithOvalInRect:dotRect];
-    [[NSColor redColor] setFill];
-    [redDot fill];
+    // tracking dot for coordinate settings
+    [self redDot];
     
-    // render objects
-    [self.lineColor setStroke];
-    [self.fillColor setFill];
-    // @TODO: use context or pass data?
-    // instead of using a callback function above
+    
+    // FIXME: No callback
+    // Pass drawing context forward or pass transformed data back
+    // instead of using a callback function.
+    
+    gks_trans_adjust_device_viewport(dirtyRect.origin.x, dirtyRect.size.width, dirtyRect.origin.y, dirtyRect.size.height);
     gks_objarr_draw_list();
 
 }

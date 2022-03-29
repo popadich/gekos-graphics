@@ -6,34 +6,15 @@
 //
 
 #import "GKSDrawingController.h"
-#import "GKSConstants.h"
-#import "GKSCameraRep.h"
-#import "GKSScene.h"
 
-@interface GKSDrawingController ()
-
-@end
 
 @implementation GKSDrawingController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-
-    //    NSLog(@"theScene (representedObject): %@ ", self.representedObject);
     
     
-}
-
-- (void)sceneChange {
-    NSLog(@"Scene has changed. Update some local settings.");
-    GKSScene *scene = self.representedObject;
-    if (scene != nil) {
-        GKSDrawingView* theView = (GKSDrawingView*)self.view;
-        theView.backgroundColor = scene.worldBackColor;
-        theView.lineColor = scene.worldLineColor;
-        theView.fillColor = scene.worldFillColor;
-    }
 }
 
 
