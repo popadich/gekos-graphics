@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GKS3DObjectRep.h"
+#import "GKS3DObject.h"
 #import "GKSCameraRep.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (instancetype)initWithCamera:(GKSCameraRep *)aCamera;
-- (void)addObjectRep:(GKS3DObjectRep*) anObject3D;
+- (void)add3DObject:(GKS3DObject*) anObject3D;
 
 
 @end

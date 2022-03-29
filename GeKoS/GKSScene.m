@@ -62,11 +62,11 @@
     return self;
 }
 
-- (void) addObjectRep:(GKS3DObjectRep*) anObjectRep
+- (void) add3DObject:(GKS3DObject*)object3D
 {
-    NSLog(@"3D Object of kind: %ld \n ScaleX: %lf \n TransX: %lf\n TransY: %lf\n TransZ: %lf", anObjectRep.objectKind.integerValue, anObjectRep.scaleX.floatValue, anObjectRep.transX.floatValue, anObjectRep.transY.floatValue, anObjectRep.transZ.floatValue);
+    NSLog(@"3D Object of kind: %ld \n ScaleX: %lf \n TransX: %lf\n TransY: %lf\n TransZ: %lf", object3D.objectKind.integerValue, object3D.scaleX.floatValue, object3D.transX.floatValue, object3D.transY.floatValue, object3D.transZ.floatValue);
     
-    [self.objectList addObject:anObjectRep];
+    [self.objectList addObject:object3D];
 }
 
 

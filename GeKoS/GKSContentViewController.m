@@ -12,6 +12,7 @@
 #import "GKSCameraController.h"
 #import "GKSDrawingController.h"
 #import "GKS3DObjectRep.h"
+#import "GKS3DObject.h"
 #import "GKSScene.h"
 
 
@@ -122,8 +123,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.drawingViewController.representedObject = self.theScene;
     
     // populate c data arrays
-    for (GKS3DObjectRep *objRep in scene.objectList) {
-        [self addObject3DStruct:objRep];
+    for (GKS3DObject *objRep in scene.objectList) {
+        [self addObjectStruct:[objRep objectActor]];
     }
 }
 
@@ -158,13 +159,14 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 }
 
 // Object List Stuff
-- (BOOL)addObject3DStruct:(GKS3DObjectRep *)objRep
+
+- (BOOL)addObjectStruct:(GKSactor)actor
 {
     BOOL didAdd = NO;
     BOOL isCentered = [self.isCenteredObject boolValue];
     GKSobject_3 *mesh_object_ptr = NULL;
     
-    GKSobjectKind kind = (GKSobjectKind)[objRep.objectKind integerValue];
+    GKSobjectKind kind = actor.kind;
     switch (kind) {
         case kCubeKind:
             mesh_object_ptr = CubeMesh(isCentered);
@@ -184,8 +186,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     
     if (mesh_object_ptr != NULL) {
         
-        GKSactor actor = [objRep objectActor];
-        // Collect objectRep data as GKS c primitive types
+        // TODO: set mesh pointer earlier with other properties
+        // this is a side effect of creating data from the bottom up
         actor.mesh_object = *mesh_object_ptr;
         
         // add a 3d object data structure to the c model world
@@ -201,14 +203,33 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 // add a 3d object to the object GUI world
 - (void)addObject3DToList:(GKS3DObjectRep *)templateObject
 {
-    GKS3DObjectRep *object3D = [templateObject copy];
+//    GKS3DObjectRep *object3D = [templateObject copy];
+    GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:templateObject.objectKind];
+    //copy data from Rep
+    object3D.hidden = templateObject.hidden;
+    
+    object3D.transX = templateObject.transX;
+    object3D.transY = templateObject.transY;
+    object3D.transZ = templateObject.transZ;
 
+    object3D.rotX = templateObject.rotX;
+    object3D.rotY = templateObject.rotY;
+    object3D.rotZ = templateObject.rotZ;
+    
+    object3D.scaleX = templateObject.scaleX;
+    object3D.scaleY = templateObject.scaleY;
+    object3D.scaleZ = templateObject.scaleZ;
+
+    object3D.lineColor = templateObject.lineColor;
+    object3D.fillColor = templateObject.fillColor;
+    
     // try to add to c data structures
-    if ([self addObject3DStruct:object3D]) {
-        // add object representation to mutable array
-        [self.theScene addObjectRep:object3D];
+    if ([self addObjectStruct:object3D.objectActor]) {
+        // add 3-d object to mutable array
+        [self.theScene add3DObject:object3D];
     }
     else
+        // array full
         NSBeep();
 }
 
