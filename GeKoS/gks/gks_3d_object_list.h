@@ -26,9 +26,10 @@ void gks_objarr_draw_object(GKSactor anActor);
 //
 
 bool gks_objarr_actor_add(GKSactor actor);
-//
+
+
+void gks_objarr_delete_all(void);
 void gks_objarr_delete_last(void);
 //void gks_objarr_delete_at_index(int index);        // 1s based?
-//void gks_objarr_delete_all(void);
 
 #endif /* gks_3d_object_list_h */

@@ -7,8 +7,15 @@
 
 #import "GKS3DObject.h"
 
-@implementation GKS3DObject
+@interface GKS3DObject () {
+    GKSobject_3 *mesh_ptr;
+}
 
+@end
+
+
+
+@implementation GKS3DObject
 
 - (instancetype)initWithKind:(NSNumber *)daKine
 {
@@ -41,6 +48,38 @@
     return ( [self initWithKind:[NSNumber numberWithInteger:kCubeKind]] );
 }
 
+- (GKSobject_3 *)getMesh
+{
+    BOOL isCentered = NO;
+    GKSobject_3 *mesh_object_ptr = NULL;
+    GKSobjectKind kind = self.objectKind.intValue;
+    
+    if (mesh_ptr != NULL) {
+        mesh_object_ptr = mesh_ptr;
+    }
+    else {
+        switch (kind) {
+            case kCubeKind:
+                mesh_object_ptr = CubeMesh(isCentered);
+                break;
+            case kSphereKind:
+                mesh_object_ptr = SphereMesh(isCentered);
+                break;
+            case kPyramidKind:
+                mesh_object_ptr = PyramidMesh(isCentered);
+                break;
+            case kHouseKind:
+                mesh_object_ptr = HouseMesh(isCentered);
+                break;
+            default:
+                break;
+        }
+        mesh_ptr = mesh_object_ptr;
+    }
+    
+
+    return mesh_object_ptr;
+}
 
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ {
     self.scaleX = [NSNumber numberWithDouble:scaleFactorX];
@@ -102,7 +141,8 @@
     anActor.hidden = self.hidden.boolValue;
     
     //What to do with this
-    //anActor.mesh_object = *mesh_object_ptr;
+    GKSobject_3 *mesh_ptr = self.getMesh;
+    anActor.mesh_object = *mesh_ptr;
     
     anActor.priority = self.priority.doubleValue;
     anActor.scale_vector = scale;

@@ -97,9 +97,9 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     // Set normalization value transform from world to camera to view coordinates
     gks_trans_create_transform_at_idx(0, r_min, r_max, s_min, s_max, world_volume);
     
-    // TODO: obects need to be added not copied
-    // Store one 3D object representation to act as a data entry buffer
-    // which is copied when the object is actually added to the 3D world
+    // Store one 3D object representation to act as a data entry buffer;
+    // the data is used to create the actual 3D object added to the 3D world
+    //
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
@@ -123,8 +123,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.drawingViewController.representedObject = self.theScene;
     
     // populate c data arrays
-    for (GKS3DObject *objRep in scene.objectList) {
-        [self addObjectStruct:[objRep objectActor]];
+    for (GKS3DObject *object3D in scene.objectList) {
+        gks_objarr_actor_add([object3D objectActor]);
     }
 }
 
@@ -158,74 +158,34 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     }
 }
 
-// Object List Stuff
 
-- (BOOL)addObjectStruct:(GKSactor)actor
+// Add a 3d object to the scene/world
+- (void)addObject3DToLists:(GKS3DObjectRep *)objRep
 {
-    BOOL didAdd = NO;
-    BOOL isCentered = [self.isCenteredObject boolValue];
-    GKSobject_3 *mesh_object_ptr = NULL;
+    GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:objRep.objectKind];
     
-    GKSobjectKind kind = actor.kind;
-    switch (kind) {
-        case kCubeKind:
-            mesh_object_ptr = CubeMesh(isCentered);
-            break;
-        case kSphereKind:
-            mesh_object_ptr = SphereMesh(isCentered);
-            break;
-        case kPyramidKind:
-            mesh_object_ptr = PyramidMesh(isCentered);
-            break;
-        case kHouseKind:
-            mesh_object_ptr = HouseMesh(isCentered);
-            break;
-        default:
-            break;
-    }
+    // TODO: convenience method?
+    // copy data from Rep to Obj3D
+    object3D.hidden = objRep.hidden;
     
-    if (mesh_object_ptr != NULL) {
-        
-        // TODO: set mesh pointer earlier with other properties
-        // this is a side effect of creating data from the bottom up
-        actor.mesh_object = *mesh_object_ptr;
-        
-        // add a 3d object data structure to the c model world
-        if (gks_objarr_actor_add(actor)){
-            free(mesh_object_ptr);  //free object it is copied when added
-            didAdd = YES;
-        }
-    }
-    return didAdd;
-}
+    object3D.transX = objRep.transX;
+    object3D.transY = objRep.transY;
+    object3D.transZ = objRep.transZ;
 
-
-// add a 3d object to the object GUI world
-- (void)addObject3DToList:(GKS3DObjectRep *)templateObject
-{
-//    GKS3DObjectRep *object3D = [templateObject copy];
-    GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:templateObject.objectKind];
-    //copy data from Rep
-    object3D.hidden = templateObject.hidden;
+    object3D.rotX = objRep.rotX;
+    object3D.rotY = objRep.rotY;
+    object3D.rotZ = objRep.rotZ;
     
-    object3D.transX = templateObject.transX;
-    object3D.transY = templateObject.transY;
-    object3D.transZ = templateObject.transZ;
+    object3D.scaleX = objRep.scaleX;
+    object3D.scaleY = objRep.scaleY;
+    object3D.scaleZ = objRep.scaleZ;
 
-    object3D.rotX = templateObject.rotX;
-    object3D.rotY = templateObject.rotY;
-    object3D.rotZ = templateObject.rotZ;
+    object3D.lineColor = objRep.lineColor;
+    object3D.fillColor = objRep.fillColor;
     
-    object3D.scaleX = templateObject.scaleX;
-    object3D.scaleY = templateObject.scaleY;
-    object3D.scaleZ = templateObject.scaleZ;
-
-    object3D.lineColor = templateObject.lineColor;
-    object3D.fillColor = templateObject.fillColor;
-    
-    // try to add to c data structures
-    if ([self addObjectStruct:object3D.objectActor]) {
-        // add 3-d object to mutable array
+    // try to add to c data structures to world
+    if (gks_objarr_actor_add([object3D objectActor])) {
+        // add 3-d object to scene
         [self.theScene add3DObject:object3D];
     }
     else
@@ -238,7 +198,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
-    [self addObject3DToList:self.object3DRep];
+    [self addObject3DToLists:self.object3DRep];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }

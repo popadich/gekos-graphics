@@ -26,11 +26,11 @@
 #include "gks_3d_matrix.h"
 #include "gks_3d_world.h"
 
-#define GKS_MAX_SCENE_OBJECTS    32
+#define GKS_MAX_SCENE_ACTORS    32
 
 static bool         _visble_Surface_Only_Flag;
 static int          _object_count;                          // count of objects 3D
-static GKSactor        object_array[GKS_MAX_SCENE_OBJECTS];    // world Scene max objects
+static GKSactor     object_array[GKS_MAX_SCENE_ACTORS];    // world Scene max objects
 
 void gks_init_object_list(void)
 {
@@ -54,7 +54,9 @@ int gks_objarr_count(void)
 }
 
 // TODO: return a pointer instead
-GKSactor gks_objarr_object_at_index(int index) {
+
+GKSactor gks_objarr_object_at_index(int index)
+{
     GKSactor object3d = object_array[index];
     return object3d;
 }
@@ -68,7 +70,7 @@ bool gks_objarr_actor_add(GKSactor actor)
     
     bool did_add = false;
     
-    if (_object_count<GKS_MAX_SCENE_OBJECTS) {
+    if (_object_count < GKS_MAX_SCENE_ACTORS) {
 
         object_array[_object_count].kind = actor.kind;
         object_array[_object_count].fill_color = actor.fill_color;
@@ -183,7 +185,8 @@ void gks_objarr_delete_last(void)
     gks_objarr_delete_at_index(_object_count);
 }
 
-void gks_objarr_delete_all(void) {
+void gks_objarr_delete_all(void)
+{
     while (gks_objarr_count() > 0) {
         gks_objarr_delete_last();
     }
