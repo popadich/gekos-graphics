@@ -174,6 +174,7 @@ void logMatrix(GKSmatrix_3 M) {
 {
     GKSCameraRep *camera = self.camera;
     [self cameraDefaultSettings:camera];
+    [self setHeadFocus:camera.focalLength];
     [self adjustHead];
 }
 

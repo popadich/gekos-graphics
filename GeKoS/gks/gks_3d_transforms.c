@@ -73,12 +73,19 @@ GKSint gks_trans_get_curr_view_idx(void)
     return g_curr_transform_idx;
 }
 
-void gks_trans_adjust_device_viewport(GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max) {
-
-    // These have to be set before the selecting a norm
-    GKSlimits_2 deviceport_2 = {r_min, r_max, s_min, s_max};
+void gks_trans_adjust_device_viewport(GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max)
+{
+    GKSlimits_2 deviceport_2;
+    deviceport_2.xmax = r_max;
+    deviceport_2.xmin = r_min;
+    deviceport_2.ymax = s_max;
+    deviceport_2.ymin = s_min;
+    
     gks_trans_set_device_viewport(0, deviceport_2);  // pass by copy
-    gks_trans_compute_view_3(0);      //FIXME: perform the math no need for setting
+    
+    // These are viewport and world volume transforms only
+    // not necessary to keep an array of them
+    gks_trans_compute_view_3(0);    //TODO: excercise index settings
     
 }
 
@@ -162,6 +169,8 @@ void setup_transform_viewport_to_device(GKSlimits_3 viewport_limits)
 
 // For now there is only one transform, so keeping
 // it in an array of 10 seems weird and pointless.
+//
+// These are viewport and world volume transforms.
 void gks_trans_compute_view_3(GKSint view_num)
 {
     GKSlimits_3 wrld_volume;

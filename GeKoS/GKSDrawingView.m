@@ -58,10 +58,12 @@
     _itemLineWidth = 1.0;
     
     
+    // TODO: get rid of this
     // Callback registration.
     struct mystery_data polylinedata = {3, NO, "polyliner", NULL};
     polylinedata.hiddenLineRemovalFlag = self.visibleSurfaceOnly;
     localpolyline_cb_register(my_polyline_cb, &polylinedata);
+    
 }
 
 
@@ -71,6 +73,12 @@ struct mystery_data {
     char name[32];
     void* ns_bezier_path;
 };
+
+
+// FIXME: No callback
+// Pass drawing context forward or pass transformed data back
+// instead of using a callback function.
+
 
 static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array, GKScolor *lineColor, void* userdata)
 {
@@ -111,12 +119,7 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
     // tracking dot for coordinate settings
     [self redDot];
     
-    
-    // FIXME: No callback
-    // Pass drawing context forward or pass transformed data back
-    // instead of using a callback function.
-    
-    gks_trans_adjust_device_viewport(dirtyRect.origin.x, dirtyRect.size.width, dirtyRect.origin.y, dirtyRect.size.height);
+    // TODO: draw scene objects instead
     gks_objarr_draw_list();
 
 }
