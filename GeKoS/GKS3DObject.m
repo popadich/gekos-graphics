@@ -120,6 +120,16 @@
     return rot;
 }
 
+- (void)computeAction
+{
+    
+}
+
+- (void)drawActor
+{
+    
+}
+
 - (GKSactor)objectActor
 {
     GKSactor anActor;

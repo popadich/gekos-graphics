@@ -20,7 +20,7 @@
 #endif
 
 
-#define GKS_MIN_VERTEX_COUNT    7
+#define GKS_POLY_VERTEX_MAX    7
 
 typedef int GKSint;
 typedef double GKSfloat;
@@ -101,8 +101,8 @@ typedef struct {
 // Polygon has a vertex count followed
 // by count vertex indexes (usually 3 or 4)
 // but potentially more. Make room by
-// modifying the GKS_MIN_VERTEX_COUNT constant.
-typedef GKSint      GKSpolygon_3[GKS_MIN_VERTEX_COUNT];
+// modifying the GKS_POLY_VERTEX_MAX constant.
+typedef GKSint      GKSpolygon_3[GKS_POLY_VERTEX_MAX];
 
 typedef GKSvector3d     *GKSvertexArrPtr;       // list of 3D points for each polygon
 typedef GKSpolygon_3    *GKSpolygonArrPtr;      // polygon list
