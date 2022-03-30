@@ -204,7 +204,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 }
 
 - (IBAction)performDeleteQuick:(id)sender {
-    gks_objarr_delete_last();
+//    gks_objarr_delete_last();
+    [self.theScene.objectList removeLastObject];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }

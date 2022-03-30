@@ -116,10 +116,9 @@ typedef struct
     GKSint polynum;
     GKSvertexArrPtr  vertices;
     GKSpolygonArrPtr polygons;
-    GKSnormalArrPtr  normals;
     GKSvertexArrPtr  transverts;
     GKSDCArrPtr      devcoords;
-} GKSobject_3;
+} GKSmesh_3;
 
 typedef enum {
     kCubeKind = 1,
@@ -135,7 +134,7 @@ typedef struct
     GKSbool hidden;
     GKSfloat priority;
     GKSobjectKind kind;
-    GKSobject_3 mesh_object;    // TODO: this should be a pointer?
+    GKSmesh_3 mesh_object;    // TODO: this should be a pointer?
     GKSmatrix_3 model_transform; // TODO: not necessary if vectors are kept
     GKSvector3d scale_vector;
     GKSvector3d rotate_vector;
@@ -143,6 +142,9 @@ typedef struct
     GKScolor fill_color;
     GKScolor line_color;
     
+    GKSnormalArrPtr  normals;
+    GKSDCArrPtr      devcoords;
+
 } GKSactor;
 
 

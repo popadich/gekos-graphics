@@ -8,7 +8,7 @@
 #include <math.h>
 #include "gks_3d_matrix.h"
 
-void gks_set_identity_matrix_2(GKSmatrix_2 result)
+void gks_create_identity_matrix_2(GKSmatrix_2 result)
 {
     result[0][0] = result[1][1] = result[2][2] = 1.0;
     result[0][1] = result[1][0] = result[2][0] = 0.0;
@@ -154,6 +154,14 @@ void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, 
     GKSmatrix_3 temp;
     gks_create_translation_matrix_3(dx,dy,dz,temp);
     accumulate_matrices_3(temp,m,m);
+}
+
+void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 *result)
+{
+    for(int i=0; i<4; i++)
+        for (int j=0; j<4; j++)
+            *result[i][j] = original[i][j];
+
 }
 
 // Computes a new point using homogeneous coordinate transformation matrix

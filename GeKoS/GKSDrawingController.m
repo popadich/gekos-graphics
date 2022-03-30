@@ -6,8 +6,14 @@
 //
 
 #import "GKSDrawingController.h"
+#import "GKSScene.h"
 #include "gks/gks.h"
 
+@interface GKSDrawingController ()
+
+@property (strong)GKSScene *theScene;
+
+@end
 
 @implementation GKSDrawingController
 
@@ -15,6 +21,10 @@
     [super viewDidLoad];
     // Do view setup here.
     
+    GKSScene *scene = self.representedObject;
+    GKSDrawingView *drawView = (GKSDrawingView *)self.view;
+    drawView.sceneObjects = scene.objectList;
+    self.theScene = scene;
 
 }
 
@@ -22,7 +32,7 @@
     [super viewDidLayout];
     
     // Do view geometry here
-    // TODO: only adjust when view resizes
+    // TODO: adjust when view resizes
     NSRect myRect = self.view.bounds;
     gks_trans_adjust_device_viewport(myRect.origin.x, myRect.size.width, myRect.origin.y, myRect.size.height);
 }

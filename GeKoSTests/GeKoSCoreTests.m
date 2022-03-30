@@ -110,7 +110,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testIdentityMatrix2 {
     GKSmatrix_2 im;
     
-    gks_set_identity_matrix_2(im);
+    gks_create_identity_matrix_2(im);
     XCTAssertEqual(im[0][0], 1.0, @"Not 1.0 on diagonal");
     XCTAssertEqual(im[0][1], 0.0, @"Not 0.0 off diagonal");
     XCTAssertEqual(im[0][2], 0.0, @"Not 0.0 off diagonal");
@@ -708,7 +708,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 // MARK: MESH
 
 - (void)testMeshCube {
-    GKSobject_3 *cubeObj;
+    GKSmesh_3 *cubeObj;
     
     cubeObj = CubeMesh(false);
     XCTAssert(cubeObj != NULL, @"Cube mesh does not exist");
@@ -731,7 +731,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 - (void)testMeshPyramid {
-    GKSobject_3 *pyramidObj;
+    GKSmesh_3 *pyramidObj;
     
     pyramidObj = PyramidMesh(false);
     XCTAssert(pyramidObj != NULL, @"Pyramid mesh not exists");
@@ -754,7 +754,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 - (void)testMeshHouse {
-    GKSobject_3 *houseObj;
+    GKSmesh_3 *houseObj;
     
     houseObj = HouseMesh(false);
     XCTAssert(houseObj != NULL, @"House mesh not exists");

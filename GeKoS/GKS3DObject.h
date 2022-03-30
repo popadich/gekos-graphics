@@ -38,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSvector3d)rotationVector;
 - (GKSvector3d)scaleVector;
 - (GKSactor)objectActor;
-- (GKSobject_3 *)getMesh;
 
 @end
 

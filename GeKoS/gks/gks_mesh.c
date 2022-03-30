@@ -10,7 +10,7 @@
 #include "gks_mesh.h"
 #include "gks_3d_matrix.h"
 
-GKSobject_3 *CubeMesh(bool centered)
+GKSmesh_3 *CubeMesh(bool centered)
 {
     static GKSpoint_3 cubevert[GKS_CUBE_VERTEX_COUNT] = {
         {0.0, 0.0, 0.0},
@@ -33,12 +33,11 @@ GKSobject_3 *CubeMesh(bool centered)
 
     GKSpoint_3 *p;
     GKSvector3dPtr q;
-    GKSobject_3 *aCube;
+    GKSmesh_3 *aCube;
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
 
     // copy vertices using pointer arithmetic
     p = cubevert;
@@ -64,11 +63,9 @@ GKSobject_3 *CubeMesh(bool centered)
         }
     }
 
-    aCube = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
+    aCube = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aCube->vertices = vertexList;
     aCube->polygons = polygonList;
-    aCube->normals = NULL;
-    aCube->devcoords = devCoordList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
     aCube->polynum = GKS_CUBE_POLYGON_COUNT;
     
@@ -76,7 +73,7 @@ GKSobject_3 *CubeMesh(bool centered)
 }
 
 
-GKSobject_3 *PyramidMesh(bool centered)
+GKSmesh_3 *PyramidMesh(bool centered)
 {
     // Put some code here to configure a Pyramid.
     static GKSpoint_3 pyrverts[GKS_PYRAMID_VERTEX_COUNT] = {
@@ -96,12 +93,12 @@ GKSobject_3 *PyramidMesh(bool centered)
 
     GKSpoint_3 *p;
     GKSvector3dPtr q;
-    GKSobject_3 *aPyramid = NULL;
+    GKSmesh_3 *aPyramid = NULL;
     
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_2));
+
 
     // copy vertices using pointer arithmetic
     p = pyrverts;
@@ -127,19 +124,17 @@ GKSobject_3 *PyramidMesh(bool centered)
         }
     }
     
-    aPyramid = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
+    aPyramid = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aPyramid->vertices = vertexList;
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
     aPyramid->polygons = polygonList;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
-    aPyramid->normals = NULL;
     aPyramid->transverts = NULL;
-    aPyramid->devcoords = devCoordList;
     
     return aPyramid;
 }
 
-GKSobject_3 *HouseMesh(bool centered)
+GKSmesh_3 *HouseMesh(bool centered)
 {
     static GKSpoint_3 objectvert[GKS_HOUSE_VERTEX_COUNT] = {
         {0, 0,30},
@@ -165,13 +160,13 @@ GKSobject_3 *HouseMesh(bool centered)
     
     GKSpoint_3 *p;
     GKSvector3dPtr q;
-    GKSobject_3 *aHouse = NULL;
+    GKSmesh_3 *aHouse = NULL;
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(GKSpolygon_3));
     GKSvertexArrPtr transList = NULL;
-    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSpoint_2));
+
     
     // copy vertices using pointer arithmetic
     p = objectvert;
@@ -197,18 +192,17 @@ GKSobject_3 *HouseMesh(bool centered)
         }
     }
 
-    aHouse = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
+    aHouse = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aHouse->vertices = vertexList;
     aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
     aHouse->polygons = polygonList;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
     aHouse->transverts = transList;
-    aHouse->devcoords = devCoordList;
     
     return aHouse;
 }
 
-GKSobject_3 *SphereMesh(bool centered)
+GKSmesh_3 *SphereMesh(bool centered)
 {
     double          sine_of_i;
     int             vertexCount = 0;
@@ -228,9 +222,7 @@ GKSobject_3 *SphereMesh(bool centered)
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(computedPolygonCount, sizeof(GKSpolygon_3));
-    GKSDCArrPtr devCoordList = (GKSDCArrPtr)calloc(computedVertexCount, sizeof(GKSpoint_2));
-
-    GKSobject_3 *aSphere = (GKSobject_3 *)calloc(1, sizeof(GKSobject_3));
+    GKSmesh_3 *aSphere = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     
     // construct vertices
    for (int i=0; i<=180; i+=degreeDelta) {
@@ -273,9 +265,6 @@ GKSobject_3 *SphereMesh(bool centered)
     aSphere->polygons = polygonList;
     aSphere->vertnum = vertexCount;
     aSphere->polynum = polygonCount;
-    aSphere->normals = NULL;
-    aSphere->transverts = NULL;
-    aSphere->devcoords = devCoordList;
 
     return aSphere;
 }

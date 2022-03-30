@@ -64,40 +64,26 @@ GKSactor gks_objarr_object_at_index(int index)
 
 bool gks_objarr_actor_add(GKSactor actor)
 {
-    GKSvector3d scaleVec;
-    GKSvector3d rotVec;
-    GKSvector3d transVec;
-    
     bool did_add = false;
     
+    // TODO: all calculations should be performed prior to add
     if (_object_count < GKS_MAX_SCENE_ACTORS) {
 
         object_array[_object_count].kind = actor.kind;
         object_array[_object_count].fill_color = actor.fill_color;
         object_array[_object_count].line_color = actor.line_color;
-        scaleVec = actor.scale_vector;
-        rotVec = actor.rotate_vector;
-        transVec = actor.translate_vector;
+        object_array[_object_count].scale_vector = actor.scale_vector;
+        object_array[_object_count].rotate_vector = actor.rotate_vector;
+        object_array[_object_count].translate_vector = actor.translate_vector;
         
-        gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z,object_array[_object_count].model_transform);
-        
-        // ORDER MATTERS S x R x T
-        gks_accumulate_x_rotation_matrix_3(rotVec.crd.x,object_array[_object_count].model_transform);
-        gks_accumulate_y_rotation_matrix_3(rotVec.crd.y,object_array[_object_count].model_transform);
-        gks_accumulate_z_rotation_matrix_3(rotVec.crd.z,object_array[_object_count].model_transform);
-        gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, object_array[_object_count].model_transform);
-        
-        // !!!: This copies the object
+        // FIXME: use pointers
+        // This copies the object
         object_array[_object_count].mesh_object = actor.mesh_object;
+        object_array[_object_count].devcoords = actor.devcoords;
         
-        object_array[_object_count].scale_vector = scaleVec;
-        object_array[_object_count].rotate_vector = rotVec;
-        object_array[_object_count].translate_vector = transVec;
+        // TODO: verify
+        gks_matrix_copy_3(actor.model_transform, &object_array[_object_count].model_transform);
         
-        
-        // @TODO: Add object to Table View
-        // Add to some kind of list that can be displayed in the GUI
-        //AddObjectToList(gTopOfIndex,actorList[gTopOfIndex].instanceKind,tx,ty,tz,rx,ry,rz,sx,sy,sz);
         _object_count += 1;
         did_add = true;
     }
@@ -146,7 +132,7 @@ void gks_objarr_delete_at_index(int index)
     int idx = index - 1;
     if (idx > 0 && idx < _object_count) {
   
-        GKSobject_3 obj = object_array[idx].mesh_object;
+        GKSmesh_3 obj = object_array[idx].mesh_object;
         GKSvertexArrPtr verts = obj.vertices;
         GKSpolygonArrPtr polys = obj.polygons;
         GKSDCArrPtr dvcds = obj.devcoords;
@@ -195,15 +181,15 @@ void gks_objarr_delete_all(void)
 
 void compute_object_3(GKSactor *theObject)
 {
-    GKSvertexArrPtr     vertexList;
-    GKSpolygonArrPtr    polygonList;
-    GKSvertexArrPtr     transVertList;
-    GKSDCArrPtr         devcoordList;
+    GKSvertexArrPtr     vertexList = NULL;
+    GKSpolygonArrPtr    polygonList = NULL;
+    GKSDCArrPtr         devcoordList = NULL;
+    GKSDCArrPtr         devCoordPtr = NULL;
     
     GKSint              pid;
-    GKSint              polygonCount;
-    GKSint              vertexNumber;
-    GKSint              vertices;
+    GKSint              polygonCount = 0;
+    GKSint              vertexNumber = 0;
+    GKSint              vertexCount = 0;
     
     GKSvector3d         temp_polygon_vertices[GKS_POLY_VERTEX_MAX];
     GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
@@ -220,8 +206,8 @@ void compute_object_3(GKSactor *theObject)
     
     vertexList = theObject->mesh_object.vertices;
     polygonList = theObject->mesh_object.polygons;
-    transVertList = theObject->mesh_object.transverts;
     devcoordList = theObject->mesh_object.devcoords;
+    devCoordPtr = theObject->devcoords;
     
     // TODO: transform object vertices first
     // to speed things up I should transform all the vertices of the object
@@ -234,8 +220,9 @@ void compute_object_3(GKSactor *theObject)
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
-        vertices = polygonList[pid][0];
-        for(GKSint j=0; j<vertices; j++){
+        vertexCount = polygonList[pid][0];
+        
+        for(GKSint j=0; j<vertexCount; j++){
             vertexNumber = polygonList[pid][j+1] - 1;     // this is a gotcha
             // TODO: verfiy that this is a copy
             temp_polygon_vertices[j] = vertexList[vertexNumber];
@@ -243,12 +230,13 @@ void compute_object_3(GKSactor *theObject)
 
         // FIXME: does not work
         // dev coords index needs to be filled for each polygon
-        gks_prep_polyline_3(pid, vertices, temp_polygon_vertices, temp_device_vertices, &theObject->line_color);
+        gks_prep_polyline_3(pid, vertexCount, temp_polygon_vertices, temp_device_vertices, &theObject->line_color);
         
-        for(GKSint j=0; j<vertices; j++){
+        for(GKSint j=0; j<vertexCount; j++){
             vertexNumber = polygonList[pid][j+1] - 1;     // this is a gotcha
             // TODO: verfiy that this is a copy
-            devcoordList[vertexNumber] = temp_device_vertices[j];
+//            devcoordList[vertexNumber] = temp_device_vertices[j];   // mesh
+            devCoordPtr[vertexNumber] = temp_device_vertices[j];    // actor
         }
 
         
@@ -267,7 +255,7 @@ void draw_computed_object_3(GKSactor *theObject)
 
     }
     GKSpolygonArrPtr polygonList = theObject->mesh_object.polygons;
-    GKSDCArrPtr devcoordList = theObject->mesh_object.devcoords;
+    GKSDCArrPtr devcoordList = theObject->devcoords;
     
     GKSint polygonCount = theObject->mesh_object.polynum;
 
@@ -298,7 +286,7 @@ void draw_object_3(GKSactor *theObject)
     GKSpolygonArrPtr    polygonList;
     GKSDCArrPtr         devcoordList;
     
-    GKSint              polygonID;
+    GKSint              pid;
     GKSint              polygonCount;
     GKSint              vertexNumber;
     GKSint              polygon_point_count;
@@ -325,13 +313,13 @@ void draw_object_3(GKSactor *theObject)
     polygonCount = theObject->mesh_object.polynum;
 //    totalVerteces = theObject->vertnum;
 
-    for(polygonID=0; polygonID<polygonCount; polygonID++) {
+    for(pid=0; pid<polygonCount; pid++) {
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
-        polygon_point_count = polygonList[polygonID][0];
+        polygon_point_count = polygonList[pid][0];
         for(GKSint j=0; j<polygon_point_count; j++){
-            vertexNumber = polygonList[polygonID][j+1] - 1;     // this is a gotcha
+            vertexNumber = polygonList[pid][j+1] - 1;     // this is a gotcha
             // TODO: verfiy that this is a copy
             temp_vertex_array[j] = vertexList[vertexNumber];
         }
@@ -339,10 +327,10 @@ void draw_object_3(GKSactor *theObject)
         // transformations here
         //  world->model->view->camera->projection->...
         //
-        gks_prep_polyline_3(polygonID, polygon_point_count, temp_vertex_array, devcoordList, &theObject->line_color);
+        gks_prep_polyline_3(pid, polygon_point_count, temp_vertex_array, devcoordList, &theObject->line_color);
         
         // call-back to drawing routine
-        gks_localpolyline_3(polygonID, polygon_point_count, devcoordList, &theObject->line_color);
+        gks_localpolyline_3(pid, polygon_point_count, devcoordList, &theObject->line_color);
         
     }
 }
@@ -376,6 +364,5 @@ void gks_objarr_draw_list(void)
         GKSactor *actor_ptr = &object_array[i];
         gks_compute_object(actor_ptr);
         gks_draw_computed_object(actor_ptr);
-//        gks_objarr_draw_object(actor_ptr);
     }
 }

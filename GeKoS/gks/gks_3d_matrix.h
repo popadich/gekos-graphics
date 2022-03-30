@@ -14,7 +14,7 @@
 #define DEG_TO_RAD 0.01745329252
 
 
-void gks_set_identity_matrix_2(GKSmatrix_2 result);
+void gks_create_identity_matrix_2(GKSmatrix_2 result);
 void gks_create_identity_matrix_3(GKSmatrix_3 result);
 void gks_create_matrix_3(GKSvector3d v1, GKSvector3d v2, GKSvector3d v3, GKSvector3d v4, GKSmatrix_3 result);
 
@@ -30,6 +30,9 @@ void gks_accumulate_x_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 m);
 void gks_accumulate_y_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 m);
 void gks_accumulate_z_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 m);
 void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, GKSmatrix_3 m);
+
+
+void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 *result);
 
 void gks_transform_point(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
 void gks_vector_transform_projection(GKSvector3d v, GKSmatrix_3 tm, GKSvector3dPtr result);

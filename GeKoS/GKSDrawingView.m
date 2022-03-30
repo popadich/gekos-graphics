@@ -7,6 +7,7 @@
 
 #import "GKSDrawingView.h"
 #import "GKSConstants.h"
+#import "GKSScene.h"
 #include "gks/gks.h"
 
 @interface GKSDrawingView () {
@@ -16,6 +17,16 @@
 
 }
 @property (nonatomic, assign) CGFloat itemLineWidth;
+
+
+// TODO: part of call back
+struct mystery_data {
+    int op_num;
+    bool hiddenLineRemovalFlag;
+    char name[32];
+    void* ns_bezier_path;
+};
+
 
 @end
 
@@ -54,28 +65,18 @@
     bluePrintBlueColor = [NSColor colorWithRed:0.066 green:0.510 blue:0.910 alpha:1.0];
     maizeColor = [NSColor colorWithRed:1.0 green:203.0/255.0 blue:5.0/255.0 alpha:1.0];
     andBlueColor = [NSColor colorWithRed:0.0 green:39.0/255.0 blue:76.0/255.0 alpha:1.0];
-    _visibleSurfaceOnly = NO;
     _itemLineWidth = 1.0;
     
     
     // TODO: get rid of this
     // Callback registration.
     struct mystery_data polylinedata = {3, NO, "polyliner", NULL};
-    polylinedata.hiddenLineRemovalFlag = self.visibleSurfaceOnly;
     localpolyline_cb_register(my_polyline_cb, &polylinedata);
     
 }
 
 
-struct mystery_data {
-    int op_num;
-    bool hiddenLineRemovalFlag;
-    char name[32];
-    void* ns_bezier_path;
-};
-
-
-// FIXME: No callback
+// TODO: No callback
 // Pass drawing context forward or pass transformed data back
 // instead of using a callback function.
 
@@ -120,7 +121,14 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
     [self redDot];
     
     // TODO: draw scene objects instead
-    gks_objarr_draw_list();
+    for (GKS3DObject *obj in self.sceneObjects) {
+        GKSactor act = obj.objectActor;
+        
+        gks_compute_object(&act);
+        gks_draw_computed_object(&act);
+    }
+    
+//    gks_objarr_draw_list();
 
 }
 
