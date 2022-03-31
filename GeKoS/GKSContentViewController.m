@@ -9,8 +9,7 @@
 #import "GKSConstants.h"
 #import "GKSContent.h"
 #import "GKSCameraRep.h"
-#import "GKSCameraController.h"
-#import "GKSDrawingController.h"
+
 #import "GKS3DObjectRep.h"
 #import "GKS3DObject.h"
 #import "GKSScene.h"
@@ -20,8 +19,7 @@
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 
-@property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
-@property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
+
 
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;

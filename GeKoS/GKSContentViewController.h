@@ -6,12 +6,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GKSCameraController.h"
+#import "GKSDrawingController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContentViewController : NSViewController
 
 @property (strong)NSNumber *isCenteredObject;
+@property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
+@property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
 
 - (IBAction)performUpdateQuick:(id)sender;
 

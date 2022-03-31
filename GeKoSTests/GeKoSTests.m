@@ -94,9 +94,9 @@
         GKSScene *scene = content.theScene;
         GKSCameraRep *camera = content.theScene.camera;
         
-        for (int j=0; j<120; j++) {
-            for (int i=-60; i<61; i++) {
-                GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:@(kCubeKind)];
+        for (int j=0; j<60; j++) {
+            for (int i=-30; i<31; i++) {
+                GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:@(kSphereKind)];
                 [object3D locateX:2.0 * i Y:i%2 Z: -2.0 * (1 + j)];
 
                 [scene add3DObject:object3D];
@@ -105,11 +105,13 @@
         
         GKSvector3d look = GKSMakeVector(1.0, 1.0, 0.0);
         [camera cameraSetLookAt:look];
-        // not sure if this is actually invoking a draw method
-        [contentController performSelector:@selector(performUpdateQuick:) withObject:nil];
+      
+        [contentController.cameraViewController cameraSetProjectionMatrixG];
+        [contentController.cameraViewController camerSetViewLookAtG];
+        [scene transformAllObjects];
         
-        for (int j=0; j<120; j++) {
-            for (int i=-60; i<61; i++) {
+        for (int j=0; j<60; j++) {
+            for (int i=-30; i<31; i++) {
                 [scene deleteLast3DObject];
             }
         }
