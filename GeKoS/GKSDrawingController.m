@@ -23,7 +23,7 @@
     
     GKSScene *scene = self.representedObject;
     GKSDrawingView *drawView = (GKSDrawingView *)self.view;
-    drawView.sceneObjects = scene.objectList;
+    drawView.scene = scene;
     self.theScene = scene;
 
 }

@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSvector3d)scaleVector;
 - (GKSactor)objectActor;
 
+- (void)computeAction;
+- (void)drawActor;
+
 @end
 
 NS_ASSUME_NONNULL_END

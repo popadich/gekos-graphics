@@ -78,5 +78,12 @@
     [self.objectList removeLastObject];
 }
 
+- (void)transformAllObjects
+{
+    for (GKS3DObject *obj in self.objectList) {
+        [obj computeAction];
+    }
+}
+
 
 @end

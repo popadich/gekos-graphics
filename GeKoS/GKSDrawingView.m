@@ -7,7 +7,7 @@
 
 #import "GKSDrawingView.h"
 #import "GKSConstants.h"
-#import "GKSScene.h"
+
 #include "gks/gks.h"
 
 @interface GKSDrawingView () {
@@ -79,8 +79,6 @@ struct mystery_data {
 // TODO: No callback
 // Pass drawing context forward or pass transformed data back
 // instead of using a callback function.
-
-
 static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array, GKScolor *lineColor, void* userdata)
 {
     // set pen color to object color
@@ -120,16 +118,16 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
     // tracking dot for coordinate settings
     [self redDot];
     
-    // TODO: draw scene objects instead
-    for (GKS3DObject *obj in self.sceneObjects) {
-        GKSactor act = obj.objectActor;
+    // TODO: split up the compute and draw
+    for (GKS3DObject *obj in self.scene.objectList) {
+        [obj computeAction];
         
-        gks_compute_object(&act);
-        gks_draw_computed_object(&act);
+        // all transforms completed, draw computed coords
+        // maybe draw native here?
+        [obj drawActor];
+        
     }
     
-//    gks_objarr_draw_list();
-
 }
 
 @end

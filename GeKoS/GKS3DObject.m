@@ -154,12 +154,17 @@
 
 - (void)computeAction
 {
+    GKSactor act = self.objectActor;
     
+    // transforms
+    gks_compute_object(&act);
 }
 
 - (void)drawActor
 {
+    GKSactor act = self.objectActor;
     
+    gks_draw_computed_object(&act);
 }
 
 - (GKSactor)objectActor

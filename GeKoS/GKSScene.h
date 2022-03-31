@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)add3DObject:(GKS3DObject*) anObject3D;
 - (void)deleteLast3DObject;
 
+- (void)transformAllObjects;
+
 @end
 
 NS_ASSUME_NONNULL_END
