@@ -104,7 +104,7 @@
         }
         
         GKSvector3d look = GKSMakeVector(1.0, 1.0, 0.0);
-        [camera cameraSetLook:look];
+        [camera cameraSetLookAt:look];
         // not sure if this is actually invoking a draw method
         [contentController performSelector:@selector(performUpdateQuick:) withObject:nil];
         

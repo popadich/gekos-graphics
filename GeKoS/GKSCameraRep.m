@@ -27,41 +27,7 @@
 {
     self = [super init];
     if (self) {
-        _focalLength = [NSNumber numberWithFloat:1.0];
-        _upX = [NSNumber numberWithDouble:0.0];
-        _upY = [NSNumber numberWithDouble:1.0];
-        _upZ = [NSNumber numberWithDouble:0.0];
-
-        _positionX = [NSNumber numberWithDouble:0.0];
-        _positionY = [NSNumber numberWithDouble:0.0];
-        _positionZ = [NSNumber numberWithDouble:1.0];
-
-        _lookX = @0.0;
-        _lookY = @0.0;
-        _lookZ = @0.0;
-        
-        _yaw = @0.0;
-        _pitch = @0.0;
-        _roll = @0.0;
-        
-        _projectionType = [NSNumber numberWithInteger:kPerspective];
-
-        // these property values are typically derived from the ones supplied above
-        _uHatX = @1.0;
-        _uHatY = @0.0;
-        _uHatZ = @0.0;
-        
-        _vHatX = @0.0;
-        _vHatY = @1.0;
-        _vHatZ = @0.0;
-
-        _dirX = [NSNumber numberWithDouble:0.0];
-        _dirY = [NSNumber numberWithDouble:0.0];
-        _dirZ = [NSNumber numberWithDouble:-1.0];
-        
-        _near = @0.0;
-        _far =  @0.0;
-
+        [self zeroSettings];
    }
     
     return self;
@@ -80,7 +46,50 @@
     return dir_vector;
 }
 
-- (void)cameraSetLook:(GKSvector3d)lookAt
+- (void)zeroSettings {
+    
+        if (self) {
+            self.upX = @0.0;
+            self.upY = @1.0;
+            self.upZ = @0.0;
+            self.positionX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocX];
+            self.positionY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocY];
+            self.positionZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocZ];
+            self.dirX = @0.0;
+            self.dirY = @0.0;
+            self.dirZ = @-1.0;
+        
+            self.focalLength = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
+            self.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
+            self.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
+            
+            self.roll  = @0.0;
+            self.pitch = @0.0;
+            self.yaw   = @0.0;
+            
+            self.lookX = @0.0;
+            self.lookY = @0.0;
+            self.lookZ = @0.0;
+            
+            // these property values are typically derived from the ones supplied above
+            self.uHatX = @1.0;
+            self.uHatY = @0.0;
+            self.uHatZ = @0.0;
+            
+            self.vHatX = @0.0;
+            self.vHatY = @1.0;
+            self.vHatZ = @0.0;
+
+            
+            NSNumber *prType =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
+            
+            self.projectionType = prType;
+
+        }
+
+}
+
+- (void)cameraSetLookAt:(GKSvector3d)lookAt
 {
     self.lookX = [NSNumber numberWithDouble:lookAt.crd.x];
     self.lookY = [NSNumber numberWithDouble:lookAt.crd.y];

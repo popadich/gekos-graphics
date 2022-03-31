@@ -39,42 +39,18 @@ void logMatrix(GKSmatrix_3 M) {
     GKSCameraRep *camera = (GKSCameraRep *)self.representedObject;
     if (camera) {
         self.camera = camera;
-        [self cameraDefaultSettings:camera];
+        [self resetCamera:camera];
         [self registerAsObserverForCamera];
     }
 
 }
 
 
-- (void) cameraDefaultSettings:(GKSCameraRep *)theCamera
+- (void) resetCamera:(GKSCameraRep *)theCamera
 {
     if (theCamera) {
-        theCamera.upX = @0.0;
-        theCamera.upY = @1.0;
-        theCamera.upZ = @0.0;
-        theCamera.positionX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocX];
-        theCamera.positionY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocY];
-        theCamera.positionZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefCameraLocZ];
-        theCamera.dirX = @0.0;
-        theCamera.dirY = @0.0;
-        theCamera.dirZ = @-1.0;
-    
-        theCamera.focalLength = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefPerspectiveDistance];
-        theCamera.near = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefNearPlaneDistance];
-        theCamera.far = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefFarPlaneDistance];
-        
-        theCamera.roll  = @0.0;
-        theCamera.pitch = @0.0;
-        theCamera.yaw   = @0.0;
-        
-        theCamera.lookX = @0.0;
-        theCamera.lookY = @0.0;
-        theCamera.lookZ = @0.0;
-        
-        NSNumber *prType =  [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefProjectionType];
-        
-        theCamera.projectionType = prType;
-        [self cameraSetProjectionType:prType];
+        [theCamera zeroSettings];
+        [self cameraSetProjectionType:theCamera.projectionType];
         [self cameraSetViewMatrixG];
     }
 
@@ -173,7 +149,7 @@ void logMatrix(GKSmatrix_3 M) {
 - (IBAction)doCameraReset:(id)sender
 {
     GKSCameraRep *camera = self.camera;
-    [self cameraDefaultSettings:camera];
+    [self resetCamera:camera];
     [self setHeadFocus:camera.focalLength];
     [self adjustHead];
 }

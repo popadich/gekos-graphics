@@ -41,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSvector3d)positionVector;
 - (GKSvector3d)directionVector;
 
-- (void)cameraSetLook:(GKSvector3d)lookAt;
+- (void)zeroSettings;
+- (void)cameraSetLookAt:(GKSvector3d)lookAt;
 
 @end
 
