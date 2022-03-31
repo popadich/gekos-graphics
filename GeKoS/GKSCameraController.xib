@@ -503,6 +503,9 @@
                     <buttonCell key="cell" type="push" title="Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wcf-aN-YYV">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                         <connections>
                             <action selector="performUpdateQuick:" target="-1" id="dse-vf-Wxj"/>
                         </connections>
