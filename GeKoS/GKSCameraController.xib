@@ -499,8 +499,8 @@
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e5y-is-e3V">
-                    <rect key="frame" x="131" y="12" width="64" height="32"/>
-                    <buttonCell key="cell" type="push" title="Look" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wcf-aN-YYV">
+                    <rect key="frame" x="131" y="12" width="80" height="32"/>
+                    <buttonCell key="cell" type="push" title="Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wcf-aN-YYV">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <connections>

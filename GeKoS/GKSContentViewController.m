@@ -121,7 +121,14 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
     self.theScene = scene;
     self.drawingViewController.representedObject = self.theScene;
+
     
+}
+
+- (void)viewDidLayout {
+
+    // TODO: make sure all matrices have been initialized and set
+    [self.theScene transformAllObjects];
 }
 
 
@@ -147,7 +154,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == ObserverPlaneNormalContext || context == ObserverProjectionContext) {
-        [self.drawingViewController.view setNeedsDisplay:YES];
+        // FIXME: Does nothing
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -200,9 +207,17 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 }
 
-- (IBAction)performUpdateQuick:(id)sender {
+
+- (IBAction)performLookQuick:(id)sender {
     
     [self.cameraViewController camerSetViewLookAtG];
+    [self.drawingViewController.view setNeedsDisplay:YES];
+}
+
+
+- (IBAction)performUpdateQuick:(id)sender {
+    
+    [self.theScene transformAllObjects];
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 
