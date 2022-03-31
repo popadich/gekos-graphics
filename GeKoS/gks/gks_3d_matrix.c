@@ -156,11 +156,11 @@ void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, 
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 *result)
+void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 result)
 {
     for(int i=0; i<4; i++)
         for (int j=0; j<4; j++)
-            *result[i][j] = original[i][j];
+            result[i][j] = original[i][j];
 
 }
 

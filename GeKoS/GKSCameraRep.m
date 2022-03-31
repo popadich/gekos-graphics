@@ -80,4 +80,11 @@
     return dir_vector;
 }
 
+- (void)cameraSetLook:(GKSvector3d)lookAt
+{
+    self.lookX = [NSNumber numberWithDouble:lookAt.crd.x];
+    self.lookY = [NSNumber numberWithDouble:lookAt.crd.y];
+    self.lookZ = [NSNumber numberWithDouble:lookAt.crd.z];
+}
+
 @end

@@ -32,7 +32,7 @@ void gks_accumulate_z_rotation_matrix_3(GKSfloat theta, GKSmatrix_3 m);
 void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, GKSmatrix_3 m);
 
 
-void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 *result);
+void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 result);
 
 void gks_transform_point(GKSmatrix_3 tm, GKSvector3d v, GKSvector3dPtr result);
 void gks_vector_transform_projection(GKSvector3d v, GKSmatrix_3 tm, GKSvector3dPtr result);

@@ -71,5 +71,12 @@
 
 
 
+- (void)deleteLast3DObject
+{
+    // FIXME: free allocated memory here
+    
+    [self.objectList removeLastObject];
+}
+
 
 @end

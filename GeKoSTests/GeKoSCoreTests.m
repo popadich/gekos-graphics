@@ -158,14 +158,37 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     v1 = GKSMakeVector( 1.0,  2.0, -2.0);
     v2 = GKSMakeVector( 0.78, 0.0,  4.0);
-    v3 = GKSMakeVector(-0.9,  5.0, -2.0);
+    v3 = GKSMakeVector(-0.9,  5.0, -1.2);
     v4 = GKSMakeVector( 1.0, -3.0,  0.1);
     
     gks_create_matrix_3(v1, v2, v3, v4, M);
-    XCTAssertTrue(YES);
-    XCTAssertEqual(M[0][0], 1.0);
-    XCTAssertEqual(M[2][1], 5.0);
-    XCTAssertEqual(M[3][1], -3.0);
+    XCTAssertEqualWithAccuracy(M[0][0], 1.0, epsilon);
+    XCTAssertEqualWithAccuracy(M[0][2], -2.0, epsilon);
+    XCTAssertEqualWithAccuracy(M[2][1], 5.0, epsilon);
+    XCTAssertEqualWithAccuracy(M[2][2], -1.2, epsilon);
+    XCTAssertEqualWithAccuracy(M[3][1], -3.0, epsilon);
+    XCTAssertEqualWithAccuracy(M[3][2], 0.1, epsilon);
+    XCTAssertEqualWithAccuracy(M[3][3], 1.0, epsilon);
+}
+
+- (void)testCopyMatrix {
+    GKSmatrix_3 result;
+    GKSmatrix_3 I;
+    GKSmatrix_3 M = {
+        { 1.0,  2.0, -2.0, 1.0},
+        { 0.78, 0.0,  4.0, 1.0},
+        {-0.9,  5.0, -2.0, 1.0},
+        {1.0, -3.0,  0.1, 1.0}
+    };
+
+
+    gks_create_identity_matrix_3(I);
+    gks_matrix_copy_3(I, result);
+    XCTAssertTrue(isIdentity_3(result), @"Not identity");
+    
+    gks_matrix_copy_3(M, result);
+    XCTAssertTrue(isSame_3(M, result), @"Not the same, not close");
+
 }
 
 - (void)testMatrixScale3 {

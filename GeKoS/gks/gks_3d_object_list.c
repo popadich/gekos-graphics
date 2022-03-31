@@ -28,25 +28,15 @@
 
 #define GKS_MAX_SCENE_ACTORS    32
 
-static bool         _visble_Surface_Only_Flag;
 static int          _object_count;                          // count of objects 3D
 static GKSactor     object_array[GKS_MAX_SCENE_ACTORS];    // world Scene max objects
 
 void gks_init_object_list(void)
 {
     _object_count = 0;
-    _visble_Surface_Only_Flag = false;
 }
 
-void gks_objarr_set_hidden_surface_removal(bool flag)
-{
-    _visble_Surface_Only_Flag = flag;
-}
 
-bool gks_objarr_get_hidden_surface_removal(void)
-{
-    return _visble_Surface_Only_Flag;
-}
 
 int gks_objarr_count(void)
 {
@@ -82,7 +72,7 @@ bool gks_objarr_actor_add(GKSactor actor)
         object_array[_object_count].devcoords = actor.devcoords;
         
         // TODO: verify
-        gks_matrix_copy_3(actor.model_transform, &object_array[_object_count].model_transform);
+        gks_matrix_copy_3(actor.model_transform, object_array[_object_count].model_transform);
         
         _object_count += 1;
         did_add = true;

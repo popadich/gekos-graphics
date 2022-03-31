@@ -122,10 +122,6 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.theScene = scene;
     self.drawingViewController.representedObject = self.theScene;
     
-    // populate c data arrays
-    for (GKS3DObject *object3D in scene.objectList) {
-        gks_objarr_actor_add([object3D objectActor]);
-    }
 }
 
 
@@ -182,15 +178,9 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
     object3D.lineColor = objRep.lineColor;
     object3D.fillColor = objRep.fillColor;
+
+    [self.theScene add3DObject:object3D];
     
-    // try to add to c data structures to world
-    if (gks_objarr_actor_add([object3D objectActor])) {
-        // add 3-d object to scene
-        [self.theScene add3DObject:object3D];
-    }
-    else
-        // array full
-        NSBeep();
 }
 
 
@@ -204,8 +194,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 }
 
 - (IBAction)performDeleteQuick:(id)sender {
-//    gks_objarr_delete_last();
-    [self.theScene.objectList removeLastObject];
+    
+    [self.theScene deleteLast3DObject];
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }

@@ -11,6 +11,7 @@
 #import "GKSDocument.h"
 #import "GKSWindowController.h"
 #import "GKSContentViewController.h"
+#import "GKSContent.h"
 
 
 @interface GeKoSTests : XCTestCase
@@ -40,6 +41,82 @@
 }
 
 
+- (void)testPerformanceSceneCreation {
+    // This is an example of a performance test case.
+    GKSDocument* aDoc = [[GKSDocument alloc] init];
+    XCTAssertNotNil(aDoc);
+
+    [aDoc makeWindowControllers];
+    NSArray* controllerArr = (NSArray *)[aDoc windowControllers];
+
+    GKSWindowController* windowController = [controllerArr objectAtIndex:0];
+    XCTAssertNotNil(windowController.window);
+    
+    XCTAssert(windowController.contentViewController);
+    
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+        GKSContent *content = windowController.contentViewController.representedObject;
+        GKSScene *scene = content.theScene;
+        for (int j=0; j<60; j++) {
+            for (int i=-30; i<31; i++) {
+                GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:@(kSphereKind)];
+                [object3D locateX:2.0 * i Y:i%2 Z: -2.0 * (1 + j)];
+
+                [scene add3DObject:object3D];
+            }
+        }
+        for (int j=0; j<60; j++) {
+            for (int i=-30; i<31; i++) {
+                [scene deleteLast3DObject];
+            }
+        }
+    }];
+}
+
+- (void)testPerformanceSceneLookAt {
+    // This is an example of a performance test case.
+    GKSDocument* aDoc = [[GKSDocument alloc] init];
+    XCTAssertNotNil(aDoc);
+
+    [aDoc makeWindowControllers];
+    NSArray* controllerArr = (NSArray *)[aDoc windowControllers];
+
+    GKSWindowController* windowController = [controllerArr objectAtIndex:0];
+    XCTAssertNotNil(windowController.window);
+    
+    GKSContentViewController *contentController = (GKSContentViewController *)windowController.contentViewController;
+    XCTAssertNotNil(contentController);
+    
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+        GKSContent *content = windowController.contentViewController.representedObject;
+        GKSScene *scene = content.theScene;
+        GKSCameraRep *camera = content.theScene.camera;
+        
+        for (int j=0; j<120; j++) {
+            for (int i=-60; i<61; i++) {
+                GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:@(kCubeKind)];
+                [object3D locateX:2.0 * i Y:i%2 Z: -2.0 * (1 + j)];
+
+                [scene add3DObject:object3D];
+            }
+        }
+        
+        GKSvector3d look = GKSMakeVector(1.0, 1.0, 0.0);
+        [camera cameraSetLook:look];
+        // not sure if this is actually invoking a draw method
+        [contentController performSelector:@selector(performUpdateQuick:) withObject:nil];
+        
+        for (int j=0; j<120; j++) {
+            for (int i=-60; i<61; i++) {
+                [scene deleteLast3DObject];
+            }
+        }
+    }];
+}
+
+
 - (void)testAppDelegateInit {
     // get app delegate
     GKSAppDelegate* gksAppDelegate = NSApplication.sharedApplication.delegate;
@@ -58,6 +135,9 @@
     XCTAssertNotNil(windowController.window);
     
     XCTAssert(windowController.contentViewController);
+    GKSContent *content = windowController.contentViewController.representedObject;
+    
+    XCTAssertNotNil(content);
 
 }
 
