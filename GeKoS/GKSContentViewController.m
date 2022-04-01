@@ -19,8 +19,6 @@
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 
-
-
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
 
@@ -29,11 +27,6 @@
 @property (nonatomic, strong) GKSScene* theScene;
 
 @end
-
-
-static void *ObserverPoistionContext = &ObserverPoistionContext;
-static void *ObserverPlaneNormalContext = &ObserverPlaneNormalContext;
-static void *ObserverProjectionContext = &ObserverProjectionContext;
 
 
 @implementation GKSContentViewController
@@ -131,7 +124,9 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     [self.theScene transformAllObjects];
 }
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 - (void) cameraMovedNotification:(NSNotification *) notification

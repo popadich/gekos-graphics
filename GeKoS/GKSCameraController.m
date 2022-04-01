@@ -81,17 +81,16 @@ void logMatrix(GKSmatrix_3 M) {
         [self cameraSetViewMatrixG];
         [self adjustHead];
         
-        NSString *moveType = @"Location";
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:moveType forKey:@"moveType"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"cameraMoved" object:self userInfo:userInfo];
+        NSString *moveType = @"Location";  // TODO: use defined const
+        [self notifyAllConcerned:moveType];
     
     } else if (context == CameraRotationContext) {
         [self cameraSetEulerG];
         [self adjustHead];
         
-        NSString *moveType = @"Rotation";
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:moveType forKey:@"moveType"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"cameraMoved" object:self userInfo:userInfo];
+        NSString *moveType = @"Rotation";  // TODO: use defined const
+        [self notifyAllConcerned:moveType];
+        
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -125,6 +124,13 @@ void logMatrix(GKSmatrix_3 M) {
 }
 
 
+- (void)notifyAllConcerned:(NSString *)moveType {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:moveType forKey:@"moveType"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"cameraMoved" object:self userInfo:userInfo];
+}
+
+
+
 // MARK: Actions
 
 - (IBAction)doChangeProjectionType:(id)sender;
@@ -132,6 +138,9 @@ void logMatrix(GKSmatrix_3 M) {
     NSInteger projectionType = [sender selectedTag];
     NSNumber *prType = [NSNumber numberWithInteger:projectionType];
     [self cameraSetProjectionType:prType];
+    
+    NSString *moveType = @"Focus";  // TODO: use defined const
+    [self notifyAllConcerned:moveType];
 }
 
 - (IBAction)doChangeFocalLength:(id)sender
@@ -142,7 +151,11 @@ void logMatrix(GKSmatrix_3 M) {
         [self cameraSetProjectionMatrixG];      // this is a bit overkill,
                                                 // create a method for setting focal length
                                                 // alone and recompute existing projection matrix
+        
+        NSString *moveType = @"Focus";  // TODO: use defined const
+        [self notifyAllConcerned:moveType];
     }
+    
 }
 
 - (IBAction)doChangeNearFar:(id)sender
@@ -150,6 +163,9 @@ void logMatrix(GKSmatrix_3 M) {
     if ([sender isKindOfClass:[NSTextField class]]) {
         if ([sender tag] == 1 || [sender tag] == 2) {
             [self cameraSetProjectionMatrixG];
+            
+            NSString *moveType = @"Focus";  // TODO: use defined const
+            [self notifyAllConcerned:moveType];
         }
     }
 }
@@ -160,6 +176,7 @@ void logMatrix(GKSmatrix_3 M) {
     [self resetCamera:camera];
     [self setHeadFocus:camera.focalLength];
     [self adjustHead];
+    
 }
 
 
