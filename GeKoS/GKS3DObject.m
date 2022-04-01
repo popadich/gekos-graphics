@@ -97,7 +97,10 @@
     dev_coord_ptr = NULL;
 }
 
-
+- (GKSmesh_3 *)getMeshPointer
+{
+    return mesh_ptr;
+}
 
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ {
     self.scaleX = [NSNumber numberWithDouble:scaleFactorX];

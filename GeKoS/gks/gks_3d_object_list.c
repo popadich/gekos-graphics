@@ -236,7 +236,6 @@ void compute_object_3(GKSactor *theObject)
 void draw_computed_object_3(GKSactor *theObject)
 {
     GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
-    GKSint              vertices;
 
     for (GKSint i=0; i<GKS_POLY_VERTEX_MAX; i++) {
 
@@ -249,20 +248,21 @@ void draw_computed_object_3(GKSactor *theObject)
     
     GKSint polygonCount = theObject->mesh_object.polynum;
 
-    for (GKSint pid=0; pid < polygonCount; pid++) {
-        GKSint polygon_point_count = polygonList[pid][0];
+    for (GKSint i=0; i < polygonCount; i++) {
+        GKSint vertexCount = polygonList[i][0];
 
-        vertices = polygonList[pid][0];
-        for(GKSint j=0; j<vertices; j++){
-            GKSint vertexNumber = polygonList[pid][j+1] - 1;     // this is a gotcha
+        for(GKSint j=0; j<vertexCount; j++){
+            // FIXME: differs from addObject3DToLists
+            GKSint vertexIndex = polygonList[i][j+1] - 1 ;     // this is a gotcha
             // TODO: verfiy that this is a copy
-            temp_device_vertices[j] = devcoordList[vertexNumber];
+            printf("Vertex Num: %d\n", vertexIndex);
+            temp_device_vertices[j] = devcoordList[vertexIndex];
         }
         
         // FIXME: does not work
         // dev coords index needs to be moved for each polygon
         // call-back to drawing routine
-        gks_localpolyline_3(pid, polygon_point_count, temp_device_vertices, &theObject->line_color);
+        gks_localpolyline_3(i, vertexCount, temp_device_vertices, &theObject->line_color);
         
     }
 }
@@ -309,7 +309,7 @@ void draw_object_3(GKSactor *theObject)
         // the original data.
         polygon_point_count = polygonList[pid][0];
         for(GKSint j=0; j<polygon_point_count; j++){
-            vertexNumber = polygonList[pid][j+1] - 1;     // this is a gotcha
+            vertexNumber = polygonList[pid][j+1] - 1;     // !!!: this is a gotcha
             // TODO: verfiy that this is a copy
             temp_vertex_array[j] = vertexList[vertexNumber];
         }

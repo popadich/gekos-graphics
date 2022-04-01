@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)computeAction;
 - (void)drawActor;
 
+// testing
+- (GKSmesh_3 *)getMeshPointer;          // for debug, delete when done
+
 @end
 
 NS_ASSUME_NONNULL_END
