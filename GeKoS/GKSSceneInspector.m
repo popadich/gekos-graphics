@@ -13,6 +13,8 @@
 
 @interface GKSSceneInspector ()
 
+@property (strong)NSNumber *objectCount;
+
 @end
 
 @implementation GKSSceneInspector
@@ -42,6 +44,8 @@
     if ([wc isKindOfClass:[GKSWindowController class]]) {
         GKSContent *repobj = wc.contentViewController.representedObject;
         self.theScene = repobj.theScene;
+        NSInteger count = [self.theScene.objectList count];
+        self.objectCount = [NSNumber numberWithInteger:count];
     }
     
 }
