@@ -81,9 +81,17 @@ void logMatrix(GKSmatrix_3 M) {
         [self cameraSetViewMatrixG];
         [self adjustHead];
         
+        NSString *moveType = @"Location";
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:moveType forKey:@"moveType"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"cameraMoved" object:self userInfo:userInfo];
+    
     } else if (context == CameraRotationContext) {
         [self cameraSetEulerG];
         [self adjustHead];
+        
+        NSString *moveType = @"Rotation";
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:moveType forKey:@"moveType"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"cameraMoved" object:self userInfo:userInfo];
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -117,7 +125,7 @@ void logMatrix(GKSmatrix_3 M) {
 }
 
 
-// MARK: IBACTIONS
+// MARK: Actions
 
 - (IBAction)doChangeProjectionType:(id)sender;
 {

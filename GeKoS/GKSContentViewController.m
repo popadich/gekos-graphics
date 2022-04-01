@@ -102,8 +102,10 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
 
-    [self registerAsObserverForCamera];
     [self setIsCenteredObject:@NO];
+    
+    // notifications come after camera values have been set
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
     
 }
 
@@ -130,61 +132,52 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 }
 
 
-- (void)registerAsObserverForCamera
-{
-    GKSCameraRep *camera = self.cameraRep;
-    [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
-    [camera addObserver:self forKeyPath:@"near" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
-    [camera addObserver:self forKeyPath:@"far" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
-    [camera addObserver:self forKeyPath:@"projectionType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverProjectionContext];
-    [camera addObserver:self forKeyPath:@"positionX" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"positionY" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"positionZ" options:NSKeyValueObservingOptionNew context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"yaw" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"pitch" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"roll" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"upX" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"upY" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-    [camera addObserver:self forKeyPath:@"upZ" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:ObserverPlaneNormalContext];
-}
 
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void) cameraMovedNotification:(NSNotification *) notification
 {
-    if (context == ObserverPlaneNormalContext || context == ObserverProjectionContext) {
-        // FIXME: Does nothing
-    }
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    // TODO: verify
+    // [notification name] should always be @"cameraMoved", (if) not needed.
+    // If this method is used for observing other notifications, then (if) needed.
+
+    if ([[notification name] isEqualToString:@"cameraMoved"]) {
+        NSDictionary *userInfo = notification.userInfo;
+        NSString *moveType = [userInfo objectForKey:@"moveType"];
+        NSLog(@"You move me %@", moveType);
+        [self.theScene transformAllObjects];
+        [self.drawingViewController.view setNeedsDisplay:YES];
     }
 }
+
 
 
 // Add a 3d object to the scene/world
-- (void)addObject3DToLists:(GKS3DObjectRep *)objRep
+- (void)addObjectRepToScene:(GKS3DObjectRep *)objRep
 {
-    GKS3DObject *object3D = [[GKS3DObject alloc] initWithKind:objRep.objectKind];
-    
-    // TODO: convenience method?
+    GKS3DObject *newGuy = [[GKS3DObject alloc] initWithKind:objRep.objectKind];
+
     // copy data from Rep to Obj3D
-    object3D.hidden = objRep.hidden;
+    newGuy.hidden = objRep.hidden;
+    newGuy.priority = objRep.priority;
     
-    object3D.transX = objRep.transX;
-    object3D.transY = objRep.transY;
-    object3D.transZ = objRep.transZ;
+    newGuy.transX = objRep.transX;
+    newGuy.transY = objRep.transY;
+    newGuy.transZ = objRep.transZ;
 
-    object3D.rotX = objRep.rotX;
-    object3D.rotY = objRep.rotY;
-    object3D.rotZ = objRep.rotZ;
+    newGuy.rotX = objRep.rotX;
+    newGuy.rotY = objRep.rotY;
+    newGuy.rotZ = objRep.rotZ;
     
-    object3D.scaleX = objRep.scaleX;
-    object3D.scaleY = objRep.scaleY;
-    object3D.scaleZ = objRep.scaleZ;
+    newGuy.scaleX = objRep.scaleX;
+    newGuy.scaleY = objRep.scaleY;
+    newGuy.scaleZ = objRep.scaleZ;
 
-    object3D.lineColor = objRep.lineColor;
-    object3D.fillColor = objRep.fillColor;
+    newGuy.lineColor = objRep.lineColor;
+    newGuy.fillColor = objRep.fillColor;
+    
+    [newGuy computeAction];               // is this the time?
 
-    [self.theScene add3DObject:object3D];
+    [self.theScene add3DObject:newGuy];
     
 }
 
@@ -193,7 +186,8 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
-    [self addObject3DToLists:self.object3DRep];
+    [self addObjectRepToScene:self.object3DRep];
+    
     [self.drawingViewController.view setNeedsDisplay:YES];
 
 }
@@ -209,6 +203,7 @@ static void *ObserverProjectionContext = &ObserverProjectionContext;
 - (IBAction)performLookQuick:(id)sender {
     
     [self.cameraViewController camerSetViewLookAtG];
+    [self.theScene transformAllObjects];
     [self.drawingViewController.view setNeedsDisplay:YES];
 }
 
