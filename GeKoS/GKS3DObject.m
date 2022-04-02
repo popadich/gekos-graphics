@@ -55,24 +55,36 @@
     return ( [self initWithKind:[NSNumber numberWithInteger:kCubeKind]] );
 }
 
+
+- (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh ofKind:(NSNumber *)daKine
+{
+    self = [self initWithKind:daKine];
+    if (self) {
+        mesh_ptr = the_mesh;
+        dev_coord_ptr = (GKSDCArrPtr)calloc(mesh_ptr->vertnum, sizeof(GKSpoint_2));
+    }
+    return self;
+}
+
+
 - (GKSmesh_3 *)getMesh
 {
-    BOOL isCentered = NO;
+    BOOL isCentered = YES;      // FIXME: hard coded value
     GKSmesh_3 *mesh_object_ptr = NULL;
     GKSobjectKind kind = self.objectKind.intValue;
-    
+    setMeshCenteredFlag(isCentered);
     switch (kind) {
         case kCubeKind:
-            mesh_object_ptr = CubeMesh(isCentered);
+            mesh_object_ptr = CubeMesh();
             break;
         case kSphereKind:
-            mesh_object_ptr = SphereMesh(isCentered);
+            mesh_object_ptr = SphereMesh();
             break;
         case kPyramidKind:
-            mesh_object_ptr = PyramidMesh(isCentered);
+            mesh_object_ptr = PyramidMesh();
             break;
         case kHouseKind:
-            mesh_object_ptr = HouseMesh(isCentered);
+            mesh_object_ptr = HouseMesh();
             break;
         default:
             break;

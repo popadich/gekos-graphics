@@ -10,7 +10,9 @@
 #include "gks_mesh.h"
 #include "gks_3d_matrix.h"
 
-GKSmesh_3 *CubeMesh(bool centered)
+static bool centeredFlag = false;
+
+GKSmesh_3 *CubeMesh(void)
 {
     static GKSpoint_3 cubevert[GKS_CUBE_VERTEX_COUNT] = {
         {0.0, 0.0, 0.0},
@@ -46,7 +48,7 @@ GKSmesh_3 *CubeMesh(bool centered)
         q->crd.x = p->x;
         q->crd.y = p->y;
         q->crd.z = p->z;
-        if (centered){
+        if (centeredFlag){
             q->crd.x -= 0.5;
             q->crd.y -= 0.5;
             q->crd.z -= 0.5;
@@ -73,7 +75,7 @@ GKSmesh_3 *CubeMesh(bool centered)
 }
 
 
-GKSmesh_3 *PyramidMesh(bool centered)
+GKSmesh_3 *PyramidMesh(void)
 {
     // Put some code here to configure a Pyramid.
     static GKSpoint_3 pyrverts[GKS_PYRAMID_VERTEX_COUNT] = {
@@ -107,7 +109,7 @@ GKSmesh_3 *PyramidMesh(bool centered)
         q->crd.x = p->x;
         q->crd.y = p->y;
         q->crd.z = p->z;
-        if (centered){
+        if (centeredFlag){
             q->crd.x -= 0.5;
             q->crd.y -= 0.5;
             q->crd.z -= 0.5;
@@ -134,7 +136,7 @@ GKSmesh_3 *PyramidMesh(bool centered)
     return aPyramid;
 }
 
-GKSmesh_3 *HouseMesh(bool centered)
+GKSmesh_3 *HouseMesh(void)
 {
     static GKSpoint_3 objectvert[GKS_HOUSE_VERTEX_COUNT] = {
         {0, 0,30},
@@ -175,7 +177,7 @@ GKSmesh_3 *HouseMesh(bool centered)
         q->crd.x = p->x;
         q->crd.y = p->y;
         q->crd.z = p->z;
-        if (centered){
+        if (centeredFlag){
             q->crd.x -= 8.0;
             q->crd.y -= 8.0;
             q->crd.z -= 42.0;
@@ -202,7 +204,7 @@ GKSmesh_3 *HouseMesh(bool centered)
     return aHouse;
 }
 
-GKSmesh_3 *SphereMesh(bool centered)
+GKSmesh_3 *SphereMesh(void)
 {
     double          sine_of_i;
     int             vertexCount = 0;
@@ -267,5 +269,10 @@ GKSmesh_3 *SphereMesh(bool centered)
     aSphere->polynum = polygonCount;
 
     return aSphere;
+}
+
+void setMeshCenteredFlag(bool isCentered)
+{
+    centeredFlag = isCentered;
 }
 

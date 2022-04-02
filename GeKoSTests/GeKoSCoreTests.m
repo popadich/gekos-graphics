@@ -732,8 +732,9 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 - (void)testMeshCube {
     GKSmesh_3 *cubeObj;
+    setMeshCenteredFlag(false);
     
-    cubeObj = CubeMesh(false);
+    cubeObj = CubeMesh();
     XCTAssert(cubeObj != NULL, @"Cube mesh does not exist");
     XCTAssertEqual(cubeObj->vertnum, 8);
     XCTAssertEqual(cubeObj->polynum, 6);
@@ -755,8 +756,9 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 - (void)testMeshPyramid {
     GKSmesh_3 *pyramidObj;
+    setMeshCenteredFlag(false);
     
-    pyramidObj = PyramidMesh(false);
+    pyramidObj = PyramidMesh();
     XCTAssert(pyramidObj != NULL, @"Pyramid mesh not exists");
     XCTAssertEqual(pyramidObj->vertnum, 5, @"Pyramid should have 5 vertices");
     XCTAssertEqual(pyramidObj->polynum, 5, @"Pyramid should have 5 polygons");
@@ -778,8 +780,9 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 - (void)testMeshHouse {
     GKSmesh_3 *houseObj;
+    setMeshCenteredFlag(false);
     
-    houseObj = HouseMesh(false);
+    houseObj = HouseMesh();
     XCTAssert(houseObj != NULL, @"House mesh not exists");
     XCTAssertEqual(houseObj->vertnum, 10, @"House should have 10 vertices");
     XCTAssertEqual(houseObj->polynum, 7, @"House should have 7 polygons");

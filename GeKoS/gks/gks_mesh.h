@@ -21,9 +21,11 @@
 #define GKS_HOUSE_VERTEX_COUNT 10
 #define GKS_HOUSE_POLYGON_COUNT 7
 
-GKSmesh_3 *CubeMesh(bool centered);
-GKSmesh_3 *PyramidMesh(bool centered);
-GKSmesh_3 *HouseMesh(bool centered);
-GKSmesh_3 *SphereMesh(bool centered);
+void setMeshCenteredFlag(bool isCentered);
+
+GKSmesh_3 *CubeMesh(void);
+GKSmesh_3 *PyramidMesh(void);
+GKSmesh_3 *HouseMesh(void);
+GKSmesh_3 *SphereMesh(void);
 
 #endif /* gks_mesh_h */
