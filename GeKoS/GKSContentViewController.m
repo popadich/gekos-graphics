@@ -98,9 +98,7 @@ static void *worldDataContext = &worldDataContext;
     self.object3DRep.fillColor = self.contentFillColor;
 
     [self setIsCenteredObject:@NO];
-    
-    [self registerAsObserverForScene];
-    
+        
     // notifications come after camera values have been set
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
     
@@ -149,66 +147,6 @@ static void *worldDataContext = &worldDataContext;
 }
 
 
-
-
-- (void)registerAsObserverForScene
-{
-    GKSScene *scene = self.theScene;
-
-    [scene addObserver:self forKeyPath:@"worldVolumeMinX" options:NSKeyValueObservingOptionNew context:volumeSceneContext];
-    [scene addObserver:self forKeyPath:@"worldVolumeMinY" options:NSKeyValueObservingOptionNew context:volumeSceneContext];
-    [scene addObserver:self forKeyPath:@"worldVolumeMinZ" options:NSKeyValueObservingOptionNew context:volumeSceneContext];
-
-    [scene addObserver:self forKeyPath:@"worldBackColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
-    [scene addObserver:self forKeyPath:@"worldFillColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
-    [scene addObserver:self forKeyPath:@"worldLineColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
-    
-    [scene addObserver:self forKeyPath:@"worldVolumeMaxX" options:NSKeyValueObservingOptionNew context:volumeSceneContext];
-    [scene addObserver:self forKeyPath:@"worldVolumeMaxY" options:NSKeyValueObservingOptionNew context:volumeSceneContext];
-    [scene addObserver:self forKeyPath:@"worldVolumeMaxZ" options:NSKeyValueObservingOptionNew context:volumeSceneContext];
-}
-
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if (context == volumeSceneContext) {
-        // very esoteric calls here, make this simpler
-        GKSlimits_3 volume = [self.theScene worldVolumeLimits];
-        gks_trans_set_world_volume_3(0, &volume);
-        gks_trans_compute_view_3(0);
-        
-        [self.theScene transformAllObjects];
-        [self.drawingViewController.view setNeedsDisplay:YES];
-//        NSLog(@"Scene Change: %lf, %lf, %lf, %lf, %lf, %lf", volume.xmin, volume.xmax, volume.ymin, volume.ymax, volume.zmin, volume.zmax);
-        
-    } else if (context == worldDataContext) {
-//        [self cameraSetEulerG];
-//        [self adjustHead];
-
-        NSString *changeType = @"Data change to world objects";  // TODO: use defined const
-
-        NSLog(@"World Change: %@", changeType);
-    }
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Add a 3d object to the scene/world
 - (void)addObjectRepToScene:(GKS3DObjectRep *)objRep
 {
@@ -239,6 +177,21 @@ static void *worldDataContext = &worldDataContext;
     
 }
 
+
+- (IBAction)performVolumeResizeQuick:(id)sender
+{
+    // very esoteric calls here, make this simpler
+    GKSlimits_3 volume = [self.theScene worldVolumeLimits];
+    
+    //TODO: remove hard coded index
+    gks_trans_set_world_volume_3(0, &volume);
+    gks_trans_compute_view_3(0);
+    
+    [self.theScene transformAllObjects];
+    [self.drawingViewController.view setNeedsDisplay:YES];
+//        NSLog(@"Scene Change: %lf, %lf, %lf, %lf, %lf, %lf", volume.xmin, volume.xmax, volume.ymin, volume.ymax, volume.zmin, volume.zmax);
+
+}
 
 - (IBAction)performAddQuick:(id)sender {
 

@@ -502,9 +502,20 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mF5-NV-9EJ">
+                                        <rect key="frame" x="103" y="250" width="56" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Set" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Rfo-Gu-zYD">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="performVolumeResizeQuick:" target="-1" id="KgB-Tc-5vE"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="PnG-2R-wWq" firstAttribute="centerX" secondItem="H6i-wR-1xd" secondAttribute="centerX" id="0Fh-yu-JZ4"/>
+                                    <constraint firstItem="mF5-NV-9EJ" firstAttribute="leading" secondItem="RyS-4c-ou8" secondAttribute="leading" constant="110" id="48s-0S-o1K"/>
                                     <constraint firstItem="56Y-u9-qIW" firstAttribute="centerX" secondItem="xjb-XF-jm9" secondAttribute="centerX" id="6Mz-0x-e50"/>
                                     <constraint firstItem="Bzf-8c-7w9" firstAttribute="centerX" secondItem="Iht-Ji-x0R" secondAttribute="centerX" id="94h-oX-j6O"/>
                                     <constraint firstItem="56Y-u9-qIW" firstAttribute="centerY" secondItem="Bzf-8c-7w9" secondAttribute="centerY" id="GeY-Ru-kFM"/>
@@ -518,7 +529,9 @@
                                     <constraint firstItem="H6i-wR-1xd" firstAttribute="leading" secondItem="RyS-4c-ou8" secondAttribute="leading" constant="31" id="cOr-J7-pmM"/>
                                     <constraint firstItem="HbM-XL-cq9" firstAttribute="leading" secondItem="xjb-XF-jm9" secondAttribute="trailing" constant="8" symbolic="YES" id="flF-z9-T8n"/>
                                     <constraint firstItem="4JC-z5-Ez1" firstAttribute="centerY" secondItem="PnG-2R-wWq" secondAttribute="centerY" id="gLU-gn-QWk"/>
+                                    <constraint firstItem="mF5-NV-9EJ" firstAttribute="centerX" secondItem="QwX-9E-lhh" secondAttribute="centerX" id="hLM-Wp-BDg"/>
                                     <constraint firstItem="xjb-XF-jm9" firstAttribute="centerY" secondItem="H6i-wR-1xd" secondAttribute="centerY" id="hsQ-Q0-B0U"/>
+                                    <constraint firstItem="mF5-NV-9EJ" firstAttribute="top" secondItem="QwX-9E-lhh" secondAttribute="bottom" constant="8" symbolic="YES" id="jK3-l3-QX0"/>
                                     <constraint firstItem="HbM-XL-cq9" firstAttribute="centerY" secondItem="H6i-wR-1xd" secondAttribute="centerY" id="klF-LX-waw"/>
                                     <constraint firstItem="xjb-XF-jm9" firstAttribute="leading" secondItem="Iht-Ji-x0R" secondAttribute="trailing" constant="9" id="ksm-3e-eJP"/>
                                     <constraint firstItem="QwX-9E-lhh" firstAttribute="centerX" secondItem="xjb-XF-jm9" secondAttribute="centerX" id="lOK-x5-rcf"/>
