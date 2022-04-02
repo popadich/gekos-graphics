@@ -152,9 +152,7 @@ static void *worldDataContext = &worldDataContext;
 {
     GKSobjectKind kind = objRep.objectKind.intValue;
     GKSmesh_3 *theMesh = MeshOfKind(kind);
-    
-//    GKS3DObject *newGuy = [[GKS3DObject alloc] initWithKind:objRep.objectKind];
-    
+        
     GKS3DObject *newGuy = [[GKS3DObject alloc] initWithMesh:theMesh ofKind:objRep.objectKind];
 
     // copy data from Rep to Obj3D

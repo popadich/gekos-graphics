@@ -56,20 +56,34 @@
             // Open  the document.
             GKSmesh_3* mesh_ptr = [self parseOFFMeshFile:theDoc.path];
             if (mesh_ptr != NULL) {
-//                GKSvector3d trans; GKSvector3d scale; GKSvector3d rotate;
-//                trans.crd.x =0.0; trans.crd.y=0.0; trans.crd.z=0.0; trans.crd.w=1.0;
-//                scale.crd.x=1.0; scale.crd.y=1.0; scale.crd.z=1.0; scale.crd.w=1.0;
-//                rotate.crd.x=0.0; rotate.crd.y=0.0; rotate.crd.z=0.0; rotate.crd.w=1.0;
+                NSNumber *objKind = @(kSpaceShuttleKind);
+                GKSmesh_3 *theMesh = mesh_ptr;
+                    
+                GKS3DObject *customObj = [[GKS3DObject alloc] initWithMesh:theMesh ofKind:objKind];
 
+                // copy data from Rep to Obj3D
+                customObj.hidden = @NO;
+                customObj.priority = @0;
+                
+                customObj.transX = @0;
+                customObj.transY = @0;
+                customObj.transZ = @0;
 
+                customObj.rotX = @0;
+                customObj.rotY = @0;
+                customObj.rotZ = @0;
                 
-                GKS3DObject *customMeshObj = [[GKS3DObject alloc] initWithMesh:mesh_ptr ofKind:@(kSpaceShuttleKind)];
+                customObj.scaleX = @1.0;
+                customObj.scaleY =  @1.0;
+                customObj.scaleZ =  @1.0;
+
+                customObj.lineColor = [NSColor greenColor];
+                customObj.fillColor = [NSColor greenColor];
                 
-                // TODO: not working
-                [customMeshObj locateX:0.0 Y:0.0 Z:-500.0];
-                [customMeshObj computeAction];
-                
-                [self.content.theScene add3DObject:customMeshObj];
+                [customObj computeAction];
+
+                // TODO: not showing until a refresh with a "Look"
+                [self.content.theScene add3DObject:customObj];
                 
                 
             }
