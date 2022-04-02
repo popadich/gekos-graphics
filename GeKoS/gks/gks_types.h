@@ -157,4 +157,15 @@ GKS_INLINE GKSvector3d GKSMakeVector(GKSfloat x, GKSfloat y, GKSfloat z) {
     return v;
 }
 
+GKS_INLINE GKSlimits_3 GKSMakeVolume(GKSvector3d minPoint, GKSvector3d maxPoint) {
+    GKSlimits_3 l;
+    l.xmin = minPoint.crd.x;
+    l.ymin = minPoint.crd.y;
+    l.zmin = minPoint.crd.z;
+    l.xmax = maxPoint.crd.x;
+    l.ymax = maxPoint.crd.y;
+    l.zmax = maxPoint.crd.z;
+    return l;
+}
+
 #endif /* gks_types_h */

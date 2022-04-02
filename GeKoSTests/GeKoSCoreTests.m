@@ -845,7 +845,23 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(pt, kPerspectiveSimpleProjection, @"Perspective was just enabled");
 }
 
-//MARK: TRANSFORM
+// MARK: WORLD VOLUME
+
+- (void)testVolumeMake {
+    GKSvector3d min = GKSMakeVector(-1.1, -2.2, -3.3);
+    GKSvector3d max = GKSMakeVector(3.3, 2.2, 1.1);
+    GKSlimits_3 volume = GKSMakeVolume(min, max);
+    
+    XCTAssertEqualWithAccuracy(volume.xmin, -1.1, epsilon);
+    XCTAssertEqualWithAccuracy(volume.xmax, 3.3, epsilon);
+    XCTAssertEqualWithAccuracy(volume.ymin, -2.2, epsilon);
+    XCTAssertEqualWithAccuracy(volume.ymax, 2.2, epsilon);
+    XCTAssertEqualWithAccuracy(volume.zmin, -3.3, epsilon);
+    XCTAssertEqualWithAccuracy(volume.zmax, 1.1, epsilon);
+
+}
+
+// MARK: TRANSFORM
 - (void)testTransformInit {
     gks_trans_init_3();
     

@@ -70,17 +70,12 @@ static void *worldDataContext = &worldDataContext;
     
     // This gives a volume bounds to the GKS 3D world, also add
     // functions to adjust this volume and maybe initialize there.
-    GKSlimits_3 world_volume;
-    world_volume.xmin = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMinX];
-    world_volume.xmax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxX];
-    world_volume.ymin = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMinY];
-    world_volume.ymax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxY];
-    world_volume.zmin = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMinZ];
-    world_volume.zmax = [[NSUserDefaults standardUserDefaults] doubleForKey:gksPrefWorldVolumeMaxZ];
+    GKSlimits_3 world_volume = [self.theScene worldVolumeLimits];
     
     // esoteric calls to set world volume
     // this seems very cumbersome;
     NSView *drawView = self.drawingViewController.view;
+    
     NSRect viewRect = drawView.frame;
     GKSfloat r_min = viewRect.origin.x;              // r_min = WindowRect.left;
     GKSfloat r_max = viewRect.size.width;            // r_max = WindowRect.right;
