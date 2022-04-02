@@ -865,7 +865,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSint view_num = 0;
     
     gks_trans_init_3();
-    gks_trans_create_transform_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, winlims);
+    gks_store_view_transforms_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, winlims);
 
     GKSlimits_3 volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
     XCTAssertEqual(volume.xmin, -1.0);
@@ -882,7 +882,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(vp.ymax, 400.0);
 
     view_num = 3;
-    gks_trans_create_transform_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, winlims2);
+    gks_store_view_transforms_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, winlims2);
 
     volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
     XCTAssertEqual(volume.xmin, -10.0);
@@ -908,7 +908,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     int view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, -1, @"No view should be set");
     
-    gks_trans_create_transform_at_idx(3, 0.0, 250.0, 0.0, 300.0, wrldlims);
+    gks_store_view_transforms_at_idx(3, 0.0, 250.0, 0.0, 300.0, wrldlims);
     view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, 3);
 }
@@ -922,12 +922,12 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(view_num, -1, @"No view should be set");
     
     view_num = 1;
-    gks_trans_create_transform_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, wrldlims1);
+    gks_store_view_transforms_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, wrldlims1);
     view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, 1);
 
     view_num = 3;
-    gks_trans_create_transform_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, wrldlims2);
+    gks_store_view_transforms_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, wrldlims2);
     view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, 3);
     
@@ -947,7 +947,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_trans_init_3();
     
-    gks_trans_create_transform_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
+    gks_store_view_transforms_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     
@@ -971,7 +971,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_trans_init_3();
     
-    gks_trans_create_transform_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
+    gks_store_view_transforms_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     

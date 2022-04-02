@@ -34,7 +34,8 @@
     // Do view geometry here
     // TODO: adjust when view resizes
     NSRect myRect = self.view.bounds;
-    gks_trans_adjust_device_viewport(myRect.origin.x, myRect.size.width, myRect.origin.y, myRect.size.height);
+    // TODO: view tranform index is set to zero
+    gks_trans_adjust_device_viewport(0, myRect.origin.x, myRect.size.width, myRect.origin.y, myRect.size.height);
 }
 
 @end

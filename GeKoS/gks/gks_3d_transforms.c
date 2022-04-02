@@ -73,7 +73,7 @@ GKSint gks_trans_get_curr_view_idx(void)
     return g_curr_transform_idx;
 }
 
-void gks_trans_adjust_device_viewport(GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max)
+void gks_trans_adjust_device_viewport(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max)
 {
     GKSlimits_2 deviceport_2;
     deviceport_2.xmax = r_max;
@@ -220,7 +220,7 @@ void gks_trans_set_curr_view_idx(GKSint view_num)
 //  r_min = WindowRect.left;    r_max = WindowRect.right;
 //  s_min = WindowRect.bottom;  s_max = WindowRect.top;
 //
-void gks_trans_create_transform_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max, GKSlimits_3 world_volume_3)
+void gks_store_view_transforms_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max, GKSlimits_3 world_volume_3)
 {
     // I think this always stays as a unit cube for a normalized scale viewport
     static GKSlimits_3 viewport0_3 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };

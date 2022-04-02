@@ -329,6 +329,7 @@ void draw_object_3(GKSactor *theObject)
 // TODO: pipeline objects
 void gks_compute_object(GKSactor *the_object)
 {
+    // set object into the world
     gks_set_world_model_matrix(the_object->model_transform);
     compute_object_3(the_object);
     

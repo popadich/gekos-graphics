@@ -20,7 +20,8 @@ void gks_init_world_model(void) {
 }
 
 // sets up the matrix used to place and orient a 3D object into the 3D world
-// this needs to be called before the object instance is going to draw
+// this needs to be called before the object instance is going to compute
+// device coordinates
 // TODO: make this simpler get the transform from the object instead
 void gks_set_world_model_matrix(GKSmatrix_3 trans_matrix)
 {

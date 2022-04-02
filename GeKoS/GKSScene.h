@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)transformAllObjects;
 
+- (GKSlimits_3)worldVolumeLimits;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -62,6 +62,20 @@
     return self;
 }
 
+
+- (GKSlimits_3)worldVolumeLimits
+{
+    GKSlimits_3 volume;
+    volume.xmin = self.worldVolumeMinX.doubleValue;
+    volume.ymin = self.worldVolumeMinY.doubleValue;
+    volume.zmin = self.worldVolumeMinZ.doubleValue;
+    
+    volume.xmax = self.worldVolumeMaxX.doubleValue;
+    volume.ymax = self.worldVolumeMaxY.doubleValue;
+    volume.zmax = self.worldVolumeMaxZ.doubleValue;
+    return volume;
+}
+
 - (void) add3DObject:(GKS3DObject*)object3D
 {
 //    NSLog(@"3D Object of kind: %ld \n ScaleX: %lf \n TransX: %lf\n TransY: %lf\n TransZ: %lf", object3D.objectKind.integerValue, object3D.scaleX.floatValue, object3D.transX.floatValue, object3D.transY.floatValue, object3D.transZ.floatValue);
