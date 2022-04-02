@@ -15,6 +15,7 @@
 
 @property (strong)NSNumber *objectCount;
 @property (strong)NSNumber *vertexCount;
+@property (strong)NSNumber *polygonCount;
 
 @end
 
@@ -33,11 +34,11 @@
 }
 
 
-- (GKSint)countVertexesInArray:(NSMutableArray *)objArray
+- (GKSint)countVertexesInArray:(NSArray *)objArr
 {
     GKSint vertices = 0;
     
-    for (GKS3DObject *obj in objArray) {
+    for (GKS3DObject *obj in objArr) {
         GKSactor actor = obj.objectActor;
         GKSmesh_3 mesh = actor.mesh_object;
         GKSint vertex_count = mesh.vertnum;
@@ -45,6 +46,19 @@
     }
     
     return vertices;
+}
+
+- (GKSint)countPolygonsInArray:(NSArray *)objArr
+{
+    GKSint polygons = 0;
+    
+    for (GKS3DObject *obj in objArr) {
+        GKSactor actor = obj.objectActor;
+        GKSmesh_3 mesh = actor.mesh_object;
+        polygons += mesh.polynum;
+    }
+    
+    return polygons;
 }
 
 - (void)windowDidLoad {
@@ -71,6 +85,10 @@
         
         GKSint vertices = [self countVertexesInArray:scene.objectList];
         self.vertexCount = @(vertices);
+        
+        GKSint polys = [self countPolygonsInArray:scene.objectList];
+        self.polygonCount = @(polys);
+        
         self.theScene = scene;
 
     }
