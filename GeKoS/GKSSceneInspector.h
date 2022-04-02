@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class GKSScene;
 
-@interface GKSSceneInspector : NSWindowController
+@interface GKSSceneInspector : NSWindowController <NSWindowDelegate>
 
 + (id)sharedInspector;
 
