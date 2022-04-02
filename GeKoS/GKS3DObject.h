@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSColor* lineColor;
 @property (nonatomic, strong) NSColor* fillColor;
 
-- (instancetype)initWithKind:(NSNumber *)daKine;
 - (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh ofKind:(NSNumber *)daKine;
 
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ;

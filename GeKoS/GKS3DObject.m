@@ -18,48 +18,23 @@
 
 @implementation GKS3DObject
 
-- (instancetype)initWithKind:(NSNumber *)daKine
-{
-    self = [super init];
-    if (self) {
-        _objectKind = daKine;
-        _hidden = [NSNumber numberWithBool:NO];
-        _objectID = @0;
-        _priority = @0;
-        
-        _transX = [NSNumber numberWithDouble:0.0];
-        _transY = [NSNumber numberWithDouble:0.0];
-        _transZ = [NSNumber numberWithDouble:0.0];
-        _scaleX = [NSNumber numberWithDouble:1.0];
-        _scaleY = [NSNumber numberWithDouble:1.0];
-        _scaleZ = [NSNumber numberWithDouble:1.0];
-        _rotX = [NSNumber numberWithDouble:0.0];
-        _rotY = [NSNumber numberWithDouble:0.0];
-        _rotZ = [NSNumber numberWithDouble:0.0];
-        
-        // TODO: better defaults
-        _lineColor = [NSColor greenColor];
-        _fillColor = [NSColor greenColor];
-        mesh_ptr = NULL;
-        dev_coord_ptr = NULL;
-        
-        mesh_ptr = [self getMesh];
-        // call after getMesh
-        dev_coord_ptr = [self getDevCoordArray];
-    }
-    return self;
-}
 
 - (instancetype)init
 {
-    return ( [self initWithKind:[NSNumber numberWithInteger:kCubeKind]] );
+    GKSmesh_3 *mesh = CubeMesh();
+    return ( [self initWithMesh:mesh ofKind:[NSNumber numberWithInt:kCubeKind]] );
 }
 
 
 - (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh ofKind:(NSNumber *)daKine
 {
-    self = [self initWithKind:daKine];
+    
+    self = [super init];
     if (self) {
+        _objectKind = daKine;
+        
+        [self zeroLocation];
+        
         mesh_ptr = the_mesh;
         dev_coord_ptr = (GKSDCArrPtr)calloc(mesh_ptr->vertnum, sizeof(GKSpoint_2));
     }
@@ -67,63 +42,30 @@
 }
 
 
-- (GKSmesh_3 *)getMesh
+- (void)zeroLocation
 {
-    BOOL isCentered = YES;      // FIXME: hard coded value
-    GKSmesh_3 *mesh_object_ptr = NULL;
-    GKSobjectKind kind = self.objectKind.intValue;
-    setMeshCenteredFlag(isCentered);
-    switch (kind) {
-        case kCubeKind:
-            mesh_object_ptr = CubeMesh();
-            break;
-        case kSphereKind:
-            mesh_object_ptr = SphereMesh();
-            break;
-        case kPyramidKind:
-            mesh_object_ptr = PyramidMesh();
-            break;
-        case kHouseKind:
-            mesh_object_ptr = HouseMesh();
-            break;
-        default:
-            break;
-    }
-
-    return mesh_object_ptr;
+    _hidden = [NSNumber numberWithBool:NO];
+    _objectID = @0;
+    _priority = @0;
+    
+    _transX = [NSNumber numberWithDouble:0.0];
+    _transY = [NSNumber numberWithDouble:0.0];
+    _transZ = [NSNumber numberWithDouble:0.0];
+    _scaleX = [NSNumber numberWithDouble:1.0];
+    _scaleY = [NSNumber numberWithDouble:1.0];
+    _scaleZ = [NSNumber numberWithDouble:1.0];
+    _rotX = [NSNumber numberWithDouble:0.0];
+    _rotY = [NSNumber numberWithDouble:0.0];
+    _rotZ = [NSNumber numberWithDouble:0.0];
+    
+    // TODO: better defaults
+    _lineColor = [NSColor greenColor];
+    _fillColor = [NSColor greenColor];
+    mesh_ptr = NULL;
+    dev_coord_ptr = NULL;
 }
 
-- (GKSDCArrPtr)getDevCoordArray
-{
-    GKSDCArrPtr theCoords;
-    GKSobjectKind kind = self.objectKind.intValue;
-    int vertCount;
-    
-    switch (kind) {
-        case kCubeKind:
-            theCoords = (GKSDCArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSpoint_2));
-            break;
-        case kSphereKind: {
-            // TODO: mesh_ptr property?
-            vertCount = mesh_ptr->vertnum;
-            theCoords = (GKSDCArrPtr)calloc(vertCount, sizeof(GKSpoint_2));
-            
-        }
-            break;
-        case kPyramidKind:
-            theCoords = (GKSDCArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSpoint_2));
-            break;
-        case kHouseKind:
-            theCoords = (GKSDCArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSpoint_2));
-            break;
-        default:
-            theCoords = NULL;
-            break;
-    }
 
-    
-    return theCoords;
-}
 
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ {
     self.scaleX = [NSNumber numberWithDouble:scaleFactorX];

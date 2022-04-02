@@ -12,6 +12,31 @@
 
 static bool centeredFlag = false;
 
+
+GKSmesh_3 *MeshOfKind(GKSobjectKind kind)
+{
+    GKSmesh_3 *theMesh = NULL;
+    switch (kind) {
+        case kPyramidKind:
+            theMesh = PyramidMesh();
+            break;;
+        case kHouseKind:
+            theMesh = HouseMesh();
+            break;
+        case kSphereKind:
+            theMesh = SphereMesh();
+            break;
+        case kCubeKind:
+            theMesh = CubeMesh();
+            break;
+        default:
+            theMesh = CubeMesh();  // TODO: this should be special warning object
+            break;
+    }
+
+    return theMesh;
+}
+
 GKSmesh_3 *CubeMesh(void)
 {
     static GKSpoint_3 cubevert[GKS_CUBE_VERTEX_COUNT] = {

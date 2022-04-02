@@ -22,6 +22,7 @@
 #define GKS_HOUSE_POLYGON_COUNT 7
 
 void setMeshCenteredFlag(bool isCentered);
+GKSmesh_3 *MeshOfKind(GKSobjectKind kind);
 
 GKSmesh_3 *CubeMesh(void);
 GKSmesh_3 *PyramidMesh(void);
