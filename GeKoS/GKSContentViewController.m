@@ -98,6 +98,8 @@ static void *worldDataContext = &worldDataContext;
     self.object3DRep.fillColor = self.contentFillColor;
 
     [self setIsCenteredObject:@NO];
+    
+    [self registerAsObserverForScene];
         
     // notifications come after camera values have been set
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
@@ -147,29 +149,43 @@ static void *worldDataContext = &worldDataContext;
 }
 
 
+- (void)registerAsObserverForScene
+{
+    GKSScene *scene = self.theScene;
+
+    [scene addObserver:self forKeyPath:@"worldBackColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
+    [scene addObserver:self forKeyPath:@"worldFillColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
+    [scene addObserver:self forKeyPath:@"worldLineColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
+
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == worldDataContext) {
+        [self.drawingViewController.view setNeedsDisplay:YES];
+
+        NSString *changeType = @"Data change to world objects";
+        NSLog(@"World Change: %@", changeType);
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+
 // Add a 3d object to the scene/world
 - (void)addObjectRepToScene:(GKS3DObjectRep *)objRep
 {
+    // use ObjRep to create an Obj3D
+    
     GKSobjectKind kind = objRep.objectKind.intValue;
     GKSmesh_3 *theMesh = MeshOfKind(kind);
-        
-    GKS3DObject *newGuy = [[GKS3DObject alloc] initWithMesh:theMesh ofKind:objRep.objectKind];
+    GKSvector3d loc = [objRep positionVector];
+    GKSvector3d rot = [objRep rotationVector];
+    GKSvector3d sca = [objRep scaleVector];
 
-    // copy data from Rep to Obj3D
-    newGuy.hidden = objRep.hidden;
-    newGuy.priority = objRep.priority;
-    
-    newGuy.transX = objRep.transX;
-    newGuy.transY = objRep.transY;
-    newGuy.transZ = objRep.transZ;
-
-    newGuy.rotX = objRep.rotX;
-    newGuy.rotY = objRep.rotY;
-    newGuy.rotZ = objRep.rotZ;
-    
-    newGuy.scaleX = objRep.scaleX;
-    newGuy.scaleY = objRep.scaleY;
-    newGuy.scaleZ = objRep.scaleZ;
+    GKS3DObject *newGuy = [[GKS3DObject alloc] initWithMesh:theMesh atLocation:loc withRotation:rot andScale:sca];
 
     newGuy.lineColor = objRep.lineColor;
     newGuy.fillColor = objRep.fillColor;

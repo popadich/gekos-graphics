@@ -56,30 +56,19 @@
             // Open  the document.
             GKSmesh_3* mesh_ptr = [self parseOFFMeshFile:theDoc.path];
             if (mesh_ptr != NULL) {
-                NSNumber *objKind = @(kSpaceShuttleKind);
+                
                 GKSmesh_3 *theMesh = mesh_ptr;
-                    
-                GKS3DObject *customObj = [[GKS3DObject alloc] initWithMesh:theMesh ofKind:objKind];
+                GKSvector3d loc = GKSMakeVector(0.0, 0.0, -150.0);
+                GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
+                GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+                
+                GKS3DObject *customObj = [[GKS3DObject alloc] initWithMesh:theMesh atLocation:loc withRotation:rot andScale:sca];
 
                 // copy data from Rep to Obj3D
-                customObj.hidden = @NO;
-                customObj.priority = @0;
-                
-                customObj.transX = @0;
-                customObj.transY = @0;
-                customObj.transZ = @0;
 
-                customObj.rotX = @0;
-                customObj.rotY = @0;
-                customObj.rotZ = @0;
-                
-                customObj.scaleX = @1.0;
-                customObj.scaleY =  @1.0;
-                customObj.scaleZ =  @1.0;
-
-                customObj.lineColor = [NSColor greenColor];
+                customObj.lineColor = [NSColor orangeColor];
                 customObj.fillColor = [NSColor greenColor];
-                
+    
                 [customObj computeAction];
 
                 // TODO: not showing until a refresh with a "Look"
@@ -192,6 +181,7 @@
             vertexList[i].crd.x = [componentX doubleValue];
             vertexList[i].crd.y = [componentY doubleValue];
             vertexList[i].crd.z = [componentZ doubleValue];
+            vertexList[i].crd.w = 1.0;
         }
         
         data_offset = meta_data_offset + num_verts;

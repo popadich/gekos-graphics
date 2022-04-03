@@ -36,23 +36,6 @@
     return self;
 }
 
-- (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ {
-    self.scaleX = [NSNumber numberWithDouble:scaleFactorX];
-    self.scaleY = [NSNumber numberWithDouble:scaleFactorY];
-    self.scaleZ = [NSNumber numberWithDouble:scaleFactorZ];
-}
-
-- (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ {
-    self.rotX = [NSNumber numberWithDouble:rotFactorX];
-    self.rotY = [NSNumber numberWithDouble:rotFactorY];
-    self.rotZ = [NSNumber numberWithDouble:rotFactorZ];
-}
-
-- (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ {
-    self.transX = [NSNumber numberWithDouble:locFactorX];
-    self.transY = [NSNumber numberWithDouble:locFactorY];
-    self.transZ = [NSNumber numberWithDouble:locFactorZ];
-}
 
 - (GKSvector3d)positionVector
 {
@@ -75,39 +58,6 @@
     return rot;
 }
 
-- (GKSactor)objectActor
-{
-    GKSactor anActor;
-
-    
-    GKSvector3d position = [self positionVector];
-    GKSvector3d rotation = [self rotationVector];
-    GKSvector3d scale = [self scaleVector];
-    
-    CGFloat r,g,b,a;
-    NSColor* theColor = self.lineColor;
-    [theColor getRed:&r green:&g blue:&b alpha:&a];
-    GKScolor line_color = {r,g,b,a};
-    theColor = self.fillColor;
-    [theColor getRed:&r green:&g blue:&b alpha:&a];
-    GKScolor fill_color = {r,g,b,a};
-    
-    anActor.kind = self.objectKind.intValue;
-    anActor.hidden = self.hidden.boolValue;
-    
-    //What to do with this
-    //anActor.mesh_object = *mesh_object_ptr;
-    
-    anActor.priority = self.priority.doubleValue;
-    anActor.scale_vector = scale;
-    anActor.rotate_vector = rotation;
-    anActor.translate_vector = position;
-    anActor.line_color = line_color;
-    anActor.fill_color = fill_color;
-    
-    
-    return anActor;
-}
 
 
 // MARK: NSCopying protocol

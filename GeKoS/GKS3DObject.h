@@ -13,23 +13,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKS3DObject : NSObject
-@property (nonatomic, strong) NSNumber* objectID;
-@property (nonatomic, strong) NSNumber* hidden;
-@property (nonatomic, strong) NSNumber* priority;
-@property (nonatomic, strong) NSNumber* objectKind;
-@property (nonatomic, strong) NSNumber* transX;
-@property (nonatomic, strong) NSNumber* transY;
-@property (nonatomic, strong) NSNumber* transZ;
-@property (nonatomic, strong) NSNumber* rotX;
-@property (nonatomic, strong) NSNumber* rotY;
-@property (nonatomic, strong) NSNumber* rotZ;
-@property (nonatomic, strong) NSNumber* scaleX;
-@property (nonatomic, strong) NSNumber* scaleY;
-@property (nonatomic, strong) NSNumber* scaleZ;
-@property (nonatomic, strong) NSColor* lineColor;
-@property (nonatomic, strong) NSColor* fillColor;
 
-- (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh ofKind:(NSNumber *)daKine;
+
+
+@property (nonatomic, copy) NSColor* lineColor;
+@property (nonatomic, copy) NSColor* fillColor;
+
+- (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rot andScale:(GKSvector3d)scale;
 
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ;
 - (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ;
@@ -37,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSvector3d)positionVector;
 - (GKSvector3d)rotationVector;
 - (GKSvector3d)scaleVector;
+
+
 - (GKSactor)objectActor;
 
 - (void)computeAction;
