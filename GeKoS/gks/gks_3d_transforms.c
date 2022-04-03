@@ -32,7 +32,7 @@ void gks_trans_compute_view_3(GKSint view_num);
 
 
 // S T A T I C   G L O B A L S
-static GKSint         g_curr_transform_idx;
+static GKSint         g_curr_vantage_idx;
 
 // Make room for 10 transforms, use only one for now
 static GKSlimits_3    g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][2];
@@ -56,9 +56,13 @@ void gks_trans_init_3(void)
     g_wrld_xscale = g_wrld_xcoord = 0.0;
     g_wrld_yscale = g_wrld_ycoord = 0.0;
     g_wrld_zscale = g_wrld_zcoord = 0.0;
+    
     g_dev_xscale = g_dex_xcoord = 0.0;
     g_dev_yscale = g_dev_ycoord = 0.0;
-    g_curr_transform_idx = -1;
+    
+    g_curr_vantage_idx = -1;
+    
+    
    
     // reset all checklist flags
     for (int i=0; i<GKS_MAX_VIEW_TRANSFORMS; i++) {
@@ -70,7 +74,7 @@ void gks_trans_init_3(void)
 
 GKSint gks_trans_get_curr_view_idx(void)
 {
-    return g_curr_transform_idx;
+    return g_curr_vantage_idx;
 }
 
 void gks_trans_adjust_device_viewport(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max)
@@ -89,6 +93,16 @@ void gks_trans_adjust_device_viewport(GKSint view_num, GKSfloat r_min, GKSfloat 
     
 }
 
+void gks_trans_adjust_world_volume(GKSint view_num, GKSlimits_3 *newVolume)
+{
+    gks_trans_set_world_volume_3(view_num, newVolume);
+    g_setup_check_list[view_num][kWorldVolumeSetup] = true;
+    
+    // 3D_World volume adjustment
+    gks_trans_set_world_volume_3(view_num, newVolume);
+    gks_trans_compute_view_3(view_num);
+
+}
 
 void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
 {
@@ -208,30 +222,37 @@ void gks_trans_set_curr_view_idx(GKSint view_num)
         // TODO: compute the transform matrix for this view index
         gks_trans_compute_view_3(view_num);
 
-        g_curr_transform_idx = view_num;
+        g_curr_vantage_idx = view_num;
     }
 }
 
 // MARK: Volume Matrix
 //
 //  r and s are device coordinates, as in the ones you would plot to the screen in
-//  a Mac window view.
+//  a window's view.
 //
 //  r_min = WindowRect.left;    r_max = WindowRect.right;
 //  s_min = WindowRect.bottom;  s_max = WindowRect.top;
 //
-void gks_store_view_transforms_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max, GKSlimits_3 world_volume_3)
+
+void gks_trans_store_at_idx(GKSint view_num, GKSlimits_2 port_rect, GKSlimits_3 world_volume_3)
 {
     // I think this always stays as a unit cube for a normalized scale viewport
     static GKSlimits_3 viewport0_3 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     g_wrld_xscale = g_wrld_xcoord = 0.0;
     g_wrld_yscale = g_wrld_ycoord = 0.0;
     g_wrld_zscale = g_wrld_zcoord = 0.0;
+    
     g_dev_xscale = g_dex_xcoord = 0.0;
     g_dev_yscale = g_dev_ycoord = 0.0;
     
+    GKSfloat r_min = port_rect.xmin;
+    GKSfloat r_max = port_rect.xmax;
+    GKSfloat s_min = port_rect.ymin;
+    GKSfloat s_max = port_rect.ymax;
+    
     if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
-        g_curr_transform_idx = view_num;
+        g_curr_vantage_idx = view_num;
             
         // Three ports have to be set: 2D_Device_Port, 3D_World_Space (Volume/Port)
         // and 3D_Normalized_World_Space (Volume/Port).
@@ -248,7 +269,8 @@ void gks_store_view_transforms_at_idx(GKSint view_num, GKSfloat r_min, GKSfloat 
         
         // the norm_3 matrix is used to map from 3D world coordinate to
         // normalized device coordinates and device coordinates.
-        // TODO: Look into object culling
+      
+        
         gks_trans_compute_view_3(view_num);
     }
 }

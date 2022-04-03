@@ -881,11 +881,13 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     const GKSint word_volume_index = 0;
     GKSlimits_3 winlims = { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 };
     GKSlimits_3 winlims2 = { -10.0, 20.0, -30.0, 40.0, -50.0, 60.0 };
+    GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
+    GKSlimits_2 portlims2 = {  0.0, 250.0, 0.0, 300.0 };
     GKSint view_num = 0;
     
     gks_trans_init_3();
-    gks_store_view_transforms_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, winlims);
-
+    gks_trans_store_at_idx(view_num, portlims, winlims);
+    
     GKSlimits_3 volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
     XCTAssertEqual(volume.xmin, -1.0);
     XCTAssertEqual(volume.xmax, 2.0);
@@ -901,7 +903,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(vp.ymax, 400.0);
 
     view_num = 3;
-    gks_store_view_transforms_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, winlims2);
+    gks_trans_store_at_idx(view_num, portlims2, winlims2);
 
     volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
     XCTAssertEqual(volume.xmin, -10.0);
@@ -927,7 +929,9 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     int view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, -1, @"No view should be set");
     
-    gks_store_view_transforms_at_idx(3, 0.0, 250.0, 0.0, 300.0, wrldlims);
+    GKSlimits_2 portlims2 = {  0.0, 250.0, 0.0, 300.0 };
+
+    gks_trans_store_at_idx(3, portlims2, wrldlims);
     view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, 3);
 }
@@ -935,18 +939,20 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testTransformSetCurrentView {
     GKSlimits_3 wrldlims1 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     GKSlimits_3 wrldlims2 = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
+    GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
+    GKSlimits_2 portlims2 = {  0.0, 250.0, 0.0, 300.0 };
     gks_trans_init_3();
     
     int view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, -1, @"No view should be set");
     
     view_num = 1;
-    gks_store_view_transforms_at_idx(view_num, 0.0, 400.0, 0.0, 400.0, wrldlims1);
+    gks_trans_store_at_idx(view_num, portlims, wrldlims1);
     view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, 1);
 
     view_num = 3;
-    gks_store_view_transforms_at_idx(view_num, 0.0, 250.0, 0.0, 300.0, wrldlims2);
+    gks_trans_store_at_idx(view_num, portlims2, wrldlims2);
     view_num = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num, 3);
     
@@ -962,11 +968,12 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
     GKSvector3d p2 = {0.0, 0.0, 0.0, 0.0};
-    GKSint viewNum = 0;
+    GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
+   GKSint viewNum = 0;
     
     gks_trans_init_3();
     
-    gks_store_view_transforms_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
+    gks_trans_store_at_idx(viewNum, portlims, wrldlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     
@@ -982,6 +989,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 - (void)testTransformNDCToDC3 {
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
+    GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
     GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
     GKSvector3d p2 = {0.5, 0.5, 0.0, 1.0};
     GKSfloat u, v;
@@ -990,7 +998,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_trans_init_3();
     
-    gks_store_view_transforms_at_idx(viewNum, 0.0, 400.0, 0.0, 400.0, wrldlims);
+    gks_trans_store_at_idx(viewNum, portlims, wrldlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     

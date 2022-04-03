@@ -75,15 +75,17 @@ static void *worldDataContext = &worldDataContext;
     // esoteric calls to set world volume
     // this seems very cumbersome;
     NSView *drawView = self.drawingViewController.view;
-    
     NSRect viewRect = drawView.frame;
-    GKSfloat r_min = viewRect.origin.x;              // r_min = WindowRect.left;
-    GKSfloat r_max = viewRect.size.width;            // r_max = WindowRect.right;
-    GKSfloat s_min = viewRect.origin.y;              // s_min = WindowRect.bottom;
-    GKSfloat s_max = viewRect.size.height;            // s_max = WindowRect.top;
+    
+    GKSlimits_2 port_rect;
+    port_rect.xmin = viewRect.origin.x;
+    port_rect.xmax = viewRect.size.width;
+    port_rect.ymin = viewRect.origin.y;
+    port_rect.ymax = viewRect.size.height;
     
     // Set normalization value transform from world to camera to view coordinates
-    gks_store_view_transforms_at_idx(0, r_min, r_max, s_min, s_max, world_volume);
+    // needs to be called when either view port rect or world volume changes.
+    gks_trans_store_at_idx(0, port_rect, world_volume);
     
     // Store one 3D object representation to act as a data entry buffer;
     // the data is used to create the actual 3D object added to the 3D world
@@ -135,9 +137,8 @@ static void *worldDataContext = &worldDataContext;
     // If this method is used for observing other notifications, then (if) needed.
 
     if ([[notification name] isEqualToString:@"cameraMoved"]) {
-        NSDictionary *userInfo = notification.userInfo;
-        NSString *moveType = [userInfo objectForKey:@"moveType"];
-        NSLog(@"You move me %@", moveType);
+//        NSDictionary *userInfo = notification.userInfo;
+//        NSString *moveType = [userInfo objectForKey:@"moveType"];
         [self.theScene transformAllObjects];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
@@ -198,8 +199,7 @@ static void *worldDataContext = &worldDataContext;
     GKSlimits_3 volume = [self.theScene worldVolumeLimits];
     
     //TODO: remove hard coded index
-    gks_trans_set_world_volume_3(0, &volume);
-    gks_trans_compute_view_3(0);
+    gks_trans_adjust_world_volume(0, &volume);
     
     [self.theScene transformAllObjects];
     [self.drawingViewController.view setNeedsDisplay:YES];
