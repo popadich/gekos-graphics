@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSDrawingController : NSViewController
 
+- (void)refresh;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

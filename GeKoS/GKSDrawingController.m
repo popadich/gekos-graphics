@@ -38,4 +38,8 @@
     gks_trans_adjust_device_viewport(0, myRect.origin.x, myRect.size.width, myRect.origin.y, myRect.size.height);
 }
 
+- (void)refresh {
+    [self.view setNeedsDisplay:YES];
+}
+
 @end
