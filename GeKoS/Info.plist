@@ -57,7 +57,7 @@
 				<string>public.database</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Example Persistent Store</string>
+			<string>GeKoS Persistent Store</string>
 			<key>UTTypeIconFile</key>
 			<string>gekos-doc</string>
 			<key>UTTypeIcons</key>
@@ -76,6 +76,32 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>gekos</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Open File Format Mesh</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>gekos-fill</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>gekos-center</string>
+				<key>UTTypeIconText</key>
+				<string>mesh</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.xephyr.off</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>off</string>
 				</array>
 			</dict>
 		</dict>
