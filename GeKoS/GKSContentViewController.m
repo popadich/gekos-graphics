@@ -182,21 +182,24 @@ static void *worldDataContext = &worldDataContext;
     [self.theScene add3DObject:newGuy];
 
     
-    // For debug purposes
+    // TODO: For debug purposes
     GKSmesh_3 *mesh = newGuy.getMeshPointer;
     for (int i=0; i<mesh->polynum; i++) {
         GKSint vertexCount = mesh->polygons[i][0];
         NSLog(@"Mesh polygons: %d", vertexCount);
         for (int j=0; j<vertexCount; j++) {
             // FIXME: differs from draw_computed_object_3
+            // vertex numbers in MESH file start at 1.
+            // array indices are zero based 0.
+            // so, -1 from vertex index -> array index.
+            // 4,3,2,1 -> 3,2,1,0
+            //
             GKSint vertexIndex = mesh->polygons[i][j+1];
             NSLog(@"Vertex Index: %d", vertexIndex);
         }
         NSLog(@".");
     }
-    
-    
-    
+     
 }
 
 
@@ -374,11 +377,7 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
     
     GKSpolygonArrPtr polygonList = NULL;
     GKSvertexArrPtr vertexList = NULL;
-    GKSnormalArrPtr normalList = NULL;
-    GKSvertexArrPtr transList = NULL;
-    GKSDCArrPtr devCoordList = NULL;
 
-    
     @try {
         NSError *error = nil;
         NSString *fileTextString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
@@ -395,7 +394,6 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
         
         // Second line 2 or 3 integer numbers
         NSString *componentsString = textLines[1]; // 3 numbers seperated by space
-        
         NSArray* componentsCount = [self componentsMatchingRegularExpression:@"\\d+" fromString:componentsString];
         // only interested in vertex and polygon counts
         num_verts = [componentsCount[0] intValue];
@@ -404,9 +402,6 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
         
         polygonList = (GKSpolygonArrPtr)calloc(num_polys, sizeof(GKSpolygon_3));
         vertexList = (GKSvertexArrPtr)calloc(num_verts, sizeof(GKSvector3d));
-        normalList = (GKSnormalArrPtr)calloc(num_polys, sizeof(GKSvector3d));
-        transList = (GKSvertexArrPtr)calloc(num_verts, sizeof(GKSvector3d));
-        devCoordList = (GKSDCArrPtr)calloc(num_verts, sizeof(GKSpoint_2));
         NSLog(@"Mesh Data:\nVertex Count: %d  Polygon Count %d", num_verts, num_polys);
         
         meta_data_offset = 2;       // 2 text lines
@@ -456,8 +451,6 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
         anObjectMesh->vertnum = num_verts;
         anObjectMesh->polygons = polygonList;
         anObjectMesh->polynum = num_polys;
-        anObjectMesh->transverts = transList;
-        anObjectMesh->devcoords = devCoordList;
     }
     
     return anObjectMesh;

@@ -156,7 +156,6 @@ GKSmesh_3 *PyramidMesh(void)
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
     aPyramid->polygons = polygonList;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
-    aPyramid->transverts = NULL;
     
     return aPyramid;
 }
@@ -192,7 +191,6 @@ GKSmesh_3 *HouseMesh(void)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(GKSpolygon_3));
-    GKSvertexArrPtr transList = NULL;
 
     
     // copy vertices using pointer arithmetic
@@ -224,7 +222,6 @@ GKSmesh_3 *HouseMesh(void)
     aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
     aHouse->polygons = polygonList;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
-    aHouse->transverts = transList;
     
     return aHouse;
 }

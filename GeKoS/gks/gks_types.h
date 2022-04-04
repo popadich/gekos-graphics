@@ -20,7 +20,7 @@
 #endif
 
 
-#define GKS_POLY_VERTEX_MAX    7
+#define GKS_POLY_VERTEX_MAX    9
 
 typedef int GKSint;
 typedef double GKSfloat;
@@ -116,8 +116,7 @@ typedef struct
     GKSint polynum;
     GKSvertexArrPtr  vertices;
     GKSpolygonArrPtr polygons;
-    GKSvertexArrPtr  transverts;
-    GKSDCArrPtr      devcoords;
+//    GKSDCArrPtr      devcoords;
 } GKSmesh_3;
 
 typedef enum {

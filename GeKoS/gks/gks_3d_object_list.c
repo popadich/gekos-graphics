@@ -125,15 +125,12 @@ void gks_objarr_delete_at_index(int index)
         GKSmesh_3 obj = object_array[idx].mesh_object;
         GKSvertexArrPtr verts = obj.vertices;
         GKSpolygonArrPtr polys = obj.polygons;
-        GKSDCArrPtr dvcds = obj.devcoords;
         
         // Free the memory associated with actor data structure
         free(verts);
         obj.vertices = NULL;
         free(polys);
         obj.polygons = NULL;
-        free(dvcds);
-        obj.devcoords = NULL;
         
     }
     
@@ -173,7 +170,6 @@ void compute_object_3(GKSactor *theObject)
 {
     GKSvertexArrPtr     vertexList = NULL;
     GKSpolygonArrPtr    polygonList = NULL;
-    GKSDCArrPtr         devcoordList = NULL;
     GKSDCArrPtr         devCoordPtr = NULL;
     
     GKSint              pid;
@@ -196,7 +192,6 @@ void compute_object_3(GKSactor *theObject)
     
     vertexList = theObject->mesh_object.vertices;
     polygonList = theObject->mesh_object.polygons;
-    devcoordList = theObject->mesh_object.devcoords;
     devCoordPtr = theObject->devcoords;
     
     // TODO: transform object vertices first
@@ -252,75 +247,20 @@ void draw_computed_object_3(GKSactor *theObject)
         GKSint vertexCount = polygonList[i][0];
 
         for(GKSint j=0; j<vertexCount; j++){
-            // FIXME: differs from addObject3DToLists
+            // FIXME: differs from addObjectRepToScene
+            // vertex numbers in MESH file start at 1.
+            // array indices are zero based 0.
+            // so, -1 from vertex index -> array index.
+            // 4,3,2,1 -> 3,2,1,0
+            //
             GKSint vertexIndex = polygonList[i][j+1] - 1 ;     // this is a gotcha
             // TODO: verfiy that this is a copy
-            printf("Vertex Num: %d\n", vertexIndex);
+            // printf("Vertex Num: %d\n", vertexIndex);
             temp_device_vertices[j] = devcoordList[vertexIndex];
         }
         
-        // FIXME: does not work
-        // dev coords index needs to be moved for each polygon
         // call-back to drawing routine
         gks_localpolyline_3(i, vertexCount, temp_device_vertices, &theObject->line_color);
-        
-    }
-}
-
-
-
-
-void draw_object_3(GKSactor *theObject)
-{
-    GKSvertexArrPtr     vertexList;
-    GKSpolygonArrPtr    polygonList;
-    GKSDCArrPtr         devcoordList;
-    
-    GKSint              pid;
-    GKSint              polygonCount;
-    GKSint              vertexNumber;
-    GKSint              polygon_point_count;
-    
-    // TODO: get rid of this temp allocation
-    GKSvector3d         temp_vertex_array[GKS_POLY_VERTEX_MAX];
-    
-    for (GKSint i=0; i<GKS_POLY_VERTEX_MAX; i++) {
-        temp_vertex_array[i].crd.x = 0.0;
-        temp_vertex_array[i].crd.y = 0.0;
-        temp_vertex_array[i].crd.z = 0.0;
-        temp_vertex_array[i].crd.w = 1.0;
-    }
-    
-    vertexList = theObject->mesh_object.vertices;
-    polygonList = theObject->mesh_object.polygons;
-    devcoordList = theObject->mesh_object.devcoords;
-    
-    // TODO: transform object vertices first
-    // to speed things up I should transform all the vertices of the object
-    // to viewport space coordinates, and then test normals and then draw
-    // polygons. Use a seperate vertex buffer like the one for polygons.
-    
-    polygonCount = theObject->mesh_object.polynum;
-//    totalVerteces = theObject->vertnum;
-
-    for(pid=0; pid<polygonCount; pid++) {
-        
-        // copy polygon points over to a temporary array as a guard against modifying
-        // the original data.
-        polygon_point_count = polygonList[pid][0];
-        for(GKSint j=0; j<polygon_point_count; j++){
-            vertexNumber = polygonList[pid][j+1] - 1;     // !!!: this is a gotcha
-            // TODO: verfiy that this is a copy
-            temp_vertex_array[j] = vertexList[vertexNumber];
-        }
-
-        // transformations here
-        //  world->model->view->camera->projection->...
-        //
-        gks_prep_polyline_3(pid, polygon_point_count, temp_vertex_array, devcoordList, &theObject->line_color);
-        
-        // call-back to drawing routine
-        gks_localpolyline_3(pid, polygon_point_count, devcoordList, &theObject->line_color);
         
     }
 }
@@ -338,14 +278,6 @@ void gks_compute_object(GKSactor *the_object)
 void gks_draw_computed_object(GKSactor *the_object)
 {
     draw_computed_object_3(the_object);
-    
-}
-
-
-void gks_objarr_draw_object(GKSactor *the_object)
-{
-    gks_set_world_model_matrix(the_object->model_transform);
-    draw_object_3(the_object);
     
 }
 
