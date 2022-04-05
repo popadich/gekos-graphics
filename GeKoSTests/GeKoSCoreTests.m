@@ -866,7 +866,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     gks_trans_init_3();
     
     GKSint idx = gks_trans_get_curr_view_idx();
-    XCTAssertEqual(idx, -1, @"Index should be out of bounds");
+    XCTAssertEqual(idx, 0, @"wrong vantage point");
     
 }
 
@@ -877,93 +877,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(idx, 0);
 }
 
-- (void)testTransformCreate {
-    const GKSint word_volume_index = 0;
-    GKSlimits_3 winlims = { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 };
-    GKSlimits_3 winlims2 = { -10.0, 20.0, -30.0, 40.0, -50.0, 60.0 };
-    GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
-    GKSlimits_2 portlims2 = {  0.0, 250.0, 0.0, 300.0 };
-    GKSint view_num = 0;
-    
-    gks_trans_init_3();
-    gks_trans_store_at_idx(view_num, portlims, winlims);
-    
-    GKSlimits_3 volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
-    XCTAssertEqual(volume.xmin, -1.0);
-    XCTAssertEqual(volume.xmax, 2.0);
-    XCTAssertEqual(volume.ymin, -3.0);
-    XCTAssertEqual(volume.ymax, 4.0);
-    XCTAssertEqual(volume.zmin, -5.0);
-    XCTAssertEqual(volume.zmax, 6.0);
-    
-    GKSlimits_2 vp = gks_trans_get_device_viewport();
-    XCTAssertEqual(vp.xmin, 0.0);
-    XCTAssertEqual(vp.ymin, 0.0);
-    XCTAssertEqual(vp.xmax, 400.0);
-    XCTAssertEqual(vp.ymax, 400.0);
-
-    view_num = 3;
-    gks_trans_store_at_idx(view_num, portlims2, winlims2);
-
-    volume = gks_trans_get_transform_at_idx(view_num, word_volume_index);
-    XCTAssertEqual(volume.xmin, -10.0);
-    XCTAssertEqual(volume.xmax, 20.0);
-    XCTAssertEqual(volume.ymin, -30.0);
-    XCTAssertEqual(volume.ymax, 40.0);
-    XCTAssertEqual(volume.zmin, -50.0);
-    XCTAssertEqual(volume.zmax, 60.0);
-    
-    vp = gks_trans_get_device_viewport();
-    XCTAssertEqual(vp.xmin, 0.0);
-    XCTAssertEqual(vp.ymin, 0.0);
-    XCTAssertEqual(vp.xmax, 250.0);
-    XCTAssertEqual(vp.ymax, 300.0);
-    
-}
-
-
-- (void)testTransformGetCurrentView {
-    GKSlimits_3 wrldlims = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
-    gks_trans_init_3();
-    
-    int view_num = gks_trans_get_curr_view_idx();
-    XCTAssertEqual(view_num, -1, @"No view should be set");
-    
-    GKSlimits_2 portlims2 = {  0.0, 250.0, 0.0, 300.0 };
-
-    gks_trans_store_at_idx(3, portlims2, wrldlims);
-    view_num = gks_trans_get_curr_view_idx();
-    XCTAssertEqual(view_num, 3);
-}
-
-- (void)testTransformSetCurrentView {
-    GKSlimits_3 wrldlims1 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
-    GKSlimits_3 wrldlims2 = { -10.0, 10.0, -10.0, 10.0, -10.0, 10.0 };
-    GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
-    GKSlimits_2 portlims2 = {  0.0, 250.0, 0.0, 300.0 };
-    gks_trans_init_3();
-    
-    int view_num = gks_trans_get_curr_view_idx();
-    XCTAssertEqual(view_num, -1, @"No view should be set");
-    
-    view_num = 1;
-    gks_trans_store_at_idx(view_num, portlims, wrldlims1);
-    view_num = gks_trans_get_curr_view_idx();
-    XCTAssertEqual(view_num, 1);
-
-    view_num = 3;
-    gks_trans_store_at_idx(view_num, portlims2, wrldlims2);
-    view_num = gks_trans_get_curr_view_idx();
-    XCTAssertEqual(view_num, 3);
-    
-    view_num = 1;
-    gks_trans_set_curr_view_idx(view_num);
-    view_num = gks_trans_get_curr_view_idx();
-    XCTAssertEqual(view_num, 1);
-    
-}
-
-
 - (void)testTransformWCToNDC3 {
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
@@ -973,7 +886,8 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_trans_init_3();
     
-    gks_trans_store_at_idx(viewNum, portlims, wrldlims);
+    gks_trans_set_current_device_viewport(portlims);
+    gks_trans_set_current_world_volume(&wrldlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     
@@ -986,7 +900,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
 }
 
-
 - (void)testTransformNDCToDC3 {
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
@@ -998,11 +911,12 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_trans_init_3();
     
-    gks_trans_store_at_idx(viewNum, portlims, wrldlims);
+    gks_trans_set_current_world_volume(&wrldlims);
+    gks_trans_set_current_device_viewport(portlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     
-    // not a verified test, try some different values for p1 and limits
+    // TODO: verify, with different values for p1 and limits
     gks_trans_ndc_3_to_dc_2(p1, &u, &v);
     
     XCTAssertEqual(p1.crd.x, 1.0);
@@ -1017,6 +931,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(v, 300.0);
     
 }
+ 
 
 // MARK: MODEL
 - (void)testModelWorldInit {

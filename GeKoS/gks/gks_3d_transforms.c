@@ -61,7 +61,7 @@ void gks_trans_init_3(void)
     g_dev_xscale = g_dex_xcoord = 0.0;
     g_dev_yscale = g_dev_ycoord = 0.0;
     
-    g_curr_vantage_idx = -1;
+   
     
     // reset all checklist flags
     for (int i=0; i<GKS_MAX_VIEW_TRANSFORMS; i++) {
@@ -71,6 +71,7 @@ void gks_trans_init_3(void)
     }
     
     gks_vantage_defaults();
+    g_curr_vantage_idx = 0;
 }
 
 GKSint gks_trans_get_curr_view_idx(void)
@@ -78,9 +79,17 @@ GKSint gks_trans_get_curr_view_idx(void)
     return g_curr_vantage_idx;
 }
 
+void gks_trans_set_curr_view_idx(GKSint view_num)
+{
+    if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
+        gks_trans_compute_view_3(view_num);
+
+        g_curr_vantage_idx = view_num;
+    }
+}
 
 
-void gks_trans_set_world_volume_3(GKSint view_num, GKSlimits_3 *wrld_volume)
+void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume)
 {
     g_tranform_list[view_num][kWorldVolumeSetup].xmin = wrld_volume->xmin;
     g_tranform_list[view_num][kWorldVolumeSetup].xmax = wrld_volume->xmax;
@@ -93,36 +102,38 @@ void gks_trans_set_world_volume_3(GKSint view_num, GKSlimits_3 *wrld_volume)
     g_world_volume = *wrld_volume;
 }
 
-void gks_trans_set_current_world_volume(GKSlimits_3 *volume)
-{
-    GKSint view_num = gks_trans_get_curr_view_idx();
-    gks_trans_set_world_volume_3(view_num, volume);
-
-}
-
-
-
 void gks_trans_adjust_world_volume(GKSint view_num, GKSlimits_3 *newVolume)
 {
-    gks_trans_set_world_volume_3(view_num, newVolume);
+    gks_trans_set_world_volume(view_num, newVolume);
     g_setup_check_list[view_num][kWorldVolumeSetup] = true;
     
     // 3D_World volume adjustment
-    gks_trans_set_world_volume_3(view_num, newVolume);
+    gks_trans_set_world_volume(view_num, newVolume);
     gks_trans_compute_view_3(view_num);
 
 }
 
-void gks_trans_adjust_current_volume(GKSlimits_3 *newVolume)
+void gks_trans_set_current_world_volume(GKSlimits_3 *volume)
 {
-    GKSint view_numb = gks_trans_get_curr_view_idx();
-    gks_trans_adjust_world_volume(view_numb, newVolume);
+    GKSint view_num = gks_trans_get_curr_view_idx();
+    gks_trans_set_world_volume(view_num, volume);
+}
+
+void gks_trans_adjust_current_world_volume(GKSlimits_3 *newVolume)
+{
+    GKSint view_num = gks_trans_get_curr_view_idx();
+    gks_trans_adjust_world_volume(view_num, newVolume);
 }
 
 
 
-
-
+//
+//  r and s are device coordinates, as in the ones you would plot to the screen in
+//  a window's view.
+//
+//  r_min = WindowRect.left;    r_max = WindowRect.right;
+//  s_min = WindowRect.bottom;  s_max = WindowRect.top;
+//
 void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
 {
     g_r_min3 = device_limits.xmin;
@@ -134,41 +145,32 @@ void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
 
 void gks_trans_adjust_device_viewport(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max)
 {
-    GKSlimits_2 deviceport_2;
-    deviceport_2.xmax = r_max;
-    deviceport_2.xmin = r_min;
-    deviceport_2.ymax = s_max;
-    deviceport_2.ymin = s_min;
+    GKSlimits_2 port;
+    port.xmax = r_max;
+    port.xmin = r_min;
+    port.ymax = s_max;
+    port.ymin = s_min;
     
-    gks_trans_set_device_viewport(0, deviceport_2);  // pass by copy
+    gks_trans_set_device_viewport(view_num, port);  // pass by copy, fix it
     
     // These are viewport and world volume transforms only
-    // not necessary to keep an array of them
-    gks_trans_compute_view_3(0);    //TODO: excercise index settings
+    // what about the others, camera view and projection?
+    gks_trans_compute_view_3(view_num);
     
 }
 
-void gks_trans_set_current_device_viewport(GKSlimits_2 device_limits)
+void gks_trans_set_current_device_viewport(GKSlimits_2 dev_port)
 {
     GKSint view_num = gks_trans_get_curr_view_idx();
-    gks_trans_set_device_viewport(view_num, device_limits);
+    gks_trans_set_device_viewport(view_num, dev_port);
 }
 
-void gks_trans_adjust_current_device_viewport(GKSlimits_2 port)
+void gks_trans_adjust_current_device_viewport(GKSlimits_2 dev_port)
 {
     GKSint view_num = gks_trans_get_curr_view_idx();
-    gks_trans_adjust_device_viewport(view_num, port.xmin, port.xmax, port.ymin, port.ymax);
+    gks_trans_adjust_device_viewport(view_num, dev_port.xmin, dev_port.xmax, dev_port.ymin, dev_port.ymax);
 }
 
-
-// MARK: Volume
-//
-//  r and s are device coordinates, as in the ones you would plot to the screen in
-//  a window's view.
-//
-//  r_min = WindowRect.left;    r_max = WindowRect.right;
-//  s_min = WindowRect.bottom;  s_max = WindowRect.top;
-//
 
 void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
 {
@@ -185,6 +187,28 @@ void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
     
 }
 
+
+void gks_vantage_defaults(void)
+{
+    // set all vantage points to their default values
+    for (GKSint view_num=0; view_num<GKS_MAX_VIEW_TRANSFORMS; view_num++) {
+        GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
+        GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
+        GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
+        GKSlimits_3 world_volume = GKSMakeVolume(min, max);
+        
+        // 3D_World
+        gks_trans_set_world_volume(view_num, &world_volume);
+        // 3D_ViewPort
+        gks_trans_set_viewport_volume_3(view_num, &viewport_volume);
+
+        gks_trans_compute_view_3(view_num);
+
+    }
+}
+
+
+// MARK: Transforms
 void setup_transform_world_view(GKSlimits_3 winlim, GKSlimits_3 vwplim) {
     GKSfloat        x_min,x_max,y_min,y_max,z_min,z_max;
     GKSfloat        u_min,u_max,v_min,v_max,w_min,w_max;
@@ -257,39 +281,7 @@ void gks_trans_compute_view_3(GKSint view_num)
         setup_transform_viewport_to_device(vwp_lim);
 
     }
-
 }
-
-void gks_trans_set_curr_view_idx(GKSint view_num)
-{
-    if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
-        gks_trans_compute_view_3(view_num);
-
-        g_curr_vantage_idx = view_num;
-    }
-}
-
-
-void gks_vantage_defaults(void)
-{
-    // set all vantage points to their default values
-    for (GKSint view_num=0; view_num<GKS_MAX_VIEW_TRANSFORMS; view_num++) {
-        GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
-        GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
-        GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
-        GKSlimits_3 world_volume = GKSMakeVolume(min, max);
-        
-        // 3D_World
-        gks_trans_set_world_volume_3(view_num, &world_volume);
-        // 3D_ViewPort
-        gks_trans_set_viewport_volume_3(view_num, &viewport_volume);
-
-        gks_trans_compute_view_3(view_num);
-
-    }
-}
-
-
 
 // World coordinates (wc) to Normalized Device Coordinates (ndc)
 // World space -> Normalized World space

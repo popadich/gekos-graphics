@@ -22,7 +22,7 @@ void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport); //
 void gks_trans_set_current_world_volume(GKSlimits_3 *volume);
 void gks_trans_set_current_device_viewport(GKSlimits_2 device_limits);
 
-void gks_trans_adjust_current_volume(GKSlimits_3 *newVolume);
+void gks_trans_adjust_current_world_volume(GKSlimits_3 *newVolume);
 void gks_trans_adjust_current_device_viewport(GKSlimits_2 device_limits);
 
 

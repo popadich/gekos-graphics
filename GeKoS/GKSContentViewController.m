@@ -208,9 +208,7 @@ static void *worldDataContext = &worldDataContext;
 {
     // very esoteric calls here, make this simpler
     GKSlimits_3 volume = [self.theScene worldVolumeLimits];
-    
-    //TODO: remove hard coded index
-    gks_trans_adjust_current_volume(&volume);
+    gks_trans_adjust_current_world_volume(&volume);
     
     [self.theScene transformAllObjects];
     [self.drawingViewController.view setNeedsDisplay:YES];
