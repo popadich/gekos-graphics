@@ -138,7 +138,6 @@ static void *worldDataContext = &worldDataContext;
 
 - (void) cameraMovedNotification:(NSNotification *) notification
 {
-    // TODO: verify
     // [notification name] should always be @"cameraMoved", (if) not needed.
     // If this method is used for observing other notifications, then (if) needed.
 
@@ -198,10 +197,17 @@ static void *worldDataContext = &worldDataContext;
     
 }
 
+
+// MARK: ACTIONS
 - (IBAction)updateVantage:(id)sender
 {
-    GKSint index = [self.currentVantagePoint intValue];
-    gks_trans_set_curr_view_idx(index);
+    if ([sender isKindOfClass:[NSButton class]]) {
+        GKSint tag = (GKSint)[sender tag];
+        gks_trans_set_curr_view_idx(tag);
+
+        [self.theScene transformAllObjects];
+        [self.drawingViewController refresh];
+    }
 }
 
 - (IBAction)performVolumeResizeQuick:(id)sender
@@ -211,7 +217,7 @@ static void *worldDataContext = &worldDataContext;
     gks_trans_adjust_current_world_volume(&volume);
     
     [self.theScene transformAllObjects];
-    [self.drawingViewController.view setNeedsDisplay:YES];
+    [self.drawingViewController refresh];
 //        NSLog(@"Scene Change: %lf, %lf, %lf, %lf, %lf, %lf", volume.xmin, volume.xmax, volume.ymin, volume.ymax, volume.zmin, volume.zmax);
 
 }
