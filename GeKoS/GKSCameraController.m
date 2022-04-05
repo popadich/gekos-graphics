@@ -241,11 +241,11 @@ void logMatrix(GKSmatrix_3 M) {
         GKSvector3d pos = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
         
         GKSvector3d dir_vector = GKSMakeVector(0.0, 0.0, 0.0);
-        gks_gen_dir_vector(pos, look_at, &dir_vector);
+        gks_view_matrix_calc_dir_vector(pos, look_at, &dir_vector);
 
         // Set Camera View Matrix
-        gks_gen_view_matrix(pos, dir_vector, up_vector, aViewMatrix);
-        gks_set_view_matrix(aViewMatrix);
+        gks_view_matrix_gen(pos, dir_vector, up_vector, aViewMatrix);
+        gks_view_matrix_set(aViewMatrix);
 
         
         // Set UI values
@@ -288,8 +288,8 @@ void logMatrix(GKSmatrix_3 M) {
 
         GKSvector3d position = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
 
-        gks_gen_view_matrix(position, dir_vector, up_vector, aViewMatrix);
-        gks_set_view_matrix(aViewMatrix);
+        gks_view_matrix_gen(position, dir_vector, up_vector, aViewMatrix);
+        gks_view_matrix_set(aViewMatrix);
         
         
         // Set UI values
@@ -354,7 +354,7 @@ void logMatrix(GKSmatrix_3 M) {
 //    NSLog(@"Result");
 //    logMatrix(result);
     
-    gks_set_view_matrix(result);
+    gks_view_matrix_set(result);
     
     // set the UI values
     NSNumber *uhatx = [NSNumber numberWithDouble:result[0][0]];

@@ -966,9 +966,9 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 // MARK: VIEW ORIENT
 - (void)testViewOrientInit {
     GKSmatrix_3 *theViewMatrixPtr;
-    gks_init_view_matrix();
+    gks_view_matrix_init();
     
-    theViewMatrixPtr = gks_get_view_matrix();
+    theViewMatrixPtr = gks_view_matrix_get();
     XCTAssertEqual((*theViewMatrixPtr)[0][0], 1.0);
     XCTAssertEqual((*theViewMatrixPtr)[1][2], 0.0);
     XCTAssertEqual((*theViewMatrixPtr)[2][2], -1.0);
@@ -978,10 +978,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     GKSmatrix_3 *theViewMatrixPtr;
     
-    gks_init_view_matrix();
-    gks_set_view_matrix(im);
+    gks_view_matrix_init();
+    gks_view_matrix_set(im);
 
-    theViewMatrixPtr = gks_get_view_matrix();
+    theViewMatrixPtr = gks_view_matrix_get();
     XCTAssertEqual((*theViewMatrixPtr)[0][0], 1.0);
     XCTAssertEqual((*theViewMatrixPtr)[1][2], 0.0);     // non-diagonal
     XCTAssertEqual((*theViewMatrixPtr)[1][1], 1.0);
@@ -1008,8 +1008,8 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     up.crd.z = 0.0;
     up.crd.w = 1.0;
     
-    gks_init_view_matrix();
-    gks_gen_view_matrix(loc, dir, up, result_matrix);
+    gks_view_matrix_init();
+    gks_view_matrix_gen(loc, dir, up, result_matrix);
     
     XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[0][1], 0.0, epsilon);
@@ -1054,9 +1054,9 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     up.crd.w = 1.0;
     
     
-    gks_init_view_matrix();
+    gks_view_matrix_init();
 
-    gks_gen_view_matrix(loc, dir, up, result_matrix);
+    gks_view_matrix_gen(loc, dir, up, result_matrix);
 
     XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[0][1], 0.0, epsilon);
@@ -1101,10 +1101,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
     
-    gks_init_view_matrix();
+    gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_gen_lookat_view_matrix(obs, look, up, theResultMatrix);
+    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
     
     XCTAssertEqual(theResultMatrix[0][0], 1.0);
     XCTAssertEqual(theResultMatrix[1][1], 1.0);
@@ -1136,10 +1136,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
 
-    gks_init_view_matrix();
+    gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_gen_lookat_view_matrix(obs, look, up, theResultMatrix);
+    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
     
     XCTAssertEqual(theResultMatrix[0][0], 1.0);
     XCTAssertEqual(theResultMatrix[1][1], 1.0);
@@ -1171,10 +1171,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
 
-    gks_init_view_matrix();
+    gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_gen_lookat_view_matrix(obs, look, up, theResultMatrix);
+    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
     
     XCTAssertEqualWithAccuracy(theResultMatrix[0][0], 0.7071, epsilon);
     XCTAssertEqual(theResultMatrix[0][1], 0.0);
@@ -1217,10 +1217,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
 
-    gks_init_view_matrix();
+    gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_gen_lookat_view_matrix(obs, look, up, theResultMatrix);
+    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
     
     XCTAssertEqualWithAccuracy(theResultMatrix[0][0], 1.0, epsilon);
     XCTAssertEqual(theResultMatrix[0][1], 0.0);

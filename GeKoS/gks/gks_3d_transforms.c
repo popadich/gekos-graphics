@@ -108,17 +108,13 @@ void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume)
     g_tranform_list[view_num][kWorldVolumeSetup].ymax = wrld_volume->ymax;
     g_tranform_list[view_num][kWorldVolumeSetup].zmin = wrld_volume->zmin;
     g_tranform_list[view_num][kWorldVolumeSetup].zmax = wrld_volume->zmax;
-    
+    gks_trans_compute_transforms(view_num);
+
 }
 
 void gks_trans_adjust_world_volume(GKSint view_num, GKSlimits_3 *newVolume)
 {
     gks_trans_set_world_volume(view_num, newVolume);
-    
-    // 3D_World volume adjustment
-    gks_trans_set_world_volume(view_num, newVolume);
-    gks_trans_compute_transforms(view_num);
-
 }
 
 void gks_trans_set_current_world_volume(GKSlimits_3 *volume)
@@ -149,17 +145,15 @@ void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 *device_limits)
     g_r_max3 = device_limits->xmax;
     g_s_min3 = device_limits->ymin;
     g_s_max3 = device_limits->ymax;
+    
+    gks_trans_compute_transforms(view_num);
+    
 }
 
 
 void gks_trans_adjust_device_viewport(GKSint view_num, GKSlimits_2 *dev_port)
 {
     gks_trans_set_device_viewport(view_num, dev_port);
-    
-    // These are viewport and world volume transforms only
-    // what about the others, camera view and projection?
-    gks_trans_compute_transforms(view_num);
-    
 }
 
 void gks_trans_set_current_device_viewport(GKSlimits_2 *dev_port)
@@ -261,15 +255,15 @@ void gks_trans_compute_transforms(GKSint view_num)
 
 }
 
-
-// World coordinates (wc) to Normalized Device Coordinates (ndc)
+// MARK: Scalers
+// World coordinates (wc) to Normalized World Coordinates (nwc)
 // World space -> Normalized World space
-void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt)
+void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
 {
-    ndc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
-    ndc_pt->crd.y = g_wrld_yscale * wc_pt.crd.y + g_wrld_ycoord;
-    ndc_pt->crd.z = g_wrld_zscale * wc_pt.crd.z + g_wrld_zcoord;
-    ndc_pt->crd.w = 1.0;
+    nwc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
+    nwc_pt->crd.y = g_wrld_yscale * wc_pt.crd.y + g_wrld_ycoord;
+    nwc_pt->crd.z = g_wrld_zscale * wc_pt.crd.z + g_wrld_zcoord;
+    nwc_pt->crd.w = 1.0;    // TODO: verify if ok
 }
 
 

@@ -25,7 +25,7 @@ void gks_trans_adjust_current_device_viewport(GKSlimits_2 *device_limits);
 
 // the heart of the matter
 void gks_trans_compute_transforms(GKSint view_num);
-void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt);
+void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr nwc_pt);
 void gks_trans_ndc_3_to_dc_2 (GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s);
 
 #endif /* gks_3d_transforms_h */

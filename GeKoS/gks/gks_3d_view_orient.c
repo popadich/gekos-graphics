@@ -11,7 +11,7 @@
 // P R I V A T E    O K
 static GKSmatrix_3      gViewMatrix;       // View Plane Orientation Matrix
 
-void gks_init_view_matrix(void)
+void gks_view_matrix_init(void)
 {
     GKSmatrix_3 viewTransMatrix = {
         {1.0, 0.0, 0.0, 0.0},
@@ -19,24 +19,24 @@ void gks_init_view_matrix(void)
         {0.0, 0.0, -1.0, 0.0},
         {0.0, 0.0, 0.0, 1.0}
     };
-    gks_set_view_matrix(viewTransMatrix);
+    gks_view_matrix_set(viewTransMatrix);
 
 }
 
 
-void gks_set_view_matrix(GKSmatrix_3 viewMatrix)
+void gks_view_matrix_set(GKSmatrix_3 viewMatrix)
 {
     for(int i=0; i<4; i++)
         for (int j=0; j<4; j++)
             gViewMatrix[i][j] = viewMatrix[i][j];
 }
 
-GKSmatrix_3 *gks_get_view_matrix(void)
+GKSmatrix_3 *gks_view_matrix_get(void)
 {
     return &gViewMatrix;
 }
 
-void gks_gen_view_matrix(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, GKSmatrix_3 result) {
+void gks_view_matrix_gen(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, GKSmatrix_3 result) {
 
     GKSvector3d u_vector;           // u_vector points along uHat
     GKSvector3d v_vector;           // v_vector points along vHat
@@ -52,8 +52,6 @@ void gks_gen_view_matrix(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, 
     // cross product to find vHat
     vectorcrossproduct(u_vector, w_vector, &v_vector); //vHat
 
-    
-    
     
     // Populating the View Matrix:
     // Normaly the basis vectors would go in the columns of the matrix M
@@ -100,7 +98,7 @@ void gks_gen_view_matrix(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, 
     orientation[3][2] = 0.0;
     orientation[3][3] = 1.0;
 
-    // TODO: is this column order?
+    // TODO: look at alternative method
     GKSmatrix_3 translation = {
         1,0,0,-obs.crd.x,
         0,1,0,-obs.crd.y,
@@ -112,14 +110,13 @@ void gks_gen_view_matrix(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, 
     
 }
 
-void gks_gen_dir_vector(GKSvector3d obs, GKSvector3d look, GKSvector3dPtr dir)
+void gks_view_matrix_calc_dir_vector(GKSvector3d obs, GKSvector3d look, GKSvector3dPtr dir)
 {
-    
     vectorsubtract(look, obs, dir);
     vectornormal(*dir, dir);
 }
 
-void gks_gen_lookat_view_matrix(GKSvector3d obs, GKSvector3d look, GKSvector3d up, GKSmatrix_3 result)
+void gks_view_matrix_gen_lookat(GKSvector3d obs, GKSvector3d look, GKSvector3d up, GKSmatrix_3 result)
 {
     GKSvector3d w_vector;
     GKSvector3d u_vector;           // u_vector points along uHat

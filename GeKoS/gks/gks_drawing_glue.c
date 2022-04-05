@@ -32,7 +32,7 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     
     // Get transformation matrices
     GKSmatrix_3 *world_matrix = gks_get_world_model_matrix();
-    GKSmatrix_3 *view_matrix = gks_get_view_matrix();
+    GKSmatrix_3 *view_matrix = gks_view_matrix_get();
     GKSmatrix_3 *projection_matrix = gks_get_projection_matrix();
 
     for (i=0; i<num_pt; i++) {
