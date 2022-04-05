@@ -17,8 +17,6 @@ void gks_trans_init_3(void);
 GKSint gks_trans_get_curr_view_idx(void);
 void gks_trans_set_curr_view_idx(GKSint view_num);
 
-void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport); // never used
-
 void gks_trans_set_current_world_volume(GKSlimits_3 *volume);
 void gks_trans_set_current_device_viewport(GKSlimits_2 device_limits);
 

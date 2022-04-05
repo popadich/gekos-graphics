@@ -27,7 +27,8 @@ const GKSint kWorldVolumeSetup = 0;
 const GKSint kViewPortVolumeSetup = 1;
 
 //  P R O T O T Y P E S
-// Compute transformation values for view_num index, after all values are set.
+void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume);
+void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport);
 void gks_vantage_defaults(void);
 void gks_trans_compute_view_3(GKSint view_num);
 
@@ -61,7 +62,7 @@ void gks_trans_init_3(void)
     g_dev_yscale = g_dev_ycoord = 0.0;
     
     gks_vantage_defaults();
-    g_curr_vantage_idx = 0;
+    gks_trans_set_curr_view_idx(0);
 }
 
 GKSint gks_trans_get_curr_view_idx(void)
@@ -77,7 +78,27 @@ void gks_trans_set_curr_view_idx(GKSint view_num)
     }
 }
 
+void gks_vantage_defaults(void)
+{
+    // set all vantage points to their default values
+    for (GKSint view_num=0; view_num<GKS_MAX_VIEW_TRANSFORMS; view_num++) {
+        GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
+        GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
+        GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
+        GKSlimits_3 world_volume = GKSMakeVolume(min, max);
+        
+        // 3D_World
+        gks_trans_set_world_volume(view_num, &world_volume);
+        // 3D_ViewPort
+        gks_trans_set_viewport_volume_3(view_num, &viewport_volume);
 
+        gks_trans_compute_view_3(view_num);
+
+    }
+}
+
+
+// MARK: World Volume
 void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume)
 {
     g_tranform_list[view_num][kWorldVolumeSetup].xmin = wrld_volume->xmin;
@@ -114,6 +135,7 @@ void gks_trans_adjust_current_world_volume(GKSlimits_3 *newVolume)
 
 
 
+// MARK: Device Port
 //
 //  r and s are device coordinates, as in the ones you would plot to the screen in
 //  a window's view.
@@ -159,6 +181,7 @@ void gks_trans_adjust_current_device_viewport(GKSlimits_2 dev_port)
 }
 
 
+// MARK: View Volume
 void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
 {
 
@@ -173,25 +196,6 @@ void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
     
 }
 
-
-void gks_vantage_defaults(void)
-{
-    // set all vantage points to their default values
-    for (GKSint view_num=0; view_num<GKS_MAX_VIEW_TRANSFORMS; view_num++) {
-        GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
-        GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
-        GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
-        GKSlimits_3 world_volume = GKSMakeVolume(min, max);
-        
-        // 3D_World
-        gks_trans_set_world_volume(view_num, &world_volume);
-        // 3D_ViewPort
-        gks_trans_set_viewport_volume_3(view_num, &viewport_volume);
-
-        gks_trans_compute_view_3(view_num);
-
-    }
-}
 
 
 // MARK: Transforms
