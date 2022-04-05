@@ -28,6 +28,7 @@ const GKSint kViewPortVolumeSetup = 1;
 
 //  P R O T O T Y P E S
 // Compute transformation values for view_num index, after all values are set.
+void gks_vantage_defaults(void);
 void gks_trans_compute_view_3(GKSint view_num);
 
 
@@ -62,20 +63,74 @@ void gks_trans_init_3(void)
     
     g_curr_vantage_idx = -1;
     
-    
-   
     // reset all checklist flags
     for (int i=0; i<GKS_MAX_VIEW_TRANSFORMS; i++) {
         g_setup_check_list[i][kWorldVolumeSetup] = false;
         g_setup_check_list[i][kViewPortVolumeSetup] = false;
+        
     }
+    
+    gks_vantage_defaults();
 }
-
 
 GKSint gks_trans_get_curr_view_idx(void)
 {
     return g_curr_vantage_idx;
 }
+
+
+
+void gks_trans_set_world_volume_3(GKSint view_num, GKSlimits_3 *wrld_volume)
+{
+    g_tranform_list[view_num][kWorldVolumeSetup].xmin = wrld_volume->xmin;
+    g_tranform_list[view_num][kWorldVolumeSetup].xmax = wrld_volume->xmax;
+    g_tranform_list[view_num][kWorldVolumeSetup].ymin = wrld_volume->ymin;
+    g_tranform_list[view_num][kWorldVolumeSetup].ymax = wrld_volume->ymax;
+    g_tranform_list[view_num][kWorldVolumeSetup].zmin = wrld_volume->zmin;
+    g_tranform_list[view_num][kWorldVolumeSetup].zmax = wrld_volume->zmax;
+    
+    g_setup_check_list[view_num][kWorldVolumeSetup] = true;
+    g_world_volume = *wrld_volume;
+}
+
+void gks_trans_set_current_world_volume(GKSlimits_3 *volume)
+{
+    GKSint view_num = gks_trans_get_curr_view_idx();
+    gks_trans_set_world_volume_3(view_num, volume);
+
+}
+
+
+
+void gks_trans_adjust_world_volume(GKSint view_num, GKSlimits_3 *newVolume)
+{
+    gks_trans_set_world_volume_3(view_num, newVolume);
+    g_setup_check_list[view_num][kWorldVolumeSetup] = true;
+    
+    // 3D_World volume adjustment
+    gks_trans_set_world_volume_3(view_num, newVolume);
+    gks_trans_compute_view_3(view_num);
+
+}
+
+void gks_trans_adjust_current_volume(GKSlimits_3 *newVolume)
+{
+    GKSint view_numb = gks_trans_get_curr_view_idx();
+    gks_trans_adjust_world_volume(view_numb, newVolume);
+}
+
+
+
+
+
+void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
+{
+    g_r_min3 = device_limits.xmin;
+    g_r_max3 = device_limits.xmax;
+    g_s_min3 = device_limits.ymin;
+    g_s_max3 = device_limits.ymax;
+}
+
 
 void gks_trans_adjust_device_viewport(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max)
 {
@@ -93,38 +148,27 @@ void gks_trans_adjust_device_viewport(GKSint view_num, GKSfloat r_min, GKSfloat 
     
 }
 
-void gks_trans_adjust_world_volume(GKSint view_num, GKSlimits_3 *newVolume)
+void gks_trans_set_current_device_viewport(GKSlimits_2 device_limits)
 {
-    gks_trans_set_world_volume_3(view_num, newVolume);
-    g_setup_check_list[view_num][kWorldVolumeSetup] = true;
-    
-    // 3D_World volume adjustment
-    gks_trans_set_world_volume_3(view_num, newVolume);
-    gks_trans_compute_view_3(view_num);
-
+    GKSint view_num = gks_trans_get_curr_view_idx();
+    gks_trans_set_device_viewport(view_num, device_limits);
 }
 
-void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
+void gks_trans_adjust_current_device_viewport(GKSlimits_2 port)
 {
-    g_r_min3 = device_limits.xmin;
-    g_r_max3 = device_limits.xmax;
-    g_s_min3 = device_limits.ymin;
-    g_s_max3 = device_limits.ymax;
+    GKSint view_num = gks_trans_get_curr_view_idx();
+    gks_trans_adjust_device_viewport(view_num, port.xmin, port.xmax, port.ymin, port.ymax);
 }
 
-void gks_trans_set_world_volume_3(GKSint view_num, GKSlimits_3 *wrld_volume)
-{
-    g_tranform_list[view_num][kWorldVolumeSetup].xmin = wrld_volume->xmin;
-    g_tranform_list[view_num][kWorldVolumeSetup].xmax = wrld_volume->xmax;
-    g_tranform_list[view_num][kWorldVolumeSetup].ymin = wrld_volume->ymin;
-    g_tranform_list[view_num][kWorldVolumeSetup].ymax = wrld_volume->ymax;
-    g_tranform_list[view_num][kWorldVolumeSetup].zmin = wrld_volume->zmin;
-    g_tranform_list[view_num][kWorldVolumeSetup].zmax = wrld_volume->zmax;
-    
-    g_setup_check_list[view_num][kWorldVolumeSetup] = true;
-    g_world_volume = *wrld_volume;
-}
 
+// MARK: Volume
+//
+//  r and s are device coordinates, as in the ones you would plot to the screen in
+//  a window's view.
+//
+//  r_min = WindowRect.left;    r_max = WindowRect.right;
+//  s_min = WindowRect.bottom;  s_max = WindowRect.top;
+//
 
 void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
 {
@@ -219,74 +263,32 @@ void gks_trans_compute_view_3(GKSint view_num)
 void gks_trans_set_curr_view_idx(GKSint view_num)
 {
     if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
-        // TODO: compute the transform matrix for this view index
         gks_trans_compute_view_3(view_num);
 
         g_curr_vantage_idx = view_num;
     }
 }
 
-// MARK: Volume Matrix
-//
-//  r and s are device coordinates, as in the ones you would plot to the screen in
-//  a window's view.
-//
-//  r_min = WindowRect.left;    r_max = WindowRect.right;
-//  s_min = WindowRect.bottom;  s_max = WindowRect.top;
-//
 
-void gks_trans_store_at_idx(GKSint view_num, GKSlimits_2 port_rect, GKSlimits_3 world_volume_3)
+void gks_vantage_defaults(void)
 {
-    // I think this always stays as a unit cube for a normalized scale viewport
-    static GKSlimits_3 viewport0_3 = { -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
-    g_wrld_xscale = g_wrld_xcoord = 0.0;
-    g_wrld_yscale = g_wrld_ycoord = 0.0;
-    g_wrld_zscale = g_wrld_zcoord = 0.0;
-    
-    g_dev_xscale = g_dex_xcoord = 0.0;
-    g_dev_yscale = g_dev_ycoord = 0.0;
-    
-    GKSfloat r_min = port_rect.xmin;
-    GKSfloat r_max = port_rect.xmax;
-    GKSfloat s_min = port_rect.ymin;
-    GKSfloat s_max = port_rect.ymax;
-    
-    if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
-        g_curr_vantage_idx = view_num;
-            
-        // Three ports have to be set: 2D_Device_Port, 3D_World_Space (Volume/Port)
-        // and 3D_Normalized_World_Space (Volume/Port).
-        
-        // 2D_DevicePort
-        GKSlimits_2 deviceport_2 = {r_min, r_max, s_min, s_max};
-        gks_trans_set_device_viewport(view_num, deviceport_2);  // pass by copy
+    // set all vantage points to their default values
+    for (GKSint view_num=0; view_num<GKS_MAX_VIEW_TRANSFORMS; view_num++) {
+        GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
+        GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
+        GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
+        GKSlimits_3 world_volume = GKSMakeVolume(min, max);
         
         // 3D_World
-        gks_trans_set_world_volume_3(view_num, &world_volume_3);
-        
+        gks_trans_set_world_volume_3(view_num, &world_volume);
         // 3D_ViewPort
-        gks_trans_set_viewport_volume_3(view_num, &viewport0_3);
-        
-        // the norm_3 matrix is used to map from 3D world coordinate to
-        // normalized device coordinates and device coordinates.
-      
-        
+        gks_trans_set_viewport_volume_3(view_num, &viewport_volume);
+
         gks_trans_compute_view_3(view_num);
+
     }
 }
 
-
-GKSlimits_3 gks_trans_get_transform_at_idx(GKSint view_num, GKSint setup)
-{
-    GKSlimits_3 worldVolume =  g_tranform_list[view_num][setup];
-    return worldVolume;
-}
-
-GKSlimits_2 gks_trans_get_device_viewport(void)
-{
-    GKSlimits_2 vpt = {g_r_min3, g_r_max3, g_s_min3, g_s_max3};
-    return vpt;
-}
 
 
 // World coordinates (wc) to Normalized Device Coordinates (ndc)

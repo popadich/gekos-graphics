@@ -35,7 +35,14 @@
     // TODO: adjust when view resizes
     NSRect myRect = self.view.bounds;
     // TODO: view tranform index is set to zero
-    gks_trans_adjust_device_viewport(0, myRect.origin.x, myRect.size.width, myRect.origin.y, myRect.size.height);
+    
+    GKSlimits_2 new_limits;
+    new_limits.xmin = myRect.origin.x;
+    new_limits.ymin = myRect.origin.y;
+    new_limits.xmax = myRect.size.width;
+    new_limits.ymax = myRect.size.height;
+
+    gks_trans_adjust_current_device_viewport(new_limits);
 }
 
 - (void)refresh {

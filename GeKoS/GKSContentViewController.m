@@ -21,6 +21,7 @@
 
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
+@property (strong) NSNumber* currentVantagePoint;
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
@@ -68,6 +69,10 @@ static void *worldDataContext = &worldDataContext;
         self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
     }
     
+    // Setup view vantage points
+    [self updateVantage:self];
+    self.currentVantagePoint = [NSNumber numberWithInt:0];
+
     // This gives a volume bounds to the GKS 3D world, also add
     // functions to adjust this volume and maybe initialize there.
     GKSlimits_3 world_volume = [self.theScene worldVolumeLimits];
@@ -85,7 +90,8 @@ static void *worldDataContext = &worldDataContext;
     
     // Set normalization value transform from world to camera to view coordinates
     // needs to be called when either view port rect or world volume changes.
-    gks_trans_store_at_idx(0, port_rect, world_volume);
+    gks_trans_set_current_device_viewport(port_rect);  // FIXME: pass by copy, change
+    gks_trans_set_current_world_volume(&world_volume);
     
     // Store one 3D object representation to act as a data entry buffer;
     // the data is used to create the actual 3D object added to the 3D world
@@ -192,6 +198,11 @@ static void *worldDataContext = &worldDataContext;
     
 }
 
+- (IBAction)updateVantage:(id)sender
+{
+    GKSint index = [self.currentVantagePoint intValue];
+    gks_trans_set_curr_view_idx(index);
+}
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
@@ -199,7 +210,7 @@ static void *worldDataContext = &worldDataContext;
     GKSlimits_3 volume = [self.theScene worldVolumeLimits];
     
     //TODO: remove hard coded index
-    gks_trans_adjust_world_volume(0, &volume);
+    gks_trans_adjust_current_volume(&volume);
     
     [self.theScene transformAllObjects];
     [self.drawingViewController.view setNeedsDisplay:YES];
