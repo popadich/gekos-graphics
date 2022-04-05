@@ -22,6 +22,7 @@
 #include "gks_3d_transforms.h"
 
 #define GKS_MAX_VIEW_TRANSFORMS 10
+#define GKS_TRANSFORM_TYPES 2
 
 const GKSint kWorldVolumeSetup = 0;
 const GKSint kViewPortVolumeSetup = 1;
@@ -30,35 +31,35 @@ const GKSint kViewPortVolumeSetup = 1;
 void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume);
 void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport);
 void gks_vantage_defaults(void);
-void gks_trans_compute_view_3(GKSint view_num);
+void gks_trans_compute_transforms(GKSint view_num);
 
 
 // S T A T I C   G L O B A L S
 static GKSint         g_curr_vantage_idx;
 
 // Make room for 10 transforms, use only one for now
-static GKSlimits_3    g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][2];
+static GKSlimits_3    g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][GKS_TRANSFORM_TYPES];
 
-static GKSfloat       g_r_min3, g_r_max3, g_s_min3, g_s_max3;
-static GKSlimits_3    g_world_volume;
-static GKSlimits_3    g_viewport_volume;
-
+// world volume globals
 static GKSfloat       g_wrld_xscale, g_wrld_xcoord;
 static GKSfloat       g_wrld_yscale, g_wrld_ycoord;
 static GKSfloat       g_wrld_zscale, g_wrld_zcoord;
-static GKSfloat       g_dev_xscale, g_dex_xcoord;
+
+// device limits globals
+static GKSfloat       g_r_min3, g_r_max3, g_s_min3, g_s_max3;
+static GKSfloat       g_dev_xscale, g_dev_xcoord;
 static GKSfloat       g_dev_yscale, g_dev_ycoord;
 
 //
 // Initialize world, viewport, and device transformations
 //
-void gks_trans_init_3(void)
+void gks_trans_init(void)
 {
     g_wrld_xscale = g_wrld_xcoord = 0.0;
     g_wrld_yscale = g_wrld_ycoord = 0.0;
     g_wrld_zscale = g_wrld_zcoord = 0.0;
     
-    g_dev_xscale = g_dex_xcoord = 0.0;
+    g_dev_xscale = g_dev_xcoord = 0.0;
     g_dev_yscale = g_dev_ycoord = 0.0;
     
     gks_vantage_defaults();
@@ -73,7 +74,7 @@ GKSint gks_trans_get_curr_view_idx(void)
 void gks_trans_set_curr_view_idx(GKSint view_num)
 {
     if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
-        gks_trans_compute_view_3(view_num);
+        gks_trans_compute_transforms(view_num);
         g_curr_vantage_idx = view_num;
     }
 }
@@ -92,7 +93,7 @@ void gks_vantage_defaults(void)
         // 3D_ViewPort
         gks_trans_set_viewport_volume_3(view_num, &viewport_volume);
 
-        gks_trans_compute_view_3(view_num);
+        gks_trans_compute_transforms(view_num);
 
     }
 }
@@ -108,7 +109,6 @@ void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume)
     g_tranform_list[view_num][kWorldVolumeSetup].zmin = wrld_volume->zmin;
     g_tranform_list[view_num][kWorldVolumeSetup].zmax = wrld_volume->zmax;
     
-    g_world_volume = *wrld_volume;
 }
 
 void gks_trans_adjust_world_volume(GKSint view_num, GKSlimits_3 *newVolume)
@@ -117,7 +117,7 @@ void gks_trans_adjust_world_volume(GKSint view_num, GKSlimits_3 *newVolume)
     
     // 3D_World volume adjustment
     gks_trans_set_world_volume(view_num, newVolume);
-    gks_trans_compute_view_3(view_num);
+    gks_trans_compute_transforms(view_num);
 
 }
 
@@ -143,41 +143,35 @@ void gks_trans_adjust_current_world_volume(GKSlimits_3 *newVolume)
 //  r_min = WindowRect.left;    r_max = WindowRect.right;
 //  s_min = WindowRect.bottom;  s_max = WindowRect.top;
 //
-void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 device_limits)
+void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 *device_limits)
 {
-    g_r_min3 = device_limits.xmin;
-    g_r_max3 = device_limits.xmax;
-    g_s_min3 = device_limits.ymin;
-    g_s_max3 = device_limits.ymax;
+    g_r_min3 = device_limits->xmin;
+    g_r_max3 = device_limits->xmax;
+    g_s_min3 = device_limits->ymin;
+    g_s_max3 = device_limits->ymax;
 }
 
 
-void gks_trans_adjust_device_viewport(GKSint view_num, GKSfloat r_min, GKSfloat r_max, GKSfloat s_min, GKSfloat s_max)
+void gks_trans_adjust_device_viewport(GKSint view_num, GKSlimits_2 *dev_port)
 {
-    GKSlimits_2 port;
-    port.xmax = r_max;
-    port.xmin = r_min;
-    port.ymax = s_max;
-    port.ymin = s_min;
-    
-    gks_trans_set_device_viewport(view_num, port);  // pass by copy, fix it
+    gks_trans_set_device_viewport(view_num, dev_port);
     
     // These are viewport and world volume transforms only
     // what about the others, camera view and projection?
-    gks_trans_compute_view_3(view_num);
+    gks_trans_compute_transforms(view_num);
     
 }
 
-void gks_trans_set_current_device_viewport(GKSlimits_2 dev_port)
+void gks_trans_set_current_device_viewport(GKSlimits_2 *dev_port)
 {
     GKSint view_num = gks_trans_get_curr_view_idx();
     gks_trans_set_device_viewport(view_num, dev_port);
 }
 
-void gks_trans_adjust_current_device_viewport(GKSlimits_2 dev_port)
+void gks_trans_adjust_current_device_viewport(GKSlimits_2 *dev_port)
 {
     GKSint view_num = gks_trans_get_curr_view_idx();
-    gks_trans_adjust_device_viewport(view_num, dev_port.xmin, dev_port.xmax, dev_port.ymin, dev_port.ymax);
+    gks_trans_adjust_device_viewport(view_num, dev_port);
 }
 
 
@@ -191,9 +185,7 @@ void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
     g_tranform_list[view_num][kViewPortVolumeSetup].ymax = viewport->ymax;
     g_tranform_list[view_num][kViewPortVolumeSetup].zmin = viewport->zmin;
     g_tranform_list[view_num][kViewPortVolumeSetup].zmax = viewport->zmax;
-    
-    g_viewport_volume = *viewport;
-    
+        
 }
 
 
@@ -234,7 +226,7 @@ void setup_transform_viewport_to_device(GKSlimits_3 viewport_limits)
     v_max = viewport_limits.ymax;
 
     g_dev_xscale = (g_r_max3 - g_r_min3)/(u_max - u_min);
-    g_dex_xcoord = g_dev_xscale*(-u_min) + g_r_min3;
+    g_dev_xcoord = g_dev_xscale*(-u_min) + g_r_min3;
     g_dev_yscale = (g_s_max3 - g_s_min3)/(v_max - v_min);
     g_dev_ycoord = g_dev_yscale*(-v_min) + g_s_min3;
 }
@@ -243,7 +235,7 @@ void setup_transform_viewport_to_device(GKSlimits_3 viewport_limits)
 // it in an array of 10 seems weird and pointless.
 //
 // These are viewport and world volume transforms.
-void gks_trans_compute_view_3(GKSint view_num)
+void gks_trans_compute_transforms(GKSint view_num)
 {
     GKSlimits_3 wrld_volume;
     GKSlimits_3 vwp_lim;
@@ -286,7 +278,7 @@ void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr ndc_pt)
 // part of that.
 void gks_trans_ndc_3_to_dc_2 (GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
 {
-    *r = g_dev_xscale * ndc_pt.crd.x + g_dex_xcoord;
+    *r = g_dev_xscale * ndc_pt.crd.x + g_dev_xcoord;
     *s = g_dev_yscale * ndc_pt.crd.y + g_dev_ycoord;
 }
 

@@ -21,7 +21,6 @@
 
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
-@property (strong) NSNumber* currentVantagePoint;
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
@@ -69,33 +68,20 @@ static void *worldDataContext = &worldDataContext;
         self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
     }
     
-    // Setup view vantage points
-    [self updateVantage:self];
-    self.currentVantagePoint = [NSNumber numberWithInt:0];
-
-    // This gives a volume bounds to the GKS 3D world, also add
-    // functions to adjust this volume and maybe initialize there.
+    
+    [self updateVantage:self]; // Set all vantage points to the same default values
+    
+    // Get values world volume from data and device limits from view bounds
     GKSlimits_3 world_volume = [self.theScene worldVolumeLimits];
+    GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
     
-    // esoteric calls to set world volume
-    // this seems very cumbersome;
-    NSView *drawView = self.drawingViewController.view;
-    NSRect viewRect = drawView.frame;
-    
-    GKSlimits_2 port_rect;
-    port_rect.xmin = viewRect.origin.x;
-    port_rect.xmax = viewRect.size.width;
-    port_rect.ymin = viewRect.origin.y;
-    port_rect.ymax = viewRect.size.height;
-    
-    // Set normalization value transform from world to camera to view coordinates
-    // needs to be called when either view port rect or world volume changes.
-    gks_trans_set_current_device_viewport(port_rect);  // FIXME: pass by copy, change
+    // Set normalization value transforms for the current view index (0)
+    gks_trans_set_current_device_viewport(&port_rect);
     gks_trans_set_current_world_volume(&world_volume);
     
-    // Store one 3D object representation to act as a data entry buffer;
+    // Instantiate one 3D object representation to act as a data entry buffer;
     // the data is used to create the actual 3D object added to the 3D world
-    //
+    // later.
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
