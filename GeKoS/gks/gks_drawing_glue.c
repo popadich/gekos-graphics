@@ -60,7 +60,7 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
         cartesian_coord = GKSMakeVector(camera_coord.crd.x/camera_coord.crd.w, camera_coord.crd.y/camera_coord.crd.w, camera_coord.crd.z/camera_coord.crd.w);
         
         // convert to device port coordinates
-        gks_trans_ndc_3_to_dc_2 (cartesian_coord,  &dc.x, &dc.y);
+        gks_trans_nwc_3_to_dc_2 (cartesian_coord,  &dc.x, &dc.y);
 
         dc_array[i] = dc;
     }

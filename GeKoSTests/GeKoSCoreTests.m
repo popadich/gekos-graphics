@@ -877,7 +877,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(idx, 0);
 }
 
-- (void)testTransformWCToNDC3 {
+- (void)testTransformWCToNWC3 {
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
     GKSvector3d p2 = {0.0, 0.0, 0.0, 0.0};
@@ -886,8 +886,8 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_trans_init();
     
-    gks_trans_set_current_device_viewport(&portlims);
-    gks_trans_set_current_world_volume(&wrldlims);
+    gks_trans_set_device_viewport(&portlims);
+    gks_trans_set_world_volume(&wrldlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     
@@ -900,7 +900,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
 }
 
-- (void)testTransformNDCToDC3 {
+- (void)testTransformNWCToDC3 {
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
     GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
@@ -911,13 +911,13 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_trans_init();
     
-    gks_trans_set_current_world_volume(&wrldlims);
-    gks_trans_set_current_device_viewport(&portlims);
+    gks_trans_set_world_volume(&wrldlims);
+    gks_trans_set_device_viewport(&portlims);
     int view_num_get = gks_trans_get_curr_view_idx();
     XCTAssertEqual(view_num_get, viewNum);
     
     // TODO: verify, with different values for p1 and limits
-    gks_trans_ndc_3_to_dc_2(p1, &u, &v);
+    gks_trans_nwc_3_to_dc_2(p1, &u, &v);
     
     XCTAssertEqual(p1.crd.x, 1.0);
     XCTAssertEqual(p1.crd.y, 1.0);
@@ -926,7 +926,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(u, 400.0);
     XCTAssertEqual(v, 400.0);
     
-    gks_trans_ndc_3_to_dc_2(p2, &u, &v);
+    gks_trans_nwc_3_to_dc_2(p2, &u, &v);
     XCTAssertEqual(u, 300.0);
     XCTAssertEqual(v, 300.0);
     

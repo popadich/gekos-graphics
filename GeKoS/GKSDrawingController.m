@@ -40,7 +40,7 @@
     new_limits.xmax = myRect.size.width;
     new_limits.ymax = myRect.size.height;
 
-    gks_trans_adjust_current_device_viewport(&new_limits);
+    gks_trans_set_device_viewport(&new_limits);
 }
 
 - (void)refresh {

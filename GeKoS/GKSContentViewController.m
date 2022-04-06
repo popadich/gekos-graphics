@@ -75,9 +75,9 @@ static void *worldDataContext = &worldDataContext;
     GKSlimits_3 world_volume = [self.theScene worldVolumeLimits];
     GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
     
-    // Set normalization value transforms for the current view index (0)
-    gks_trans_set_current_device_viewport(&port_rect);
-    gks_trans_set_current_world_volume(&world_volume);
+    // Set normalization value transforms
+    gks_trans_set_device_viewport(&port_rect);
+    gks_trans_set_world_volume(&world_volume);
     
     // Instantiate one 3D object representation to act as a data entry buffer;
     // the data is used to create the actual 3D object added to the 3D world
@@ -200,7 +200,7 @@ static void *worldDataContext = &worldDataContext;
 {
     // very esoteric calls here, make this simpler
     GKSlimits_3 volume = [self.theScene worldVolumeLimits];
-    gks_trans_adjust_current_world_volume(&volume);
+    gks_trans_set_world_volume(&volume);
     
     [self.theScene transformAllObjects];
     [self.drawingViewController refresh];
