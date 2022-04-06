@@ -116,7 +116,7 @@ typedef struct
     GKSint polynum;
     GKSvertexArrPtr  vertices;
     GKSpolygonArrPtr polygons;
-//    GKSDCArrPtr      devcoords;
+    GKSint           *polygons_compact;
 } GKSmesh_3;
 
 typedef enum {

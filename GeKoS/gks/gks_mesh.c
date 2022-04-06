@@ -99,6 +99,7 @@ GKSmesh_3 *CubeMesh(void)
     aCube = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aCube->vertices = vertexList;
     aCube->polygons = polygonList;
+    aCube->polygons_compact = compactPolyList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
     aCube->polynum = GKS_CUBE_POLYGON_COUNT;
     
@@ -167,7 +168,8 @@ GKSmesh_3 *PyramidMesh(void)
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
     aPyramid->polygons = polygonList;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
-    
+    aPyramid->polygons_compact = compactPolyList;
+
     return aPyramid;
 }
 
@@ -237,7 +239,8 @@ GKSmesh_3 *HouseMesh(void)
     aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
     aHouse->polygons = polygonList;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
-    
+    aHouse->polygons_compact = compactPolyList;
+
     return aHouse;
 }
 
@@ -300,11 +303,10 @@ GKSmesh_3 *SphereMesh(void)
             
         }
     }
-
     
-    printf("Size of sphere polygons: %d\n", polygonCount * 4 + polygonCount);
-    printf("Size of compact polygons: %d\n", k);
-
+//    printf("Size of sphere polygons: %d\n", polygonCount * 4 + polygonCount);
+//    printf("Size of compact polygons: %d\n", k);
+//
     
     if (computedPolygonCount != polygonCount) {
         // Should throw something, because this should never happen
@@ -322,6 +324,7 @@ GKSmesh_3 *SphereMesh(void)
     aSphere->polygons = polygonList;
     aSphere->vertnum = vertexCount;
     aSphere->polynum = polygonCount;
+    aSphere->polygons_compact = compactPolyList;
 
     return aSphere;
 }
