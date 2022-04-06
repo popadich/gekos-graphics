@@ -182,22 +182,25 @@ static void *worldDataContext = &worldDataContext;
     [self.theScene add3DObject:newGuy];
 
     
-    // TODO: For debug purposes
-    GKSmesh_3 *mesh = newGuy.getMeshPointer;
-    for (int i=0; i<mesh->polynum; i++) {
-        GKSint vertexCount = mesh->polygons[i][0];
-        NSLog(@"Mesh polygons: %d", vertexCount);
-        for (int j=0; j<vertexCount; j++) {
-            // FIXME: differs from draw_computed_object_3
-            // vertex numbers in MESH file start at 1.
-            // array indices are zero based 0.
-            // so, -1 from vertex index -> array index.
-            // 4,3,2,1 -> 3,2,1,0
-            //
-            GKSint vertexIndex = mesh->polygons[i][j+1];
-            NSLog(@"Vertex Index: %d", vertexIndex);
+    // TODO: Remove, for debug only
+    BOOL logFlag = NO;
+    if (logFlag) {
+        GKSmesh_3 *mesh = newGuy.getMeshPointer;
+        for (int i=0; i<mesh->polynum; i++) {
+            GKSint vertexCount = mesh->polygons[i][0];
+            NSLog(@"Mesh polygons: %d", vertexCount);
+            for (int j=0; j<vertexCount; j++) {
+                // !!!: differs from draw_computed_object_3
+                // vertex numbers in MESH file start at 1.
+                // array indices are zero based 0.
+                // so, -1 from vertex index -> array index.
+                // 4,3,2,1 -> 3,2,1,0
+                //
+                GKSint vertexIndex = mesh->polygons[i][j+1];
+                NSLog(@"Vertex Index: %d", vertexIndex);
+            }
+            NSLog(@".");
         }
-        NSLog(@".");
     }
      
 }

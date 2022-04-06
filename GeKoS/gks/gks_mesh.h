@@ -12,14 +12,18 @@
 #include "gks_types.h"
 
 
-#define GKS_CUBE_VERTEX_COUNT    8
-#define GKS_CUBE_POLYGON_COUNT   6
+#define GKS_CUBE_VERTEX_COUNT       8
+#define GKS_CUBE_POLYGON_COUNT      6
+#define GKS_CUBE_PARRAY_SIZE        30    // (4*6) + 6
 
 #define GKS_PYRAMID_VERTEX_COUNT    5
 #define GKS_PYRAMID_POLYGON_COUNT   5
+#define GKS_PYRAMID_PARRAY_SIZE     21    // (4*3) + 4 + 5
 
-#define GKS_HOUSE_VERTEX_COUNT 10
-#define GKS_HOUSE_POLYGON_COUNT 7
+#define GKS_HOUSE_VERTEX_COUNT      10
+#define GKS_HOUSE_POLYGON_COUNT     7
+#define GKS_HOUSE_PARRAY_SIZE       37    // (5*4) + (2*5) + 7
+
 
 void setMeshCenteredFlag(bool isCentered);
 GKSmesh_3 *MeshOfKind(GKSobjectKind kind);
