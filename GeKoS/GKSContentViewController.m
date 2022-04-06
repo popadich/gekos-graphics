@@ -189,7 +189,7 @@ static void *worldDataContext = &worldDataContext;
 {
     if ([sender isKindOfClass:[NSButton class]]) {
         GKSint tag = (GKSint)[sender tag];
-        gks_trans_set_curr_view_idx(tag);
+        gks_vantage_set_current_view(tag);
 
         [self.theScene transformAllObjects];
         [self.drawingViewController refresh];

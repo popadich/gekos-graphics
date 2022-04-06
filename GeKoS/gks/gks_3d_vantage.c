@@ -1,5 +1,5 @@
 //
-//  gks_3d_transforms.c
+//  gks_3d_vantage.c
 //  GeKoS
 //
 //  Created by Alex Popadich on 12/8/21.
@@ -18,7 +18,7 @@
  
  */
 
-#include "gks_3d_transforms.h"
+#include "gks_3d_vantage.h"
 #include "gks_3d_normalization.h"
 
 #define GKS_MAX_VANTAGE_PTS 10
@@ -28,63 +28,56 @@ const GKSint kWorldVolumeSetup = 0;
 const GKSint kViewVolumeSetup = 1;
 
 //  P R O T O T Y P E S
-void gks_trans_set_vantage_defaults(void);
+void gks_vantage_set_vantage_defaults(void);
 
 
 // S T A T I C   G L O B A L S
 static GKSint         g_curr_vantage_idx;
 
 // Make room for 10 transforms, use only one for now
-static GKSlimits_3    g_tranform_list[GKS_MAX_VANTAGE_PTS][GKS_TRANSFORM_TYPES];
+static GKSlimits_3 g_vantage_list[GKS_MAX_VANTAGE_PTS][GKS_TRANSFORM_TYPES];
 
 
 //
 // Initialize world, viewport, and device transformations
 //
-void gks_trans_init(void)
+void gks_vantage_init(void)
 {
     gks_norms_init();
     
-    gks_trans_set_vantage_defaults();
+    gks_vantage_set_vantage_defaults();
     g_curr_vantage_idx = 0;
-}
-
-GKSint gks_trans_get_curr_view_idx(void)
-{
-    return g_curr_vantage_idx;
 }
 
 
 void store_vantage(GKSint vantage_point)
 {
     GKSlimits_3 *world = gks_trans_get_world_volume();
-    g_tranform_list[vantage_point][kWorldVolumeSetup].xmin = world->xmin;
-    g_tranform_list[vantage_point][kWorldVolumeSetup].xmax = world->xmax;
-    g_tranform_list[vantage_point][kWorldVolumeSetup].ymin = world->ymin;
-    g_tranform_list[vantage_point][kWorldVolumeSetup].ymax = world->ymax;
-    g_tranform_list[vantage_point][kWorldVolumeSetup].zmin = world->zmin;
-    g_tranform_list[vantage_point][kWorldVolumeSetup].zmax = world->zmax;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].xmin = world->xmin;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].xmax = world->xmax;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].ymin = world->ymin;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].ymax = world->ymax;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].zmin = world->zmin;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].zmax = world->zmax;
     
     GKSlimits_3 *view = gks_trans_get_view_volume();
-    g_tranform_list[vantage_point][kViewVolumeSetup].xmin = view->xmin;
-    g_tranform_list[vantage_point][kViewVolumeSetup].xmax = view->xmax;
-    g_tranform_list[vantage_point][kViewVolumeSetup].ymin = view->ymin;
-    g_tranform_list[vantage_point][kViewVolumeSetup].ymax = view->ymax;
-    g_tranform_list[vantage_point][kViewVolumeSetup].zmin = view->zmin;
-    g_tranform_list[vantage_point][kViewVolumeSetup].zmax = view->zmax;
+    g_vantage_list[vantage_point][kViewVolumeSetup].xmin = view->xmin;
+    g_vantage_list[vantage_point][kViewVolumeSetup].xmax = view->xmax;
+    g_vantage_list[vantage_point][kViewVolumeSetup].ymin = view->ymin;
+    g_vantage_list[vantage_point][kViewVolumeSetup].ymax = view->ymax;
+    g_vantage_list[vantage_point][kViewVolumeSetup].zmin = view->zmin;
+    g_vantage_list[vantage_point][kViewVolumeSetup].zmax = view->zmax;
 }
 
 
 void restore_vantage(GKSint vantage_point)
 {
-    GKSlimits_3 restored_volume = g_tranform_list[vantage_point][kWorldVolumeSetup];
+    GKSlimits_3 restored_volume = g_vantage_list[vantage_point][kWorldVolumeSetup];
     gks_trans_set_world_volume(&restored_volume);
 
 }
 
-
-
-void gks_trans_set_curr_view_idx(GKSint view_num)
+void gks_vantage_set_current_view(GKSint view_num)
 {
     if (view_num > -1 && view_num < GKS_MAX_VANTAGE_PTS) {
         // store current here
@@ -99,7 +92,14 @@ void gks_trans_set_curr_view_idx(GKSint view_num)
     }
 }
 
-void gks_trans_set_vantage_defaults(void)
+
+GKSint gks_vantage_get_current_view(void)
+{
+    return g_curr_vantage_idx;
+}
+
+
+void gks_vantage_set_vantage_defaults(void)
 {
     // set all vantage points to their default values
     for (GKSint vant_pt = 0; vant_pt < GKS_MAX_VANTAGE_PTS; vant_pt++) {

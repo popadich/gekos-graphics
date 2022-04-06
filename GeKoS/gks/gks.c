@@ -10,7 +10,7 @@
 
 void gks_init_3D(void)
 {
-    gks_trans_init();
+    gks_vantage_init();
     gks_init_projection();
     gks_init_world_model();
     gks_view_matrix_init();

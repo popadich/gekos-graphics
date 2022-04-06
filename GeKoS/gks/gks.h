@@ -14,7 +14,7 @@
 #include "gks_mesh.h"
 #include "gks_3d_projection.h"
 #include "gks_3d_normalization.h"
-#include "gks_3d_transforms.h"
+#include "gks_3d_vantage.h"
 #include "gks_3d_world.h"
 #include "gks_3d_view_orient.h"
 #include "gks_3d_object_list.h"
