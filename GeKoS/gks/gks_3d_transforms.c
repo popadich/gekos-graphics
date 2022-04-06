@@ -25,13 +25,12 @@
 #define GKS_TRANSFORM_TYPES 2
 
 const GKSint kWorldVolumeSetup = 0;
-const GKSint kViewPortVolumeSetup = 1;
+const GKSint kViewVolumeSetup = 1;
 
 //  P R O T O T Y P E S
 void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume);
 void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport);
 void gks_vantage_defaults(void);
-void gks_trans_compute_transforms(GKSint view_num);
 
 
 // S T A T I C   G L O B A L S
@@ -39,6 +38,12 @@ static GKSint         g_curr_vantage_idx;
 
 // Make room for 10 transforms, use only one for now
 static GKSlimits_3    g_tranform_list[GKS_MAX_VIEW_TRANSFORMS][GKS_TRANSFORM_TYPES];
+
+// store
+static GKSlimits_3 g_world_volume;
+static GKSlimits_3 g_view_volume;
+static GKSlimits_2 g_device_port;
+
 
 // world volume globals
 static GKSfloat       g_wrld_xscale, g_wrld_xcoord;
@@ -63,7 +68,7 @@ void gks_trans_init(void)
     g_dev_yscale = g_dev_ycoord = 0.0;
     
     gks_vantage_defaults();
-    gks_trans_set_curr_view_idx(0);
+    g_curr_vantage_idx = 0;
 }
 
 GKSint gks_trans_get_curr_view_idx(void)
@@ -71,10 +76,56 @@ GKSint gks_trans_get_curr_view_idx(void)
     return g_curr_vantage_idx;
 }
 
+
+void store_vantage(GKSint vantage_point)
+{
+    g_tranform_list[vantage_point][kWorldVolumeSetup].xmin = g_world_volume.xmin;
+    g_tranform_list[vantage_point][kWorldVolumeSetup].xmax = g_world_volume.xmax;
+    g_tranform_list[vantage_point][kWorldVolumeSetup].ymin = g_world_volume.ymin;
+    g_tranform_list[vantage_point][kWorldVolumeSetup].ymax = g_world_volume.ymax;
+    g_tranform_list[vantage_point][kWorldVolumeSetup].zmin = g_world_volume.zmin;
+    g_tranform_list[vantage_point][kWorldVolumeSetup].zmax = g_world_volume.zmax;
+    
+    g_tranform_list[vantage_point][kViewVolumeSetup].xmin = g_view_volume.xmin;
+    g_tranform_list[vantage_point][kViewVolumeSetup].xmax = g_view_volume.xmax;
+    g_tranform_list[vantage_point][kViewVolumeSetup].ymin = g_view_volume.ymin;
+    g_tranform_list[vantage_point][kViewVolumeSetup].ymax = g_view_volume.ymax;
+    g_tranform_list[vantage_point][kViewVolumeSetup].zmin = g_view_volume.zmin;
+    g_tranform_list[vantage_point][kViewVolumeSetup].zmax = g_view_volume.zmax;
+}
+
+
+void restore_vantage(GKSint vantage_point)
+{
+    g_view_volume.xmin =  g_tranform_list[vantage_point][kViewVolumeSetup].xmin;
+    g_view_volume.ymin =  g_tranform_list[vantage_point][kViewVolumeSetup].ymin;
+    g_view_volume.zmin =  g_tranform_list[vantage_point][kViewVolumeSetup].zmin;
+    g_view_volume.xmax =  g_tranform_list[vantage_point][kViewVolumeSetup].xmax;
+    g_view_volume.ymax =  g_tranform_list[vantage_point][kViewVolumeSetup].ymax;
+    g_view_volume.zmax =  g_tranform_list[vantage_point][kViewVolumeSetup].zmax;
+    
+    g_world_volume.xmin = g_tranform_list[vantage_point][kWorldVolumeSetup].xmin;
+    g_world_volume.ymin = g_tranform_list[vantage_point][kWorldVolumeSetup].ymin;
+    g_world_volume.zmin = g_tranform_list[vantage_point][kWorldVolumeSetup].zmin;
+    g_world_volume.xmax = g_tranform_list[vantage_point][kWorldVolumeSetup].xmax;
+    g_world_volume.ymax = g_tranform_list[vantage_point][kWorldVolumeSetup].ymax;
+    g_world_volume.zmax = g_tranform_list[vantage_point][kWorldVolumeSetup].zmax;
+
+}
+
+
+
 void gks_trans_set_curr_view_idx(GKSint view_num)
 {
     if (view_num > -1 && view_num < GKS_MAX_VIEW_TRANSFORMS) {
-        gks_trans_compute_transforms(view_num);
+        // store current here
+        store_vantage(g_curr_vantage_idx);
+        
+        // restore view num
+        restore_vantage(view_num);
+        
+        // compute new transforms here
+        gks_trans_compute_transforms();
         g_curr_vantage_idx = view_num;
     }
 }
@@ -92,9 +143,8 @@ void gks_vantage_defaults(void)
         gks_trans_set_world_volume(view_num, &world_volume);
         // 3D_ViewPort
         gks_trans_set_viewport_volume_3(view_num, &viewport_volume);
-
-        gks_trans_compute_transforms(view_num);
-
+        
+        store_vantage(view_num);
     }
 }
 
@@ -102,13 +152,14 @@ void gks_vantage_defaults(void)
 // MARK: World Volume
 void gks_trans_set_world_volume(GKSint view_num, GKSlimits_3 *wrld_volume)
 {
-    g_tranform_list[view_num][kWorldVolumeSetup].xmin = wrld_volume->xmin;
-    g_tranform_list[view_num][kWorldVolumeSetup].xmax = wrld_volume->xmax;
-    g_tranform_list[view_num][kWorldVolumeSetup].ymin = wrld_volume->ymin;
-    g_tranform_list[view_num][kWorldVolumeSetup].ymax = wrld_volume->ymax;
-    g_tranform_list[view_num][kWorldVolumeSetup].zmin = wrld_volume->zmin;
-    g_tranform_list[view_num][kWorldVolumeSetup].zmax = wrld_volume->zmax;
-    gks_trans_compute_transforms(view_num);
+    g_world_volume.xmin = wrld_volume->xmin;
+    g_world_volume.xmax = wrld_volume->xmax;
+    g_world_volume.ymin = wrld_volume->ymin;
+    g_world_volume.ymax = wrld_volume->ymax;
+    g_world_volume.zmin = wrld_volume->zmin;
+    g_world_volume.zmax = wrld_volume->zmax;
+    
+    gks_trans_compute_transforms();
 
 }
 
@@ -146,7 +197,12 @@ void gks_trans_set_device_viewport(GKSint view_num, GKSlimits_2 *device_limits)
     g_s_min3 = device_limits->ymin;
     g_s_max3 = device_limits->ymax;
     
-    gks_trans_compute_transforms(view_num);
+    g_device_port.xmin = device_limits->xmin;
+    g_device_port.ymin = device_limits->ymin;
+    g_device_port.xmax = device_limits->xmax;
+    g_device_port.ymax = device_limits->ymax;
+
+    gks_trans_compute_transforms();
     
 }
 
@@ -172,13 +228,12 @@ void gks_trans_adjust_current_device_viewport(GKSlimits_2 *dev_port)
 // MARK: View Volume
 void gks_trans_set_viewport_volume_3(GKSint view_num, GKSlimits_3 *viewport)
 {
-
-    g_tranform_list[view_num][kViewPortVolumeSetup].xmin = viewport->xmin;
-    g_tranform_list[view_num][kViewPortVolumeSetup].xmax = viewport->xmax;
-    g_tranform_list[view_num][kViewPortVolumeSetup].ymin = viewport->ymin;
-    g_tranform_list[view_num][kViewPortVolumeSetup].ymax = viewport->ymax;
-    g_tranform_list[view_num][kViewPortVolumeSetup].zmin = viewport->zmin;
-    g_tranform_list[view_num][kViewPortVolumeSetup].zmax = viewport->zmax;
+    g_view_volume.xmin = viewport->xmin;
+    g_view_volume.xmax = viewport->xmax;
+    g_view_volume.ymin = viewport->ymin;
+    g_view_volume.ymax = viewport->ymax;
+    g_view_volume.zmin = viewport->zmin;
+    g_view_volume.zmax = viewport->zmax;
         
 }
 
@@ -229,27 +284,27 @@ void setup_transform_viewport_to_device(GKSlimits_3 viewport_limits)
 // it in an array of 10 seems weird and pointless.
 //
 // These are viewport and world volume transforms.
-void gks_trans_compute_transforms(GKSint view_num)
+void gks_trans_compute_transforms(void)
 {
     GKSlimits_3 wrld_volume;
     GKSlimits_3 vwp_lim;
         
     // world
-    wrld_volume.xmin = g_tranform_list[view_num][kWorldVolumeSetup].xmin;
-    wrld_volume.xmax = g_tranform_list[view_num][kWorldVolumeSetup].xmax;
-    wrld_volume.ymin = g_tranform_list[view_num][kWorldVolumeSetup].ymin;
-    wrld_volume.ymax = g_tranform_list[view_num][kWorldVolumeSetup].ymax;
-    wrld_volume.zmin = g_tranform_list[view_num][kWorldVolumeSetup].zmin;
-    wrld_volume.zmax = g_tranform_list[view_num][kWorldVolumeSetup].zmax;
+    wrld_volume.xmin = g_world_volume.xmin;
+    wrld_volume.ymin = g_world_volume.ymin;
+    wrld_volume.zmin = g_world_volume.zmin;
+    wrld_volume.xmax = g_world_volume.xmax;
+    wrld_volume.ymax = g_world_volume.ymax;
+    wrld_volume.zmax = g_world_volume.zmax;
 
-    // viewport
-    vwp_lim.xmin = g_tranform_list[view_num][kViewPortVolumeSetup].xmin;
-    vwp_lim.xmax = g_tranform_list[view_num][kViewPortVolumeSetup].xmax;
-    vwp_lim.ymin = g_tranform_list[view_num][kViewPortVolumeSetup].ymin;
-    vwp_lim.ymax = g_tranform_list[view_num][kViewPortVolumeSetup].ymax;
-    vwp_lim.zmin = g_tranform_list[view_num][kViewPortVolumeSetup].zmin;
-    vwp_lim.zmax = g_tranform_list[view_num][kViewPortVolumeSetup].zmax;
-
+    // view volume
+    vwp_lim.xmin = g_view_volume.xmin;
+    vwp_lim.ymin = g_view_volume.ymin;
+    vwp_lim.zmin = g_view_volume.zmin;
+    vwp_lim.xmax = g_view_volume.xmax;
+    vwp_lim.ymax = g_view_volume.ymax;
+    vwp_lim.zmax = g_view_volume.zmax;
+    
     setup_transform_world_view(wrld_volume, vwp_lim);
     setup_transform_viewport_to_device(vwp_lim);
 
