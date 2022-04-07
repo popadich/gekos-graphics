@@ -178,9 +178,10 @@ void compute_object_3(GKSactor *the_actor)
     
     GKSint              pid;
     GKSint              polygonCount = 0;
-    GKSint              vertexNumber = 0;
+    GKSint              vertex_idx = 0;
+    GKSint              compact_idx = 0;
     GKSint              vertexCount = 0;
-    
+
     GKSvector3d         temp_polygon_vertices[GKS_POLY_VERTEX_MAX];
     GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
     
@@ -205,17 +206,26 @@ void compute_object_3(GKSactor *the_actor)
     // polygons. Use a seperate vertex buffer like the one for polygons.
     
     polygonCount = the_actor->mesh_object.polynum;
+    GKSint k = 0;
+//    printf("compute object\n");
 
     for(pid=0; pid<polygonCount; pid++) {
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
         vertexCount = polygon_array[pid][0];
+        k += 1;
         
         for(GKSint j=0; j<vertexCount; j++){
-            vertexNumber = polygon_array[pid][j+1] - 1;     // this is a gotcha
+//            vertex_idx = polygon_array[pid][j+1] - 1;     // this is a gotcha
+            
+            compact_idx = compact_array[k] - 1;
+//            printf("poly_vertex: %d  ---  %d\n", vertex_idx, compact_idx);
+
+            k += 1;
+            
             // TODO: verfiy that this is a copy
-            temp_polygon_vertices[j] = vertex_array[vertexNumber];
+            temp_polygon_vertices[j] = vertex_array[compact_idx];
         }
 
         // FIXME: does not work
@@ -223,10 +233,10 @@ void compute_object_3(GKSactor *the_actor)
         gks_prep_polyline_3(pid, vertexCount, temp_polygon_vertices, temp_device_vertices, &the_actor->line_color);
         
         for(GKSint j=0; j<vertexCount; j++){
-            vertexNumber = polygon_array[pid][j+1] - 1;     // this is a gotcha
+            vertex_idx = polygon_array[pid][j+1] - 1;     // this is a gotcha
             // TODO: verfiy that this is a copy
 //            devcoordList[vertexNumber] = temp_device_vertices[j];   // mesh
-            dev_coord_array[vertexNumber] = temp_device_vertices[j];    // actor
+            dev_coord_array[vertex_idx] = temp_device_vertices[j];    // actor
         }
 
         
@@ -247,26 +257,38 @@ void draw_computed_object_3(GKSactor *the_actor)
     GKSint *compact_array = the_actor->mesh_object.polygons_compact;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     
-    GKSint polygonCount = the_actor->mesh_object.polynum;
-
-    for (GKSint i=0; i < polygonCount; i++) {
-        GKSint vertexCount = polygon_array[i][0];
-
-        for(GKSint j=0; j<vertexCount; j++){
+    GKSint poly_count = the_actor->mesh_object.polynum;
+    GKSint k = 0;
+//    printf("draw object\n");
+    for (GKSint i=0; i < poly_count; i++) {
+        GKSint vert_count = polygon_array[i][0];
+        k += 1;                                                  // vertex count part
+        for(GKSint j=0; j<vert_count; j++){
             // FIXME: differs from addObjectRepToScene
             // vertex numbers in MESH file start at 1.
             // array indices are zero based 0.
             // so, -1 from vertex index -> array index.
             // 4,3,2,1 -> 3,2,1,0
             //
-            GKSint vertexIndex = polygon_array[i][j+1] - 1 ;     // this is a gotcha
+            
+            
+            // this is a gotcha the j+1 skips
+            // the vertex count part of the matrix
+            // and the ( - 1) turns a point number
+            // which normally start at 1 into a
+            // zero based array index.
+//            GKSint vertexIndex = polygon_array[i][j+1] - 1 ;
+            
+            GKSint compact_idx = compact_array[k] - 1;
+            
+            k += 1;
+                        
             // TODO: verfiy that this is a copy
-            // printf("Vertex Num: %d\n", vertexIndex);
-            temp_device_vertices[j] = dev_coord_array[vertexIndex];
+            temp_device_vertices[j] = dev_coord_array[compact_idx];
         }
         
         // call-back to drawing routine
-        gks_localpolyline_3(i, vertexCount, temp_device_vertices, &the_actor->line_color);
+        gks_localpolyline_3(i, vert_count, temp_device_vertices, &the_actor->line_color);
         
     }
 }

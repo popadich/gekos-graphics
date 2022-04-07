@@ -371,7 +371,7 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
 {
     int num_verts, num_polys;
     int i, j;
-    int vert;
+    int vert_count;
     GKSmesh_3 *anObjectMesh = NULL;
     
     int meta_data_offset;  // First line in file has vertex and polygon counts
@@ -380,6 +380,7 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
     
     GKSpolygonArrPtr polygonList = NULL;
     GKSvertexArrPtr vertexList = NULL;
+    GKSint *compact_array = NULL;
 
     @try {
         NSError *error = nil;
@@ -405,11 +406,16 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
         
         polygonList = (GKSpolygonArrPtr)calloc(num_polys, sizeof(GKSpolygon_3));
         vertexList = (GKSvertexArrPtr)calloc(num_verts, sizeof(GKSvector3d));
+        
+        // FIXME: calculate array size
+        long some_computed_number = 5000;
+        compact_array = (GKSint *)calloc(some_computed_number, sizeof(GKSint));
+        
         NSLog(@"Mesh Data:\nVertex Count: %d  Polygon Count %d", num_verts, num_polys);
         
         meta_data_offset = 2;       // 2 text lines
         data_offset = meta_data_offset;
-        for(i=0;i<num_verts;i++)
+        for(i=0; i<num_verts; i++)
         {
             NSString* vertexLine = textLines[i + data_offset];
             NSArray* vertexComponentsArr = [self componentsMatchingRegularExpression:@"\\S+" fromString:vertexLine];
@@ -424,22 +430,32 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
         }
         
         data_offset = meta_data_offset + num_verts;
-        for(i=0;i<num_polys;i++)
+        
+        int k = 0;
+        
+        for(i=0; i<num_polys; i++)
         {
             NSString* polygonLine = textLines[i + data_offset];
             NSArray* polygonComponentsArr = [self componentsMatchingRegularExpression:@"\\d+" fromString:polygonLine];
             NSString* componentPointCount = polygonComponentsArr[0];
-            vert = [componentPointCount intValue];
-            if (vert > GKS_POLY_VERTEX_MAX) {
-                NSLog(@"Polygon point count %d too large for my buffer", vert);
+            vert_count = [componentPointCount intValue];
+            if (vert_count > GKS_POLY_VERTEX_MAX) {
+                NSLog(@"Polygon point count %d too large for my buffer", vert_count);
                 return NULL;
             }
-            polygonList[i][0] = vert;
-            for(j=1;j<=vert;j++)
+            polygonList[i][0] = vert_count;
+            
+            compact_array[k] = vert_count;    // compact string all in a row
+            k += 1;
+            for(j=1; j<=vert_count; j++)
             {
                 NSString* componentPointNo = polygonComponentsArr[j];
                 int pointNo = [componentPointNo intValue];
                 polygonList[i][j] = pointNo + 1;
+                
+                compact_array[k] = pointNo + 1;    // compact string all in a row
+                k += 1;
+                
             }
         }
         
@@ -454,6 +470,7 @@ Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4
         anObjectMesh->vertnum = num_verts;
         anObjectMesh->polygons = polygonList;
         anObjectMesh->polynum = num_polys;
+        anObjectMesh->polygons_compact = compact_array;
     }
     
     return anObjectMesh;

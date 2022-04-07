@@ -31,11 +31,14 @@
         
         
         // TODO: remove when done with playing
-        for (int i=-3; i<4; i++) {
-            GKS3DObject *object3D = [[GKS3DObject alloc] init];
-            [object3D locateX:2.0 * i Y:i%2 Z:0.0];
+        BOOL playing = YES;
+        if (playing) {
+            for (int i=-3; i<4; i++) {
+                GKS3DObject *object3D = [[GKS3DObject alloc] init];
+                [object3D locateX:2.0 * i Y:i%2 Z:0.0];
 
-            [aScene add3DObject:object3D];
+                [aScene add3DObject:object3D];
+            }
         }
 
 

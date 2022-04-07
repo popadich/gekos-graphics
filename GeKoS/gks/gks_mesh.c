@@ -92,7 +92,7 @@ GKSmesh_3 *CubeMesh(void)
             polygonList[i][j] = object_poly[i][j];
             
             compactPolyList[k] = object_poly[i][j];    // compact string all in a row
-            k++;
+            k += 1;
         }
     }
 
@@ -159,7 +159,7 @@ GKSmesh_3 *PyramidMesh(void)
             polygonList[i][j] = object_poly[i][j];
             
             compactPolyList[k] = object_poly[i][j];    // compact string all in a row
-            k++;
+            k += 1;
         }
     }
     
@@ -230,7 +230,7 @@ GKSmesh_3 *HouseMesh(void)
             polygonList[i][j] = object_poly[i][j];
             
             compactPolyList[k] = object_poly[i][j];    // compact string all in a row
-            k++;
+            k += 1;
         }
     }
 
@@ -286,19 +286,19 @@ GKSmesh_3 *SphereMesh(void)
         for (int j=0; j<facetCount; j++) {
             polygonList[j+i][0] = 4;
             compactPolyList[k] = 4;
-            k++;
+            k += 1;
             polygonList[j+i][1]= j+i+1;
             compactPolyList[k] = j+i+1;
-            k++;
+            k += 1;
             polygonList[j+i][2] = ((j+1) % facetCount) + i + 1;
             compactPolyList[k] = ((j+1) % facetCount) + i + 1;
-            k++;
+            k += 1;
             polygonList[j+i][3] = polygonList[j+i][2]+facetCount;
             compactPolyList[k] = polygonList[j+i][2]+facetCount;
-            k++;
+            k += 1;
             polygonList[j+i][4] = polygonList[j+i][1]+facetCount;
             compactPolyList[k] = polygonList[j+i][1]+facetCount;
-            k++;
+            k += 1;
             polygonCount += 1;
             
         }
