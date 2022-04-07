@@ -33,6 +33,19 @@ void gks_norms_init(void)
     g_dev_xscale = g_dev_xcoord = 0.0;
     g_dev_yscale = g_dev_ycoord = 0.0;
     
+    GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
+    GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
+    
+    // set the same "unit" volume for world and view
+    GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
+    GKSlimits_3 world_volume = GKSMakeVolume(min, max);
+    
+    // 3D World volume
+    gks_trans_set_world_volume(&world_volume);
+    // 3D View volume
+    gks_trans_set_view_volume(&viewport_volume);
+
+    
 }
 
 

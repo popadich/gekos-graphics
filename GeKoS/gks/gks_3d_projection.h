@@ -17,16 +17,14 @@ typedef enum {
     kAxonometricProjection
 } ProjectionType;
 
-void gks_init_projection(void);
-ProjectionType gks_get_projection_type(void);
+void gks_projection_init(void);
+ProjectionType gks_projection_get_type(void);
 
-void gks_set_orthogonal_projection(void);
-void gks_set_perspective_simple(GKSfloat focalDistance);
-void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far);
-void gks_set_perspective_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far);
+void gks_projection_set_orthogonal(void);
+void gks_projection_set_simple(GKSfloat focalDistance);
+void gks_projection_set_perspective(GKSfloat alpha, GKSfloat near, GKSfloat far);
+void gks_projection_set_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far);
 
-
-// Getter
-GKSmatrix_3 *gks_get_projection_matrix(void);
+GKSmatrix_3 *gks_projection_get_matrix(void);
 
 #endif /* gks_3d_projection_h */

@@ -22,10 +22,14 @@
 #include "gks_3d_normalization.h"
 
 #define GKS_MAX_VANTAGE_PTS 10
+#define GKS_VOLUME_TYPES 2
 #define GKS_TRANSFORM_TYPES 2
 
 const GKSint kWorldVolumeSetup = 0;
 const GKSint kViewVolumeSetup = 1;
+
+const GKSint kViewMatrixSetup = 0;
+const GKSint kProjectionMatrixSetup = 1;
 
 //  P R O T O T Y P E S
 void gks_vantage_set_vantage_defaults(void);
@@ -35,7 +39,8 @@ void gks_vantage_set_vantage_defaults(void);
 static GKSint         g_curr_vantage_idx;
 
 // Make room for 10 transforms, use only one for now
-static GKSlimits_3 g_vantage_list[GKS_MAX_VANTAGE_PTS][GKS_TRANSFORM_TYPES];
+static GKSlimits_3 g_vantage_list[GKS_MAX_VANTAGE_PTS][GKS_VOLUME_TYPES];
+static GKSmatrix_3 g_matrix_list[GKS_MAX_VANTAGE_PTS][GKS_TRANSFORM_TYPES];
 
 
 //
@@ -43,8 +48,6 @@ static GKSlimits_3 g_vantage_list[GKS_MAX_VANTAGE_PTS][GKS_TRANSFORM_TYPES];
 //
 void gks_vantage_init(void)
 {
-    gks_norms_init();
-    
     gks_vantage_set_vantage_defaults();
     g_curr_vantage_idx = 0;
 }
@@ -105,13 +108,20 @@ void gks_vantage_set_vantage_defaults(void)
     for (GKSint vant_pt = 0; vant_pt < GKS_MAX_VANTAGE_PTS; vant_pt++) {
         GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
         GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
-        GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
-        GKSlimits_3 world_volume = GKSMakeVolume(min, max);
         
-        // 3D_World
-        gks_trans_set_world_volume(&world_volume);
-        // 3D_ViewPort
-        gks_trans_set_view_volume(&viewport_volume);
+        // TODO: get from normalization module?
+            // set the same "unit" volume for all vantage points
+            GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
+            GKSlimits_3 world_volume = GKSMakeVolume(min, max);
+            
+            // 3D World volume
+            gks_trans_set_world_volume(&world_volume);
+            // 3D View volume
+            gks_trans_set_view_volume(&viewport_volume);
+        
+        
+        
+        
         
         store_vantage(vant_pt);
     }

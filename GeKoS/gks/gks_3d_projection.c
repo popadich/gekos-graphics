@@ -13,7 +13,7 @@ static ProjectionType      gProjectionType = kOrthogonalProjection;
 static GKSfloat            gPerspectiveDepth;
 
 
-void gks_init_projection(void)
+void gks_projection_init(void)
 {    
     // Set projection matrix to identity matrix
     for (int i=0; i<4; i++) {
@@ -25,15 +25,15 @@ void gks_init_projection(void)
         }
     }
     
-    gks_set_orthogonal_projection();
+    gks_projection_set_orthogonal();
 }
 
-ProjectionType gks_get_projection_type(void)
+ProjectionType gks_projection_get_type(void)
 {
     return gProjectionType;
 }
 
-GKSmatrix_3 *gks_get_projection_matrix(void)
+GKSmatrix_3 *gks_projection_get_matrix(void)
 {
     return &gProjectionMatrix;
 }
@@ -46,7 +46,7 @@ GKSmatrix_3 *gks_get_projection_matrix(void)
     0 0 0 0
     0 0 0 1
 */
-void gks_set_orthogonal_projection(void)
+void gks_projection_set_orthogonal(void)
 {
     gProjectionMatrix[0][0] = 1.0; gProjectionMatrix[0][1] = 0.0; gProjectionMatrix[0][2] = 0.0; gProjectionMatrix[0][3] = 0.0;
     gProjectionMatrix[1][0] = 0.0; gProjectionMatrix[1][1] = 1.0; gProjectionMatrix[1][2] = 0.0; gProjectionMatrix[1][3] = 0.0;
@@ -64,7 +64,7 @@ void gks_set_orthogonal_projection(void)
     0 0 0 1/d (positive/negative controls left/right handed coordinate system)
     0 0 0 1
 */
-void gks_set_perspective_simple(GKSfloat d)
+void gks_projection_set_simple(GKSfloat d)
 {
     gProjectionMatrix[0][0] = 1.0;
     gProjectionMatrix[0][1] = 0.0;
@@ -102,7 +102,7 @@ void gks_set_perspective_simple(GKSfloat d)
     0    0    a  -1 (positive/negative controls left/right coordinate system)
     0    0    b   0
 */
-void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
+void gks_projection_set_perspective(GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
 
     GKSfloat scale = 1 / tan(alpha * 0.5 * M_PI / 180);
@@ -146,7 +146,7 @@ void gks_set_perspective_projection(GKSfloat alpha, GKSfloat near, GKSfloat far)
     0    0    a  -1 (positive/negative controls left/right coordinate system)
     0    0    b   0
 */
-void gks_set_perspective_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far)
+void gks_projection_set_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
     GKSfloat n = near;
     GKSfloat f = far;

@@ -188,26 +188,26 @@ void logMatrix(GKSmatrix_3 M) {
     if (camera != nil) {
         NSInteger projectionType = [prType integerValue];
         if (projectionType == kOrthogonalProjection) {
-            gks_set_orthogonal_projection();
+            gks_projection_set_orthogonal();
         }
         else if (projectionType == kPerspectiveSimple) {
             //Set perspective distance
             double distance = [camera.focalLength doubleValue];
-            gks_set_perspective_simple(distance);
+            gks_projection_set_simple(distance);
         }
         else if (projectionType == kPerspective) {
             double distance = [camera.focalLength doubleValue];
             double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
-            gks_set_perspective_projection(alpha, near, far);
+            gks_projection_set_perspective(alpha, near, far);
         }
         else if (projectionType == kAxonometric) {
             double distance = [camera.focalLength doubleValue];
             double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
-            gks_set_perspective_alternate(alpha, near, far);
+            gks_projection_set_alternate(alpha, near, far);
         }
     }
 }

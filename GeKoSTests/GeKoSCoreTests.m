@@ -806,8 +806,8 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionInit {
     GKSmatrix_3 *projMatrix;
     
-    gks_init_projection();
-    projMatrix = gks_get_projection_matrix();
+    gks_projection_init();
+    projMatrix = gks_projection_get_matrix();
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
@@ -818,22 +818,22 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionOrthogonalEnable {
     GKSmatrix_3 *projMatrix;
     
-    gks_set_orthogonal_projection();
-    projMatrix = gks_get_projection_matrix();
+    gks_projection_set_orthogonal();
+    projMatrix = gks_projection_get_matrix();
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
     XCTAssertEqual((*projMatrix)[2][3], 0.0);
     XCTAssertEqual((*projMatrix)[3][3], 1.0);
     
-    XCTAssertEqual(gks_get_projection_type(), kOrthogonalProjection);
+    XCTAssertEqual(gks_projection_get_type(), kOrthogonalProjection);
 }
 
 - (void)testProjectionPerspectiveEnable {
     GKSmatrix_3 *projMatrix;
 
-    gks_set_perspective_simple(1.0);
-    projMatrix = gks_get_projection_matrix();
+    gks_projection_set_simple(1.0);
+    projMatrix = gks_projection_get_matrix();
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
@@ -841,7 +841,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual((*projMatrix)[3][3], 1.0);
     
     ProjectionType pt;
-    pt = gks_get_projection_type();
+    pt = gks_projection_get_type();
     XCTAssertEqual(pt, kPerspectiveSimpleProjection, @"Perspective was just enabled");
 }
 
