@@ -57,20 +57,7 @@ static void *worldDataContext = &worldDataContext;
     [self.view addConstraints:horzConstraints];
     [self.view addConstraints:vertConstraints];
 
-    
-    NSError *error;
-    NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
-    if (colorData != nil) {
-        self.contentLineColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
-    }
-    colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
-    if (colorData != nil) {
-        self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
-    }
-    
-    
-    [self updateVantage:self]; // Set all vantage points to the same default values
-    
+
     // Get values world volume from data and device limits from view bounds
     GKSlimits_3 world_volume = [self.theScene worldVolumeLimits];
     GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
@@ -79,12 +66,10 @@ static void *worldDataContext = &worldDataContext;
     gks_trans_set_device_viewport(&port_rect);
     gks_trans_set_world_volume(&world_volume);
     
-    // Instantiate one 3D object representation to act as a data entry buffer;
-    // the data is used to create the actual 3D object added to the 3D world
-    // later.
-    self.object3DRep =  [[GKS3DObjectRep alloc] init];
-    self.object3DRep.lineColor = self.contentLineColor;
-    self.object3DRep.fillColor = self.contentFillColor;
+    // Set all vantage points to the same default values
+    gks_vantage_set_defaults();
+    [self updateVantage:self];
+    
 
     [self setIsCenteredObject:@NO];
     
@@ -108,7 +93,23 @@ static void *worldDataContext = &worldDataContext;
     self.theScene = scene;
     self.drawingViewController.representedObject = self.theScene;
 
+    NSError *error;
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
+    if (colorData != nil) {
+        self.contentLineColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+    }
+    colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
+    if (colorData != nil) {
+        self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+    }
     
+    // Instantiate one 3D object representation to act as a data entry buffer;
+    // the data is used to create the actual 3D object added to the 3D world
+    // later.
+    self.object3DRep =  [[GKS3DObjectRep alloc] init];
+    self.object3DRep.lineColor = self.contentLineColor;
+    self.object3DRep.fillColor = self.contentFillColor;
+
 }
 
 - (void)viewDidLayout {

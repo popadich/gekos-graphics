@@ -20,6 +20,8 @@
 
 #include "gks_3d_vantage.h"
 #include "gks_3d_normalization.h"
+#include "gks_3d_view_orient.h"
+#include "gks_3d_matrix.h"
 
 #define GKS_MAX_VANTAGE_PTS 10
 #define GKS_VOLUME_TYPES 2
@@ -32,8 +34,7 @@ const GKSint kViewMatrixSetup = 0;
 const GKSint kProjectionMatrixSetup = 1;
 
 //  P R O T O T Y P E S
-void gks_vantage_set_vantage_defaults(void);
-
+void store_vantage(GKSint vantage_point);
 
 // S T A T I C   G L O B A L S
 static GKSint         g_curr_vantage_idx;
@@ -48,36 +49,48 @@ static GKSmatrix_3 g_matrix_list[GKS_MAX_VANTAGE_PTS][GKS_TRANSFORM_TYPES];
 //
 void gks_vantage_init(void)
 {
-    gks_vantage_set_vantage_defaults();
+    // set all vantage points to their default values
+    for (GKSint vant_pt = 0; vant_pt < GKS_MAX_VANTAGE_PTS; vant_pt++) {
+        store_vantage(vant_pt);
+    }
     g_curr_vantage_idx = 0;
 }
 
 
 void store_vantage(GKSint vantage_point)
 {
-    GKSlimits_3 *world = gks_trans_get_world_volume();
-    g_vantage_list[vantage_point][kWorldVolumeSetup].xmin = world->xmin;
-    g_vantage_list[vantage_point][kWorldVolumeSetup].xmax = world->xmax;
-    g_vantage_list[vantage_point][kWorldVolumeSetup].ymin = world->ymin;
-    g_vantage_list[vantage_point][kWorldVolumeSetup].ymax = world->ymax;
-    g_vantage_list[vantage_point][kWorldVolumeSetup].zmin = world->zmin;
-    g_vantage_list[vantage_point][kWorldVolumeSetup].zmax = world->zmax;
+    GKSlimits_3 *world_volume = gks_trans_get_world_volume();
+    g_vantage_list[vantage_point][kWorldVolumeSetup].xmin = world_volume->xmin;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].xmax = world_volume->xmax;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].ymin = world_volume->ymin;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].ymax = world_volume->ymax;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].zmin = world_volume->zmin;
+    g_vantage_list[vantage_point][kWorldVolumeSetup].zmax = world_volume->zmax;
     
-    GKSlimits_3 *view = gks_trans_get_view_volume();
-    g_vantage_list[vantage_point][kViewVolumeSetup].xmin = view->xmin;
-    g_vantage_list[vantage_point][kViewVolumeSetup].xmax = view->xmax;
-    g_vantage_list[vantage_point][kViewVolumeSetup].ymin = view->ymin;
-    g_vantage_list[vantage_point][kViewVolumeSetup].ymax = view->ymax;
-    g_vantage_list[vantage_point][kViewVolumeSetup].zmin = view->zmin;
-    g_vantage_list[vantage_point][kViewVolumeSetup].zmax = view->zmax;
+    GKSlimits_3 *view_volume = gks_trans_get_view_volume();
+    g_vantage_list[vantage_point][kViewVolumeSetup].xmin = view_volume->xmin;
+    g_vantage_list[vantage_point][kViewVolumeSetup].xmax = view_volume->xmax;
+    g_vantage_list[vantage_point][kViewVolumeSetup].ymin = view_volume->ymin;
+    g_vantage_list[vantage_point][kViewVolumeSetup].ymax = view_volume->ymax;
+    g_vantage_list[vantage_point][kViewVolumeSetup].zmin = view_volume->zmin;
+    g_vantage_list[vantage_point][kViewVolumeSetup].zmax = view_volume->zmax;
+    
+    GKSmatrix_3 *view_matrix = gks_view_matrix_get();
+    
+    gks_matrix_copy_3(*view_matrix, g_matrix_list[vantage_point][kViewMatrixSetup]);
+    
 }
 
 
 void restore_vantage(GKSint vantage_point)
 {
-    GKSlimits_3 restored_volume = g_vantage_list[vantage_point][kWorldVolumeSetup];
-    gks_trans_set_world_volume(&restored_volume);
-
+    GKSlimits_3 world_volume_rest = g_vantage_list[vantage_point][kWorldVolumeSetup];
+    gks_trans_set_world_volume(&world_volume_rest);
+    
+    GKSmatrix_3 view_matrix_rest;
+    gks_matrix_copy_3(g_matrix_list[vantage_point][kViewMatrixSetup], view_matrix_rest);
+    
+    gks_view_matrix_set(view_matrix_rest);
 }
 
 void gks_vantage_set_current_view(GKSint view_num)
@@ -102,27 +115,10 @@ GKSint gks_vantage_get_current_view(void)
 }
 
 
-void gks_vantage_set_vantage_defaults(void)
+void gks_vantage_set_defaults(void)
 {
     // set all vantage points to their default values
     for (GKSint vant_pt = 0; vant_pt < GKS_MAX_VANTAGE_PTS; vant_pt++) {
-        GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
-        GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
-        
-        // TODO: get from normalization module?
-            // set the same "unit" volume for all vantage points
-            GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
-            GKSlimits_3 world_volume = GKSMakeVolume(min, max);
-            
-            // 3D World volume
-            gks_trans_set_world_volume(&world_volume);
-            // 3D View volume
-            gks_trans_set_view_volume(&viewport_volume);
-        
-        
-        
-        
-        
         store_vantage(vant_pt);
     }
 }

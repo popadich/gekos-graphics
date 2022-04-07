@@ -13,6 +13,7 @@
 #define GKS_MAX_VIEW_TRANSFORMS 10
 
 void gks_vantage_init(void);
+void gks_vantage_set_defaults(void);
 
 GKSint gks_vantage_get_current_view(void);
 void gks_vantage_set_current_view(GKSint view_num);
