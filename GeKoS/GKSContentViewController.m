@@ -13,6 +13,7 @@
 #import "GKS3DObjectRep.h"
 #import "GKS3DObject.h"
 #import "GKSScene.h"
+#import "GKSMeshParser.h"
 
 
 @interface GKSContentViewController ()
@@ -299,9 +300,11 @@ static void *worldDataContext = &worldDataContext;
     [panel beginWithCompletionHandler:^(NSInteger result){
         if (result == NSModalResponseOK) {
             NSURL* theURL = [[panel URLs] objectAtIndex:0];
+            NSError *error;
      
             // load the mesh
-            GKSmesh_3* mesh_ptr = [self.theContent parseOFFMeshFile:theURL];
+            GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
+            GKSmesh_3* mesh_ptr = [parser parseOFFMeshFile:theURL error:&error];
             if (mesh_ptr != NULL) {
                 
                 GKSvector3d loc = [self.object3DRep positionVector];

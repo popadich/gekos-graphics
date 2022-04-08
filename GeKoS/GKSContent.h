@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong)GKSScene *theScene;
 
-- (GKSmesh_3 *)parseOFFMeshFile:(NSURL*)URL;    // called by import file
 
 - (GKSmesh_3 *)readModelFromURL:(NSURL*)URL;    // called by open file
 
