@@ -19,6 +19,7 @@
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 
+@property (strong) GKSContent *theContent;
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
 
@@ -109,6 +110,8 @@ static void *worldDataContext = &worldDataContext;
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
+    
+    self.theContent = content;
 
 }
 
@@ -295,18 +298,17 @@ static void *worldDataContext = &worldDataContext;
     // item or cancels the panel.
     [panel beginWithCompletionHandler:^(NSInteger result){
         if (result == NSModalResponseOK) {
-            NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
+            NSURL* theURL = [[panel URLs] objectAtIndex:0];
      
-            // Open  the document.
-            GKSmesh_3* mesh_ptr = [self parseOFFMeshFile:theDoc.path];
+            // load the mesh
+            GKSmesh_3* mesh_ptr = [self.theContent parseOFFMeshFile:theURL];
             if (mesh_ptr != NULL) {
-                // TODO: use objectRef
-                GKSmesh_3 *theMesh = mesh_ptr;
+                
                 GKSvector3d loc = [self.object3DRep positionVector];
                 GKSvector3d rot = [self.object3DRep rotationVector];
                 GKSvector3d sca = [self.object3DRep scaleVector];
                 
-                GKS3DObject *customObj = [[GKS3DObject alloc] initWithMesh:theMesh atLocation:loc withRotation:rot andScale:sca];
+                GKS3DObject *customObj = [[GKS3DObject alloc] initWithMesh:mesh_ptr atLocation:loc withRotation:rot andScale:sca];
 
                 // copy data from Rep to Obj3D
                 customObj.lineColor = [self.object3DRep lineColor];
@@ -323,160 +325,17 @@ static void *worldDataContext = &worldDataContext;
 }
 
 
-// FIXME: Panel Bug
+// FIXME: Share Menu Bug
 /*
-
-// this started showing up in the logs, it has to be related to the open panel
-
+//
+// this started showing up in the logs, it is not related to the open panel. It has
+// everything to do with the "Share..." menu. Possibly something is not initialized?
+//
 Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4864 "value for key 'root' was of unexpected class 'NSNull'. Allowed classes are '{(
     NSURL
 )}'." UserInfo={NSDebugDescription=value for key 'root' was of unexpected class 'NSNull'. Allowed classes are '{(
     NSURL
 )}'.}
 */
-
-
-// MARK: OFF Mesh Parser
-- (NSArray<NSString *>*) componentsMatchingRegularExpression:(NSString *)pattern fromString:(NSString *)theString
-{
-   NSError *errorReturn;
-   NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&errorReturn];
-
-   if (!regularExpression)
-      return nil;
-    
-//    NSUInteger numberOfMatches = [regularExpression numberOfMatchesInString:theString
-//                                                        options:0
-//                                                          range:NSMakeRange(0, [theString length])];
-
-   NSMutableArray *matches = NSMutableArray.new;
-   [regularExpression enumerateMatchesInString:theString
-                                       options:0
-                                         range:NSMakeRange(0, theString.length)
-                                    usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop)
-                                              {
-                                                 [matches addObject:[theString substringWithRange:result.range]];
-                                              }
-   ];
-
-   return matches.copy; // non-mutable copy
-}
-
-// simplified OFF file parser. Object File Format files
-// are a very simple way of describing 3D objects.
-// a better explanation can be found here
-//  https://en.wikipedia.org/wiki/OFF_(file_format)
-//
-// TODO: parser needs to be excercised with different files
-- (GKSmesh_3 *)parseOFFMeshFile:(NSString*)path
-{
-    int num_verts, num_polys;
-    int i, j;
-    int vert_count;
-    GKSmesh_3 *anObjectMesh = NULL;
-    
-    int meta_data_offset;  // First line in file has vertex and polygon counts
-    int data_offset;       // Where to start reading
-    
-    
-    GKSpolygonArrPtr polygonList = NULL;
-    GKSvertexArrPtr vertexList = NULL;
-    GKSint *compact_array = NULL;
-
-    @try {
-        NSError *error = nil;
-        NSString *fileTextString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-        
-        NSCharacterSet* newlineChars = [NSCharacterSet newlineCharacterSet];
-        NSArray *textLines = [fileTextString componentsSeparatedByCharactersInSet:newlineChars];
-        
-        // First line has 3 character format code "OFF"
-        NSString* offCodeTag = @"OFF";
-        if (![offCodeTag isEqualTo:textLines[0]]) {
-            NSLog(@"Not an OFF file!");
-            return anObjectMesh;
-        }
-        
-        // Second line 2 or 3 integer numbers
-        NSString *componentsString = textLines[1]; // 3 numbers seperated by space
-        NSArray* componentsCount = [self componentsMatchingRegularExpression:@"\\d+" fromString:componentsString];
-        // only interested in vertex and polygon counts
-        num_verts = [componentsCount[0] intValue];
-        num_polys = [componentsCount[1] intValue];
-        
-        
-        polygonList = (GKSpolygonArrPtr)calloc(num_polys, sizeof(GKSpolygon_3));
-        vertexList = (GKSvertexArrPtr)calloc(num_verts, sizeof(GKSvector3d));
-        
-        // FIXME: calculate array size
-        long some_computed_number = 5000;
-        compact_array = (GKSint *)calloc(some_computed_number, sizeof(GKSint));
-        
-        NSLog(@"Mesh Data:\nVertex Count: %d  Polygon Count %d", num_verts, num_polys);
-        
-        meta_data_offset = 2;       // 2 text lines
-        data_offset = meta_data_offset;
-        for(i=0; i<num_verts; i++)
-        {
-            NSString* vertexLine = textLines[i + data_offset];
-            NSArray* vertexComponentsArr = [self componentsMatchingRegularExpression:@"\\S+" fromString:vertexLine];
-            NSString* componentX = vertexComponentsArr[0];
-            NSString* componentY = vertexComponentsArr[1];
-            NSString* componentZ = vertexComponentsArr[2];
-            
-            vertexList[i].crd.x = [componentX doubleValue];
-            vertexList[i].crd.y = [componentY doubleValue];
-            vertexList[i].crd.z = [componentZ doubleValue];
-            vertexList[i].crd.w = 1.0;
-        }
-        
-        data_offset = meta_data_offset + num_verts;
-        
-        int k = 0;
-        
-        for(i=0; i<num_polys; i++)
-        {
-            NSString* polygonLine = textLines[i + data_offset];
-            NSArray* polygonComponentsArr = [self componentsMatchingRegularExpression:@"\\d+" fromString:polygonLine];
-            NSString* componentPointCount = polygonComponentsArr[0];
-            vert_count = [componentPointCount intValue];
-            if (vert_count > GKS_POLY_VERTEX_MAX) {
-                NSLog(@"Polygon point count %d too large for my buffer", vert_count);
-                return NULL;
-            }
-            polygonList[i][0] = vert_count;
-            
-            compact_array[k] = vert_count;    // compact string all in a row
-            k += 1;
-            for(j=1; j<=vert_count; j++)
-            {
-                NSString* componentPointNo = polygonComponentsArr[j];
-                int pointNo = [componentPointNo intValue];
-                polygonList[i][j] = pointNo + 1;
-                
-                compact_array[k] = pointNo + 1;    // compact string all in a row
-                k += 1;
-                
-            }
-        }
-        
-        
-    } @catch (NSException *exception) {
-        NSLog(@"Could not read OFF data file");
-    } @finally {
-        NSLog(@"Arivadercci Finale");
-        anObjectMesh = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
-
-        anObjectMesh->vertices = vertexList;
-        anObjectMesh->vertnum = num_verts;
-        anObjectMesh->polygons = polygonList;
-        anObjectMesh->polynum = num_polys;
-        anObjectMesh->polygons_compact = compact_array;
-    }
-    
-    return anObjectMesh;
-}
-
-
 
 @end
