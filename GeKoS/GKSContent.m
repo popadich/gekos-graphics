@@ -31,7 +31,7 @@
         
         
         // TODO: remove when done with playing
-        BOOL playing = YES;
+        BOOL playing = NO;
         if (playing) {
             for (int i=-3; i<4; i++) {
                 GKS3DObject *object3D = [[GKS3DObject alloc] init];
@@ -103,6 +103,8 @@
    return matches.copy; // non-mutable copy
 }
 
+
+
 // simplified OFF file parser. Object File Format files
 // are a very simple way of describing 3D objects.
 // a better explanation can be found here
@@ -115,22 +117,19 @@
     int specified_polys;
     int specified_edges;
     
-    int i, j;
-    int vert_count;
-    int edge_count;
+    int vert_count = 0;
+    int poly_count = 0;
+    int edge_count = 0;
     GKSmesh_3 *anObjectMesh = NULL;
     
-    int meta_data_offset;  // First line in file has vertex and polygon counts
-    int data_offset;       // Where to start reading
+    int meta_data_offset = 2;  // 2 text lines offset
     
-    
-    GKSpolygonArrPtr polygonList = NULL;
-    GKSvertexArrPtr vertexList = NULL;
+    GKSpolygonArrPtr polygon_array = NULL;
+    GKSvertexArrPtr vertex_array = NULL;
     GKSint *compact_array = NULL;
 
     @try {
         NSError *error = nil;
-//        NSString *fileTextString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
         NSString *fileTextString = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:&error];
         
         NSCharacterSet* newlineChars = [NSCharacterSet newlineCharacterSet];
@@ -140,85 +139,87 @@
         NSString* offCodeTag = @"OFF";
         if (![offCodeTag isEqualTo:textLines[0]]) {
             NSLog(@"Not an OFF file!");
-            return anObjectMesh;
+            return NULL;
         }
         
-        // Second line 2 or 3 integer numbers
-        NSString *componentsString = textLines[1]; // 3 numbers seperated by space
-        NSArray* componentsCount = [self componentsMatchingRegularExpression:@"\\d+" fromString:componentsString];
-        // only interested in vertex and polygon counts
+        // Second line 3 integer numbers seperated by space
+//        NSString *componentsString = textLines[1];
+        NSArray* componentsCount = [self componentsMatchingRegularExpression:@"\\d+" fromString:textLines[1]];
         specified_verts = [componentsCount[0] intValue];
         specified_polys = [componentsCount[1] intValue];
         specified_edges = [componentsCount[2] intValue];
         
+        polygon_array = (GKSpolygonArrPtr)calloc(specified_polys, sizeof(GKSpolygon_3));
+        vertex_array = (GKSvertexArrPtr)calloc(specified_verts, sizeof(GKSvector3d));
         
-        polygonList = (GKSpolygonArrPtr)calloc(specified_polys, sizeof(GKSpolygon_3));
-        vertexList = (GKSvertexArrPtr)calloc(specified_verts, sizeof(GKSvector3d));
+        // TODO: verify calculated array size
+        long computed_size = specified_edges * 2 + specified_polys;
+        compact_array = (GKSint *)calloc(computed_size, sizeof(GKSint));
         
-        // FIXME: calculate array size
-        long some_computed_number = 5000;
-        compact_array = (GKSint *)calloc(some_computed_number, sizeof(GKSint));
         
-        NSLog(@"Mesh Data:\nVertex Count: %d  Polygon Count %d", specified_verts, specified_polys);
-        
-        meta_data_offset = 2;       // 2 text lines
-        data_offset = meta_data_offset;
-        for(i=0; i<specified_verts; i++)
+        int current_line_no = meta_data_offset;
+        for(GKSint i=0; i<specified_verts; i++)
         {
-            NSString* vertexLine = textLines[i + data_offset];
+            NSString* vertexLine = textLines[current_line_no];
             NSArray* vertexComponentsArr = [self componentsMatchingRegularExpression:@"\\S+" fromString:vertexLine];
             NSString* componentX = vertexComponentsArr[0];
             NSString* componentY = vertexComponentsArr[1];
             NSString* componentZ = vertexComponentsArr[2];
             
-            vertexList[i].crd.x = [componentX doubleValue];
-            vertexList[i].crd.y = [componentY doubleValue];
-            vertexList[i].crd.z = [componentZ doubleValue];
-            vertexList[i].crd.w = 1.0;
+            vertex_array[i].crd.x = [componentX doubleValue];
+            vertex_array[i].crd.y = [componentY doubleValue];
+            vertex_array[i].crd.z = [componentZ doubleValue];
+            vertex_array[i].crd.w = 1.0;
+            current_line_no += 1;
+            vert_count += 1;
         }
-        
-        data_offset = meta_data_offset + specified_verts;
         
         int k = 0;
         edge_count = 0;
         
-        for(i=0; i<specified_polys; i++)
+        for(GKSint i=0; i<specified_polys; i++)
         {
-            NSString* polygonLine = textLines[i + data_offset];
+            NSString* polygonLine = textLines[current_line_no + i];
             NSArray* polygonComponentsArr = [self componentsMatchingRegularExpression:@"\\d+" fromString:polygonLine];
             NSString* componentPointCount = polygonComponentsArr[0];
-            vert_count = [componentPointCount intValue];
-            if (vert_count > GKS_POLY_VERTEX_MAX) {
-                NSLog(@"Polygon point count %d too large for my buffer", vert_count);
+            int verts = [componentPointCount intValue];
+            if (verts > GKS_POLY_VERTEX_MAX) {
+                NSLog(@"Polygon point count %d too large for my buffer", verts);
+                free(polygon_array);
+                free(vertex_array);
+                free(compact_array);
                 return NULL;
             }
-            polygonList[i][0] = vert_count;
-            edge_count += vert_count;
+            polygon_array[i][0] = verts;
+            edge_count += verts;
+            poly_count += 1;
             
-            compact_array[k] = vert_count;    // compact string all in a row
+            compact_array[k] = verts;    // compact string all in a row
             k += 1;
-            for(j=1; j<=vert_count; j++)
+            for(GKSint j=1; j<=verts; j++)
             {
                 NSString* componentPointNo = polygonComponentsArr[j];
                 int pointNo = [componentPointNo intValue];
-                polygonList[i][j] = pointNo + 1;
+                polygon_array[i][j] = pointNo + 1;
                 
                 compact_array[k] = pointNo + 1;    // compact string all in a row
                 k += 1;
                 
             }
+            
         }
-        
-        
     } @catch (NSException *exception) {
         NSLog(@"Could not read OFF data file");
     } @finally {
         NSLog(@"Arivadercci Finale");
+        NSLog(@"Meta Data:  Verts: %d  Polys: %d  Edges: %d", specified_verts, specified_polys, specified_edges);
+        NSLog(@"Mesh        Verts: %d  Polys: %d  Edges: %d", vert_count, poly_count, edge_count);
+        
         anObjectMesh = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
 
-        anObjectMesh->vertices = vertexList;
+        anObjectMesh->vertices = vertex_array;
         anObjectMesh->vertnum = specified_verts;
-        anObjectMesh->polygons = polygonList;
+        anObjectMesh->polygons = polygon_array;
         anObjectMesh->polynum = specified_polys;
         anObjectMesh->polygons_compact = compact_array;
     }
