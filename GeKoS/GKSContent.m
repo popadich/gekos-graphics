@@ -9,7 +9,7 @@
 #import "GKSCameraRep.h"
 #import "GKS3DObject.h"
 #import "GKSConstants.h"
-#import "GKSMeshParser.h"
+
 
 @implementation GKSContent
 
@@ -32,7 +32,7 @@
         
         
         // TODO: remove when done with playing
-        BOOL playing = YES;
+        BOOL playing = NO;
         if (playing) {
             for (int i=-3; i<4; i++) {
                 GKS3DObject *object3D = [[GKS3DObject alloc] init];
@@ -47,36 +47,6 @@
     }
     return self;
 }
-
-
-
-
-- (GKSmesh_3 *)readModelFromURL:(NSURL*)URL;
-{
-    GKSmesh_3 *model = nil;
-    NSError *error;
-
-    NSString *contentString = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:&error];
-    if (contentString != nil) {
-        NSLog(@"Parse Mesh string %@", contentString);
-        
-        GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
-        GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
-        GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
-        
-        GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-        model = [parser parseOFFMeshFile:URL error:&error];
-        if (model) {
-            
-            // TODO: do this elsewhere
-            GKS3DObject *customMeshObj = [[GKS3DObject alloc] initWithMesh:model atLocation:loc withRotation:rot andScale:sca];
-            [_theScene add3DObject:customMeshObj];
-            
-        }
-    }
-    return  model;
-}
-
 
 
 @end

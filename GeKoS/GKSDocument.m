@@ -10,7 +10,7 @@
 #import "GKSConstants.h"
 #import "GKSWindowController.h"
 #import "GKSContentViewController.h"
-
+#import "GKSMeshParser.h"
 
 @interface GKSDocument ()
 
@@ -41,6 +41,7 @@
     windowController.contentViewController = contentController;
 }
 
+/*
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError *__autoreleasing  _Nullable *)outError
 {
     // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error if you return NO.
@@ -54,16 +55,60 @@
     return NO;
 
 }
+*/
+
+//
+//- (GKSmesh_3 *)readModelFromURL:(NSURL*)URL;
+//{
+//    GKSmesh_3 *mesh = nil;
+//    NSError *error;
+//
+//    NSString *meshString = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:&error];
+//
+//    if (meshString != nil) {
+//        NSLog(@"Parse Mesh string %@", meshString);
+//        GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
+//        mesh = [parser parseOFFMeshFile:URL error:&error];
+//
+//        if (mesh) {
+//
+//            // TODO: do this elsewhere
+//
+//            GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
+//            GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
+//            GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+//            GKS3DObject *customMeshObj = [[GKS3DObject alloc] initWithMesh:mesh atLocation:loc withRotation:rot andScale:sca];
+//            [self.content.theScene add3DObject:customMeshObj];
+//
+//        }
+//    }
+//    return  mesh;
+//}
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError *__autoreleasing  _Nullable *)error
 {
     BOOL hasRead = NO;
-    GKSmesh_3 *model = nil;
+    GKSmesh_3 *mesh = nil;
     
     if ([typeName isEqual:@"com.xephyr.off"]) {
         NSLog(@"OFF file to read %@", absoluteURL);
-        model = [self.content readModelFromURL:absoluteURL];
-        hasRead = YES;
+        NSString *meshString = [[NSString alloc] initWithContentsOfURL:absoluteURL encoding:NSUTF8StringEncoding error:error];
+        if (meshString != nil) {
+            GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
+            mesh = [parser parseOFFMeshString:meshString error:error];
+            if (mesh) {
+                
+                // TODO: do this elsewhere
+                
+                GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
+                GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
+                GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+                GKS3DObject *customMeshObj = [[GKS3DObject alloc] initWithMesh:mesh atLocation:loc withRotation:rot andScale:sca];
+                [self.content.theScene add3DObject:customMeshObj];
+                
+            }
+            hasRead = YES;
+        }
     }
     else if ([typeName isEqual:@"com.xephyr.json"]) {
 //        model = [self.content readModelFromJsonData:data];

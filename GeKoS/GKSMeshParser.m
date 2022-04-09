@@ -55,6 +55,19 @@
 // TODO: parser needs to be excercised with different files
 - (GKSmesh_3 *)parseOFFMeshFile:(NSURL*)URL error:(NSError **)error
 {
+    GKSmesh_3 *anObjectMesh = NULL;
+    
+    NSString *fileTextString = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:error];
+    
+    anObjectMesh = [self parseOFFMeshString:fileTextString error:error];
+    
+    return anObjectMesh;
+}
+
+
+// TODO: parser needs to be excercised with different files
+- (GKSmesh_3 *)parseOFFMeshString:(NSString*)meshString error:(NSError **)error
+{
     int specified_verts;
     int specified_polys;
     int specified_edges;
@@ -71,8 +84,7 @@
     GKSint *compact_array = NULL;
 
     @try {
-        NSError *error = nil;
-        NSString *fileTextString = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:&error];
+        NSString *fileTextString = meshString;
         
         NSCharacterSet* newlineChars = [NSCharacterSet newlineCharacterSet];
         NSArray *textLines = [fileTextString componentsSeparatedByCharactersInSet:newlineChars];
@@ -171,7 +183,6 @@
     
     return anObjectMesh;
 }
-
 
 
 

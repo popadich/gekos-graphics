@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)sharedMeshParser;
 
 - (GKSmesh_3 *)parseOFFMeshFile:(NSURL*)URL error:(NSError **)error;
+- (GKSmesh_3 *)parseOFFMeshString:(NSString*)meshString error:(NSError **)error;
 
 @end
 
