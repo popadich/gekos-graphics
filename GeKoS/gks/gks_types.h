@@ -123,7 +123,7 @@ typedef enum {
     kCubeKind = 1,
     kSphereKind,
     kPyramidKind,
-    kSpaceShuttleKind,
+    kSpaceConeKind,
     kHouseKind
 } GKSobjectKind;
 

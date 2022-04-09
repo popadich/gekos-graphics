@@ -31,7 +31,6 @@ GKSmesh_3 *MeshOfKind(GKSobjectKind kind)
             theMesh = CubeMesh();
             break;
         default:
-            theMesh = CubeMesh();  // TODO: this should be special warning object
             break;
     }
 
@@ -327,6 +326,11 @@ GKSmesh_3 *SphereMesh(void)
     aSphere->polygons_compact = compactPolyList;
 
     return aSphere;
+}
+
+GKSmesh_3 *ConeMesh(void)
+{
+    return NULL;
 }
 
 void setMeshCenteredFlag(bool isCentered)
