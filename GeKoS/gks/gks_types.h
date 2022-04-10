@@ -115,7 +115,7 @@ typedef struct
     GKSint vertnum;
     GKSint polynum;
     GKSvertexArrPtr  vertices;
-    GKSpolygonArrPtr polygons;
+//    GKSpolygonArrPtr polygons;
     GKSint           *polygons_compact;
 } GKSmesh_3;
 

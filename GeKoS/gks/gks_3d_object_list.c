@@ -124,14 +124,14 @@ void gks_objarr_delete_at_index(int index)
   
         GKSmesh_3 obj = object_array[idx].mesh_object;
         GKSvertexArrPtr vertex_array = obj.vertices;
-        GKSpolygonArrPtr polygon_array = obj.polygons;
+//        GKSpolygonArrPtr polygon_array = obj.polygons;
         GKSint *compact_array = obj.polygons_compact;
         
         // Free the memory associated with actor data structure
         free(vertex_array);
         obj.vertices = NULL;
-        free(polygon_array);
-        obj.polygons = NULL;
+//        free(polygon_array);
+//        obj.polygons = NULL;
         free(compact_array);
         obj.polygons_compact = NULL;
         
