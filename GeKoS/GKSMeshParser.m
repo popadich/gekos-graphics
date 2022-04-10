@@ -78,8 +78,6 @@
     GKSmesh_3 *anObjectMesh = NULL;
     
     int meta_data_offset = 2;  // 2 text lines offset
-    
-//    GKSpolygonArrPtr polygon_array = NULL;
     GKSvertexArrPtr vertex_array = NULL;
     GKSint *compact_array = NULL;
 
@@ -97,13 +95,11 @@
         }
         
         // Second line 3 integer numbers seperated by space
-//        NSString *componentsString = textLines[1];
         NSArray* componentsCount = [self componentsMatchingRegularExpression:@"\\d+" fromString:textLines[1]];
         specified_verts = [componentsCount[0] intValue];
         specified_polys = [componentsCount[1] intValue];
         specified_edges = [componentsCount[2] intValue];
         
-//        polygon_array = (GKSpolygonArrPtr)calloc(specified_polys, sizeof(GKSpolygon_3));
         vertex_array = (GKSvertexArrPtr)calloc(specified_verts, sizeof(GKSvector3d));
         
         // TODO: verify calculated array size
@@ -139,12 +135,11 @@
             int verts = [componentPointCount intValue];
             if (verts > GKS_POLY_VERTEX_MAX) {
                 NSLog(@"Polygon point count %d too large for my buffer", verts);
-//                free(polygon_array);
                 free(vertex_array);
                 free(compact_array);
                 return NULL;
             }
-//            polygon_array[i][0] = verts;
+
             edge_count += verts;
             poly_count += 1;
             
@@ -154,8 +149,6 @@
             {
                 NSString* componentPointNo = polygonComponentsArr[j];
                 int pointNo = [componentPointNo intValue];
-//                polygon_array[i][j] = pointNo + 1;
-                
                 compact_array[k] = pointNo + 1;    // compact string all in a row
                 k += 1;
                 
@@ -176,7 +169,6 @@
 
         anObjectMesh->vertices = vertex_array;
         anObjectMesh->vertnum = specified_verts;
-//        anObjectMesh->polygons = polygon_array;
         anObjectMesh->polynum = specified_polys;
         anObjectMesh->polygons_compact = compact_array;
     }

@@ -101,11 +101,10 @@ typedef struct {
 // Polygon has a vertex count followed
 // by count vertex indexes (usually 3 or 4)
 // but potentially more. Make room by
-// modifying the GKS_POLY_VERTEX_MAX constant.
+// modifying the MAX constant.
 typedef GKSint      GKSpolygon_3[GKS_POLY_VERTEX_MAX];
 
 typedef GKSvector3d     *GKSvertexArrPtr;       // list of 3D points for each polygon
-typedef GKSpolygon_3    *GKSpolygonArrPtr;      // polygon list
 typedef GKSpoint_2      *GKSDCArrPtr;
 typedef GKSvector3d     *GKSnormalArrPtr;       // normal vector to each polygon
 
@@ -115,7 +114,6 @@ typedef struct
     GKSint vertnum;
     GKSint polynum;
     GKSvertexArrPtr  vertices;
-//    GKSpolygonArrPtr polygons;
     GKSint           *polygons_compact;
 } GKSmesh_3;
 

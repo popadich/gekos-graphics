@@ -67,7 +67,6 @@ GKSmesh_3 *CubeMesh(void)
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_CUBE_VERTEX_COUNT, sizeof(GKSvector3d));
-//    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_CUBE_POLYGON_COUNT, sizeof(GKSpolygon_3));
     GKSint *compactPolyList = (GKSint *)calloc(GKS_CUBE_PARRAY_SIZE, sizeof(GKSint));
 
     // copy vertices using pointer arithmetic
@@ -91,8 +90,6 @@ GKSmesh_3 *CubeMesh(void)
     for(int i=0; i<GKS_CUBE_POLYGON_COUNT; i++) {
         int polygonSize = object_poly[i][0] + 1; // +1 includes the polygon count value as part of the size
         for(int j=0; j<polygonSize; j++) {
-//            polygonList[i][j] = object_poly[i][j];
-            
             compactPolyList[k] = object_poly[i][j];    // compact string all in a row
             k += 1;
         }
@@ -100,7 +97,6 @@ GKSmesh_3 *CubeMesh(void)
 
     aCube = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aCube->vertices = vertexList;
-//    aCube->polygons = polygonList;
     aCube->polygons_compact = compactPolyList;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
     aCube->polynum = GKS_CUBE_POLYGON_COUNT;
@@ -133,7 +129,6 @@ GKSmesh_3 *PyramidMesh(void)
     
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
-//    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_PYRAMID_POLYGON_COUNT, sizeof(GKSpolygon_3));
     GKSint *compactPolyList = (GKSint *)calloc(GKS_PYRAMID_PARRAY_SIZE, sizeof(GKSint)); // one extra for buffer
 
 
@@ -158,8 +153,6 @@ GKSmesh_3 *PyramidMesh(void)
     for(int i=0; i<GKS_PYRAMID_POLYGON_COUNT; i++) {
         int polygonSize = object_poly[i][0] + 1;
         for(int j=0; j<polygonSize; j++) {
-//            polygonList[i][j] = object_poly[i][j];
-            
             compactPolyList[k] = object_poly[i][j];    // compact string all in a row
             k += 1;
         }
@@ -168,7 +161,6 @@ GKSmesh_3 *PyramidMesh(void)
     aPyramid = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aPyramid->vertices = vertexList;
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
-//    aPyramid->polygons = polygonList;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
     aPyramid->polygons_compact = compactPolyList;
 
@@ -205,7 +197,6 @@ GKSmesh_3 *HouseMesh(void)
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
-//    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(GKS_HOUSE_POLYGON_COUNT, sizeof(GKSpolygon_3));
     GKSint *compactPolyList = (GKSint *)calloc(GKS_HOUSE_PARRAY_SIZE, sizeof(GKSint)); // one extra for buffer
     
     // copy vertices using pointer arithmetic
@@ -229,7 +220,6 @@ GKSmesh_3 *HouseMesh(void)
     for(int i=0; i<GKS_HOUSE_POLYGON_COUNT; i++) {
         int polygonSize = object_poly[i][0] + 1;
         for(int j=0; j<polygonSize; j++) {
-//            polygonList[i][j] = object_poly[i][j];
             
             compactPolyList[k] = object_poly[i][j];    // compact string all in a row
             k += 1;
@@ -239,7 +229,6 @@ GKSmesh_3 *HouseMesh(void)
     aHouse = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aHouse->vertices = vertexList;
     aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
-//    aHouse->polygons = polygonList;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
     aHouse->polygons_compact = compactPolyList;
 
@@ -265,7 +254,6 @@ GKSmesh_3 *SphereMesh(void)
     // allocate sub arrays and then the container structure object
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
-//    GKSpolygonArrPtr polygonList = (GKSpolygonArrPtr)calloc(computedPolygonCount, sizeof(GKSpolygon_3));
     GKSint *compactPolyList = (GKSint *)calloc(5000, sizeof(GKSint)); // TODO: compute size of buffer
     GKSmesh_3 *aSphere = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     
@@ -325,7 +313,6 @@ GKSmesh_3 *SphereMesh(void)
     }
     
     aSphere->vertices = vertexList;
-//    aSphere->polygons = polygonList;
     aSphere->vertnum = vertexCount;
     aSphere->polynum = polygonCount;
     aSphere->polygons_compact = compactPolyList;
@@ -348,7 +335,6 @@ GKSmesh_3 *ConeHead(void)
     // allocate sub arrays and then the container structure object
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
-//    GKSpolygonArrPtr polygon_array = (GKSpolygonArrPtr)calloc(computedPolygonCount, sizeof(GKSpolygon_3));
     GKSint *compact_array = (GKSint *)calloc(5000, sizeof(GKSint)); // TODO: compute size of buffer
     GKSmesh_3 *aCone = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     
@@ -483,7 +469,6 @@ GKSmesh_3 *ConeHead(void)
 
     
     aCone->vertices = vertex_array;
-//    aCone->polygons = polygon_array;
     aCone->polygons_compact = compact_array;
     aCone->vertnum = computedVertexCount;
     aCone->polynum = computedPolygonCount;
