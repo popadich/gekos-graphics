@@ -172,15 +172,11 @@ void gks_objarr_delete_all(void)
 void compute_object_3(GKSactor *the_actor)
 {
     GKSvertexArrPtr     vertex_array = NULL;
-//    GKSpolygonArrPtr    polygon_array = NULL;
     GKSint              *compact_array = NULL;
     GKSDCArrPtr         dev_coord_array = NULL;
     
-    GKSint              pid;
     GKSint              polygonCount = 0;
-//    GKSint              vertex_idx = 0;
     GKSint              compact_idx = 0;
-//    GKSint              vertexCount = 0;
 
     GKSvector3d         temp_polygon_vertices[GKS_POLY_VERTEX_MAX];
     GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
@@ -209,7 +205,7 @@ void compute_object_3(GKSactor *the_actor)
     GKSint k = 0;
 //    printf("compute object\n");
 
-    for(pid=0; pid<polygonCount; pid++) {
+    for(GKSint pid=0; pid<polygonCount; pid++) {
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
