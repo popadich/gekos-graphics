@@ -22,6 +22,7 @@
 #include "gks_3d_normalization.h"
 #include "gks_3d_view_orient.h"
 #include "gks_3d_matrix.h"
+#include "gks_3d_projection.h"
 
 #define GKS_MAX_VANTAGE_PTS 10
 #define GKS_VOLUME_TYPES 2
@@ -76,9 +77,11 @@ void store_vantage(GKSint vantage_point)
     g_vantage_list[vantage_point][kViewVolumeSetup].zmax = view_volume->zmax;
     
     GKSmatrix_3 *view_matrix = gks_view_matrix_get();
-    
     gks_matrix_copy_3(*view_matrix, g_matrix_list[vantage_point][kViewMatrixSetup]);
     
+    GKSmatrix_3 *projection = gks_projection_get_matrix();
+    gks_matrix_copy_3(*projection, g_matrix_list[vantage_point][kProjectionMatrixSetup]);
+
 }
 
 
@@ -89,8 +92,14 @@ void restore_vantage(GKSint vantage_point)
     
     GKSmatrix_3 view_matrix_rest;
     gks_matrix_copy_3(g_matrix_list[vantage_point][kViewMatrixSetup], view_matrix_rest);
-    
     gks_view_matrix_set(view_matrix_rest);
+    
+    GKSmatrix_3 projection_rest;
+    gks_matrix_copy_3(g_matrix_list[vantage_point][kProjectionMatrixSetup], projection_rest);
+    gks_projection_set_matrix(projection_rest);
+    
+    // TODO: update UI elements
+
 }
 
 void gks_vantage_set_current_view(GKSint view_num)

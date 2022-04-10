@@ -26,5 +26,6 @@ void gks_projection_set_perspective(GKSfloat alpha, GKSfloat near, GKSfloat far)
 void gks_projection_set_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far);
 
 GKSmatrix_3 *gks_projection_get_matrix(void);
+void gks_projection_set_matrix(GKSmatrix_3 new_matrix);
 
 #endif /* gks_3d_projection_h */

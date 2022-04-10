@@ -40,6 +40,16 @@ GKSmatrix_3 *gks_projection_get_matrix(void)
 
 
 
+void gks_projection_set_matrix(GKSmatrix_3 new_matrix)
+{
+    for(int i=0; i<4; i++)
+        for (int j=0; j<4; j++)
+            gProjectionMatrix[i][j] = new_matrix[i][j];
+}
+
+
+
+
 /*
     1 0 0 0
     0 1 0 0

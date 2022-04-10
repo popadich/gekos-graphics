@@ -174,7 +174,7 @@ static void *worldDataContext = &worldDataContext;
     GKSobjectKind kind = objRep.objectKind.intValue;
     GKSmesh_3 *theMesh = MeshOfKind(kind);
     
-    if (theMesh != nil) {
+    if (theMesh != NULL) {
         GKSvector3d loc = [objRep positionVector];
         GKSvector3d rot = [objRep rotationVector];
         GKSvector3d sca = [objRep scaleVector];
@@ -268,6 +268,21 @@ static void *worldDataContext = &worldDataContext;
     
     [self.theScene transformAllObjects];
     [self.drawingViewController refresh];
+}
+
+- (IBAction)setCenterObjects:(id)sender {
+    
+    if ([sender isKindOfClass:[NSButton class]]) {
+        BOOL state = [sender state];
+        
+        if (state == NSOnState) {
+            setMeshCenteredFlag(true);
+        }
+        
+        if (state == NSOffState) {
+            setMeshCenteredFlag(false);
+        }       
+    }
 }
 
 
