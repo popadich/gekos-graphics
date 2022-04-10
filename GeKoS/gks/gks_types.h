@@ -20,7 +20,7 @@
 #endif
 
 
-#define GKS_POLY_VERTEX_MAX    9
+#define GKS_POLY_VERTEX_MAX    99
 
 typedef int GKSint;
 typedef double GKSfloat;

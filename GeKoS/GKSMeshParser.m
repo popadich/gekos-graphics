@@ -133,12 +133,6 @@
             NSArray* polygonComponentsArr = [self componentsMatchingRegularExpression:@"\\d+" fromString:polygonLine];
             NSString* componentPointCount = polygonComponentsArr[0];
             int verts = [componentPointCount intValue];
-            if (verts > GKS_POLY_VERTEX_MAX) {
-                NSLog(@"Polygon point count %d too large for my buffer", verts);
-                free(vertex_array);
-                free(compact_array);
-                return NULL;
-            }
 
             edge_count += verts;
             poly_count += 1;
