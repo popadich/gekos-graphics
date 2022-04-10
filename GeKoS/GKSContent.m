@@ -32,7 +32,7 @@
         
         
         // TODO: remove when done with playing
-        BOOL playing = NO;
+        BOOL playing = YES;
         if (playing) {
             for (int i=-3; i<4; i++) {
                 GKS3DObject *object3D = [[GKS3DObject alloc] init];

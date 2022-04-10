@@ -172,15 +172,15 @@ void gks_objarr_delete_all(void)
 void compute_object_3(GKSactor *the_actor)
 {
     GKSvertexArrPtr     vertex_array = NULL;
-    GKSpolygonArrPtr    polygon_array = NULL;
+//    GKSpolygonArrPtr    polygon_array = NULL;
     GKSint              *compact_array = NULL;
     GKSDCArrPtr         dev_coord_array = NULL;
     
     GKSint              pid;
     GKSint              polygonCount = 0;
-    GKSint              vertex_idx = 0;
+//    GKSint              vertex_idx = 0;
     GKSint              compact_idx = 0;
-    GKSint              vertexCount = 0;
+//    GKSint              vertexCount = 0;
 
     GKSvector3d         temp_polygon_vertices[GKS_POLY_VERTEX_MAX];
     GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
@@ -196,7 +196,7 @@ void compute_object_3(GKSactor *the_actor)
     }
     
     vertex_array = the_actor->mesh_object.vertices;
-    polygon_array = the_actor->mesh_object.polygons;
+//    polygon_array = the_actor->mesh_object.polygons;
     compact_array = the_actor->mesh_object.polygons_compact;    // TODO: use this instead of polygon_array
     dev_coord_array = the_actor->devcoords;
     
@@ -213,33 +213,36 @@ void compute_object_3(GKSactor *the_actor)
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
-        vertexCount = polygon_array[pid][0];
+//        vertexCount = polygon_array[pid][0];
+        GKSint verts = compact_array[k];
         k += 1;
         
-        for(GKSint j=0; j<vertexCount; j++){
+        for(GKSint j=0; j<verts; j++){
 //            vertex_idx = polygon_array[pid][j+1] - 1;     // this is a gotcha
-            
-            compact_idx = compact_array[k] - 1;
-//            printf("poly_vertex: %d  ---  %d\n", vertex_idx, compact_idx);
+            compact_idx = compact_array[ k + j ] - 1;
 
-            k += 1;
-            
             // TODO: verfiy that this is a copy
             temp_polygon_vertices[j] = vertex_array[compact_idx];
         }
 
-        // FIXME: does not work
-        // dev coords index needs to be filled for each polygon
-        gks_prep_polyline_3(pid, vertexCount, temp_polygon_vertices, temp_device_vertices, &the_actor->line_color);
+
+        // do transforms
+        gks_prep_polyline_3(pid, verts, temp_polygon_vertices, temp_device_vertices, &the_actor->line_color);
         
-        for(GKSint j=0; j<vertexCount; j++){
-            vertex_idx = polygon_array[pid][j+1] - 1;     // this is a gotcha
+        
+        for(GKSint j=0; j<verts; j++){
+//            vertex_idx = polygon_array[pid][j+1] - 1;     // this is a gotcha
+
+//            printf("PID: %d  %d   %d\n", pid, j+1, poly_idx);
+            compact_idx = compact_array[ k + j ] - 1;
+            
+//            printf("Verts: %d  %d\n", vertex_idx, compact_idx);
             // TODO: verfiy that this is a copy
-//            devcoordList[vertexNumber] = temp_device_vertices[j];   // mesh
-            dev_coord_array[vertex_idx] = temp_device_vertices[j];    // actor
+//            dev_coord_array[vertex_idx] = temp_device_vertices[j];   // mesh
+            dev_coord_array[compact_idx] = temp_device_vertices[j];    // actor
         }
 
-        
+        k += verts;
     }
 }
 
@@ -253,7 +256,7 @@ void draw_computed_object_3(GKSactor *the_actor)
         temp_device_vertices[i].y = 0.0;
 
     }
-    GKSpolygonArrPtr polygon_array = the_actor->mesh_object.polygons;
+//    GKSpolygonArrPtr polygon_array = the_actor->mesh_object.polygons;
     GKSint *compact_array = the_actor->mesh_object.polygons_compact;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     
@@ -261,7 +264,8 @@ void draw_computed_object_3(GKSactor *the_actor)
     GKSint k = 0;
 //    printf("draw object\n");
     for (GKSint i=0; i < poly_count; i++) {
-        GKSint vert_count = polygon_array[i][0];
+//        GKSint vert_count = polygon_array[i][0];
+        GKSint vert_count = compact_array[k];
         k += 1;                                                  // vertex count part
         for(GKSint j=0; j<vert_count; j++){
             // FIXME: differs from addObjectRepToScene
