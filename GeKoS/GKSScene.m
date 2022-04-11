@@ -89,6 +89,11 @@
 {
     // FIXME: free allocated memory here
     
+    GKSmesh_3 *its_mesh = NULL;
+    GKS3DObject *lasObj = [self.objectList lastObject];
+    its_mesh = lasObj.getMeshPointer;
+    free_mesh(its_mesh);
+    
     [self.objectList removeLastObject];
 }
 

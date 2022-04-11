@@ -37,4 +37,6 @@ GKSmesh_3 *ConeMesh(void);
 GKSmesh_3 *HouseMesh(void);
 GKSmesh_3 *SphereMesh(void);
 
+void free_mesh(GKSmesh_3 *the_mesh);
+
 #endif /* gks_mesh_h */

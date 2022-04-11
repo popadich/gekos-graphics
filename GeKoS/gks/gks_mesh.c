@@ -340,11 +340,13 @@ GKSmesh_3 *ConeMesh(void)
     // allocate sub arrays and then the container structure object
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(calc_vertex_count, sizeof(GKSvector3d));
+    
     // TODO: compute size of buffer
     GKSpolyArrPtr compact_array = (GKSpolyArrPtr)calloc(5000, sizeof(GKSint));
     GKSmesh_3 *aCone = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     
     
+    //TODO: centering?
     // construct vertices
     GKSint idx = vertex_count;
     // center point of base at zero
@@ -445,3 +447,17 @@ void setMeshCenteredFlag(bool isCentered)
     centeredFlag = isCentered;
 }
 
+void free_mesh(GKSmesh_3 *the_mesh)
+{
+    GKSmesh_3 obj = *the_mesh;
+    GKSvertexArrPtr vertex_array = obj.vertices;
+    GKSint *compact_array = obj.polygons_compact;
+    
+    // Free the memory associated with actor data structure
+    free(vertex_array);
+    obj.vertices = NULL;
+    free(compact_array);
+    obj.polygons_compact = NULL;
+    
+    free(the_mesh);
+}
