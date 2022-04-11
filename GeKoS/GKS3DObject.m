@@ -147,18 +147,14 @@
 - (void)computeAction
 {
     GKSactor act = self.objectActor;
-    
-//    NSLog(@"mesh: %p",&act.mesh_object);
-    
-    // transforms
     gks_compute_object(&act);
 }
 
 - (void)drawActor
 {
     GKSactor act = self.objectActor;
-    
     gks_draw_computed_object(&act);
+    
 }
 
 - (void)generateModelTransform {

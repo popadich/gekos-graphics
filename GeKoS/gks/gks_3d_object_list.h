@@ -21,16 +21,6 @@ void gks_objarr_draw_object(GKSactor *anActor);
 void gks_compute_object(GKSactor *anActor);
 void gks_draw_computed_object(GKSactor *anActor);
 
-//
-
-//
-//GKSactor gks_objarr_object_at_index(int index);
-//
-
 bool gks_objarr_actor_add(GKSactor actor);
-
-void gks_objarr_delete_all(void);
-void gks_objarr_delete_last(void);
-//void gks_objarr_delete_at_index(int index);        // 1s based?
 
 #endif /* gks_3d_object_list_h */

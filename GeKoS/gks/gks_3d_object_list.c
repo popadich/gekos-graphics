@@ -26,7 +26,7 @@
 #include "gks_3d_matrix.h"
 #include "gks_3d_world.h"
 
-#define GKS_MAX_SCENE_ACTORS    32
+#define GKS_MAX_SCENE_ACTORS    1024
 
 static int          _object_count;                          // count of objects 3D
 static GKSactor     object_array[GKS_MAX_SCENE_ACTORS];    // world Scene max objects
@@ -36,15 +36,12 @@ void gks_init_object_list(void)
     _object_count = 0;
 }
 
-
-
 int gks_objarr_count(void)
 {
     return _object_count;
 }
 
 // TODO: return a pointer instead
-
 GKSactor gks_objarr_object_at_index(int index)
 {
     GKSactor object3d = object_array[index];
@@ -114,59 +111,6 @@ void gks_objarr_update_object(GKSint index, GKSobjectKind kind, GKSvector3d tran
 
 
 
-// be careful, this seems to be 1s based indexing. Not sure this has ever been tested.
-void gks_objarr_delete_at_index(int index)
-{
-    int i;
-    
-    int idx = index - 1;
-    if (idx > 0 && idx < _object_count) {
-  
-        GKSmesh_3 obj = object_array[idx].mesh_object;
-        GKSvertexArrPtr vertex_array = obj.vertices;
-//        GKSpolygonArrPtr polygon_array = obj.polygons;
-        GKSint *compact_array = obj.polygons_compact;
-        
-        // Free the memory associated with actor data structure
-        free(vertex_array);
-        obj.vertices = NULL;
-//        free(polygon_array);
-//        obj.polygons = NULL;
-        free(compact_array);
-        obj.polygons_compact = NULL;
-        
-    }
-    
-    // TODO: Never tested
-    if (idx > 0 && index < _object_count) {
-        // index is in the middle of the list
-        // brute force delete from array by copying elements from idx 0s based
-        for (i=idx; i<_object_count; i++) {
-            object_array[i].kind = object_array[i+1].kind;
-            gks_copy_matrix_3(object_array[i+1].model_transform, object_array[i].model_transform);
-            object_array[i].mesh_object = object_array[i+1].mesh_object;
-            // needs line and fill colors and transforms? to be complete.
-            // Better to use linked list instead.
-        }
-    }
-
-    // Finally move stack pointer
-    if (idx < _object_count) _object_count -= 1;
-    
-}
-
-
-void gks_objarr_delete_last(void)
-{
-    gks_objarr_delete_at_index(_object_count);
-}
-
-void gks_objarr_delete_all(void)
-{
-    while (gks_objarr_count() > 0) {
-        gks_objarr_delete_last();
-    }
-}
 
 
 void compute_object_3(GKSactor *the_actor)
@@ -192,8 +136,7 @@ void compute_object_3(GKSactor *the_actor)
     }
     
     vertex_array = the_actor->mesh_object.vertices;
-//    polygon_array = the_actor->mesh_object.polygons;
-    compact_array = the_actor->mesh_object.polygons_compact;    // TODO: use this instead of polygon_array
+    compact_array = the_actor->mesh_object.polygons_compact;
     dev_coord_array = the_actor->devcoords;
     
     // TODO: transform object vertices first
@@ -209,40 +152,34 @@ void compute_object_3(GKSactor *the_actor)
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
-//        vertexCount = polygon_array[pid][0];
-        GKSint verts = compact_array[k];
+        GKSint polygon_size = compact_array[k];
         k += 1;
         
-        for(GKSint j=0; j<verts; j++){
-//            vertex_idx = polygon_array[pid][j+1] - 1;     // this is a gotcha
-            compact_idx = compact_array[ k + j ] - 1;
-
+        for(GKSint j=0; j<polygon_size; j++){
+            compact_idx = compact_array[ k + j ] - 1;     // this is a gotcha
+                                                            // point number to array index
+            
             // TODO: verfiy that this is a copy
             temp_polygon_vertices[j] = vertex_array[compact_idx];
         }
 
 
         // do transforms
-        gks_prep_polyline_3(pid, verts, temp_polygon_vertices, temp_device_vertices, &the_actor->line_color);
+        gks_prep_polyline_3(pid, polygon_size, temp_polygon_vertices, temp_device_vertices, &the_actor->line_color);
         
         
-        for(GKSint j=0; j<verts; j++){
-//            vertex_idx = polygon_array[pid][j+1] - 1;     // this is a gotcha
-
-//            printf("PID: %d  %d   %d\n", pid, j+1, poly_idx);
+        for(GKSint j=0; j<polygon_size; j++){
             compact_idx = compact_array[ k + j ] - 1;
             
-//            printf("Verts: %d  %d\n", vertex_idx, compact_idx);
             // TODO: verfiy that this is a copy
-//            dev_coord_array[vertex_idx] = temp_device_vertices[j];   // mesh
             dev_coord_array[compact_idx] = temp_device_vertices[j];    // actor
         }
 
-        k += verts;
+        k += polygon_size;
     }
 }
 
-void draw_computed_object_3(GKSactor *the_actor)
+void gks_draw_computed_object(GKSactor *the_actor)
 {
     GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
 
@@ -252,18 +189,15 @@ void draw_computed_object_3(GKSactor *the_actor)
         temp_device_vertices[i].y = 0.0;
 
     }
-//    GKSpolygonArrPtr polygon_array = the_actor->mesh_object.polygons;
     GKSint *compact_array = the_actor->mesh_object.polygons_compact;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     
     GKSint poly_count = the_actor->mesh_object.polynum;
     GKSint k = 0;
-//    printf("draw object\n");
     for (GKSint i=0; i < poly_count; i++) {
-//        GKSint vert_count = polygon_array[i][0];
-        GKSint vert_count = compact_array[k];
+        GKSint polygon_size = compact_array[k];
         k += 1;                                                  // vertex count part
-        for(GKSint j=0; j<vert_count; j++){
+        for(GKSint j=0; j<polygon_size; j++){
             // FIXME: differs from addObjectRepToScene
             // vertex numbers in MESH file start at 1.
             // array indices are zero based 0.
@@ -277,8 +211,6 @@ void draw_computed_object_3(GKSactor *the_actor)
             // and the ( - 1) turns a point number
             // which normally start at 1 into a
             // zero based array index.
-//            GKSint vertexIndex = polygon_array[i][j+1] - 1 ;
-            
             GKSint compact_idx = compact_array[k] - 1;
             
             k += 1;
@@ -288,7 +220,7 @@ void draw_computed_object_3(GKSactor *the_actor)
         }
         
         // call-back to drawing routine
-        gks_localpolyline_3(i, vert_count, temp_device_vertices, &the_actor->line_color);
+        gks_localpolyline_3(i, polygon_size, temp_device_vertices, &the_actor->line_color);
         
     }
 }
@@ -303,11 +235,6 @@ void gks_compute_object(GKSactor *the_actor)
     
 }
 
-void gks_draw_computed_object(GKSactor *the_actor)
-{
-    draw_computed_object_3(the_actor);
-    
-}
 
 void gks_objarr_draw_list(void)
 {
