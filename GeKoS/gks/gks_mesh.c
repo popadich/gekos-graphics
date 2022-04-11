@@ -4,6 +4,12 @@
 //
 //  Created by Alex Popadich on 12/5/21.
 //
+// Borrowed spec from wikipedia
+// https://en.wikipedia.org/wiki/OFF_(file_format)
+//
+// This seems to be the definite specification for OFF files
+// http://www.geomview.org/docs/html/OFF.html
+//
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -237,85 +243,84 @@ GKSmesh_3 *HouseMesh(void)
 
 GKSmesh_3 *SphereMesh(void)
 {
-    double          sine_of_i;
-    int             vertexCount = 0;
-    int             polygonCount = 0;
+    GKSint             vertex_count = 0;
+    GKSint             polygon_count = 0;
 
     // degreeDelta and facetCount
     // parameters describing sphere sampling size this controls
     // the number of total vertices and polygons. It goes without
     // saying that the 'degreeDelta' value needs to be a even
     // denominator of 360.
-    int degreeDelta = 10;               // should be a parameter
-    int facetCount = 360/degreeDelta;
-    int computedVertexCount = (180/degreeDelta + 1) * (360/degreeDelta);
-    int computedPolygonCount = computedVertexCount - facetCount;
+    GKSint delta = 10;               // set as parameter
+    GKSint facets = 360/delta;       // number of longitute lines, like orange slices
+    GKSint calc_vertex_count = (180/delta + 1) * (360/delta);
+    GKSint calc_polygon_count = calc_vertex_count - facets;
+    GKSint calc_compact_count = calc_polygon_count * 5;
 
-    // allocate sub arrays and then the container structure object
+    // allocate sub arrays and then the mesh structure to hold them
     // use calloc to clear allocatted memory to zeros
-    GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
-    GKSint *compactPolyList = (GKSint *)calloc(5000, sizeof(GKSint)); // TODO: compute size of buffer
+    GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(calc_vertex_count, sizeof(GKSvector3d));
+    GKSpolyArrPtr compact_array = (GKSint *)calloc(calc_compact_count, sizeof(GKSint));
     GKSmesh_3 *aSphere = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     
     // construct vertices
-   for (int i=0; i<=180; i+=degreeDelta) {
-        for (int j=0; j<360; j+=degreeDelta) {
-            sine_of_i = sin(i*DEG_TO_RAD);
-            int idx = (j+(i*facetCount))/degreeDelta;
-            vertexList[idx].crd.x = 0.5 * sine_of_i * cos(j*DEG_TO_RAD);
-            vertexList[idx].crd.y = 0.5 * sine_of_i * sin(j*DEG_TO_RAD);
-            vertexList[idx].crd.z = 0.5 * cos(i*DEG_TO_RAD);
-            vertexList[idx].crd.w = 1.0;
-            vertexCount += 1;
+   for (GKSint i=0; i<=180; i+=delta) {
+        for (GKSint j=0; j<360; j+=delta) {
+            double sine_of_i = sin(i*DEG_TO_RAD);
+            int idx = (j+(i*facets))/delta;
+            vertex_array[idx].crd.x = 0.5 * sine_of_i * cos(j*DEG_TO_RAD);
+            vertex_array[idx].crd.y = 0.5 * sine_of_i * sin(j*DEG_TO_RAD);
+            vertex_array[idx].crd.z = 0.5 * cos(i*DEG_TO_RAD);
+            vertex_array[idx].crd.w = 1.0;
+            vertex_count += 1;
         }
     }
     
     // construct polygons
-    int k = 0;
-    for (int i=0; i<computedPolygonCount; i+=facetCount) {
-        for (int j=0; j<facetCount; j++) {
-//            polygonList[j+i][0] = 4;
-            compactPolyList[k] = 4;
+    GKSint k = 0;
+    for (GKSint i=0; i<calc_polygon_count; i+=facets) {
+        for (GKSint j=0; j<facets; j++) {
+            compact_array[k] = 4;     // poly size
+            
             k += 1;
-//            polygonList[j+i][1]= j+i+1;
-            GKSint save1 = j+i+1;
-            compactPolyList[k] = j+i+1;
+            GKSint point1 = j+i+1;
+            compact_array[k] = point1;
+            
             k += 1;
-//            polygonList[j+i][2] = ((j+1) % facetCount) + i + 1;
-            GKSint save2 = ((j+1) % facetCount) + i + 1;
-            compactPolyList[k] = ((j+1) % facetCount) + i + 1;
+            GKSint point2 = ((j+1) % facets) + i + 1;
+            compact_array[k] = point2;
+            
             k += 1;
-//            polygonList[j+i][3] = polygonList[j+i][2]+facetCount;
-            compactPolyList[k] = save2 + facetCount;
+            compact_array[k] = point2 + facets;
+            
             k += 1;
-//            polygonList[j+i][4] = polygonList[j+i][1]+facetCount;
-            compactPolyList[k] = save1 + facetCount;
+            compact_array[k] = point1 + facets;
+            
             k += 1;
-            polygonCount += 1;
+            polygon_count += 1;
             
         }
     }
     
-//    printf("Size of sphere polygons: %d\n", polygonCount * 4 + polygonCount);
-//    printf("Size of compact polygons: %d\n", k);
-//
+//    printf("polygons: %d   %d\n", k, calc_compact_count);
+
     
-    if (computedPolygonCount != polygonCount) {
+    if (calc_polygon_count != polygon_count) {
         // Should throw something, because this should never happen
         // printf("Something is wrong !!\n");
         return NULL;
     }
     
-    if (computedVertexCount != vertexCount) {
+    if (calc_vertex_count != vertex_count) {
         // throw something here, because this should never happen
         // NSLog(@"ERROR: vertex counts do not match.");
         return NULL;
     }
     
-    aSphere->vertices = vertexList;
-    aSphere->vertnum = vertexCount;
-    aSphere->polynum = polygonCount;
-    aSphere->polygons_compact = compactPolyList;
+    aSphere->vertices = vertex_array;
+    aSphere->vertnum = vertex_count;
+    aSphere->polygons_compact = compact_array;
+    aSphere->polynum = polygon_count;
 
     return aSphere;
 }

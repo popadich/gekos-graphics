@@ -106,6 +106,7 @@ typedef GKSint      GKSpolygon_3[GKS_POLY_VERTEX_MAX];
 
 typedef GKSvector3d     *GKSvertexArrPtr;       // list of 3D points for each polygon
 typedef GKSpoint_2      *GKSDCArrPtr;
+typedef GKSint          *GKSpolyArrPtr;
 typedef GKSvector3d     *GKSnormalArrPtr;       // normal vector to each polygon
 
 
@@ -113,8 +114,8 @@ typedef struct
 {
     GKSint vertnum;
     GKSint polynum;
-    GKSvertexArrPtr  vertices;
-    GKSint           *polygons_compact;
+    GKSvertexArrPtr vertices;
+    GKSpolyArrPtr polygons_compact;
 } GKSmesh_3;
 
 typedef enum {
