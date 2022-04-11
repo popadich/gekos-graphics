@@ -48,7 +48,7 @@ GKSmesh_3 *MeshOfKind(GKSobjectKind kind)
 
 GKSmesh_3 *CubeMesh(void)
 {
-    static GKSpoint_3 cube_verts[GKS_CUBE_VERTEX_COUNT] = {
+    static GKSpoint_3 object_verts[GKS_CUBE_VERTEX_COUNT] = {
         {0.0, 0.0, 0.0},
         {1.0, 0.0, 0.0},
         {1.0, 1.0, 0.0},
@@ -76,7 +76,7 @@ GKSmesh_3 *CubeMesh(void)
     GKSpolyArrPtr compact_array = (GKSpolyArrPtr)calloc(GKS_CUBE_PARRAY_SIZE, sizeof(GKSint));
 
     // copy vertices using pointer arithmetic
-    p = cube_verts;
+    p = object_verts;
     q = vertex_array;
     for(GKSint i=0; i<GKS_CUBE_VERTEX_COUNT; i++) {
         q->crd.x = p->x;
@@ -115,7 +115,7 @@ GKSmesh_3 *CubeMesh(void)
 GKSmesh_3 *PyramidMesh(void)
 {
     // Put some code here to configure a Pyramid.
-    static GKSpoint_3 pyramid_verts[GKS_PYRAMID_VERTEX_COUNT] = {
+    static GKSpoint_3 object_verts[GKS_PYRAMID_VERTEX_COUNT] = {
         {0.0, 0.0, 0.0},
         {1.0, 0.0, 0.0},
         {1.0, 0.0, 1.0},
@@ -139,7 +139,7 @@ GKSmesh_3 *PyramidMesh(void)
     GKSpolyArrPtr compact_array = (GKSint *)calloc(GKS_PYRAMID_PARRAY_SIZE, sizeof(GKSint));
 
     // copy vertices using pointer arithmetic
-    p = pyramid_verts;
+    p = object_verts;
     q = vertex_array;
     for(GKSint i=0; i<GKS_PYRAMID_VERTEX_COUNT; i++) {
         q->crd.x = p->x;
@@ -175,7 +175,7 @@ GKSmesh_3 *PyramidMesh(void)
 
 GKSmesh_3 *HouseMesh(void)
 {
-    static GKSpoint_3 objectvert[GKS_HOUSE_VERTEX_COUNT] = {
+    static GKSpoint_3 object_verts[GKS_HOUSE_VERTEX_COUNT] = {
         {0, 0,30},
         {16, 0,30},
         {16,10,30},
@@ -187,7 +187,7 @@ GKSmesh_3 *HouseMesh(void)
         {8,16,54},
         {0,10,54}
     };
-    static GKSpolygon_3 object_poly[GKS_HOUSE_POLYGON_COUNT] = {
+    static GKSpolygon_3 object_polys[GKS_HOUSE_POLYGON_COUNT] = {
         {5, 5, 4, 3, 2, 1},
         {5, 6, 7, 8, 9, 10},
         {4, 1, 2, 7, 6},
@@ -202,12 +202,12 @@ GKSmesh_3 *HouseMesh(void)
     GKSmesh_3 *aHouse = NULL;
 
     // clear memory allocation to zeros
-    GKSvertexArrPtr vertexList = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
-    GKSint *compactPolyList = (GKSint *)calloc(GKS_HOUSE_PARRAY_SIZE, sizeof(GKSint)); // one extra for buffer
+    GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
+    GKSint *compact_array = (GKSint *)calloc(GKS_HOUSE_PARRAY_SIZE, sizeof(GKSint)); // one extra for buffer
     
     // copy vertices using pointer arithmetic
-    p = objectvert;
-    q = vertexList;
+    p = object_verts;
+    q = vertex_array;
     for(int i=0; i<GKS_HOUSE_VERTEX_COUNT; i++) {
         q->crd.x = p->x;
         q->crd.y = p->y;
@@ -224,19 +224,18 @@ GKSmesh_3 *HouseMesh(void)
     // copy polygon data using array indexing
     int k = 0;
     for(int i=0; i<GKS_HOUSE_POLYGON_COUNT; i++) {
-        int polygonSize = object_poly[i][0] + 1;
-        for(int j=0; j<polygonSize; j++) {
-            
-            compactPolyList[k] = object_poly[i][j];    // compact string all in a row
+        int polygon_size = object_polys[i][0] + 1;
+        for(int j=0; j<polygon_size; j++) {
+            compact_array[k] = object_polys[i][j];
             k += 1;
         }
     }
 
     aHouse = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
-    aHouse->vertices = vertexList;
+    aHouse->vertices = vertex_array;
     aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
+    aHouse->polygons_compact = compact_array;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
-    aHouse->polygons_compact = compactPolyList;
 
     return aHouse;
 }
@@ -267,7 +266,7 @@ GKSmesh_3 *SphereMesh(void)
    for (GKSint i=0; i<=180; i+=delta) {
         for (GKSint j=0; j<360; j+=delta) {
             double sine_of_i = sin(i*DEG_TO_RAD);
-            int idx = (j+(i*facets))/delta;
+            GKSint idx = (j+(i*facets))/delta;
             vertex_array[idx].crd.x = 0.5 * sine_of_i * cos(j*DEG_TO_RAD);
             vertex_array[idx].crd.y = 0.5 * sine_of_i * sin(j*DEG_TO_RAD);
             vertex_array[idx].crd.z = 0.5 * cos(i*DEG_TO_RAD);
