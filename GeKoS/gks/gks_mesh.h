@@ -33,7 +33,7 @@ GKSmesh_3 *MeshOfKind(GKSobjectKind kind);
 
 GKSmesh_3 *CubeMesh(void);
 GKSmesh_3 *PyramidMesh(void);
-GKSmesh_3 *ConeHead(void);
+GKSmesh_3 *ConeMesh(void);
 GKSmesh_3 *HouseMesh(void);
 GKSmesh_3 *SphereMesh(void);
 

@@ -24,8 +24,8 @@ GKSmesh_3 *MeshOfKind(GKSobjectKind kind)
 {
     GKSmesh_3 *theMesh = NULL;
     switch (kind) {
-        case kSpaceConeKind:
-            theMesh = ConeHead();
+        case kConeKind:
+            theMesh = ConeMesh();
             break;;
         case kPyramidKind:
             theMesh = PyramidMesh();
@@ -136,7 +136,7 @@ GKSmesh_3 *PyramidMesh(void)
     
     // clear memory allocation to zeros
     GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
-    GKSpolyArrPtr compact_array = (GKSint *)calloc(GKS_PYRAMID_PARRAY_SIZE, sizeof(GKSint));
+    GKSpolyArrPtr compact_array = (GKSpolyArrPtr)calloc(GKS_PYRAMID_PARRAY_SIZE, sizeof(GKSint));
 
     // copy vertices using pointer arithmetic
     p = object_verts;
@@ -203,7 +203,7 @@ GKSmesh_3 *HouseMesh(void)
 
     // clear memory allocation to zeros
     GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
-    GKSint *compact_array = (GKSint *)calloc(GKS_HOUSE_PARRAY_SIZE, sizeof(GKSint)); // one extra for buffer
+    GKSint *compact_array = (GKSpolyArrPtr)calloc(GKS_HOUSE_PARRAY_SIZE, sizeof(GKSint));
     
     // copy vertices using pointer arithmetic
     p = object_verts;
@@ -259,7 +259,7 @@ GKSmesh_3 *SphereMesh(void)
     // allocate sub arrays and then the mesh structure to hold them
     // use calloc to clear allocatted memory to zeros
     GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(calc_vertex_count, sizeof(GKSvector3d));
-    GKSpolyArrPtr compact_array = (GKSint *)calloc(calc_compact_count, sizeof(GKSint));
+    GKSpolyArrPtr compact_array = (GKSpolyArrPtr)calloc(calc_compact_count, sizeof(GKSint));
     GKSmesh_3 *aSphere = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     
     // construct vertices
@@ -324,7 +324,7 @@ GKSmesh_3 *SphereMesh(void)
     return aSphere;
 }
 
-GKSmesh_3 *ConeHead(void)
+GKSmesh_3 *ConeMesh(void)
 {
     GKSint vertex_count = 0;
     
@@ -332,19 +332,21 @@ GKSmesh_3 *ConeHead(void)
     // fron that we compute the number of total vertices and polygons.
     // It goes without saying that the 'degreeDelta' value needs to be a even
     // denominator of 360.
-    int degreeDelta = 10;               // should be a parameter
-    int computedVertexCount = (360/degreeDelta) + 1 + 1;
-    int computedPolygonCount = 360/degreeDelta * 2 + 2;
+    GKSint delta = 10;               // should be a parameter
+    GKSint facets = 360/delta;
+    GKSint calc_vertex_count = facets + 1 + 1;
+    GKSint calc_polygon_count = facets * 2;
     
     // allocate sub arrays and then the container structure object
     // use calloc to clear allocatted memory to zeros
-    GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(computedVertexCount, sizeof(GKSvector3d));
-    GKSint *compact_array = (GKSint *)calloc(5000, sizeof(GKSint)); // TODO: compute size of buffer
+    GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(calc_vertex_count, sizeof(GKSvector3d));
+    // TODO: compute size of buffer
+    GKSpolyArrPtr compact_array = (GKSpolyArrPtr)calloc(5000, sizeof(GKSint));
     GKSmesh_3 *aCone = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     
     
     // construct vertices
-    int  idx = vertex_count;
+    GKSint idx = vertex_count;
     // center point of base at zero
     vertex_array[idx].crd.x = 0.0;
     vertex_array[idx].crd.y = 0.0;
@@ -359,7 +361,7 @@ GKSmesh_3 *ConeHead(void)
     vertex_count += 1;
 
     // vertices at edge of circle on X-Z plane
-    for (int j=0; j<360; j+=degreeDelta) {
+    for (int j=0; j<360; j+=delta) {
         idx = vertex_count;
         vertex_array[idx].crd.x = 0.5 * cos(j*DEG_TO_RAD);
         vertex_array[idx].crd.y = 0.0;
@@ -368,61 +370,36 @@ GKSmesh_3 *ConeHead(void)
         vertex_count += 1;
     }
 
-    
-    //    for (GKSint i=0; i<vertex_count; i++) {
-    //        printf("vert %d: %lf, %lf, %lf\n", i,
-    //               vertex_array[i].crd.x,
-    //               vertex_array[i].crd.y,
-    //               vertex_array[i].crd.z);
-    //    }
-
     // construct polygons
     GKSint O0 = 0;
     GKSint O1 = 1;
     GKSint P1 = 2;
     GKSint P2 = 3;
-    GKSint polygonSize = 3;
-    GKSint polygon_count = (vertex_count - 2) * 2 + 2;
+    GKSint polygon_size = 3;
+    GKSint polygon_count = (vertex_count - 2) * 2;
     
-//    printf("poly counts: %d   %d\n\n", computedPolygonCount, polygon_count);
-
     GKSint k = 0;
     for(GKSint i=0; i < polygon_count - 2; i+=2) {
         
         // polygon 1
-//        polygon_array[i][0] = polygonSize;
-        compact_array[k] = polygonSize;
+        compact_array[k] = polygon_size;
         k += 1;
-        
         // from center of base to segment at rim
-//        polygon_array[i][1] = O0 + 1;
         compact_array[k] = O0 + 1;
         k += 1;
-        
-//        polygon_array[i][2] = P1 + 1;
         compact_array[k] = P1 + 1;
         k += 1;
-        
-//        polygon_array[i][3] = P2 + 1;
         compact_array[k] = P2 + 1;
         k += 1;
         
-        
         // polygon 2
-//        polygon_array[i+1][0] = polygonSize;
-        compact_array[k] = polygonSize;
+        compact_array[k] = polygon_size;
         k += 1;
-        
         // from peak to segment at rim
-//        polygon_array[i+1][1] = O1 + 1;
         compact_array[k] = O1 + 1;
         k += 1;
-        
-//        polygon_array[i+1][2] = P1 + 1;
         compact_array[k] = P1 + 1;
         k += 1;
-        
-//        polygon_array[i+1][3] = P2 + 1;
         compact_array[k] = P2 + 1;
         k += 1;
         
@@ -432,52 +409,35 @@ GKSmesh_3 *ConeHead(void)
         
     }
     
-    
-    
     // polygon 1
-//    polygon_array[polygon_count-2][0] = polygonSize;
-    compact_array[k] = polygonSize;
+    compact_array[k] = polygon_size;
     k += 1;
-    
     // from center of base to segment at rim
-//    polygon_array[polygon_count-2][1] = O0 + 1;
     compact_array[k] = 1;
     k += 1;
-    
-//    polygon_array[polygon_count-2][2] = P1 + 1;
     compact_array[k] = P1 + 1;
     k += 1;
-    
-//    polygon_array[polygon_count-2][3] = 3;
     compact_array[k] = 3;
     k += 1;
 
     // polygon 2
-//    polygon_array[polygon_count-1][0] = polygonSize;
-    compact_array[k] = polygonSize;
+    compact_array[k] = polygon_size;
     k += 1;
-    
     // from peak to segment at rim
-//    polygon_array[polygon_count-1][1] = O1 + 1;
     compact_array[k] = O1 + 1;
     k += 1;
-    
-//    polygon_array[polygon_count-1][2] = P1 + 1;
     compact_array[k] = P1 + 1;
     k += 1;
-    
-//    polygon_array[polygon_count-1][3] = 3;
     compact_array[k] = 3;
     k += 1;
     
-
     
     aCone->vertices = vertex_array;
     aCone->polygons_compact = compact_array;
-    aCone->vertnum = computedVertexCount;
-    aCone->polynum = computedPolygonCount;
+    aCone->vertnum = calc_vertex_count;
+    aCone->polynum = calc_polygon_count;
 
-    return NULL;
+    return aCone;
 }
 
 void setMeshCenteredFlag(bool isCentered)
