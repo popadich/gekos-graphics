@@ -147,13 +147,13 @@
 - (void)computeAction
 {
     GKSactor act = self.objectActor;
-    gks_compute_object(&act);
+    gks_pipeline_object_actor(&act);
 }
 
 - (void)drawActor
 {
     GKSactor act = self.objectActor;
-    gks_draw_computed_object(&act);
+    gks_draw_piped_actor(&act);
     
 }
 

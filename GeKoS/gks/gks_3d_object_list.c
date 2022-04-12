@@ -113,7 +113,7 @@ void gks_objarr_update_object(GKSint index, GKSobjectKind kind, GKSvector3d tran
 
 
 
-void compute_object_3(GKSactor *the_actor)
+void pipeline_actor(GKSactor *the_actor)
 {
     GKSvertexArrPtr     vertex_array = NULL;
     GKSint              *compact_array = NULL;
@@ -179,59 +179,47 @@ void compute_object_3(GKSactor *the_actor)
     }
 }
 
-void gks_draw_computed_object(GKSactor *the_actor)
+void gks_draw_piped_actor(GKSactor *the_actor)
 {
-    GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
+    GKSpoint_2          dev_coord_buffer[GKS_POLY_VERTEX_MAX];
 
-    for (GKSint i=0; i<GKS_POLY_VERTEX_MAX; i++) {
-
-        temp_device_vertices[i].x = 0.0;
-        temp_device_vertices[i].y = 0.0;
-
-    }
-    GKSint *compact_array = the_actor->mesh_object.polygons_compact;
+    GKSint poly_count           = the_actor->mesh_object.polynum;
+    GKSpolyArrPtr polygon_array = the_actor->mesh_object.polygons_compact;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     
-    GKSint poly_count = the_actor->mesh_object.polynum;
     GKSint k = 0;
     for (GKSint i=0; i < poly_count; i++) {
-        GKSint polygon_size = compact_array[k];
-        k += 1;                                                  // vertex count part
+        GKSint polygon_size = polygon_array[k];
+        k += 1;     // vertex count part
         for(GKSint j=0; j<polygon_size; j++){
-            // FIXME: differs from addObjectRepToScene
+            
+            // TODO: check addObjectRepToScene
             // vertex numbers in MESH file start at 1.
-            // array indices are zero based 0.
-            // so, -1 from vertex index -> array index.
-            // 4,3,2,1 -> 3,2,1,0
-            //
-            
-            
-            // this is a gotcha the j+1 skips
-            // the vertex count part of the matrix
-            // and the ( - 1) turns a point number
+            // the ( - 1) turns a point number
             // which normally start at 1 into a
             // zero based array index.
-            GKSint compact_idx = compact_array[k] - 1;
-            
+            GKSint compact_idx = polygon_array[k] - 1;
+            dev_coord_buffer[j] = dev_coord_array[compact_idx];
+
             k += 1;
-                        
-            // TODO: verfiy that this is a copy
-            temp_device_vertices[j] = dev_coord_array[compact_idx];
         }
         
         // call-back to drawing routine
-        gks_localpolyline_3(i, polygon_size, temp_device_vertices, &the_actor->line_color);
+        gks_localpolyline_3(i, polygon_size, dev_coord_buffer, &the_actor->line_color);
         
     }
 }
 
 
 // TODO: pipeline objects
-void gks_compute_object(GKSactor *the_actor)
+void gks_pipeline_object_actor(GKSactor *the_actor)
 {
+    // TODO: set all pipeline matrices
+    
     // set object into the world
     gks_set_world_model_matrix(the_actor->model_transform);
-    compute_object_3(the_actor);
+    
+    pipeline_actor(the_actor);
     
 }
 
@@ -240,7 +228,7 @@ void gks_objarr_draw_list(void)
 {
     for (int i=0; i<_object_count; i++) {
         GKSactor *actor_ptr = &object_array[i];
-        gks_compute_object(actor_ptr);
-        gks_draw_computed_object(actor_ptr);
+        gks_pipeline_object_actor(actor_ptr);
+        gks_draw_piped_actor(actor_ptr);
     }
 }
