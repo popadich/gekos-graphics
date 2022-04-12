@@ -7,6 +7,7 @@
 
 #include "gks_3d_view_orient.h"
 #include "gks_3d_matrix.h"
+#include "stdio.h"
 
 // P R I V A T E    O K
 static GKSmatrix_3      gViewMatrix;       // View Plane Orientation Matrix
@@ -36,7 +37,23 @@ GKSmatrix_3 *gks_view_matrix_get(void)
     return &gViewMatrix;
 }
 
-void gks_view_matrix_gen(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, GKSmatrix_3 result) {
+void gks_view_matrix_w_get(GKSvector3dPtr w_dir)
+{
+    for (int i=0; i<4; i++) {
+        GKSfloat a = gViewMatrix[2][i];
+        w_dir->arr[i] = a;
+    }
+}
+
+void gks_view_matrix_p_get(GKSvector3dPtr p_loc)
+{
+    for (int i=0; i<4; i++) {
+        GKSfloat a = gViewMatrix[i][3];
+        p_loc->arr[i] = a;
+    }
+}
+
+void gks_view_matrix_compute(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, GKSmatrix_3 result) {
 
     GKSvector3d u_vector;           // u_vector points along uHat
     GKSvector3d v_vector;           // v_vector points along vHat
@@ -110,13 +127,13 @@ void gks_view_matrix_gen(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, 
     
 }
 
-void gks_view_matrix_calc_dir_vector(GKSvector3d obs, GKSvector3d look, GKSvector3dPtr dir)
+void gks_view_matrix_dir_vector_calc(GKSvector3d obs, GKSvector3d look, GKSvector3dPtr dir)
 {
     vectorsubtract(look, obs, dir);
     vectornormal(*dir, dir);
 }
 
-void gks_view_matrix_gen_lookat(GKSvector3d obs, GKSvector3d look, GKSvector3d up, GKSmatrix_3 result)
+void gks_view_matrix_lookat_compute(GKSvector3d obs, GKSvector3d look, GKSvector3d up, GKSmatrix_3 result)
 {
     GKSvector3d w_vector;
     GKSvector3d u_vector;           // u_vector points along uHat

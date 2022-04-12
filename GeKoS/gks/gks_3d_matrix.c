@@ -400,12 +400,6 @@ void vectorcrossproduct(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c){
     c->arr[2] = a.arr[0]*b.arr[1]-b.arr[0]*a.arr[1];
 }
 
-void vecsub(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b, GKSpoint_3_Ptr c)
-{
-    GKSint k;
-    for (k=0; k<3; k++) c[k]=a[k]-b[k];
-}
-
 void vectorsubtract(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c)
 {
     GKSint k;

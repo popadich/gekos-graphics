@@ -77,7 +77,7 @@ bool gks_objarr_actor_add(GKSactor actor)
 }
 
 
-void gks_objarr_update_object(GKSint index, GKSobjectKind kind, GKSvector3d translate, GKSvector3d rotate, GKSvector3d scale)
+void gks_objarr_update_object(GKSint index, GKSkind kind, GKSvector3d translate, GKSvector3d rotate, GKSvector3d scale)
 {
     GKSfloat rx, ry, rz;
     rx = rotate.crd.x;

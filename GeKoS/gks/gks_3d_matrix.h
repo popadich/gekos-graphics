@@ -52,7 +52,6 @@ GKSfloat vecdot(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b);
 GKSfloat vectordotproduct(GKSvector3d a, GKSvector3d b);
 void vecprod(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b, GKSpoint_3_Ptr c);
 void vectorcrossproduct(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c);
-void vecsub(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b, GKSpoint_3_Ptr c);
 void vectorsubtract(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c);
 void vectoradd(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c);
 void vecscale(GKSfloat k, GKSpoint_3_Ptr a, GKSpoint_3_Ptr b);

@@ -20,7 +20,7 @@
 static bool centeredFlag = false;
 
 
-GKSmesh_3 *MeshOfKind(GKSobjectKind kind)
+GKSmesh_3 *MeshOfKind(GKSkind kind)
 {
     GKSmesh_3 *theMesh = NULL;
     switch (kind) {

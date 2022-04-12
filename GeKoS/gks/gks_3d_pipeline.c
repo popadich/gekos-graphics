@@ -14,11 +14,23 @@
 #include "gks_3d_normalization.h"
 
 
-
+GKSbool do_clipping(GKSint polygon_id, GKSvector3dPtr dir_vec, GKSvector3dPtr point_on_plane, GKSvector3dPtr segment_point)
+{
+    GKSbool in = true;
+    GKSfloat inoutdist = vectordotproduct(*segment_point, *dir_vec);
+//    printf("pol ID %d: %lf\n", polygon_id, inoutdist);
+    if (inoutdist > 0) {
+        in = false;
+    } else if (inoutdist < 0){
+        in = true;
+    }
+    return in;
+}
 
 // Primitive 3D pipeline
-void pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
+GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
 {
+    GKSbool visible = true;
     GKSvector3d   world_model_coord = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d   world_model_norm_coord = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d   cartesian_coord = GKSMakeVector(0.0, 0.0, 0.0);
@@ -27,9 +39,9 @@ void pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_ar
     GKSpoint_2    dc;  // device coordinate
     
     // Get transformation matrices
-    GKSmatrix_3 *world_matrix = gks_get_world_model_matrix();
-    GKSmatrix_3 *view_matrix = gks_view_matrix_get();
-    GKSmatrix_3 *projection_matrix = gks_projection_get_matrix();
+    GKSmatrixPtr world_matrix = gks_get_world_model_matrix();
+    GKSmatrixPtr view_matrix = gks_view_matrix_get();
+    GKSmatrixPtr projection_matrix = gks_projection_get_matrix();
 
     for (GKSint i=0; i<num_pt; i++) {
         // put object in world
@@ -54,6 +66,12 @@ void pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_ar
         // *** DO CLIPPING HERE ***
         // ON CAMERA COORDINATE BEFORE HOMOGENEOUS PROJECTION SCALING
         // clipping on the view volume which is now shaped like a cube
+
+        GKSvector3d view_dir_vec;
+        gks_view_matrix_w_get(&view_dir_vec);
+        GKSvector3d location_vec;
+        gks_view_matrix_p_get(&location_vec);
+        visible = do_clipping(polygonID, &view_dir_vec, &location_vec, &camera_coord);
         
         // Delayed projection scaling/normalization
         cartesian_coord = GKSMakeVector(camera_coord.crd.x/camera_coord.crd.w, camera_coord.crd.y/camera_coord.crd.w, camera_coord.crd.z/camera_coord.crd.w);
@@ -64,6 +82,7 @@ void pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_ar
         dc_array[i] = dc;
     }
 
+    return visible;
 }
 
 
@@ -77,6 +96,7 @@ void pipeline_actor(GKSactor *the_actor)
     GKSvertexArrPtr vertex_array = the_actor->mesh_object.vertices;
     GKSpolyArrPtr poly_array = the_actor->mesh_object.polygons_compact;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
+    the_actor->hidden = false;
     
     // TODO: transform all object vertices first
     // to speed things up I should transform all the vertices of the object
@@ -97,7 +117,11 @@ void pipeline_actor(GKSactor *the_actor)
         }
 
         // do transforms on temporary device polygons
-        pipeline_polygon(pid, polygon_size, polygon_vertex_buffer, dev_coord_buffer, &the_actor->line_color);
+        GKSbool in = pipeline_polygon(pid, polygon_size, polygon_vertex_buffer, dev_coord_buffer, &the_actor->line_color);
+        if (!in) {
+            the_actor->hidden = true;
+            break;
+        }
         
         // copy transformed points back to actor array
         for(GKSint j=0; j<polygon_size; j++){
@@ -112,6 +136,9 @@ void pipeline_actor(GKSactor *the_actor)
 
 void gks_draw_piped_actor(GKSactor *the_actor)
 {
+    if (the_actor->hidden) {
+        return;
+    }
     GKSpoint_2          dev_coord_buffer[GKS_POLY_VERTEX_MAX];
 
     GKSint poly_count           = the_actor->mesh_object.polynum;

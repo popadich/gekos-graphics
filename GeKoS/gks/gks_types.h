@@ -62,7 +62,9 @@ typedef struct
 } GKSlimits_3;
 
 typedef GKSfloat GKSmatrix_3[4][4];
+typedef GKSmatrix_3 *GKSmatrixPtr;
 typedef GKSfloat GKSvector_3[4];
+
 
 // Union of Gpt_3 points and Vector_4 arrays
 union GKSvector3d {
@@ -124,14 +126,14 @@ typedef enum {
     kPyramidKind,
     kConeKind,
     kHouseKind
-} GKSobjectKind;
+} GKSkind;
 
 typedef struct
 {
     GKSint object_id;
     GKSbool hidden;
     GKSfloat priority;
-    GKSobjectKind kind;
+    GKSkind kind;
     GKSmesh_3 mesh_object;    // TODO: this should be a pointer?
     GKSmatrix_3 model_transform; // TODO: not necessary if vectors are kept
     GKSvector3d scale_vector;

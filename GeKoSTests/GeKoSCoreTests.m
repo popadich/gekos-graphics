@@ -621,17 +621,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(scalar_value, 5.0, 0.001);
 }
 
-- (void)testVecSub {
-    GKSpoint_3 va = {1.0, 2.0, 3.0, 1.0};
-    GKSpoint_3 vb = {2.0, 0.0, 1.0, 0.0};
-    GKSpoint_3 vc;
-    
-    vecsub((GKSpoint_3_Ptr)&va, (GKSpoint_3_Ptr)&vb, (GKSpoint_3_Ptr)&vc);
-    XCTAssertEqualWithAccuracy(vc.x, -1.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.y, 2.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.z, 2.0, 0.001);
-}
-
 - (void)testVectorSubtract {
     GKSvector3d va = {1.0, 2.0, 3.0, 1.0};
     GKSvector3d vb = {2.0, 0.0, 1.0, 0.0};
@@ -1009,7 +998,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     up.crd.w = 1.0;
     
     gks_view_matrix_init();
-    gks_view_matrix_gen(loc, dir, up, result_matrix);
+    gks_view_matrix_compute(loc, dir, up, result_matrix);
     
     XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[0][1], 0.0, epsilon);
@@ -1056,7 +1045,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     gks_view_matrix_init();
 
-    gks_view_matrix_gen(loc, dir, up, result_matrix);
+    gks_view_matrix_compute(loc, dir, up, result_matrix);
 
     XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
     XCTAssertEqualWithAccuracy(result_matrix[0][1], 0.0, epsilon);
@@ -1104,7 +1093,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
+    gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);
     
     XCTAssertEqual(theResultMatrix[0][0], 1.0);
     XCTAssertEqual(theResultMatrix[1][1], 1.0);
@@ -1139,7 +1128,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
+    gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);
     
     XCTAssertEqual(theResultMatrix[0][0], 1.0);
     XCTAssertEqual(theResultMatrix[1][1], 1.0);
@@ -1174,7 +1163,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
+    gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);
     
     XCTAssertEqualWithAccuracy(theResultMatrix[0][0], 0.7071, epsilon);
     XCTAssertEqual(theResultMatrix[0][1], 0.0);
@@ -1220,7 +1209,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     gks_view_matrix_init();
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
-    gks_view_matrix_gen_lookat(obs, look, up, theResultMatrix);
+    gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);
     
     XCTAssertEqualWithAccuracy(theResultMatrix[0][0], 1.0, epsilon);
     XCTAssertEqual(theResultMatrix[0][1], 0.0);

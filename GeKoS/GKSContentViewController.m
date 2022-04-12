@@ -171,7 +171,7 @@ static void *worldDataContext = &worldDataContext;
 {
     // use ObjRep to create an Obj3D
     
-    GKSobjectKind kind = objRep.objectKind.intValue;
+    GKSkind kind = objRep.objectKind.intValue;
     GKSmesh_3 *theMesh = MeshOfKind(kind);
     
     if (theMesh != NULL) {
