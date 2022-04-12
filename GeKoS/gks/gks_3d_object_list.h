@@ -18,9 +18,6 @@ int  gks_objarr_count(void);
 
 void gks_objarr_draw_object(GKSactor *anActor);
 
-void gks_pipeline_object_actor(GKSactor *anActor);
-void gks_draw_piped_actor(GKSactor *anActor);
-
 bool gks_objarr_actor_add(GKSactor actor);
 
 #endif /* gks_3d_object_list_h */

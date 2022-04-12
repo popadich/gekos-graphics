@@ -17,6 +17,7 @@
 #include "gks_3d_vantage.h"
 #include "gks_3d_world.h"
 #include "gks_3d_view_orient.h"
+#include "gks_3d_pipeline.h"
 #include "gks_3d_object_list.h"
 #include "gks_drawing_glue.h"
 
