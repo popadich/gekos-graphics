@@ -17,8 +17,6 @@ typedef void (*localpolyline_cb_t)(GKSint polygonID, GKSint num_pt, GKSDCArrPtr 
 
 int localpolyline_cb_register(localpolyline_cb_t cb, void *userdata);
 
-void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor);
-
 void gks_localpolyline_3(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array, GKScolor *lineColor);
 
 
