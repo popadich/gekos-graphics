@@ -72,13 +72,8 @@
         the_actor.rotate_vector = rotation;
         the_actor.translate_vector = location;
         
-        CGFloat r,g,b,a;
-        NSColor* theColor = self.lineColor;
-        [theColor getRed:&r green:&g blue:&b alpha:&a];
-        GKScolor line_color = {r,g,b,a};
-        theColor = self.fillColor;
-        [theColor getRed:&r green:&g blue:&b alpha:&a];
-        GKScolor fill_color = {r,g,b,a};
+        GKScolor line_color = {0.0, 1.0, 0.0, 1.0};
+        GKScolor fill_color = {0.0, 1.0, 0.0, 1.0};
         the_actor.line_color = line_color;
         the_actor.fill_color = fill_color;
         
@@ -165,15 +160,33 @@
     return rot;
 }
 
+- (void)setLineColor:(NSColor *)lineColor
+{
+    CGFloat r,g,b,a;
+    [lineColor getRed:&r green:&g blue:&b alpha:&a];
+    GKScolor line_color = {r,g,b,a};
+    the_actor.line_color = line_color;
+
+    _lineColor = lineColor;
+}
+
+- (void)setFillColor:(NSColor *)fillColor
+{
+    CGFloat r,g,b,a;
+    [fillColor getRed:&r green:&g blue:&b alpha:&a];
+    GKScolor fill_color = {r,g,b,a};
+    the_actor.fill_color = fill_color;
+    
+    _fillColor = fillColor;
+}
+
 - (void)computeAction
 {
-//    GKSactor act = self.objectActor;
     gks_pipeline_object_actor(&the_actor);
 }
 
 - (void)drawActor
 {
-//    GKSactor act = self.objectActor;
     gks_draw_piped_actor(&the_actor);
     
 }
@@ -201,43 +214,9 @@
     gks_copy_matrix_3(transform, the_actor.model_transform);
 }
 
-- (GKSactor)objectActor
+- (GKSactor *)objectActor
 {
-//    GKSactor anActor;
-//    
-//    anActor.kind = 0;       // not needed
-//    anActor.hidden = self.hidden.boolValue;
-//    
-//    GKSvector3d position = [self positionVector];
-//    GKSvector3d rotation = [self rotationVector];
-//    GKSvector3d scale = [self scaleVector];
-//    
-//    CGFloat r,g,b,a;
-//    NSColor* theColor = self.lineColor;
-//    [theColor getRed:&r green:&g blue:&b alpha:&a];
-//    GKScolor line_color = {r,g,b,a};
-//    theColor = self.fillColor;
-//    [theColor getRed:&r green:&g blue:&b alpha:&a];
-//    GKScolor fill_color = {r,g,b,a};
-//
-//    
-//    //What to do with this
-//    anActor.mesh_object = *mesh_ptr;
-//    
-//    anActor.priority = self.priority.doubleValue;
-//    anActor.scale_vector = scale;
-//    anActor.rotate_vector = rotation;
-//    anActor.translate_vector = position;
-//    anActor.line_color = line_color;
-//    anActor.fill_color = fill_color;
-//    
-//    anActor.devcoords = dev_coord_ptr;
-//
-//    gks_copy_matrix_3(model_transform, anActor.model_transform);
-    
-//    the_actor = anActor;
-    
-    return the_actor;
+    return &the_actor;
 }
 
 

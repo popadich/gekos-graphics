@@ -39,8 +39,8 @@
     GKSint vertices = 0;
     
     for (GKS3DObject *obj in objArr) {
-        GKSactor actor = obj.objectActor;
-        GKSmesh_3 mesh = actor.mesh_object;
+        GKSactor *actor = obj.objectActor;
+        GKSmesh_3 mesh = actor->mesh_object;
         GKSint vertex_count = mesh.vertnum;
         vertices += vertex_count;
     }
@@ -53,8 +53,8 @@
     GKSint polygons = 0;
     
     for (GKS3DObject *obj in objArr) {
-        GKSactor actor = obj.objectActor;
-        GKSmesh_3 mesh = actor.mesh_object;
+        GKSactor *actor = obj.objectActor;
+        GKSmesh_3 mesh = actor->mesh_object;
         polygons += mesh.polynum;
     }
     
