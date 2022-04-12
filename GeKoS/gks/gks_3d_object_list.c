@@ -111,73 +111,47 @@ void gks_objarr_update_object(GKSint index, GKSobjectKind kind, GKSvector3d tran
 
 
 
-
-
 void pipeline_actor(GKSactor *the_actor)
 {
-    GKSvertexArrPtr     vertex_array = NULL;
-    GKSint              *compact_array = NULL;
-    GKSDCArrPtr         dev_coord_array = NULL;
+    GKSvector3d polygon_vertex_buffer[GKS_POLY_VERTEX_MAX];
+    GKSpoint_2 dev_coord_buffer[GKS_POLY_VERTEX_MAX];
     
-    GKSint              polygonCount = 0;
-    GKSint              compact_idx = 0;
-
-    GKSvector3d         temp_polygon_vertices[GKS_POLY_VERTEX_MAX];
-    GKSpoint_2          temp_device_vertices[GKS_POLY_VERTEX_MAX];
+    GKSint polygon_count = the_actor->mesh_object.polynum;
+    GKSvertexArrPtr vertex_array = the_actor->mesh_object.vertices;
+    GKSpolyArrPtr poly_array = the_actor->mesh_object.polygons_compact;
+    GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     
-    for (GKSint i=0; i<GKS_POLY_VERTEX_MAX; i++) {
-        temp_polygon_vertices[i].crd.x = 0.0;
-        temp_polygon_vertices[i].crd.y = 0.0;
-        temp_polygon_vertices[i].crd.z = 0.0;
-        temp_polygon_vertices[i].crd.w = 1.0;
-        temp_device_vertices[i].x = 0.0;
-        temp_device_vertices[i].y = 0.0;
-
-    }
-    
-    vertex_array = the_actor->mesh_object.vertices;
-    compact_array = the_actor->mesh_object.polygons_compact;
-    dev_coord_array = the_actor->devcoords;
-    
-    // TODO: transform object vertices first
+    // TODO: transform all object vertices first
     // to speed things up I should transform all the vertices of the object
-    // to viewport space coordinates, and then test normals and then draw
-    // polygons. Use a seperate vertex buffer like the one for polygons.
+    // to viewport space coordinates, and then do tests on polygons.
     
-    polygonCount = the_actor->mesh_object.polynum;
     GKSint k = 0;
-//    printf("compute object\n");
-
-    for(GKSint pid=0; pid<polygonCount; pid++) {
+    for(GKSint pid=0; pid<polygon_count; pid++) {
         
         // copy polygon points over to a temporary array as a guard against modifying
         // the original data.
-        GKSint polygon_size = compact_array[k];
+        GKSint polygon_size = poly_array[k];
         k += 1;
         
         for(GKSint j=0; j<polygon_size; j++){
-            compact_idx = compact_array[ k + j ] - 1;     // this is a gotcha
-                                                            // point number to array index
-            
-            // TODO: verfiy that this is a copy
-            temp_polygon_vertices[j] = vertex_array[compact_idx];
+            GKSint vertex_idx = poly_array[ k + j ] - 1;            // this is a gotcha
+            polygon_vertex_buffer[j] = vertex_array[vertex_idx];    // point number to
+                                                                    // array index
         }
 
-
-        // do transforms
-        gks_prep_polyline_3(pid, polygon_size, temp_polygon_vertices, temp_device_vertices, &the_actor->line_color);
+        // do transforms on temporary device polygons
+        gks_prep_polyline_3(pid, polygon_size, polygon_vertex_buffer, dev_coord_buffer, &the_actor->line_color);
         
-        
+        // copy transformed points back to actor array
         for(GKSint j=0; j<polygon_size; j++){
-            compact_idx = compact_array[ k + j ] - 1;
-            
-            // TODO: verfiy that this is a copy
-            dev_coord_array[compact_idx] = temp_device_vertices[j];    // actor
+            GKSint vertex_idx = poly_array[ k + j ] - 1;
+            dev_coord_array[vertex_idx] = dev_coord_buffer[j];    // actor
         }
 
         k += polygon_size;
     }
 }
+
 
 void gks_draw_piped_actor(GKSactor *the_actor)
 {
@@ -198,8 +172,8 @@ void gks_draw_piped_actor(GKSactor *the_actor)
             // the ( - 1) turns a point number
             // which normally start at 1 into a
             // zero based array index.
-            GKSint compact_idx = polygon_array[k] - 1;
-            dev_coord_buffer[j] = dev_coord_array[compact_idx];
+            GKSint vertex_idx = polygon_array[k] - 1;
+            dev_coord_buffer[j] = dev_coord_array[vertex_idx];
 
             k += 1;
         }

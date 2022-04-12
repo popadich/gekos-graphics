@@ -19,10 +19,11 @@ int localpolyline_cb_register(localpolyline_cb_t cb, void *userdata)
     return 1;
 }
 
+
+
 // Primitive 3D pipeline
 void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
 {
-    GKSint        i;
     GKSvector3d   world_model_coord = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d   world_model_norm_coord = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d   cartesian_coord = GKSMakeVector(0.0, 0.0, 0.0);
@@ -35,11 +36,14 @@ void gks_prep_polyline_3(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     GKSmatrix_3 *view_matrix = gks_view_matrix_get();
     GKSmatrix_3 *projection_matrix = gks_projection_get_matrix();
 
-    for (i=0; i<num_pt; i++) {
+    for (GKSint i=0; i<num_pt; i++) {
+        // put object in world
         gks_transform_vector_3(*world_matrix, vertex_array[i], &world_model_coord);
         
+        // normalize world
         gks_trans_wc_to_nwc(world_model_coord, &world_model_norm_coord);
 
+        // move object to view space
         gks_transform_vector_3(*view_matrix, world_model_norm_coord, &view_coord);
         
         // projection transformation, no z coordinate is needed after this
