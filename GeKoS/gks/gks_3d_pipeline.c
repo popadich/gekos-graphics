@@ -17,13 +17,14 @@
 GKSbool do_clipping(GKSint polygon_id, GKSvector3dPtr dir_vec, GKSvector3dPtr point_on_plane, GKSvector3dPtr segment_point)
 {
     GKSbool in = true;
+    
     GKSfloat inoutdist = vectordotproduct(*segment_point, *dir_vec);
-//    printf("pol ID %d: %lf\n", polygon_id, inoutdist);
     if (inoutdist > 0) {
         in = false;
     } else if (inoutdist < 0){
         in = true;
     }
+    
     return in;
 }
 
@@ -67,11 +68,19 @@ GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
         // ON CAMERA COORDINATE BEFORE HOMOGENEOUS PROJECTION SCALING
         // clipping on the view volume which is now shaped like a cube
 
-        GKSvector3d view_dir_vec;
-        gks_view_matrix_w_get(&view_dir_vec);
+        // clip against back wall
+        GKSvector3d back_normal;
+        gks_view_matrix_w_get(&back_normal);
         GKSvector3d location_vec;
         gks_view_matrix_p_get(&location_vec);
-        visible = do_clipping(polygonID, &view_dir_vec, &location_vec, &camera_coord);
+        visible = do_clipping(polygonID, &back_normal, &location_vec, &camera_coord);
+        
+        // clip against left wall
+        // GKSvector3d left_normal;
+        
+        // clip against right wall
+        // GKSvector3d right_normal;
+
         
         // Delayed projection scaling/normalization
         cartesian_coord = GKSMakeVector(camera_coord.crd.x/camera_coord.crd.w, camera_coord.crd.y/camera_coord.crd.w, camera_coord.crd.z/camera_coord.crd.w);

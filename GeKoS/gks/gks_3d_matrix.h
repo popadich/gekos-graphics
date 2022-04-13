@@ -48,17 +48,14 @@ GKSfloat gks_determinant_matrix_3(GKSmatrix_3 M);
 void gks_plane_equation_3(GKSvector3d p1, GKSvector3d p2, GKSvector3d p3, GKSvector3dPtr plane);
 
 // Vector Operations
-GKSfloat vecdot(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b);
 GKSfloat vectordotproduct(GKSvector3d a, GKSvector3d b);
-void vecprod(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b, GKSpoint_3_Ptr c);
-void vectorcrossproduct(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c);
-void vectorsubtract(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c);
+void vectorcrossproduct(GKSvector3d a, GKSvector3d b, GKSvector3dPtr result);
+void vectorsubtract(GKSvector3d a, GKSvector3d b, GKSvector3dPtr result);
 void vectoradd(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c);
-void vecscale(GKSfloat k, GKSpoint_3_Ptr a, GKSpoint_3_Ptr b);
 void vectorscale(GKSfloat k, GKSvector3d a, GKSvector3dPtr result);
-void vecnormal(GKSpoint_3_Ptr vec, GKSpoint_3_Ptr normal);
 void vectornormal(GKSvector3d vec, GKSvector3dPtr normal);
-GKSfloat vecabsolutevalue(GKSvector3d vec);
+GKSfloat vectorabsolute(GKSvector3d vec);
+void vectorcopy(GKSvector3d vec, GKSvector3dPtr result);
 
 #endif /* gks_3d_matrix_h */
 

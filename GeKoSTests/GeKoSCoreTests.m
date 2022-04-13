@@ -603,14 +603,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 }
 
 // vector tests
-- (void)testVecDot {
-    GKSpoint_3 A = {1.0, 2.0, 3.0, 0.0};
-    GKSpoint_3 B = {2.0, 0.0, 1.0, 0.0};
-    float scalar_value = 0.0;
-    
-    scalar_value = vecdot((GKSpoint_3_Ptr)&A, (GKSpoint_3_Ptr)&B);
-    XCTAssertEqualWithAccuracy(scalar_value, 5.0, 0.001);
-}
 
 - (void)testVectorDotProduct {
     GKSvector3d A = {1.0, 2.0, 3.0, 0.0};
@@ -632,7 +624,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(vc.crd.z, 2.0, 0.001);
 }
 
-- (void)testVecAdd {
+- (void)testVectorAdd {
     GKSvector3d va = {1.0, 2.0, 3.0, 1.0};
     GKSvector3d vb = {2.0, 0.0, 1.0, 0.0};
     GKSvector3d vc = {0.0, 0.0, 0.0, 0.0};
@@ -643,16 +635,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(vc.crd.z, 4.0, 0.001);
 }
 
-- (void)testVecScale {
-    GKSpoint_3 va = {1.0, 2.0, 3.0, 0.0};
-    GKSpoint_3 vc;
-    
-    vecscale(1.5, (GKSpoint_3_Ptr)&va, (GKSpoint_3_Ptr)&vc);
-    XCTAssertEqualWithAccuracy(vc.x, 1.5, 0.001);
-    XCTAssertEqualWithAccuracy(vc.y, 3.0, 0.001);
-    XCTAssertEqualWithAccuracy(vc.z, 4.5, 0.001);
-}
-
 - (void)testVectorScale {
     GKSvector3d va = {1.0, 2.0, 3.0, 0.0};
     GKSvector3d vc;
@@ -661,17 +643,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(vc.crd.x, 1.5, 0.001);
     XCTAssertEqualWithAccuracy(vc.crd.y, 3.0, 0.001);
     XCTAssertEqualWithAccuracy(vc.crd.z, 4.5, 0.001);
-}
-
-- (void)testVecProduct {
-    GKSpoint_3 A = {1.0, 2.0, 3.0, 0.0};
-    GKSpoint_3 B = {2.0, 0.0, 1.0, 0.0};
-    GKSpoint_3 C = {0.0, 0.0, 0.0, 0.0};
-    
-    vecprod((GKSpoint_3_Ptr)&A, (GKSpoint_3_Ptr)&B, (GKSpoint_3_Ptr)&C);
-    XCTAssertEqualWithAccuracy(C.x, 2.0, 0.001);
-    XCTAssertEqualWithAccuracy(C.y, 5.0, 0.001);
-    XCTAssertEqualWithAccuracy(C.z, -4.0, 0.001);
 }
 
 - (void)testVectorCrossProduct {
@@ -686,16 +657,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(C.crd.z, -4.0, 0.001);
 }
 
-- (void)testVecNormal {
-    GKSpoint_3 va = {1.0, 2.0, 3.0, 0.0};
-    GKSpoint_3 vc;
-    
-    vecnormal((GKSpoint_3_Ptr)&va, (GKSpoint_3_Ptr)&vc);
-    XCTAssertEqualWithAccuracy(vc.x, 0.267261241912424, 0.001, @"1/sqrt(14)");
-    XCTAssertEqualWithAccuracy(vc.y, 0.534522483824849, 0.001);
-    XCTAssertEqualWithAccuracy(vc.z, 0.801783725737273, 0.001);
-}
-
 - (void)testVectorNormal {
     GKSvector3d va = {1.0, 2.0, 3.0, 0.0};
     GKSvector3d vc;
@@ -706,15 +667,34 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(vc.crd.z, 0.801783725737273, 0.001);
 }
 
-- (void)testVecAbsoluteValue {
+- (void)testVectorAbsoluteValue {
     GKSvector3d va = {1.0, 2.0, 3.0, 0.0};
     GKSvector3d vb = {1.0, -2.0, -3.0, 0.0};
     GKSfloat sqrtof14 = 3.74165;
     
-    GKSfloat av = vecabsolutevalue(va);
+    GKSfloat av = vectorabsolute(va);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
-    av = vecabsolutevalue(vb);
+    av = vectorabsolute(vb);
     XCTAssertEqualWithAccuracy(av, sqrtof14, 0.001);
+}
+
+- (void)testVectorCopy {
+    GKSvector3d va = {1.0, 2.0, 3.0, 1.0};
+    GKSvector3d vb = {1.0, -2.0, -3.0, -1.0};
+    
+    GKSvector3d result = {0.0, 0.0, 0.0, 0.0};
+    
+    vectorcopy(va, &result);
+    XCTAssertEqualWithAccuracy(result.crd.x, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(result.crd.y, 2.0, 0.001);
+    XCTAssertEqualWithAccuracy(result.crd.z, 3.0, 0.001);
+    XCTAssertEqualWithAccuracy(result.crd.w, 1.0, 0.001);
+    vectorcopy(vb, &result);
+    XCTAssertEqualWithAccuracy(result.crd.x, 1.0, 0.001);
+    XCTAssertEqualWithAccuracy(result.crd.y, -2.0, 0.001);
+    XCTAssertEqualWithAccuracy(result.crd.z, -3.0, 0.001);
+    XCTAssertEqualWithAccuracy(result.crd.w, -1.0, 0.001);
+
 }
 
 // MARK: MESH

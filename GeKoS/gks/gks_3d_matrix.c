@@ -372,53 +372,35 @@ GKSfloat gks_determinant_matrix_3(GKSmatrix_3 M)
 
 // Vector Operations
 //
-// Vector operations all use an in place technique
-// where a result vector is always passed in to the
-// function in order to populate it with teh results.
+// Vector operations all return vector results in
+// passed in "result" vector pointer.
 //
 
-GKSfloat vecdot(GKSpoint_3_Ptr a, GKSpoint_3_Ptr b)
-{
-    return (a[0]*b[0] + a[1]*b[1] + a[2]*b[2]);
-}
 
 GKSfloat vectordotproduct(GKSvector3d a, GKSvector3d b)
 {
     return (a.crd.x*b.crd.x + a.crd.y*b.crd.y + a.crd.z*b.crd.z);
 }
 
-void vecprod(GKSfloat *a, GKSfloat *b, GKSfloat *c)
-{
-    c[0]=a[1]*b[2]-b[1]*a[2];
-    c[1]=b[0]*a[2]-b[2]*a[0];    // smart reverse for sign change
-    c[2]=a[0]*b[1]-b[0]*a[1];
+void vectorcrossproduct(GKSvector3d a, GKSvector3d b, GKSvector3dPtr result){
+    result->arr[0] = a.arr[1]*b.arr[2]-b.arr[1]*a.arr[2];
+    result->arr[1] = b.arr[0]*a.arr[2]-b.arr[2]*a.arr[0];  // reversed order for sign change
+    result->arr[2] = a.arr[0]*b.arr[1]-b.arr[0]*a.arr[1];
 }
 
-void vectorcrossproduct(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c){
-    c->arr[0] = a.arr[1]*b.arr[2]-b.arr[1]*a.arr[2];
-    c->arr[1] = b.arr[0]*a.arr[2]-b.arr[2]*a.arr[0];  // clever reverse for sign change
-    c->arr[2] = a.arr[0]*b.arr[1]-b.arr[0]*a.arr[1];
+void vectorsubtract(GKSvector3d a, GKSvector3d b, GKSvector3dPtr result)
+{
+    result->crd.x = a.crd.x - b.crd.x;
+    result->crd.y = a.crd.y - b.crd.y;
+    result->crd.z = a.crd.z - b.crd.z;
+
 }
 
-void vectorsubtract(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c)
+void vectoradd(GKSvector3d a, GKSvector3d b, GKSvector3dPtr result)
 {
-    GKSint k;
-    for (k=0; k<3; k++) c->arr[k]=a.arr[k]-b.arr[k];
-}
-
-void vectoradd(GKSvector3d a, GKSvector3d b, GKSvector3dPtr c)
-{
-    GKSint k;
-    for (k=0; k<3; k++) {
-        c->arr[k] = a.arr[k]+b.arr[k];
-    }
-}
-
-void vecscale(GKSfloat k, GKSpoint_3_Ptr a, GKSpoint_3_Ptr b)
-{
-    b[0]=a[0]*k;
-    b[1]=a[1]*k;
-    b[2]=a[2]*k;
+    result->crd.x = a.crd.x + b.crd.x;
+    result->crd.y = a.crd.y + b.crd.y;
+    result->crd.z = a.crd.z + b.crd.z;
 }
 
 void vectorscale(GKSfloat k, GKSvector3d a, GKSvector3dPtr result) {
@@ -427,28 +409,26 @@ void vectorscale(GKSfloat k, GKSvector3d a, GKSvector3dPtr result) {
     result->arr[2] = a.arr[2]*k;
 }
 
-void vecnormal(GKSpoint_3_Ptr vec, GKSpoint_3_Ptr normal)
-{
-    GKSfloat length = sqrt (vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]);
-    
-    normal[0] = vec[0]/length;
-    normal[1] = vec[1]/length;
-    normal[2] = vec[2]/length;
-    
-}
-
-void vectornormal(GKSvector3d vec, GKSvector3dPtr normal) {
+void vectornormal(GKSvector3d vec, GKSvector3dPtr result) {
     GKSfloat length = sqrt (vec.arr[0]*vec.arr[0]
                             + vec.arr[1]*vec.arr[1]
                             + vec.arr[2]*vec.arr[2]);
 
-    normal->crd.x = vec.crd.x/length;
-    normal->crd.y = vec.crd.y/length;
-    normal->crd.z = vec.crd.z/length;
+    result->crd.x = vec.crd.x/length;
+    result->crd.y = vec.crd.y/length;
+    result->crd.z = vec.crd.z/length;
 
 }
 
-GKSfloat vecabsolutevalue(GKSvector3d vec)
+GKSfloat vectorabsolute(GKSvector3d vec)
 {
     return sqrt (vec.arr[0]*vec.arr[0] + vec.arr[1]*vec.arr[1] + vec.arr[2]*vec.arr[2]);
+}
+
+void vectorcopy(GKSvector3d vec, GKSvector3dPtr result)
+{
+    result->crd.x = vec.crd.x;
+    result->crd.y = vec.crd.y;
+    result->crd.z = vec.crd.z;
+    result->crd.w = vec.crd.w;
 }
