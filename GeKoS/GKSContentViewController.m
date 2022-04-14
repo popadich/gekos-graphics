@@ -296,23 +296,10 @@ static void *worldDataContext = &worldDataContext;
     NSOpenPanel* panel = [NSOpenPanel openPanel];
     panel.allowsMultipleSelection = NO;
     
-    // TODO: allowedContentTypes - macOS 11
-    if (@available(macOS 11.0, *)) {
+    NSArray *contentArray = @[@"com.xephyr.off"];
+    [panel setAllowedFileTypes:contentArray];
 
-//        id objects[] = {@"com.xephyr.off"};
-//        NSUInteger count = sizeof(objects) / sizeof(id);
-//        NSArray *contentArray = [NSArray arrayWithObjects:objects
-//                                             count:count];
-        
-//        NSArray *contentArray = @[@"com.xephyr.off"];
-//        NSLog(@"OS 11 Here %@", contentArray);
-//        [panel setAllowedContentTypes:contentArray];
- 
-    } else {
-        NSArray *typeArray = @[@"off", @"OFF"];
-        [panel setAllowedFileTypes:typeArray];
-    }
-
+    
     // This method displays the panel and returns immediately.
     // The completion handler is called when the user selects an
     // item or cancels the panel.
