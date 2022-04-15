@@ -47,7 +47,11 @@
 - (GKSvector3d)rotationVector
 {
     GKSvector3d rot;
-    rot = GKSMakeVector([self.rotX doubleValue], [self.rotY doubleValue], [self.rotZ doubleValue]);
+    GKSfloat degreesAroundX = self.rotX.doubleValue;
+    GKSfloat degreesAroundY = self.rotY.doubleValue;
+    GKSfloat degreesAroundZ = self.rotZ.doubleValue;
+    
+    rot = GKSMakeVector(degreesAroundX * DEG_TO_RAD, degreesAroundY * DEG_TO_RAD, degreesAroundZ * DEG_TO_RAD);
     return rot;
 }
 
