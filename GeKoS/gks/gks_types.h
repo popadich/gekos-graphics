@@ -105,10 +105,11 @@ typedef struct {
 // but potentially more. Make room by
 // modifying the MAX constant.
 typedef GKSint      GKSpolygon_3[GKS_POLY_VERTEX_MAX];
-
+typedef GKSint      GKSedge_3[2];
 typedef GKSvector3d     *GKSvertexArrPtr;       // list of 3D points for each polygon
+typedef GKSint          *GKSindexArrPtr;
+typedef GKSedge_3       *GKSedgeArrPtr;
 typedef GKSpoint_2      *GKSDCArrPtr;
-typedef GKSint          *GKSpolyArrPtr;
 typedef GKSvector3d     *GKSnormalArrPtr;       // normal vector to each polygon
 
 
@@ -116,8 +117,10 @@ typedef struct
 {
     GKSint vertnum;
     GKSint polynum;
+    GKSint edgenum;
     GKSvertexArrPtr vertices;
-    GKSpolyArrPtr polygons_compact;
+    GKSindexArrPtr polygons;
+    GKSedgeArrPtr edges;
 } GKSmesh_3;
 
 typedef enum {

@@ -164,7 +164,7 @@
         anObjectMesh->vertices = vertex_array;
         anObjectMesh->vertnum = specified_verts;
         anObjectMesh->polynum = specified_polys;
-        anObjectMesh->polygons_compact = compact_array;
+        anObjectMesh->polygons = compact_array;
     }
     
     return anObjectMesh;

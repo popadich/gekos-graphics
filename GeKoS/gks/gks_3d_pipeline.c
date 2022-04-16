@@ -103,7 +103,7 @@ void pipeline_actor(GKSactor *the_actor)
     
     GKSint polygon_count = the_actor->mesh_object.polynum;
     GKSvertexArrPtr vertex_array = the_actor->mesh_object.vertices;
-    GKSpolyArrPtr poly_array = the_actor->mesh_object.polygons_compact;
+    GKSindexArrPtr poly_array = the_actor->mesh_object.polygons;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     the_actor->hidden = false;
     
@@ -151,7 +151,7 @@ void gks_draw_piped_actor(GKSactor *the_actor)
     GKSpoint_2          dev_coord_buffer[GKS_POLY_VERTEX_MAX];
 
     GKSint poly_count           = the_actor->mesh_object.polynum;
-    GKSpolyArrPtr polygon_array = the_actor->mesh_object.polygons_compact;
+    GKSindexArrPtr polygon_array = the_actor->mesh_object.polygons;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     
     GKSint k = 0;
