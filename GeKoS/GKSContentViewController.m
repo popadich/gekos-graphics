@@ -65,16 +65,13 @@ static void *worldDataContext = &worldDataContext;
 
 
     // Get values world volume from data and device limits from view bounds
-    GKSlimits_3 world_volume = [self.theScene worldVolumeLimits];
     GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
     
     // Set normalization value transforms
     gks_trans_set_device_viewport(&port_rect);
-    gks_trans_set_world_volume(&world_volume);
-    
-    // Set all vantage points to the same default values
-//    gks_vantage_set_defaults();
+    [self.theScene transformWorldVolume];
 
+    // Set all vantage points to the same default values
     self.currentVantage = 0;
     self.vantageViews = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
     for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
@@ -280,9 +277,7 @@ static void *worldDataContext = &worldDataContext;
         self.theScene.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
         self.theScene.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
 
-        // very esoteric calls here, make this simpler
-        GKSlimits_3 volume = [self.theScene worldVolumeLimits];
-        gks_trans_set_world_volume(&volume);
+        [self.theScene transformWorldVolume];
         
         [self.theScene transformAllObjects];
         [self.drawingViewController refresh];
@@ -292,13 +287,9 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
-    // very esoteric calls here, make this simpler
-    GKSlimits_3 volume = [self.theScene worldVolumeLimits];
-    gks_trans_set_world_volume(&volume);
-    
+    [self.theScene transformWorldVolume];
     [self.theScene transformAllObjects];
     [self.drawingViewController refresh];
-//        NSLog(@"Scene Change: %lf, %lf, %lf, %lf, %lf, %lf", volume.xmin, volume.xmax, volume.ymin, volume.ymax, volume.zmin, volume.zmax);
 
 }
 

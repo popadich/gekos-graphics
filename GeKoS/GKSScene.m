@@ -63,7 +63,7 @@
 }
 
 
-- (GKSlimits_3)worldVolumeLimits
+- (GKSlimits_3 *)worldVolumeLimits
 {
     GKSlimits_3 volume;
     volume.xmin = self.worldVolumeMinX.doubleValue;
@@ -73,7 +73,7 @@
     volume.xmax = self.worldVolumeMaxX.doubleValue;
     volume.ymax = self.worldVolumeMaxY.doubleValue;
     volume.zmax = self.worldVolumeMaxZ.doubleValue;
-    return volume;
+    return &volume;
 }
 
 - (void) add3DObject:(GKS3DObject*)object3D
@@ -102,6 +102,16 @@
     for (GKS3DObject *obj in self.objectList) {
         [obj computeAction];
     }
+}
+
+- (void)transformWorldVolume
+{
+    
+    // very esoteric calls here, make this simpler
+    GKSlimits_3 *volume = [self worldVolumeLimits];
+    gks_trans_set_world_volume(volume);
+    
+
 }
 
 
