@@ -273,7 +273,17 @@ static void *worldDataContext = &worldDataContext;
         self.cameraRep.far = far;
         self.cameraRep.projectionType = projectionType;
 
+        self.theScene.worldVolumeMinX = [vantage valueForKey:@"worldVolumeMinX"];
+        self.theScene.worldVolumeMinY = [vantage valueForKey:@"worldVolumeMinY"];
+        self.theScene.worldVolumeMinZ = [vantage valueForKey:@"worldVolumeMinZ"];
+        self.theScene.worldVolumeMaxX = [vantage valueForKey:@"worldVolumeMaxX"];
+        self.theScene.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
+        self.theScene.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
 
+        // very esoteric calls here, make this simpler
+        GKSlimits_3 volume = [self.theScene worldVolumeLimits];
+        gks_trans_set_world_volume(&volume);
+        
         [self.theScene transformAllObjects];
         [self.drawingViewController refresh];
         self.currentVantage = newTag;
@@ -312,7 +322,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performLookQuick:(id)sender {
     
-    [self.cameraViewController camerSetViewLookAtG];
+    [self.cameraViewController cameraSetViewLookAtG];
     [self.theScene transformAllObjects];
     [self.drawingViewController refresh];
 }
@@ -389,6 +399,7 @@ static void *worldDataContext = &worldDataContext;
     NSDictionary *vantage = nil;
     
     GKSCameraRep *camera = self.cameraRep;
+    GKSScene *scene = self.theScene;
     
     NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
     [collector setValue:camera.upX forKey:@"upX"];
@@ -409,6 +420,14 @@ static void *worldDataContext = &worldDataContext;
     
     [collector setValue:camera.projectionType forKey:@"projectionType"];
     
+    [collector setValue:scene.worldVolumeMinX forKey:@"worldVolumeMinX"];
+    [collector setValue:scene.worldVolumeMinY forKey:@"worldVolumeMinY"];
+    [collector setValue:scene.worldVolumeMinZ forKey:@"worldVolumeMinZ"];
+
+    [collector setValue:scene.worldVolumeMaxX forKey:@"worldVolumeMaxX"];
+    [collector setValue:scene.worldVolumeMaxY forKey:@"worldVolumeMaxY"];
+    [collector setValue:scene.worldVolumeMaxZ forKey:@"worldVolumeMaxZ"];
+
     vantage = [NSDictionary dictionaryWithDictionary:collector];
         
     return vantage;

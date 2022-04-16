@@ -215,7 +215,7 @@ void logMatrix(GKSmatrix_3 M) {
 // This uses the Look At point, camera Location, and Up vector to
 // compute and set the global view matrix in the C library.
 //  LOOK, POS, UP
-- (void)camerSetViewLookAtG {
+- (void)cameraSetViewLookAtG {
     GKSCameraRep *camera = self.camera;
 
     if (camera != nil) {
@@ -244,17 +244,17 @@ void logMatrix(GKSmatrix_3 M) {
         NSNumber *vhaty = [NSNumber numberWithDouble:aViewMatrix[1][1]];
         NSNumber *vhatz = [NSNumber numberWithDouble:aViewMatrix[1][2]];
         
-        camera.dirX = @(dir_vector.crd.x);
-        camera.dirY = @(dir_vector.crd.y);
-        camera.dirZ = @(dir_vector.crd.z);
+        [camera setValue:@(dir_vector.crd.x) forKey:@"dirX"];
+        [camera setValue:@(dir_vector.crd.y) forKey:@"dirY"];
+        [camera setValue:@(dir_vector.crd.z) forKey:@"dirZ"];
         
-        [self.camera setValue:uhatx forKey:@"uHatX"];
-        [self.camera setValue:uhaty forKey:@"uHatY"];
-        [self.camera setValue:uhatz forKey:@"uHatZ"];
+        [camera setValue:uhatx forKey:@"uHatX"];
+        [camera setValue:uhaty forKey:@"uHatY"];
+        [camera setValue:uhatz forKey:@"uHatZ"];
         
-        [self.camera setValue:vhatx forKey:@"vHatX"];
-        [self.camera setValue:vhaty forKey:@"vHatY"];
-        [self.camera setValue:vhatz forKey:@"vHatZ"];
+        [camera setValue:vhatx forKey:@"vHatX"];
+        [camera setValue:vhaty forKey:@"vHatY"];
+        [camera setValue:vhatz forKey:@"vHatZ"];
 
     }
 }

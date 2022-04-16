@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)doCameraReset:(id)sender;
 
 - (void)cameraSetViewMatrixG;
-- (void)camerSetViewLookAtG;
+- (void)cameraSetViewLookAtG;
 
 - (void)cameraSetProjectionType:(NSNumber *)projectionType;
 - (void)cameraSetProjectionTypeG;

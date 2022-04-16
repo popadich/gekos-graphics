@@ -116,7 +116,7 @@
         [camera cameraSetLookAt:look];
       
         [contentController.cameraViewController cameraSetProjectionTypeG];
-        [contentController.cameraViewController camerSetViewLookAtG];
+        [contentController.cameraViewController cameraSetViewLookAtG];
         [scene transformAllObjects];
         
         for (int j=0; j<60; j++) {
