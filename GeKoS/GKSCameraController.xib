@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -126,7 +126,6 @@
                     <rect key="frame" x="18" y="142" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="0.10000000000000001" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="RlP-fA-Dow"/>
                     <connections>
-                        <action selector="doChangeFocalLength:" target="-2" id="Ywc-zJ-DLo"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="due-cD-Rru"/>
                     </connections>
                 </slider>
@@ -532,7 +531,6 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="doChangeProjectionType:" target="-2" id="5nb-gf-daV"/>
                         <binding destination="-2" name="selectedIndex" keyPath="self.camera.projectionType" id="Mco-JC-rCG"/>
                     </connections>
                 </popUpButton>
@@ -555,7 +553,6 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <action selector="doChangeNearFar:" target="-2" id="G8D-5W-imv"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.near" id="Uyb-tL-wVl"/>
                     </connections>
                 </textField>
@@ -578,7 +575,6 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <action selector="doChangeNearFar:" target="-2" id="dAr-a5-9Pp"/>
                         <binding destination="-2" name="value" keyPath="self.representedObject.far" id="oXI-ue-1nd"/>
                     </connections>
                 </textField>

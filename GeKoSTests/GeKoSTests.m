@@ -115,7 +115,7 @@
         GKSvector3d look = GKSMakeVector(1.0, 1.0, 0.0);
         [camera cameraSetLookAt:look];
       
-        [contentController.cameraViewController cameraSetProjectionMatrixG];
+        [contentController.cameraViewController cameraSetProjectionTypeG];
         [contentController.cameraViewController camerSetViewLookAtG];
         [scene transformAllObjects];
         

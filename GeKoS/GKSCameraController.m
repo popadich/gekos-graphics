@@ -21,6 +21,8 @@ static double head_size_adjust = 1.0;
 
 static void *CameraRotationContext = &CameraRotationContext;
 static void *CameraPositionContext = &CameraPositionContext;
+static void *CameraProjectionContext = &CameraProjectionContext;
+static void *CameraFocusContext = &CameraFocusContext;
 
 
 @implementation GKSCameraController
@@ -72,6 +74,15 @@ void logMatrix(GKSmatrix_3 M) {
     [camera addObserver:self forKeyPath:@"yaw" options:NSKeyValueObservingOptionNew context:CameraRotationContext];
     [camera addObserver:self forKeyPath:@"pitch" options:NSKeyValueObservingOptionNew context:CameraRotationContext];
     [camera addObserver:self forKeyPath:@"roll" options:NSKeyValueObservingOptionNew context:CameraRotationContext];
+    
+    [camera addObserver:self forKeyPath:@"projectionType" options:NSKeyValueObservingOptionNew context:CameraProjectionContext];
+    
+    [camera addObserver:self forKeyPath:@"focalLength" options:NSKeyValueObservingOptionNew context:CameraFocusContext];
+
+    [camera addObserver:self forKeyPath:@"near" options:NSKeyValueObservingOptionNew context:CameraFocusContext];
+
+    [camera addObserver:self forKeyPath:@"far" options:NSKeyValueObservingOptionNew context:CameraFocusContext];
+
 }
 
 
@@ -91,6 +102,19 @@ void logMatrix(GKSmatrix_3 M) {
         NSString *moveType = @"Rotation";  // TODO: use defined const
         [self notifyAllConcerned:moveType];
         
+    } else if (context == CameraProjectionContext) {
+        
+        NSNumber *nprType = change[NSKeyValueChangeNewKey];
+        [self cameraSetProjectionType:nprType];
+        
+        NSString *moveType = @"Projection";  // TODO: use defined const
+        [self notifyAllConcerned:moveType];
+        
+    } else if (context == CameraFocusContext) {
+        [self cameraSetProjectionTypeG];
+        
+        NSString *moveType = @"Focus";  // TODO: use defined const
+        [self notifyAllConcerned:moveType];
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -132,43 +156,6 @@ void logMatrix(GKSmatrix_3 M) {
 
 
 // MARK: Actions
-
-- (IBAction)doChangeProjectionType:(id)sender;
-{
-    NSInteger projectionType = [sender selectedTag];
-    NSNumber *prType = [NSNumber numberWithInteger:projectionType];
-    [self cameraSetProjectionType:prType];
-    
-    NSString *moveType = @"Focus";  // TODO: use defined const
-    [self notifyAllConcerned:moveType];
-}
-
-- (IBAction)doChangeFocalLength:(id)sender
-{
-    if ([sender isKindOfClass:[NSSlider class]]) {
-        NSNumber* slide = [sender objectValue];
-        [self setHeadFocus:slide];              // Head
-        [self cameraSetProjectionMatrixG];      // this is a bit overkill,
-                                                // create a method for setting focal length
-                                                // alone and recompute existing projection matrix
-        
-        NSString *moveType = @"Focus";  // TODO: use defined const
-        [self notifyAllConcerned:moveType];
-    }
-    
-}
-
-- (IBAction)doChangeNearFar:(id)sender
-{
-    if ([sender isKindOfClass:[NSTextField class]]) {
-        if ([sender tag] == 1 || [sender tag] == 2) {
-            [self cameraSetProjectionMatrixG];
-            
-            NSString *moveType = @"Focus";  // TODO: use defined const
-            [self notifyAllConcerned:moveType];
-        }
-    }
-}
 
 - (IBAction)doCameraReset:(id)sender
 {
@@ -212,7 +199,7 @@ void logMatrix(GKSmatrix_3 M) {
     }
 }
 
-- (void)cameraSetProjectionMatrixG {
+- (void)cameraSetProjectionTypeG {
     GKSCameraRep *camera = self.camera;
     if (camera != nil) {
         NSNumber *prType = camera.projectionType;

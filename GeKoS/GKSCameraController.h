@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)camerSetViewLookAtG;
 
 - (void)cameraSetProjectionType:(NSNumber *)projectionType;
-- (void)cameraSetProjectionMatrixG;
+- (void)cameraSetProjectionTypeG;
 
 @end
 

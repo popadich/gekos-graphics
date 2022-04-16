@@ -253,6 +253,8 @@ static void *worldDataContext = &worldDataContext;
         NSNumber *focalLength = [vantage valueForKey:@"focalLength"];
         NSNumber *near = [vantage valueForKey:@"near"];
         NSNumber *far = [vantage valueForKey:@"far"];
+        
+        NSNumber *projectionType = [vantage valueForKey:@"projectionType"];
 
         self.cameraRep.yaw = yaw;
         self.cameraRep.pitch = pitch;
@@ -269,6 +271,7 @@ static void *worldDataContext = &worldDataContext;
         self.cameraRep.focalLength = focalLength;
         self.cameraRep.near = near;
         self.cameraRep.far = far;
+        self.cameraRep.projectionType = projectionType;
 
 
         [self.theScene transformAllObjects];
@@ -335,8 +338,6 @@ static void *worldDataContext = &worldDataContext;
         }       
     }
 }
-
-
 
 
 // MARK: OPEN/SAVE PANEL
@@ -406,14 +407,12 @@ static void *worldDataContext = &worldDataContext;
     [collector setValue:camera.near forKey:@"near"];
     [collector setValue:camera.far forKey:@"far"];
     
+    [collector setValue:camera.projectionType forKey:@"projectionType"];
+    
     vantage = [NSDictionary dictionaryWithDictionary:collector];
         
     return vantage;
 }
 
-- (void)setVantageView:(NSDictionary *)vantage
-{
-    
-}
 
 @end
