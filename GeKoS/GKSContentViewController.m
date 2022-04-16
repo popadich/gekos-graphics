@@ -15,6 +15,7 @@
 #import "GKSScene.h"
 #import "GKSMeshParser.h"
 
+#define GKS_MAX_VANTAGE_PTS 6
 
 @interface GKSContentViewController ()
 
@@ -27,6 +28,9 @@
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
 @property (nonatomic, strong) GKSScene* theScene;
+
+@property (assign) GKSint currentVantage;
+@property (strong) NSMutableArray *vantageViews;
 
 @end
 
@@ -69,12 +73,17 @@ static void *worldDataContext = &worldDataContext;
     gks_trans_set_world_volume(&world_volume);
     
     // Set all vantage points to the same default values
-    gks_vantage_set_defaults();
-    [self updateVantage:self];
-    
+//    gks_vantage_set_defaults();
 
-    [self setIsCenteredObject:@NO];
+    self.currentVantage = 0;
+    self.vantageViews = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
+    for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
+        NSDictionary *vantageProperties = [self gatherVantage];
+        [self.vantageViews addObject:vantageProperties];
+    }
+
     
+    [self setIsCenteredObject:@NO];
     [self registerAsObserverForScene];
         
     // notifications come after camera values have been set
@@ -219,11 +228,52 @@ static void *worldDataContext = &worldDataContext;
 - (IBAction)updateVantage:(id)sender
 {
     if ([sender isKindOfClass:[NSButton class]]) {
-        GKSint tag = (GKSint)[sender tag];
-        gks_vantage_set_current_view(tag);
+        
+        GKSint currentTag = self.currentVantage;
+        NSDictionary *currentVantageProperties = [self gatherVantage];
+        [self.vantageViews replaceObjectAtIndex:currentTag withObject:currentVantageProperties];
+        
+        GKSint newTag = (GKSint)[sender tag];
+        
+        
+        NSDictionary *vantage = [self.vantageViews objectAtIndex:newTag];
+        
+        NSNumber *yaw = [vantage valueForKey:@"yaw"];
+        NSNumber *pitch = [vantage valueForKey:@"pitch"];
+        NSNumber *roll = [vantage valueForKey:@"roll"];
+
+        NSNumber *positionX = [vantage valueForKey:@"positionX"];
+        NSNumber *positionY = [vantage valueForKey:@"positionY"];
+        NSNumber *positionZ = [vantage valueForKey:@"positionZ"];
+
+        NSNumber *upX = [vantage valueForKey:@"upX"];
+        NSNumber *upY = [vantage valueForKey:@"upY"];
+        NSNumber *upZ = [vantage valueForKey:@"upZ"];
+        
+        NSNumber *focalLength = [vantage valueForKey:@"focalLength"];
+        NSNumber *near = [vantage valueForKey:@"near"];
+        NSNumber *far = [vantage valueForKey:@"far"];
+
+        self.cameraRep.yaw = yaw;
+        self.cameraRep.pitch = pitch;
+        self.cameraRep.roll = roll;
+        
+        self.cameraRep.positionX = positionX;
+        self.cameraRep.positionY = positionY;
+        self.cameraRep.positionZ = positionZ;
+        
+        self.cameraRep.upX = upX;
+        self.cameraRep.upY = upY;
+        self.cameraRep.upZ = upZ;
+        
+        self.cameraRep.focalLength = focalLength;
+        self.cameraRep.near = near;
+        self.cameraRep.far = far;
+
 
         [self.theScene transformAllObjects];
         [self.drawingViewController refresh];
+        self.currentVantage = newTag;
     }
 }
 
@@ -333,18 +383,37 @@ static void *worldDataContext = &worldDataContext;
     }];
 }
 
+- (NSDictionary *)gatherVantage
+{
+    NSDictionary *vantage = nil;
+    
+    GKSCameraRep *camera = self.cameraRep;
+    
+    NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
+    [collector setValue:camera.upX forKey:@"upX"];
+    [collector setValue:camera.upY forKey:@"upY"];
+    [collector setValue:camera.upZ forKey:@"upZ"];
 
-// FIXME: Share Menu Bug
-/*
-//
-// this started showing up in the logs, it is not related to the open panel. It has
-// everything to do with the "Share..." menu. Possibly something is not initialized?
-//
-Could not instantiate class NSURL. Error: Error Domain=NSCocoaErrorDomain Code=4864 "value for key 'root' was of unexpected class 'NSNull'. Allowed classes are '{(
-    NSURL
-)}'." UserInfo={NSDebugDescription=value for key 'root' was of unexpected class 'NSNull'. Allowed classes are '{(
-    NSURL
-)}'.}
-*/
+    [collector setValue:camera.positionX forKey:@"positionX"];
+    [collector setValue:camera.positionY forKey:@"positionY"];
+    [collector setValue:camera.positionZ forKey:@"positionZ"];
+    
+    [collector setValue:camera.yaw forKey:@"yaw"];
+    [collector setValue:camera.pitch forKey:@"pitch"];
+    [collector setValue:camera.roll forKey:@"roll"];
+    
+    [collector setValue:camera.focalLength forKey:@"focalLength"];
+    [collector setValue:camera.near forKey:@"near"];
+    [collector setValue:camera.far forKey:@"far"];
+    
+    vantage = [NSDictionary dictionaryWithDictionary:collector];
+        
+    return vantage;
+}
+
+- (void)setVantageView:(NSDictionary *)vantage
+{
+    
+}
 
 @end

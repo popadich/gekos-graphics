@@ -257,7 +257,7 @@
                                                         <binding destination="-2" name="value" keyPath="self.isCenteredObject" id="ef9-2F-VCW"/>
                                                     </connections>
                                                 </button>
-                                                <colorWell bordered="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VcH-tu-BjL">
+                                                <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="VcH-tu-BjL">
                                                     <rect key="frame" x="34" y="19" width="21" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="CFb-Aa-VxB"/>
@@ -269,10 +269,7 @@
                                                     </connections>
                                                 </colorWell>
                                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bHd-yo-a1f">
-                                                    <rect key="frame" x="125" y="21" width="58" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="53" id="gTo-QV-AC8"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="125" y="21" width="61" height="16"/>
                                                     <popUpButtonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="Boq-5E-d5R" id="gR7-ab-LfU">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="miniSystem"/>
@@ -317,7 +314,6 @@
                                                 <constraint firstItem="qoX-Va-7vz" firstAttribute="top" secondItem="NIk-cI-H7N" secondAttribute="bottom" constant="9" id="W5s-Br-0WI"/>
                                                 <constraint firstItem="d8A-0I-Brs" firstAttribute="centerY" secondItem="NIk-cI-H7N" secondAttribute="centerY" id="WqE-2d-8gx"/>
                                                 <constraint firstItem="VcH-tu-BjL" firstAttribute="top" secondItem="dX7-S1-00H" secondAttribute="bottom" constant="8" symbolic="YES" id="XQh-cW-gQf"/>
-                                                <constraint firstItem="xoW-79-nwa" firstAttribute="top" secondItem="OWM-IP-Cfg" secondAttribute="top" constant="41" id="YZq-Km-4KI"/>
                                                 <constraint firstItem="IV0-tS-yBd" firstAttribute="leading" secondItem="kHM-gj-4IR" secondAttribute="trailing" constant="8" symbolic="YES" id="cG8-pM-7rT"/>
                                                 <constraint firstItem="NIk-cI-H7N" firstAttribute="centerX" secondItem="xoW-79-nwa" secondAttribute="centerX" id="cw7-ua-qlk"/>
                                                 <constraint firstItem="d8A-0I-Brs" firstAttribute="leading" secondItem="6KX-5B-LZX" secondAttribute="trailing" constant="8" symbolic="YES" id="es3-Us-iFV"/>
@@ -337,6 +333,10 @@
                                                 <constraint firstItem="no7-G4-4AF" firstAttribute="leading" secondItem="IV0-tS-yBd" secondAttribute="trailing" constant="8" symbolic="YES" id="zVS-U2-SCa"/>
                                             </constraints>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="204" id="Caf-fi-u3Z"/>
+                                            <constraint firstAttribute="height" constant="154" id="aIm-He-L2f"/>
+                                        </constraints>
                                         <font key="titleFont" metaFont="miniSystem"/>
                                     </box>
                                 </subviews>
@@ -565,6 +565,39 @@
                     </buttonCell>
                     <connections>
                         <action selector="updateVantage:" target="-2" id="Y9c-lC-qI2"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="aDQ-kb-F5x">
+                    <rect key="frame" x="214" y="324" width="54" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="View 4" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="q38-AX-6EA">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateVantage:" target="-2" id="pgU-4I-yky"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="AsI-RU-HH5">
+                    <rect key="frame" x="278" y="324" width="52" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="View 5" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HtH-iF-FBy">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateVantage:" target="-2" id="Ofg-3R-g6k"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="F8H-60-e5k">
+                    <rect key="frame" x="339" y="324" width="54" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="View 6" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eoZ-R1-vk0">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateVantage:" target="-2" id="3D5-o6-UfW"/>
                     </connections>
                 </button>
             </subviews>

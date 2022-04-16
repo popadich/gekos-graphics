@@ -832,17 +832,17 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 // MARK: TRANSFORM
 - (void)testTransformInit {
-    gks_vantage_init();
+    gks_context_init();
     
-    GKSint idx = gks_vantage_get_current_view();
+    GKSint idx = gks_context_get_current_view();
     XCTAssertEqual(idx, 0, @"wrong vantage point");
     
 }
 
 - (void)testTransformSetIndex {
     GKSint idx = 0;
-    gks_vantage_set_current_view(idx);
-    idx = gks_vantage_get_current_view();
+    gks_context_set_current_view(idx);
+    idx = gks_context_get_current_view();
     XCTAssertEqual(idx, 0);
 }
 
@@ -853,11 +853,11 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
    GKSint viewNum = 0;
     
-    gks_vantage_init();
+    gks_context_init();
     
     gks_trans_set_device_viewport(&portlims);
     gks_trans_set_world_volume(&wrldlims);
-    int view_num_get = gks_vantage_get_current_view();
+    int view_num_get = gks_context_get_current_view();
     XCTAssertEqual(view_num_get, viewNum);
     
     // not a verified test, try some different values for p1 and limits
@@ -878,11 +878,11 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     GKSint viewNum = 0;
     
-    gks_vantage_init();
+    gks_context_init();
     
     gks_trans_set_world_volume(&wrldlims);
     gks_trans_set_device_viewport(&portlims);
-    int view_num_get = gks_vantage_get_current_view();
+    int view_num_get = gks_context_get_current_view();
     XCTAssertEqual(view_num_get, viewNum);
     
     // TODO: verify, with different values for p1 and limits
