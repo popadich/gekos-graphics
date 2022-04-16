@@ -10,6 +10,7 @@
 
 @interface GKSScene () {
     float seg_vect[3];
+    GKSlimits_3 volume;
 }
 
 
@@ -26,7 +27,7 @@
         // initialize scene array
         _objectList = [[NSMutableArray alloc] init];
         
-        _worldVolumeMinX  = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
+        _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
         _worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
         _worldVolumeMinY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY];
         _worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
@@ -65,7 +66,6 @@
 
 - (GKSlimits_3 *)worldVolumeLimits
 {
-    GKSlimits_3 volume;
     volume.xmin = self.worldVolumeMinX.doubleValue;
     volume.ymin = self.worldVolumeMinY.doubleValue;
     volume.zmin = self.worldVolumeMinZ.doubleValue;
