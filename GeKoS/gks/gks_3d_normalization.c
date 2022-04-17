@@ -40,28 +40,28 @@ void gks_norms_init(GKScontext3DPtr context_ptr)
     GKSlimits_3 world_volume = GKSMakeVolume(min, max);
     
     // 3D World volume
-    gks_trans_set_world_volume(&world_volume);
+    gks_trans_set_world_volume(context_ptr, &world_volume);
     // 3D View volume
-    gks_trans_set_view_volume(&view_volume);
+    gks_trans_set_view_volume(context_ptr, &view_volume);
 
     
 }
 
 
 // MARK: Getters
-GKSlimits_3 *gks_trans_get_world_volume(void)
+GKSlimits_3 *gks_trans_get_world_volume(GKScontext3DPtr context_ptr)
 {
     return &g_world_volume;
 }
 
 
-GKSlimits_3 *gks_trans_get_view_volume(void)
+GKSlimits_3 *gks_trans_get_view_volume(GKScontext3DPtr context_ptr)
 {
     return &g_view_volume;
 }
 
 
-GKSlimits_2 *gks_trans_get_device_port(void)
+GKSlimits_2 *gks_trans_get_device_port(GKScontext3DPtr context_ptr)
 {
     return &g_device_port;
 }
@@ -75,7 +75,7 @@ GKSlimits_2 *gks_trans_get_device_port(void)
 //  r_min = WindowRect.left;    r_max = WindowRect.right;
 //  s_min = WindowRect.bottom;  s_max = WindowRect.top;
 //
-void gks_trans_set_device_viewport(GKSlimits_2 *device_limits)
+void gks_trans_set_device_viewport(GKScontext3DPtr context_ptr, GKSlimits_2 *device_limits)
 {
 
     g_device_port.xmin = device_limits->xmin;
@@ -83,12 +83,12 @@ void gks_trans_set_device_viewport(GKSlimits_2 *device_limits)
     g_device_port.xmax = device_limits->xmax;
     g_device_port.ymax = device_limits->ymax;
 
-    gks_trans_compute_transforms();
+    gks_trans_compute_transforms(context_ptr);
     
 }
 
 
-void gks_trans_set_view_volume(GKSlimits_3 *view_volume)
+void gks_trans_set_view_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *view_volume)
 {
     g_view_volume.xmin = view_volume->xmin;
     g_view_volume.xmax = view_volume->xmax;
@@ -97,11 +97,11 @@ void gks_trans_set_view_volume(GKSlimits_3 *view_volume)
     g_view_volume.zmin = view_volume->zmin;
     g_view_volume.zmax = view_volume->zmax;
 
-    gks_trans_compute_transforms();
+    gks_trans_compute_transforms(context_ptr);
 
 }
 
-void gks_trans_set_world_volume(GKSlimits_3 *wrld_volume)
+void gks_trans_set_world_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *wrld_volume)
 {
     g_world_volume.xmin = wrld_volume->xmin;
     g_world_volume.xmax = wrld_volume->xmax;
@@ -110,12 +110,12 @@ void gks_trans_set_world_volume(GKSlimits_3 *wrld_volume)
     g_world_volume.zmin = wrld_volume->zmin;
     g_world_volume.zmax = wrld_volume->zmax;
     
-    gks_trans_compute_transforms();
+    gks_trans_compute_transforms(context_ptr);
 
 }
 
 // MARK: Computation
-void setup_transform_world_view(GKSlimits_3 winlim, GKSlimits_3 vwplim) {
+void setup_transform_world_view(GKScontext3DPtr context_ptr, GKSlimits_3 winlim, GKSlimits_3 vwplim) {
     GKSfloat        x_min,x_max,y_min,y_max,z_min,z_max;
     GKSfloat        u_min,u_max,v_min,v_max,w_min,w_max;
     
@@ -140,7 +140,7 @@ void setup_transform_world_view(GKSlimits_3 winlim, GKSlimits_3 vwplim) {
     g_wrld_zcoord = g_wrld_zscale*(-z_min) + w_min;
 }
 
-void setup_transform_view_to_device(GKSlimits_3 view_limits)
+void setup_transform_view_to_device(GKScontext3DPtr context_ptr, GKSlimits_3 view_limits)
 {
     GKSfloat u_min, u_max, v_min, v_max;
     GKSfloat r_min3, r_max3, s_min3, s_max3;
@@ -162,21 +162,23 @@ void setup_transform_view_to_device(GKSlimits_3 view_limits)
     g_dev_ycoord = g_dev_yscale*(-v_min) + s_min3;
 }
 
+
+
 // For now there is only one transform, so keeping
 // it in an array of 10 seems weird and pointless.
 //
 // These are viewport and world volume transforms.
-void gks_trans_compute_transforms(void)
+void gks_trans_compute_transforms(GKScontext3DPtr context_ptr)
 {
-    setup_transform_world_view(g_world_volume, g_view_volume);
-    setup_transform_view_to_device(g_view_volume);
+    setup_transform_world_view(context_ptr, g_world_volume, g_view_volume);
+    setup_transform_view_to_device(context_ptr, g_view_volume);
 
 }
 
 // MARK: Transforms
 // World coordinates (wc) to Normalized World Coordinates (nwc)
 // World space -> Normalized World space
-void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
+void gks_trans_wc_to_nwc (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
 {
     nwc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
     nwc_pt->crd.y = g_wrld_yscale * wc_pt.crd.y + g_wrld_ycoord;
@@ -188,7 +190,7 @@ void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
 // Normalized Device Coordinates (ndc) to Device Coordinates (dc) 2D
 // If I were to build a 2D drawing library, this function would be
 // part of that.
-void gks_trans_nwc_3_to_dc_2 (GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
+void gks_trans_nwc_3_to_dc_2 (GKScontext3DPtr context_ptr, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
 {
     *r = g_dev_xscale * ndc_pt.crd.x + g_dev_xcoord;
     *s = g_dev_yscale * ndc_pt.crd.y + g_dev_ycoord;

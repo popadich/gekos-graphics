@@ -71,7 +71,7 @@ static void *worldDataContext = &worldDataContext;
     GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
     
     // Set normalization value transforms
-    gks_trans_set_device_viewport(&port_rect);
+    gks_trans_set_device_viewport(context, &port_rect);
     [self.theScene transformWorldVolume];
 
     // Set all vantage points to the same default values
