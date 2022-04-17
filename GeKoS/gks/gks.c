@@ -19,5 +19,6 @@ void gks_init_3D(void)
 
 void gks_init(void)
 {
+    gks_context_init();
     gks_init_3D();    
 }

@@ -19,7 +19,6 @@ static GKSfloat       g_wrld_yscale, g_wrld_ycoord;
 static GKSfloat       g_wrld_zscale, g_wrld_zcoord;
 
 // device limits globals
-static GKSfloat       g_r_min3, g_r_max3, g_s_min3, g_s_max3;
 static GKSfloat       g_dev_xscale, g_dev_xcoord;
 static GKSfloat       g_dev_yscale, g_dev_ycoord;
 
@@ -37,18 +36,19 @@ void gks_norms_init(void)
     GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
     
     // set the same "unit" volume for world and view
-    GKSlimits_3 viewport_volume = GKSMakeVolume(min, max);
+    GKSlimits_3 view_volume = GKSMakeVolume(min, max);
     GKSlimits_3 world_volume = GKSMakeVolume(min, max);
     
     // 3D World volume
     gks_trans_set_world_volume(&world_volume);
     // 3D View volume
-    gks_trans_set_view_volume(&viewport_volume);
+    gks_trans_set_view_volume(&view_volume);
 
     
 }
 
 
+// MARK: Getters
 GKSlimits_3 *gks_trans_get_world_volume(void)
 {
     return &g_world_volume;
@@ -67,7 +67,7 @@ GKSlimits_2 *gks_trans_get_device_port(void)
 }
 
 
-// MARK: Device Port
+// MARK: Setters
 //
 //  r and s are device coordinates, as in the ones you would plot to the screen in
 //  a window's view.
@@ -77,11 +77,7 @@ GKSlimits_2 *gks_trans_get_device_port(void)
 //
 void gks_trans_set_device_viewport(GKSlimits_2 *device_limits)
 {
-    g_r_min3 = device_limits->xmin;
-    g_r_max3 = device_limits->xmax;
-    g_s_min3 = device_limits->ymin;
-    g_s_max3 = device_limits->ymax;
-    
+
     g_device_port.xmin = device_limits->xmin;
     g_device_port.ymin = device_limits->ymin;
     g_device_port.xmax = device_limits->xmax;
@@ -92,7 +88,6 @@ void gks_trans_set_device_viewport(GKSlimits_2 *device_limits)
 }
 
 
-// MARK: View Volume
 void gks_trans_set_view_volume(GKSlimits_3 *view_volume)
 {
     g_view_volume.xmin = view_volume->xmin;
@@ -101,10 +96,11 @@ void gks_trans_set_view_volume(GKSlimits_3 *view_volume)
     g_view_volume.ymax = view_volume->ymax;
     g_view_volume.zmin = view_volume->zmin;
     g_view_volume.zmax = view_volume->zmax;
-        
+
+    gks_trans_compute_transforms();
+
 }
 
-// MARK: World Volume
 void gks_trans_set_world_volume(GKSlimits_3 *wrld_volume)
 {
     g_world_volume.xmin = wrld_volume->xmin;
@@ -147,16 +143,23 @@ void setup_transform_world_view(GKSlimits_3 winlim, GKSlimits_3 vwplim) {
 void setup_transform_view_to_device(GKSlimits_3 view_limits)
 {
     GKSfloat u_min, u_max, v_min, v_max;
-    
+    GKSfloat r_min3, r_max3, s_min3, s_max3;
+
     u_min = view_limits.xmin;
     u_max = view_limits.xmax;
     v_min = view_limits.ymin;
     v_max = view_limits.ymax;
+    
+    r_min3 = g_device_port.xmin;
+    r_max3 = g_device_port.xmax;
+    s_min3 = g_device_port.ymin;
+    s_max3 = g_device_port.ymax;
 
-    g_dev_xscale = (g_r_max3 - g_r_min3)/(u_max - u_min);
-    g_dev_xcoord = g_dev_xscale*(-u_min) + g_r_min3;
-    g_dev_yscale = (g_s_max3 - g_s_min3)/(v_max - v_min);
-    g_dev_ycoord = g_dev_yscale*(-v_min) + g_s_min3;
+    g_dev_xscale = (r_max3 - r_min3)/(u_max - u_min);
+    g_dev_xcoord = g_dev_xscale*(-u_min) + r_min3;
+    
+    g_dev_yscale = (s_max3 - s_min3)/(v_max - v_min);
+    g_dev_ycoord = g_dev_yscale*(-v_min) + s_min3;
 }
 
 // For now there is only one transform, so keeping
@@ -165,31 +168,12 @@ void setup_transform_view_to_device(GKSlimits_3 view_limits)
 // These are viewport and world volume transforms.
 void gks_trans_compute_transforms(void)
 {
-    GKSlimits_3 wrld_volume;
-    GKSlimits_3 vwp_lim;
-        
-    // world
-    wrld_volume.xmin = g_world_volume.xmin;
-    wrld_volume.ymin = g_world_volume.ymin;
-    wrld_volume.zmin = g_world_volume.zmin;
-    wrld_volume.xmax = g_world_volume.xmax;
-    wrld_volume.ymax = g_world_volume.ymax;
-    wrld_volume.zmax = g_world_volume.zmax;
-
-    // view volume
-    vwp_lim.xmin = g_view_volume.xmin;
-    vwp_lim.ymin = g_view_volume.ymin;
-    vwp_lim.zmin = g_view_volume.zmin;
-    vwp_lim.xmax = g_view_volume.xmax;
-    vwp_lim.ymax = g_view_volume.ymax;
-    vwp_lim.zmax = g_view_volume.zmax;
-    
-    setup_transform_world_view(wrld_volume, vwp_lim);
-    setup_transform_view_to_device(vwp_lim);
+    setup_transform_world_view(g_world_volume, g_view_volume);
+    setup_transform_view_to_device(g_view_volume);
 
 }
 
-// MARK: Scalers
+// MARK: Transforms
 // World coordinates (wc) to Normalized World Coordinates (nwc)
 // World space -> Normalized World space
 void gks_trans_wc_to_nwc (GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)

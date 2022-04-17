@@ -151,6 +151,22 @@ typedef struct
 } GKSactor;
 
 
+typedef struct {
+    GKSlimits_3 world_volume;
+    GKSlimits_3 view_volume;
+    GKSlimits_2 port_rect;
+    GKSmatrix_3 view_transform;
+    GKSmatrix_3 projection_transform;
+    GKSfloat perspective_depth;
+    GKSfloat near;
+    GKSfloat far;
+    GKSint projection_type;
+    
+} GKScontext3D;
+typedef GKScontext3D *GKScontext3DPtr;
+
+
+
 GKS_INLINE GKSvector3d GKSMakeVector(GKSfloat x, GKSfloat y, GKSfloat z) {
     GKSvector3d v;
     v.crd.x = x;
