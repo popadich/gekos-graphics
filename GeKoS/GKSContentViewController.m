@@ -93,14 +93,15 @@ static void *worldDataContext = &worldDataContext;
 
 - (void)awakeFromNib {
     
-    // MARK: INIT GKS
-    context = gks_init();
-    self.cameraViewController.context = context;
-
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
     GKSScene *scene = content.theScene;
     GKSCameraRep *scene_camera = scene.camera;
+    
+    // MARK: INIT GKS
+    context = gks_init();
+    self.cameraViewController.context = context;
+    scene.context = context;
 
     
     self.cameraRep = scene_camera;

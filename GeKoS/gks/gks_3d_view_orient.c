@@ -33,7 +33,7 @@ void gks_view_matrix_set(GKScontext3DPtr context_ptr, GKSmatrix_3 viewMatrix)
             
 }
 
-GKSmatrix_3 *gks_view_matrix_get(void)
+GKSmatrix_3 *gks_view_matrix_get(GKScontext3DPtr context_ptr)
 {
     return &gViewMatrix;
 }
