@@ -526,14 +526,13 @@ void setMeshCenteredFlag(bool isCentered)
 
 void free_mesh(GKSmesh_3 *the_mesh)
 {
-    GKSvertexArrPtr vertex_array = the_mesh->vertices;
-    GKSindexArrPtr compact_array = the_mesh->polygons;
-    
     // Free the memory associated with mesh data structure
-    free(vertex_array);
+    free(the_mesh->vertices);
     the_mesh->vertices = NULL;
-    free(compact_array);
+    free(the_mesh->polygons);
     the_mesh->polygons = NULL;
+    free(the_mesh->edges);
+    the_mesh->edges = NULL;
     
     free(the_mesh);
 }
