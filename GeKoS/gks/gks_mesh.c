@@ -173,7 +173,7 @@ GKSmesh_3 *PyramidMesh(void)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(GKS_PYRAMID_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSindexArrPtr polygon_array = (GKSindexArrPtr)calloc(GKS_PYRAMID_PARRAY_SIZE, sizeof(GKSint));
-    GKSedgeArrPtr edge_array = (GKSedgeArrPtr)calloc(GKS_CUBE_EDGE_COUNT, sizeof(GKSedge_3));
+    GKSedgeArrPtr edge_array = (GKSedgeArrPtr)calloc(GKS_PYRAMID_EDGE_COUNT, sizeof(GKSedge_3));
 
     // copy vertices using pointer arithmetic
     p = object_verts;
@@ -243,6 +243,24 @@ GKSmesh_3 *HouseMesh(void)
         {4, 3, 4, 9, 8},
         {4, 4, 5, 10, 9}
     };
+ 
+    static GKSedge_3 object_edges[GKS_HOUSE_EDGE_COUNT] = {
+        1,2,
+        2,3,
+        3,4,
+        4,1,
+        4,10,
+        1,5,
+        10,5,
+        5,6,
+        10,9,
+        6,9,
+        7,8,
+        6,7,
+        9,8,
+        3,8,
+        2,7
+    };
     
     GKSpoint_3 *p;
     GKSvector3dPtr q;
@@ -251,7 +269,8 @@ GKSmesh_3 *HouseMesh(void)
     // clear memory allocation to zeros
     GKSvertexArrPtr vertex_array = (GKSvertexArrPtr)calloc(GKS_HOUSE_VERTEX_COUNT, sizeof(GKSvector3d));
     GKSint *polygon_array = (GKSindexArrPtr)calloc(GKS_HOUSE_PARRAY_SIZE, sizeof(GKSint));
-    
+    GKSedgeArrPtr edge_array = (GKSedgeArrPtr)calloc(GKS_HOUSE_EDGE_COUNT, sizeof(GKSedge_3));
+
     // copy vertices using pointer arithmetic
     p = object_verts;
     q = vertex_array;
@@ -278,10 +297,20 @@ GKSmesh_3 *HouseMesh(void)
         }
     }
 
+    // copy edges
+    for (GKSint i=0; i<GKS_HOUSE_EDGE_COUNT; i++) {
+        GKSint p1 = object_edges[i][0];
+        GKSint p2 = object_edges[i][1];
+
+        edge_array[i][0] = p1;
+        edge_array[i][1] = p2;
+    }
+
     aHouse = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
     aHouse->vertices = vertex_array;
-    aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
     aHouse->polygons = polygon_array;
+    aHouse->edges = edge_array;
+    aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
 
     return aHouse;
