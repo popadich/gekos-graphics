@@ -775,7 +775,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionInit {
     GKSmatrix_3 *projMatrix;
     
-    gks_projection_init();
+    gks_projection_init(NULL);
     projMatrix = gks_projection_get_matrix();
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
@@ -832,33 +832,26 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 // MARK: TRANSFORM
 - (void)testTransformInit {
-    gks_context_init();
+    GKScontext3DPtr ctx = NULL;
+
+    ctx = gks_context_init();
     
-    GKSint idx = gks_context_get_current_view();
-    XCTAssertEqual(idx, 0, @"wrong vantage point");
+    XCTAssertNotEqual(ctx, NULL);
     
 }
 
-- (void)testTransformSetIndex {
-    GKSint idx = 0;
-    gks_context_set_current_view(idx);
-    idx = gks_context_get_current_view();
-    XCTAssertEqual(idx, 0);
-}
 
 - (void)testTransformWCToNWC3 {
     GKSlimits_3 wrldlims = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0 };
     GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
     GKSvector3d p2 = {0.0, 0.0, 0.0, 0.0};
     GKSlimits_2 portlims = { 0.0, 400.0, 0.0, 400.0 };
-   GKSint viewNum = 0;
     
     gks_context_init();
     
     gks_trans_set_device_viewport(&portlims);
     gks_trans_set_world_volume(&wrldlims);
-    int view_num_get = gks_context_get_current_view();
-    XCTAssertEqual(view_num_get, viewNum);
+
     
     // not a verified test, try some different values for p1 and limits
     gks_trans_wc_to_nwc (p1, &p2);
@@ -875,15 +868,12 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSvector3d p1 = {1.0, 1.0, 1.0, 1.0};
     GKSvector3d p2 = {0.5, 0.5, 0.0, 1.0};
     GKSfloat u, v;
-    
-    GKSint viewNum = 0;
-    
+        
     gks_context_init();
     
     gks_trans_set_world_volume(&wrldlims);
     gks_trans_set_device_viewport(&portlims);
-    int view_num_get = gks_context_get_current_view();
-    XCTAssertEqual(view_num_get, viewNum);
+
     
     // TODO: verify, with different values for p1 and limits
     gks_trans_nwc_3_to_dc_2(p1, &u, &v);
@@ -935,7 +925,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 // MARK: VIEW ORIENT
 - (void)testViewOrientInit {
     GKSmatrix_3 *theViewMatrixPtr;
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
     
     theViewMatrixPtr = gks_view_matrix_get();
     XCTAssertEqual((*theViewMatrixPtr)[0][0], 1.0);
@@ -947,7 +937,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     GKSmatrix_3 *theViewMatrixPtr;
     
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
     gks_view_matrix_set(im);
 
     theViewMatrixPtr = gks_view_matrix_get();
@@ -977,7 +967,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     up.crd.z = 0.0;
     up.crd.w = 1.0;
     
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
     gks_view_matrix_compute(loc, dir, up, result_matrix);
     
     XCTAssertEqualWithAccuracy(result_matrix[0][0], 1.0, epsilon);
@@ -1023,7 +1013,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     up.crd.w = 1.0;
     
     
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
 
     gks_view_matrix_compute(loc, dir, up, result_matrix);
 
@@ -1070,7 +1060,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
     
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
     gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);
@@ -1105,7 +1095,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
 
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
     gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);
@@ -1140,7 +1130,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
 
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
     gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);
@@ -1186,7 +1176,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     v.z = 0.0;
     up.crd = v;
 
-    gks_view_matrix_init();
+    gks_view_matrix_init(NULL);
     
 //    gks_compute_camera_look_at_matrix(observer.x, observer.y, observer.z, look_at.x, look_at.y, look_at.z, v.x, v.y, v.z, theResultMatrix);
     gks_view_matrix_lookat_compute(obs, look, up, theResultMatrix);

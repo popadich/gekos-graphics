@@ -23,7 +23,7 @@ static GKSfloat       g_dev_xscale, g_dev_xcoord;
 static GKSfloat       g_dev_yscale, g_dev_ycoord;
 
 
-void gks_norms_init(void)
+void gks_norms_init(GKScontext3DPtr context_ptr)
 {
     g_wrld_xscale = g_wrld_xcoord = 0.0;
     g_wrld_yscale = g_wrld_ycoord = 0.0;

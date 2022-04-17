@@ -17,7 +17,7 @@ typedef enum {
     kAxonometricProjection
 } ProjectionType;
 
-void gks_projection_init(void);
+void gks_projection_init(GKScontext3DPtr context_ptr);
 ProjectionType gks_projection_get_type(void);
 
 void gks_projection_set_orthogonal(void);

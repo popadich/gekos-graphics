@@ -13,7 +13,7 @@ static ProjectionType      gProjectionType = kOrthogonalProjection;
 static GKSfloat            gPerspectiveDepth;
 
 
-void gks_projection_init(void)
+void gks_projection_init(GKScontext3DPtr context_ptr)
 {    
     // Set projection matrix to identity matrix
     for (int i=0; i<4; i++) {

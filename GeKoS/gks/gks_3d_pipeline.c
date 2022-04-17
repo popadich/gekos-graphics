@@ -96,7 +96,7 @@ GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
 
 
 
-void pipeline_actor(GKSactor *the_actor)
+void gks_pipeline_object_actor(GKSactor *the_actor)
 {
     GKSvector3d polygon_vertex_buffer[GKS_POLY_VERTEX_MAX];
     GKSpoint_2 dev_coord_buffer[GKS_POLY_VERTEX_MAX];
@@ -106,6 +106,9 @@ void pipeline_actor(GKSactor *the_actor)
     GKSindexArrPtr poly_array = the_actor->mesh_object.polygons;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     the_actor->hidden = false;
+    
+    // set object into the world
+    gks_set_world_model_matrix(the_actor->model_transform);
     
     // TODO: transform all object vertices first
     // to speed things up I should transform all the vertices of the object
@@ -175,17 +178,4 @@ void gks_draw_piped_actor(GKSactor *the_actor)
         gks_localpolyline_3(i, polygon_size, dev_coord_buffer, &the_actor->line_color);
         
     }
-}
-
-
-// TODO: pipeline objects
-void gks_pipeline_object_actor(GKSactor *the_actor)
-{
-    // TODO: set all pipeline matrices
-    
-    // set object into the world
-    gks_set_world_model_matrix(the_actor->model_transform);
-    
-    pipeline_actor(the_actor);
-    
 }

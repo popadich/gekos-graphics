@@ -8,17 +8,18 @@
 #include "gks.h"
 
 
-void gks_init_3D(void)
+void gks_init_3D(GKScontext3DPtr context_ptr)
 {
-    gks_norms_init();
-    gks_projection_init();
     gks_init_world_model();
-    gks_view_matrix_init();
+
+    gks_norms_init(context_ptr);
+    gks_projection_init(context_ptr);
+    gks_view_matrix_init(context_ptr);
 }
 
 
 void gks_init(void)
 {
-    gks_context_init();
-    gks_init_3D();    
+    GKScontext3DPtr context_ptr = gks_context_init();
+    gks_init_3D(context_ptr);
 }

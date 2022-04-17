@@ -10,7 +10,7 @@
 
 #include "gks_types.h"
 
-void gks_norms_init(void);
+void gks_norms_init(GKScontext3DPtr context_ptr);
 
 GKSlimits_3 *gks_trans_get_world_volume(void);
 GKSlimits_3 *gks_trans_get_view_volume(void);

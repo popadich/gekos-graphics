@@ -10,7 +10,7 @@
 
 #include "gks_types.h"
 
-void gks_view_matrix_init(void);
+void gks_view_matrix_init(GKScontext3DPtr context_ptr);
 
 GKSmatrix_3 *gks_view_matrix_get(void);
 void gks_view_matrix_set(GKSmatrix_3 matrix);

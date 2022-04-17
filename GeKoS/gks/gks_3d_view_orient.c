@@ -12,7 +12,7 @@
 // P R I V A T E    O K
 static GKSmatrix_3      gViewMatrix;       // View Plane Orientation Matrix
 
-void gks_view_matrix_init(void)
+void gks_view_matrix_init(GKScontext3DPtr context_ptr)
 {
     GKSmatrix_3 viewTransMatrix = {
         {1.0, 0.0, 0.0, 0.0},
