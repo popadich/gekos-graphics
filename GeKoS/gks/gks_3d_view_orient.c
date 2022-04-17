@@ -20,16 +20,17 @@ void gks_view_matrix_init(GKScontext3DPtr context_ptr)
         {0.0, 0.0, -1.0, 0.0},
         {0.0, 0.0, 0.0, 1.0}
     };
-    gks_view_matrix_set(viewTransMatrix);
+    gks_view_matrix_set(context_ptr, viewTransMatrix);
 
 }
 
 
-void gks_view_matrix_set(GKSmatrix_3 viewMatrix)
+void gks_view_matrix_set(GKScontext3DPtr context_ptr, GKSmatrix_3 viewMatrix)
 {
     for(int i=0; i<4; i++)
         for (int j=0; j<4; j++)
             gViewMatrix[i][j] = viewMatrix[i][j];
+            
 }
 
 GKSmatrix_3 *gks_view_matrix_get(void)
@@ -76,27 +77,7 @@ void gks_view_matrix_compute(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d 
     // the transpose of M and therefore the basis vectors go into the rows
     // of the matrix.
     //
-//    result[0][0] = u_vector.crd.x;
-//    result[0][1] = u_vector.crd.y;
-//    result[0][2] = u_vector.crd.z;
-//    result[0][3] = -obs.crd.x;
-//    
-//    result[1][0] = v_vector.crd.x;
-//    result[1][1] = v_vector.crd.y;
-//    result[1][2] = v_vector.crd.z;
-//    result[1][3] = -obs.crd.y;
-//    
-//    result[2][0] = w_vector.crd.x;
-//    result[2][1] = w_vector.crd.y;
-//    result[2][2] = w_vector.crd.z;
-//    result[2][3] = -obs.crd.z;
-//    
-//    result[3][0] = 0.0;
-//    result[3][1] = 0.0;
-//    result[3][2] = 0.0;
-//    result[3][3] = 1.0;
-
-    
+   
     GKSmatrix_3 orientation;
     orientation[0][0] = u_vector.crd.x;
     orientation[0][1] = u_vector.crd.y;

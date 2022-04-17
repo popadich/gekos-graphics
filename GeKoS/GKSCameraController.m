@@ -8,7 +8,7 @@
 #import "GKSCameraController.h"
 #import "GKSConstants.h"
 #import "GKSCameraRep.h"
-#include "gks/gks.h"
+
 
 static double head_size_adjust = 1.0;
 
@@ -232,7 +232,7 @@ void logMatrix(GKSmatrix_3 M) {
 
         // Set Camera View Matrix
         gks_view_matrix_compute(pos, dir_vector, up_vector, aViewMatrix);
-        gks_view_matrix_set(aViewMatrix);
+        gks_view_matrix_set(self.context, aViewMatrix);
 
         
         // Set UI values
@@ -276,7 +276,7 @@ void logMatrix(GKSmatrix_3 M) {
         GKSvector3d position = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
 
         gks_view_matrix_compute(position, dir_vector, up_vector, aViewMatrix);
-        gks_view_matrix_set(aViewMatrix);
+        gks_view_matrix_set(self.context, aViewMatrix);
         
         
         // Set UI values
@@ -341,7 +341,7 @@ void logMatrix(GKSmatrix_3 M) {
 //    NSLog(@"Result");
 //    logMatrix(result);
     
-    gks_view_matrix_set(result);
+    gks_view_matrix_set(self.context, result);
     
     // set the UI values
     NSNumber *uhatx = [NSNumber numberWithDouble:result[0][0]];

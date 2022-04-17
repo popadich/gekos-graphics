@@ -18,8 +18,9 @@ void gks_init_3D(GKScontext3DPtr context_ptr)
 }
 
 
-void gks_init(void)
+GKScontext3DPtr gks_init(void)
 {
     GKScontext3DPtr context_ptr = gks_context_init();
     gks_init_3D(context_ptr);
+    return context_ptr;
 }

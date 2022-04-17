@@ -17,7 +17,9 @@
 
 #define GKS_MAX_VANTAGE_PTS 6
 
-@interface GKSContentViewController ()
+@interface GKSContentViewController () {
+    GKScontext3DPtr context;
+}
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 
@@ -42,9 +44,10 @@ static void *worldDataContext = &worldDataContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    
+    
     // init gks
-    // this needs to be done early in the application lifecycle
-    gks_init();
+
     
     // Can't use replace subview because constraints in parent view are lost
     NSView* cameraSubView = self.cameraViewController.view;
@@ -89,11 +92,16 @@ static void *worldDataContext = &worldDataContext;
 }
 
 - (void)awakeFromNib {
+    
+    // MARK: INIT GKS
+    context = gks_init();
+    self.cameraViewController.context = context;
+
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
-    
     GKSScene *scene = content.theScene;
     GKSCameraRep *scene_camera = scene.camera;
+
     
     self.cameraRep = scene_camera;
     self.cameraViewController.representedObject = self.cameraRep;

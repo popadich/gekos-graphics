@@ -938,7 +938,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKSmatrix_3 *theViewMatrixPtr;
     
     gks_view_matrix_init(NULL);
-    gks_view_matrix_set(im);
+    gks_view_matrix_set(NULL, im);
 
     theViewMatrixPtr = gks_view_matrix_get();
     XCTAssertEqual((*theViewMatrixPtr)[0][0], 1.0);

@@ -21,7 +21,7 @@
 #include "gks_3d_object_list.h"
 #include "gks_drawing_glue.h"
 
-void gks_init(void);
+GKScontext3DPtr gks_init(void);
 
 
 #endif
