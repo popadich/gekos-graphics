@@ -42,7 +42,7 @@ GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     // Get transformation matrices
     GKSmatrixPtr world_matrix = gks_get_world_model_matrix();
     GKSmatrixPtr view_matrix = gks_view_matrix_get(NULL);
-    GKSmatrixPtr projection_matrix = gks_projection_get_matrix();
+    GKSmatrixPtr projection_matrix = gks_projection_get_matrix(NULL);
 
     for (GKSint i=0; i<num_pt; i++) {
         // put object in world

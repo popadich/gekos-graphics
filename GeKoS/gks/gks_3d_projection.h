@@ -18,14 +18,14 @@ typedef enum {
 } ProjectionType;
 
 void gks_projection_init(GKScontext3DPtr context_ptr);
-ProjectionType gks_projection_get_type(void);
+ProjectionType gks_projection_get_type(GKScontext3DPtr context_ptr);
 
-void gks_projection_set_orthogonal(void);
-void gks_projection_set_simple(GKSfloat focalDistance);
-void gks_projection_set_perspective(GKSfloat alpha, GKSfloat near, GKSfloat far);
-void gks_projection_set_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far);
+void gks_projection_set_orthogonal(GKScontext3DPtr context_ptr);
+void gks_projection_set_simple(GKScontext3DPtr context_ptr, GKSfloat focalDistance);
+void gks_projection_set_perspective(GKScontext3DPtr context_ptr, GKSfloat alpha, GKSfloat near, GKSfloat far);
+void gks_projection_set_alternate(GKScontext3DPtr context_ptr, GKSfloat alpha, GKSfloat near, GKSfloat far);
 
-GKSmatrix_3 *gks_projection_get_matrix(void);
-void gks_projection_set_matrix(GKSmatrix_3 new_matrix);
+GKSmatrix_3 *gks_projection_get_matrix(GKScontext3DPtr context_ptr);
+void gks_projection_set_matrix(GKScontext3DPtr context_ptr, GKSmatrix_3 new_matrix);
 
 #endif /* gks_3d_projection_h */

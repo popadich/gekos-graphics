@@ -25,22 +25,20 @@ void gks_projection_init(GKScontext3DPtr context_ptr)
         }
     }
     
-    gks_projection_set_orthogonal();
+    gks_projection_set_orthogonal(context_ptr);
 }
 
-ProjectionType gks_projection_get_type(void)
+ProjectionType gks_projection_get_type(GKScontext3DPtr context_ptr)
 {
     return gProjectionType;
 }
 
-GKSmatrix_3 *gks_projection_get_matrix(void)
+GKSmatrix_3 *gks_projection_get_matrix(GKScontext3DPtr context_ptr)
 {
     return &gProjectionMatrix;
 }
 
-
-
-void gks_projection_set_matrix(GKSmatrix_3 new_matrix)
+void gks_projection_set_matrix(GKScontext3DPtr context_ptr, GKSmatrix_3 new_matrix)
 {
     for(int i=0; i<4; i++)
         for (int j=0; j<4; j++)
@@ -56,7 +54,7 @@ void gks_projection_set_matrix(GKSmatrix_3 new_matrix)
     0 0 0 0
     0 0 0 1
 */
-void gks_projection_set_orthogonal(void)
+void gks_projection_set_orthogonal(GKScontext3DPtr context_ptr)
 {
     gProjectionMatrix[0][0] = 1.0; gProjectionMatrix[0][1] = 0.0; gProjectionMatrix[0][2] = 0.0; gProjectionMatrix[0][3] = 0.0;
     gProjectionMatrix[1][0] = 0.0; gProjectionMatrix[1][1] = 1.0; gProjectionMatrix[1][2] = 0.0; gProjectionMatrix[1][3] = 0.0;
@@ -74,7 +72,7 @@ void gks_projection_set_orthogonal(void)
     0 0 0 1/d (positive/negative controls left/right handed coordinate system)
     0 0 0 1
 */
-void gks_projection_set_simple(GKSfloat d)
+void gks_projection_set_simple(GKScontext3DPtr context_ptr, GKSfloat d)
 {
     gProjectionMatrix[0][0] = 1.0;
     gProjectionMatrix[0][1] = 0.0;
@@ -112,7 +110,7 @@ void gks_projection_set_simple(GKSfloat d)
     0    0    a  -1 (positive/negative controls left/right coordinate system)
     0    0    b   0
 */
-void gks_projection_set_perspective(GKSfloat alpha, GKSfloat near, GKSfloat far)
+void gks_projection_set_perspective(GKScontext3DPtr context_ptr, GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
 
     GKSfloat scale = 1 / tan(alpha * 0.5 * M_PI / 180);
@@ -156,7 +154,7 @@ void gks_projection_set_perspective(GKSfloat alpha, GKSfloat near, GKSfloat far)
     0    0    a  -1 (positive/negative controls left/right coordinate system)
     0    0    b   0
 */
-void gks_projection_set_alternate(GKSfloat alpha, GKSfloat near, GKSfloat far)
+void gks_projection_set_alternate(GKScontext3DPtr context_ptr, GKSfloat alpha, GKSfloat near, GKSfloat far)
 {
     GKSfloat n = near;
     GKSfloat f = far;
