@@ -23,14 +23,36 @@ static GKSfloat       g_dev_xscale, g_dev_xcoord;
 static GKSfloat       g_dev_yscale, g_dev_ycoord;
 
 
-void gks_norms_init(GKScontext3DPtr context_ptr)
+// PROTOTYPE
+void compute_transforms(GKScontext3DPtr context_ptr);
+
+
+void gks_norms_init(GKScontext3DPtr context)
 {
-    g_wrld_xscale = g_wrld_xcoord = 0.0;
-    g_wrld_yscale = g_wrld_ycoord = 0.0;
-    g_wrld_zscale = g_wrld_zcoord = 0.0;
+    g_wrld_xscale = 0.0;
+    g_wrld_xcoord = 0.0;
+    g_wrld_yscale = 0.0;
+    g_wrld_ycoord = 0.0;
+    g_wrld_zscale = 0.0;
+    g_wrld_zcoord = 0.0;
     
-    g_dev_xscale = g_dev_xcoord = 0.0;
-    g_dev_yscale = g_dev_ycoord = 0.0;
+    context->wrld_xscale = 0.0;
+    context->wrld_xcoord = 0.0;
+    context->wrld_yscale = 0.0;
+    context->wrld_ycoord = 0.0;
+    context->wrld_zscale = 0.0;
+    context->wrld_zcoord = 0.0;
+    
+    g_dev_xscale = 0.0;
+    g_dev_xcoord = 0.0;
+    g_dev_yscale = 0.0;
+    g_dev_ycoord = 0.0;
+    
+    context->dev_xscale = 0.0;
+    context->dev_xcoord = 0.0;
+    context->dev_yscale = 0.0;
+    context->dev_ycoord = 0.0;
+    
     
     GKSvector3d min = GKSMakeVector(-1.0, -1.0, -1.0);
     GKSvector3d max = GKSMakeVector(1.0, 1.0, 1.0);
@@ -40,28 +62,28 @@ void gks_norms_init(GKScontext3DPtr context_ptr)
     GKSlimits_3 world_volume = GKSMakeVolume(min, max);
     
     // 3D World volume
-    gks_trans_set_world_volume(context_ptr, &world_volume);
+    gks_trans_set_world_volume(context, &world_volume);
     // 3D View volume
-    gks_trans_set_view_volume(context_ptr, &view_volume);
+    gks_trans_set_view_volume(context, &view_volume);
 
     
 }
 
 
 // MARK: Getters
-GKSlimits_3 *gks_trans_get_world_volume(GKScontext3DPtr context_ptr)
+GKSlimits_3 *gks_norms_get_world_volume(GKScontext3DPtr context_ptr)
 {
     return &g_world_volume;
 }
 
 
-GKSlimits_3 *gks_trans_get_view_volume(GKScontext3DPtr context_ptr)
+GKSlimits_3 *gks_norms_get_view_volume(GKScontext3DPtr context_ptr)
 {
     return &g_view_volume;
 }
 
 
-GKSlimits_2 *gks_trans_get_device_port(GKScontext3DPtr context_ptr)
+GKSlimits_2 *gks_norms_get_device_port(GKScontext3DPtr context_ptr)
 {
     return &g_device_port;
 }
@@ -75,7 +97,7 @@ GKSlimits_2 *gks_trans_get_device_port(GKScontext3DPtr context_ptr)
 //  r_min = WindowRect.left;    r_max = WindowRect.right;
 //  s_min = WindowRect.bottom;  s_max = WindowRect.top;
 //
-void gks_trans_set_device_viewport(GKScontext3DPtr context_ptr, GKSlimits_2 *device_limits)
+void gks_norms_set_device_viewport(GKScontext3DPtr context, GKSlimits_2 *device_limits)
 {
 
     g_device_port.xmin = device_limits->xmin;
@@ -83,12 +105,17 @@ void gks_trans_set_device_viewport(GKScontext3DPtr context_ptr, GKSlimits_2 *dev
     g_device_port.xmax = device_limits->xmax;
     g_device_port.ymax = device_limits->ymax;
 
-    gks_trans_compute_transforms(context_ptr);
+    context->port_rect.xmin = device_limits->xmin;
+    context->port_rect.ymin = device_limits->ymin;
+    context->port_rect.xmax = device_limits->xmax;
+    context->port_rect.ymax = device_limits->ymax;
+    
+    compute_transforms(context);
     
 }
 
 
-void gks_trans_set_view_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *view_volume)
+void gks_trans_set_view_volume(GKScontext3DPtr context, GKSlimits_3 *view_volume)
 {
     g_view_volume.xmin = view_volume->xmin;
     g_view_volume.xmax = view_volume->xmax;
@@ -96,12 +123,19 @@ void gks_trans_set_view_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *view_vo
     g_view_volume.ymax = view_volume->ymax;
     g_view_volume.zmin = view_volume->zmin;
     g_view_volume.zmax = view_volume->zmax;
+    
+    context->volume_view.xmin = view_volume->xmin;
+    context->volume_view.xmax = view_volume->xmax;
+    context->volume_view.ymin = view_volume->ymin;
+    context->volume_view.ymax = view_volume->ymax;
+    context->volume_view.zmin = view_volume->zmin;
+    context->volume_view.zmax = view_volume->zmax;
 
-    gks_trans_compute_transforms(context_ptr);
+    compute_transforms(context);
 
 }
 
-void gks_trans_set_world_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *wrld_volume)
+void gks_trans_set_world_volume(GKScontext3DPtr context, GKSlimits_3 *wrld_volume)
 {
     g_world_volume.xmin = wrld_volume->xmin;
     g_world_volume.xmax = wrld_volume->xmax;
@@ -110,59 +144,79 @@ void gks_trans_set_world_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *wrld_v
     g_world_volume.zmin = wrld_volume->zmin;
     g_world_volume.zmax = wrld_volume->zmax;
     
-    gks_trans_compute_transforms(context_ptr);
+    context->volume_world.xmin = wrld_volume->xmin;
+    context->volume_world.xmax = wrld_volume->xmax;
+    context->volume_world.ymin = wrld_volume->ymin;
+    context->volume_world.ymax = wrld_volume->ymax;
+    context->volume_world.zmin = wrld_volume->zmin;
+    context->volume_world.zmax = wrld_volume->zmax;
+    
+    compute_transforms(context);
 
 }
 
 // MARK: Computation
-void setup_transform_world_view(GKScontext3DPtr context_ptr, GKSlimits_3 world_volume, GKSlimits_3 view_volume) {
-    GKSfloat        x_min,x_max,y_min,y_max,z_min,z_max;
-    GKSfloat        u_min,u_max,v_min,v_max,w_min,w_max;
+void setup_transform_world_view(GKScontext3DPtr context, GKSlimits_3 world_volume, GKSlimits_3 view_volume) {
     
-    x_min = world_volume.xmin;
-    x_max = world_volume.xmax;
-    y_min = world_volume.ymin;
-    y_max = world_volume.ymax;
-    z_min = world_volume.zmin;
-    z_max = world_volume.zmax;
+    GKSfloat x_min = world_volume.xmin;
+    GKSfloat x_max = world_volume.xmax;
+    GKSfloat y_min = world_volume.ymin;
+    GKSfloat y_max = world_volume.ymax;
+    GKSfloat z_min = world_volume.zmin;
+    GKSfloat z_max = world_volume.zmax;
     
-    u_min = view_volume.xmin;
-    u_max = view_volume.xmax;
-    v_min = view_volume.ymin;
-    v_max = view_volume.ymax;
-    w_min = view_volume.zmin;
-    w_max = view_volume.zmax;
+    GKSfloat u_min = view_volume.xmin;
+    GKSfloat u_max = view_volume.xmax;
+    GKSfloat v_min = view_volume.ymin;
+    GKSfloat v_max = view_volume.ymax;
+    GKSfloat w_min = view_volume.zmin;
+    GKSfloat w_max = view_volume.zmax;
     
     g_wrld_xscale = (u_max - u_min)/(x_max - x_min);
+    context->wrld_xscale = (u_max - u_min)/(x_max - x_min);
+    
     g_wrld_xcoord = g_wrld_xscale*(-x_min) + u_min;
+    context->wrld_xcoord = g_wrld_xscale*(-x_min) + u_min;
     
     g_wrld_yscale = (v_max - v_min)/(y_max - y_min);
+    context->wrld_yscale = (v_max - v_min)/(y_max - y_min);
+    
     g_wrld_ycoord = g_wrld_yscale*(-y_min) + v_min;
+    context->wrld_ycoord = g_wrld_yscale*(-y_min) + v_min;
     
     g_wrld_zscale = (w_max - w_min)/(z_max - z_min);
+    context->wrld_zscale = (w_max - w_min)/(z_max - z_min);
+    
     g_wrld_zcoord = g_wrld_zscale*(-z_min) + w_min;
+    context->wrld_zcoord = g_wrld_zscale*(-z_min) + w_min;;
+    
 }
 
-void setup_transform_view_to_device(GKScontext3DPtr context_ptr, GKSlimits_3 view_limits)
+void setup_transform_view_to_device(GKScontext3DPtr context, GKSlimits_3 view_limits)
 {
-    GKSfloat u_min, u_max, v_min, v_max;
-    GKSfloat r_min3, r_max3, s_min3, s_max3;
 
-    u_min = view_limits.xmin;
-    u_max = view_limits.xmax;
-    v_min = view_limits.ymin;
-    v_max = view_limits.ymax;
+    GKSfloat u_min = view_limits.xmin;
+    GKSfloat u_max = view_limits.xmax;
+    GKSfloat v_min = view_limits.ymin;
+    GKSfloat v_max = view_limits.ymax;
     
-    r_min3 = g_device_port.xmin;
-    r_max3 = g_device_port.xmax;
-    s_min3 = g_device_port.ymin;
-    s_max3 = g_device_port.ymax;
+    GKSfloat r_min3 = g_device_port.xmin;
+    GKSfloat r_max3 = g_device_port.xmax;
+    GKSfloat s_min3 = g_device_port.ymin;
+    GKSfloat s_max3 = g_device_port.ymax;
 
     g_dev_xscale = (r_max3 - r_min3)/(u_max - u_min);
+    context->dev_xscale = (r_max3 - r_min3)/(u_max - u_min);
+    
     g_dev_xcoord = g_dev_xscale*(-u_min) + r_min3;
+    context->dev_xcoord = g_dev_xscale*(-u_min) + r_min3;
     
     g_dev_yscale = (s_max3 - s_min3)/(v_max - v_min);
+    context->dev_yscale = (s_max3 - s_min3)/(v_max - v_min);
+    
     g_dev_ycoord = g_dev_yscale*(-v_min) + s_min3;
+    context->dev_ycoord = g_dev_yscale*(-v_min) + s_min3;
+    
 }
 
 
@@ -171,10 +225,10 @@ void setup_transform_view_to_device(GKScontext3DPtr context_ptr, GKSlimits_3 vie
 // it in an array of 10 seems weird and pointless.
 //
 // These are viewport and world volume transforms.
-void gks_trans_compute_transforms(GKScontext3DPtr context_ptr)
+void compute_transforms(GKScontext3DPtr context)
 {
-    setup_transform_world_view(context_ptr, g_world_volume, g_view_volume);
-    setup_transform_view_to_device(context_ptr, g_view_volume);
+    setup_transform_world_view(context, g_world_volume, g_view_volume); // volumes don't need to be passed
+    setup_transform_view_to_device(context, g_view_volume); // no pass
 
 }
 

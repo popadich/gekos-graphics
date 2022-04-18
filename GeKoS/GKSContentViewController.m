@@ -71,7 +71,7 @@ static void *worldDataContext = &worldDataContext;
     GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
     
     // Set normalization value transforms
-    gks_trans_set_device_viewport(context, &port_rect); // get a controller to do this
+    gks_norms_set_device_viewport(context, &port_rect); // get a controller to do this
     
     [self.theScene setTheWorldVolume];
 
