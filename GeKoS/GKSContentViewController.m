@@ -129,6 +129,26 @@ static void *worldDataContext = &worldDataContext;
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
     
+    
+    
+    
+    // TODO: remove when done with playing
+    BOOL playing = YES;
+    if (playing) {
+        setMeshCenteredFlag(true);
+        GKSfloat rad = 0.0;
+        for (int i=0; i<7; i++) {
+            GKS3DObject *object3D = [[GKS3DObject alloc] init];
+            [object3D locateX:0.0 Y:i%2 Z: -2.0 * i];
+            [object3D rotateX:0.0 Y:rad Z:0.0];
+
+            [scene add3DObject:object3D];
+            rad += DEG_TO_RAD * 35;
+        }
+    }
+    
+    
+    
     self.theContent = content;
 
 }

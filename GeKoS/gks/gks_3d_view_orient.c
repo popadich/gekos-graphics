@@ -12,7 +12,7 @@
 // P R I V A T E    O K
 static GKSmatrix_3      gViewMatrix;       // View Plane Orientation Matrix
 
-void gks_view_matrix_init(GKScontext3DPtr context_ptr)
+void gks_view_matrix_init(GKScontext3DPtr context)
 {
     GKSmatrix_3 viewTransMatrix = {
         {1.0, 0.0, 0.0, 0.0},
@@ -20,7 +20,7 @@ void gks_view_matrix_init(GKScontext3DPtr context_ptr)
         {0.0, 0.0, -1.0, 0.0},
         {0.0, 0.0, 0.0, 1.0}
     };
-    gks_view_matrix_set(context_ptr, viewTransMatrix);
+    gks_view_matrix_set(context, viewTransMatrix);
 
 }
 
@@ -44,7 +44,7 @@ void gks_view_matrix_w_get(GKScontext3DPtr context, GKSvector3dPtr w_dir)
 {
     for (int i=0; i<4; i++) {
         GKSfloat a = gViewMatrix[2][i];
-//        GKSfloat p = context->view_matrix[2][i];
+        GKSfloat p = context->view_matrix[2][i];
         w_dir->arr[i] = a;
     }
 }
@@ -53,7 +53,7 @@ void gks_view_matrix_p_get(GKScontext3DPtr context, GKSvector3dPtr p_loc)
 {
     for (int i=0; i<4; i++) {
         GKSfloat a = gViewMatrix[i][3];
-//        GKSfloat p = context->view_matrix[i][3];
+        GKSfloat p = context->view_matrix[i][3];
        p_loc->arr[i] = a;
     }
 }

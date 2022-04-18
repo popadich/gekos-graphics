@@ -18,7 +18,7 @@ typedef enum {
 } ProjectionType;
 
 void gks_projection_init(GKScontext3DPtr context_ptr);
-ProjectionType gks_projection_get_type(GKScontext3DPtr context_ptr);
+//ProjectionType gks_projection_get_type(GKScontext3DPtr context_ptr);
 
 void gks_projection_set_orthogonal(GKScontext3DPtr context_ptr);
 void gks_projection_set_simple(GKScontext3DPtr context_ptr, GKSfloat focalDistance);

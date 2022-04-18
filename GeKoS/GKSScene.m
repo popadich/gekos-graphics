@@ -78,17 +78,17 @@
 
 - (void) add3DObject:(GKS3DObject*)object3D
 {
-//    NSLog(@"3D Object of kind: %ld \n ScaleX: %lf \n TransX: %lf\n TransY: %lf\n TransZ: %lf", object3D.objectKind.integerValue, object3D.scaleX.floatValue, object3D.transX.floatValue, object3D.transY.floatValue, object3D.transZ.floatValue);
-    [object3D computeActorInContext:self.context];               // is this the time?
-
-    [self.objectList addObject:object3D];
+    // TODO: assert not null
+    if (self.context != NULL) {
+        [object3D computeActorInContext:self.context];               // is this the time?
+        [self.objectList addObject:object3D];
+    }
 }
 
 
 
 - (void)deleteLast3DObject
 {
-    // FIXME: free allocated memory here
     
     GKSmesh_3 *its_mesh = NULL;
     GKS3DObject *lasObj = [self.objectList lastObject];
@@ -109,8 +109,10 @@
 - (void)setTheWorldVolume
 {
     // very esoteric calls here, make this simpler
-    GKSlimits_3 *volume = [self worldVolumeLimits];
-    gks_norms_set_world_volume(self.context, volume);
+    if (self.context != NULL) {
+        GKSlimits_3 *volume = [self worldVolumeLimits];
+        gks_norms_set_world_volume(self.context, volume);
+    }
     
 }
 
