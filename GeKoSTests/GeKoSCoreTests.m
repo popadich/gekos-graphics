@@ -799,7 +799,6 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual((*projMatrix)[2][3], 0.0);
     XCTAssertEqual((*projMatrix)[3][3], 1.0);
     
-    XCTAssertEqual(gks_projection_get_type(NULL), kOrthogonalProjection);
 }
 
 - (void)testProjectionPerspectiveEnable {
@@ -815,9 +814,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual((*projMatrix)[2][3], 1.0);   // TODO: watch sign should be positive 1
     XCTAssertEqual((*projMatrix)[3][3], 1.0);
     
-    ProjectionType pt;
-    pt = gks_projection_get_type(context);
-    XCTAssertEqual(pt, kPerspectiveSimpleProjection, @"Perspective was just enabled");
+
 }
 
 // MARK: WORLD VOLUME
