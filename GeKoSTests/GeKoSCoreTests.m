@@ -778,7 +778,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKScontext3DPtr context = gks_init();
     
 //    gks_projection_init(context);
-    projMatrix = gks_projection_get_matrix_ctx(context);
+    projMatrix = gks_projection_get_matrix(context);
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
@@ -792,7 +792,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKScontext3DPtr context = gks_init();
 
     gks_projection_set_orthogonal(context);
-    projMatrix = gks_projection_get_matrix_ctx(context);
+    projMatrix = gks_projection_get_matrix(context);
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
@@ -807,7 +807,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKScontext3DPtr context = gks_init();
 
     gks_projection_set_simple(context, 1.0);
-    projMatrix = gks_projection_get_matrix_ctx(context);
+    projMatrix = gks_projection_get_matrix(context);
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
