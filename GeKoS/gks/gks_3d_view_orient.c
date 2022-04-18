@@ -35,10 +35,17 @@ void gks_view_matrix_set(GKScontext3DPtr context, GKSmatrix_3 viewMatrix)
             
 }
 
-GKSmatrix_3 *gks_view_matrix_get(GKScontext3DPtr context_ptr)
+GKSmatrix_3 *gks_view_matrix_get_g(GKScontext3DPtr context_ptr)
 {
     return &gViewMatrix;
 }
+
+
+GKSmatrix_3 *gks_view_matrix_get_ctx(GKScontext3DPtr context)
+{
+    return &context->view_matrix;
+}
+
 
 void gks_view_matrix_w_get(GKScontext3DPtr context, GKSvector3dPtr w_dir)
 {

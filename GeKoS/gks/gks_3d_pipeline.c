@@ -39,7 +39,7 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSi
     GKSpoint_2    dc;  // device coordinate
     
     // Get transformation matrices
-    GKSmatrixPtr view_matrix = gks_view_matrix_get(context);
+    GKSmatrixPtr view_matrix = gks_view_matrix_get_ctx(context);
     GKSmatrixPtr projection_matrix = gks_projection_get_matrix_ctx(context);
 
     for (GKSint i=0; i<num_pt; i++) {

@@ -12,7 +12,9 @@
 
 void gks_view_matrix_init(GKScontext3DPtr context_ptr);
 
-GKSmatrix_3 *gks_view_matrix_get(GKScontext3DPtr context_ptr);
+GKSmatrix_3 *gks_view_matrix_get_g(GKScontext3DPtr context_ptr);
+GKSmatrix_3 *gks_view_matrix_get_ctx(GKScontext3DPtr context);
+
 void gks_view_matrix_set(GKScontext3DPtr context_ptr, GKSmatrix_3 matrix);
 
 void gks_view_matrix_compute(GKScontext3DPtr context_ptr, GKSvector3d obs, GKSvector3d dir, GKSvector3d up, GKSmatrix_3 result);
