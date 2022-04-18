@@ -24,6 +24,7 @@ void gks_projection_set_simple(GKScontext3DPtr context_ptr, GKSfloat focalDistan
 void gks_projection_set_perspective(GKScontext3DPtr context_ptr, GKSfloat alpha, GKSfloat near, GKSfloat far);
 void gks_projection_set_alternate(GKScontext3DPtr context_ptr, GKSfloat alpha, GKSfloat near, GKSfloat far);
 
-GKSmatrix_3 *gks_projection_get_matrix(GKScontext3DPtr context_ptr);
+GKSmatrix_3 *gks_projection_get_matrix_g(GKScontext3DPtr context_ptr);
+GKSmatrix_3 *gks_projection_get_matrix_ctx(GKScontext3DPtr context_ptr);
 
 #endif /* gks_3d_projection_h */

@@ -31,11 +31,15 @@ void gks_projection_init(GKScontext3DPtr context)
     gks_projection_set_orthogonal(context);
 }
 
-GKSmatrix_3 *gks_projection_get_matrix(GKScontext3DPtr context_ptr)
+GKSmatrix_3 *gks_projection_get_matrix_g(GKScontext3DPtr context_ptr)
 {
     return &gProjectionMatrix;
 }
 
+GKSmatrix_3 *gks_projection_get_matrix_ctx(GKScontext3DPtr context)
+{
+    return &context->proj_matrix;
+}
 
 /*
     1 0 0 0
