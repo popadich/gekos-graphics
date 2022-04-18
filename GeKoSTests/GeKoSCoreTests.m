@@ -857,7 +857,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
     
     // not a verified test, try some different values for p1 and limits
-    gks_norms_wc_to_nwc_ctx(ctx, p1, &p2);
+    gks_norms_wc_to_nwc(ctx, p1, &p2);
     
     XCTAssertEqual(p1.crd.x, 1.0);
     XCTAssertEqual(p1.crd.y, 1.0);
@@ -879,7 +879,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
     
     // TODO: verify, with different values for p1 and limits
-    gks_norms_nwc_3_to_dc_2_ctx(context, p1, &u, &v);
+    gks_norms_nwc_3_to_dc_2(context, p1, &u, &v);
     
     XCTAssertEqual(p1.crd.x, 1.0);
     XCTAssertEqual(p1.crd.y, 1.0);
