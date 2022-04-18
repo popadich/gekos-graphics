@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteLast3DObject;
 
 - (void)transformAllObjects;
-- (void)transformWorldVolume;
+- (void)setTheWorldVolume;
 
 
 @end

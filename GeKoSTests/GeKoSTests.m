@@ -58,7 +58,7 @@
         // Put the code you want to measure the time of here.
         GKSContent *content = windowController.contentViewController.representedObject;
         GKSScene *scene = content.theScene;
-        for (int j=0; j<60; j++) {
+        for (int j=0; j<30; j++) {
             for (int i=-30; i<31; i++) {
                 GKSmesh_3 *sphere = SphereMesh();
                 GKSvector3d location = GKSMakeVector(2.0 * i, i%2, -2.0 * (1 + j));
@@ -70,7 +70,7 @@
                 [scene add3DObject:object3D];
             }
         }
-        for (int j=0; j<60; j++) {
+        for (int j=0; j<30; j++) {
             for (int i=-30; i<31; i++) {
                 [scene deleteLast3DObject];
             }
@@ -98,7 +98,7 @@
         GKSScene *scene = content.theScene;
         GKSCameraRep *camera = content.theScene.camera;
         
-        for (int j=0; j<60; j++) {
+        for (int j=0; j<30; j++) {
             for (int i=-30; i<31; i++) {
                 GKSmesh_3 *sphere = SphereMesh();
                 GKSvector3d location = GKSMakeVector(2.0 * i, i%2, -2.0 * (1 + j));
@@ -118,7 +118,7 @@
         [contentController.cameraViewController cameraSetViewLookAtG];
         [scene transformAllObjects];
         
-        for (int j=0; j<60; j++) {
+        for (int j=0; j<30; j++) {
             for (int i=-30; i<31; i++) {
                 [scene deleteLast3DObject];
             }

@@ -180,7 +180,7 @@
     _fillColor = fillColor;
 }
 
-- (void)computeAction
+- (void)computeActorInContext:(GKScontext3DPtr)context
 {
     gks_pipeline_object_actor(&the_actor);
 }

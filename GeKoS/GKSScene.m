@@ -79,7 +79,8 @@
 - (void) add3DObject:(GKS3DObject*)object3D
 {
 //    NSLog(@"3D Object of kind: %ld \n ScaleX: %lf \n TransX: %lf\n TransY: %lf\n TransZ: %lf", object3D.objectKind.integerValue, object3D.scaleX.floatValue, object3D.transX.floatValue, object3D.transY.floatValue, object3D.transZ.floatValue);
-    
+    [object3D computeActorInContext:self.context];               // is this the time?
+
     [self.objectList addObject:object3D];
 }
 
@@ -99,19 +100,18 @@
 
 - (void)transformAllObjects
 {
+    GKScontext3DPtr ctx = self.context;
     for (GKS3DObject *obj in self.objectList) {
-        [obj computeAction];
+        [obj computeActorInContext:ctx];
     }
 }
 
-- (void)transformWorldVolume
+- (void)setTheWorldVolume
 {
-    
     // very esoteric calls here, make this simpler
     GKSlimits_3 *volume = [self worldVolumeLimits];
     gks_trans_set_world_volume(self.context, volume);
     
-
 }
 
 

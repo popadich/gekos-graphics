@@ -71,8 +71,9 @@ static void *worldDataContext = &worldDataContext;
     GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
     
     // Set normalization value transforms
-    gks_trans_set_device_viewport(context, &port_rect);
-    [self.theScene transformWorldVolume];
+    gks_trans_set_device_viewport(context, &port_rect); // get a controller to do this
+    
+    [self.theScene setTheWorldVolume];
 
     // Set all vantage points to the same default values
     self.currentVantage = 0;
@@ -101,6 +102,7 @@ static void *worldDataContext = &worldDataContext;
     // MARK: INIT GKS
     context = gks_init();
     self.cameraViewController.context = context;
+    self.drawingViewController.context = context;
     scene.context = context;
 
     
@@ -199,31 +201,8 @@ static void *worldDataContext = &worldDataContext;
         newGuy.lineColor = objRep.lineColor;
         newGuy.fillColor = objRep.fillColor;
         
-        [newGuy computeAction];               // is this the time?
-
         [self.theScene add3DObject:newGuy];
-
-        
-        // TODO: Remove, for debug only
-//        BOOL logFlag = NO;
-//        if (logFlag) {
-//            GKSmesh_3 *mesh = newGuy.getMeshPointer;
-//            for (int i=0; i<mesh->polynum; i++) {
-//                GKSint vertexCount = mesh->polygons[i][0];
-//                NSLog(@"Mesh polygons: %d", vertexCount);
-//                for (int j=0; j<vertexCount; j++) {
-//                    // !!!: differs from draw_computed_object_3
-//                    // vertex numbers in MESH file start at 1.
-//                    // array indices are zero based 0.
-//                    // so, -1 from vertex index -> array index.
-//                    // 4,3,2,1 -> 3,2,1,0
-//                    //
-//                    GKSint vertexIndex = mesh->polygons[i][j+1];
-//                    NSLog(@"Vertex Index: %d", vertexIndex);
-//                }
-//                NSLog(@".");
-//            }
-//        }
+        [self.drawingViewController refresh];
     
     }
      
@@ -286,7 +265,7 @@ static void *worldDataContext = &worldDataContext;
         self.theScene.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
         self.theScene.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
 
-        [self.theScene transformWorldVolume];
+        [self.theScene setTheWorldVolume];
         
         [self.theScene transformAllObjects];
         [self.drawingViewController refresh];
@@ -296,7 +275,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
-    [self.theScene transformWorldVolume];
+    [self.theScene setTheWorldVolume];
     [self.theScene transformAllObjects];
     [self.drawingViewController refresh];
 
@@ -384,7 +363,6 @@ static void *worldDataContext = &worldDataContext;
                 customObj.lineColor = [self.object3DRep lineColor];
                 customObj.fillColor = [self.object3DRep fillColor];
     
-                [customObj computeAction];
                 
                 [self.theScene add3DObject:customObj];
                 [self.drawingViewController refresh];

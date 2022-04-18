@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (GKSactor *)objectActor;
 
-- (void)computeAction;
+- (void)computeActorInContext:(GKScontext3DPtr)context;
 - (void)drawActor;
 
 // testing
