@@ -228,10 +228,12 @@ void logMatrix(GKSmatrix_3 M) {
         GKSvector3d pos = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
         
         GKSvector3d dir_vector = GKSMakeVector(0.0, 0.0, 0.0);
-        gks_view_matrix_dir_vector_calc(pos, look_at, &dir_vector);
+        vectorsubtract(look_at, pos,  &dir_vector);
+        vectornormal(dir_vector,  &dir_vector);
+//        gks_view_matrix_dir_vector_calc(pos, look_at, &dir_vector);
 
         // Set Camera View Matrix
-        gks_view_matrix_compute(pos, dir_vector, up_vector, aViewMatrix);
+        gks_view_matrix_compute(self.context, pos, dir_vector, up_vector, aViewMatrix);
         gks_view_matrix_set(self.context, aViewMatrix);
 
         
@@ -275,7 +277,7 @@ void logMatrix(GKSmatrix_3 M) {
 
         GKSvector3d position = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
 
-        gks_view_matrix_compute(position, dir_vector, up_vector, aViewMatrix);
+        gks_view_matrix_compute(self.context, position, dir_vector, up_vector, aViewMatrix);
         gks_view_matrix_set(self.context, aViewMatrix);
         
         

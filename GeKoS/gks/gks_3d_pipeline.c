@@ -70,9 +70,9 @@ GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
 
         // clip against back wall
         GKSvector3d back_normal;
-        gks_view_matrix_w_get(&back_normal);
+        gks_view_matrix_w_get(NULL, &back_normal);
         GKSvector3d location_vec;
-        gks_view_matrix_p_get(&location_vec);
+        gks_view_matrix_p_get(NULL, &location_vec);
         visible = do_clipping(polygonID, &back_normal, &location_vec, &camera_coord);
         
         // clip against left wall

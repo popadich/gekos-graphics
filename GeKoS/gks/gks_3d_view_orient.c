@@ -38,7 +38,7 @@ GKSmatrix_3 *gks_view_matrix_get(GKScontext3DPtr context_ptr)
     return &gViewMatrix;
 }
 
-void gks_view_matrix_w_get(GKSvector3dPtr w_dir)
+void gks_view_matrix_w_get(GKScontext3DPtr context_ptr, GKSvector3dPtr w_dir)
 {
     for (int i=0; i<4; i++) {
         GKSfloat a = gViewMatrix[2][i];
@@ -46,7 +46,7 @@ void gks_view_matrix_w_get(GKSvector3dPtr w_dir)
     }
 }
 
-void gks_view_matrix_p_get(GKSvector3dPtr p_loc)
+void gks_view_matrix_p_get(GKScontext3DPtr context_ptr, GKSvector3dPtr p_loc)
 {
     for (int i=0; i<4; i++) {
         GKSfloat a = gViewMatrix[i][3];
@@ -54,7 +54,7 @@ void gks_view_matrix_p_get(GKSvector3dPtr p_loc)
     }
 }
 
-void gks_view_matrix_compute(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, GKSmatrix_3 result) {
+void gks_view_matrix_compute(GKScontext3DPtr context_ptr, GKSvector3d obs, GKSvector3d w_vector, GKSvector3d up, GKSmatrix_3 result) {
 
     GKSvector3d u_vector;           // u_vector points along uHat
     GKSvector3d v_vector;           // v_vector points along vHat
@@ -108,13 +108,9 @@ void gks_view_matrix_compute(GKSvector3d obs, GKSvector3d w_vector, GKSvector3d 
     
 }
 
-void gks_view_matrix_dir_vector_calc(GKSvector3d obs, GKSvector3d look, GKSvector3dPtr dir)
-{
-    vectorsubtract(look, obs, dir);
-    vectornormal(*dir, dir);
-}
 
-void gks_view_matrix_lookat_compute(GKSvector3d obs, GKSvector3d look, GKSvector3d up, GKSmatrix_3 result)
+
+void gks_view_matrix_lookat_compute(GKScontext3DPtr context_ptr, GKSvector3d obs, GKSvector3d look, GKSvector3d up, GKSmatrix_3 result)
 {
     GKSvector3d w_vector;
     GKSvector3d u_vector;           // u_vector points along uHat
