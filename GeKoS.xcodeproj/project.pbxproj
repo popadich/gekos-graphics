@@ -38,7 +38,6 @@
 		FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D622756D6F700A0C454 /* GeKoSTests.m */; };
 		FAA02D6E2756D6F700A0C454 /* GeKoSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D6D2756D6F700A0C454 /* GeKoSUITests.m */; };
 		FAA5C30F2760F2E20005ACAE /* gks_3d_context.c in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C30E2760F2E20005ACAE /* gks_3d_context.c */; };
-		FABC626827D65A720088AC42 /* gks_3d_object_list.c in Sources */ = {isa = PBXBuildFile; fileRef = FABC626727D65A720088AC42 /* gks_3d_object_list.c */; };
 		FABC626B27D65C330088AC42 /* gks_drawing_glue.c in Sources */ = {isa = PBXBuildFile; fileRef = FABC626927D65C330088AC42 /* gks_drawing_glue.c */; };
 		FABD7BB127F28956004D5150 /* GKS3DObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FABD7BB027F28956004D5150 /* GKS3DObject.m */; };
 		FAC906BF2805BDD4002F80E2 /* gks_3d_pipeline.c in Sources */ = {isa = PBXBuildFile; fileRef = FAC906BE2805BDD4002F80E2 /* gks_3d_pipeline.c */; };
@@ -46,7 +45,7 @@
 		FAE5E74D27D591DF008E793F /* GKS3DObjectRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E74B27D591DF008E793F /* GKS3DObjectRep.m */; };
 		FAE5E75027D59380008E793F /* GKSScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E74F27D59380008E793F /* GKSScene.m */; };
 		FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E75227D59C52008E793F /* GKSDrawingController.m */; };
-		FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */ = {isa = PBXBuildFile; fileRef = FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */; };
+		FAF2DE20276ADBA600E1B29C /* gks_3d_model_world.c in Sources */ = {isa = PBXBuildFile; fileRef = FAF2DE1F276ADBA600E1B29C /* gks_3d_model_world.c */; };
 		FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA1AD227E163F8009FCA8B /* GKSContent.m */; };
 /* End PBXBuildFile section */
 
@@ -128,8 +127,6 @@
 		FAA465C42758107A00A5A280 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FAA5C30D2760F2E20005ACAE /* gks_3d_context.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_context.h; sourceTree = "<group>"; };
 		FAA5C30E2760F2E20005ACAE /* gks_3d_context.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_context.c; sourceTree = "<group>"; };
-		FABC626627D65A720088AC42 /* gks_3d_object_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gks_3d_object_list.h; sourceTree = "<group>"; };
-		FABC626727D65A720088AC42 /* gks_3d_object_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gks_3d_object_list.c; sourceTree = "<group>"; };
 		FABC626927D65C330088AC42 /* gks_drawing_glue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gks_drawing_glue.c; sourceTree = "<group>"; };
 		FABC626A27D65C330088AC42 /* gks_drawing_glue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gks_drawing_glue.h; sourceTree = "<group>"; };
 		FABD7BAF27F28956004D5150 /* GKS3DObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKS3DObject.h; sourceTree = "<group>"; };
@@ -144,8 +141,8 @@
 		FAE5E74F27D59380008E793F /* GKSScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKSScene.m; sourceTree = "<group>"; };
 		FAE5E75127D59C52008E793F /* GKSDrawingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSDrawingController.h; sourceTree = "<group>"; };
 		FAE5E75227D59C52008E793F /* GKSDrawingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSDrawingController.m; sourceTree = "<group>"; };
-		FAF2DE1E276ADBA600E1B29C /* gks_3d_world.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_world.h; sourceTree = "<group>"; };
-		FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_world.c; sourceTree = "<group>"; };
+		FAF2DE1E276ADBA600E1B29C /* gks_3d_model_world.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_model_world.h; sourceTree = "<group>"; };
+		FAF2DE1F276ADBA600E1B29C /* gks_3d_model_world.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_model_world.c; sourceTree = "<group>"; };
 		FAFA1AD127E163F8009FCA8B /* GKSContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSContent.h; sourceTree = "<group>"; };
 		FAFA1AD227E163F8009FCA8B /* GKSContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSContent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,16 +186,14 @@
 				FAA5C30E2760F2E20005ACAE /* gks_3d_context.c */,
 				FA24691B27FE340F00295BAC /* gks_3d_normalization.h */,
 				FA24691C27FE340F00295BAC /* gks_3d_normalization.c */,
-				FAF2DE1E276ADBA600E1B29C /* gks_3d_world.h */,
-				FAF2DE1F276ADBA600E1B29C /* gks_3d_world.c */,
+				FAF2DE1E276ADBA600E1B29C /* gks_3d_model_world.h */,
+				FAF2DE1F276ADBA600E1B29C /* gks_3d_model_world.c */,
 				FA274D63276BF659005104A4 /* gks_3d_view_orient.h */,
 				FA274D64276BF659005104A4 /* gks_3d_view_orient.c */,
 				FA58B8A3275F0EF000BFFB11 /* gks_3d_projection.h */,
 				FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */,
 				FAC906BD2805BDD4002F80E2 /* gks_3d_pipeline.h */,
 				FAC906BE2805BDD4002F80E2 /* gks_3d_pipeline.c */,
-				FABC626627D65A720088AC42 /* gks_3d_object_list.h */,
-				FABC626727D65A720088AC42 /* gks_3d_object_list.c */,
 				FABC626A27D65C330088AC42 /* gks_drawing_glue.h */,
 				FABC626927D65C330088AC42 /* gks_drawing_glue.c */,
 				FA3283F327F0B4C600978468 /* gks_utility.h */,
@@ -449,14 +444,13 @@
 				FAE5E74D27D591DF008E793F /* GKS3DObjectRep.m in Sources */,
 				FA274D65276BF659005104A4 /* gks_3d_view_orient.c in Sources */,
 				FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */,
-				FAF2DE20276ADBA600E1B29C /* gks_3d_world.c in Sources */,
+				FAF2DE20276ADBA600E1B29C /* gks_3d_model_world.c in Sources */,
 				FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */,
 				FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */,
 				FA3283F527F0B4C600978468 /* gks_utility.c in Sources */,
 				FABC626B27D65C330088AC42 /* gks_drawing_glue.c in Sources */,
 				FA0146DB27C6B88200AE01E8 /* GKSWindowController.m in Sources */,
 				FAC906BF2805BDD4002F80E2 /* gks_3d_pipeline.c in Sources */,
-				FABC626827D65A720088AC42 /* gks_3d_object_list.c in Sources */,
 				FA24691D27FE340F00295BAC /* gks_3d_normalization.c in Sources */,
 				FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */,
 				FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */,

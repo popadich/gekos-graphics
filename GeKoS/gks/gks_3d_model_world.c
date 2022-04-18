@@ -5,7 +5,7 @@
 //  Created by Alex Popadich on 12/15/21.
 //
 
-#include "gks_3d_world.h"
+#include "gks_3d_model_world.h"
 
 static GKSmatrix_3      gWorldModelMatrix_3;          // World Modeling Matrix
 
