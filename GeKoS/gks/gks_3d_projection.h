@@ -14,7 +14,7 @@ typedef enum {
     kOrthogonalProjection = 0,
     kPerspectiveSimpleProjection,
     kPerspectiveProjection,
-    kAxonometricProjection
+    kAlternateProjection
 } ProjectionType;
 
 void gks_projection_init(GKScontext3DPtr context_ptr);

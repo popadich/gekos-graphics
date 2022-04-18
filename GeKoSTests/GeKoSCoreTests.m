@@ -775,8 +775,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionInit {
     GKSmatrix_3 *projMatrix;
     
-    gks_projection_init(NULL);
-    projMatrix = gks_projection_get_matrix(NULL);
+    GKScontext3DPtr context = gks_init();
+    
+    gks_projection_init(context);
+    projMatrix = gks_projection_get_matrix(context);
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
@@ -787,8 +789,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionOrthogonalEnable {
     GKSmatrix_3 *projMatrix;
     
-    gks_projection_set_orthogonal(NULL);
-    projMatrix = gks_projection_get_matrix(NULL);
+    GKScontext3DPtr context = gks_init();
+
+    gks_projection_set_orthogonal(context);
+    projMatrix = gks_projection_get_matrix(context);
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
@@ -801,8 +805,10 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 - (void)testProjectionPerspectiveEnable {
     GKSmatrix_3 *projMatrix;
 
-    gks_projection_set_simple(NULL, 1.0);
-    projMatrix = gks_projection_get_matrix(NULL);
+    GKScontext3DPtr context = gks_init();
+
+    gks_projection_set_simple(context, 1.0);
+    projMatrix = gks_projection_get_matrix(context);
     XCTAssertEqual((*projMatrix)[0][0], 1.0);
     XCTAssertEqual((*projMatrix)[1][1], 1.0);
     XCTAssertEqual((*projMatrix)[2][2], 0.0);
@@ -810,7 +816,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual((*projMatrix)[3][3], 1.0);
     
     ProjectionType pt;
-    pt = gks_projection_get_type(NULL);
+    pt = gks_projection_get_type(context);
     XCTAssertEqual(pt, kPerspectiveSimpleProjection, @"Perspective was just enabled");
 }
 
@@ -895,7 +901,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 // MARK: MODEL
 //- (void)testModelWorldInit {
 //    GKSmatrix_3 *model_matrix;
-//    
+//
 //    gks_init_model_world(NULL);
 //    model_matrix = gks_get_model_world_matrix(NULL);
 //    GKSfloat avalue = (*model_matrix)[0][0];
@@ -908,7 +914,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 //
 //- (void)testModelWorldGetMatrix {
 //    GKSmatrix_3 *model_matrix;
-//    
+//
 //    gks_init_model_world(NULL);
 //    model_matrix = gks_get_model_world_matrix(NULL);
 //    GKSfloat avalue = (*model_matrix)[0][0];
