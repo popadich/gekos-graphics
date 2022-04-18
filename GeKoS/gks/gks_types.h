@@ -152,16 +152,27 @@ typedef struct
 
 
 typedef struct {
-    GKSlimits_3 world_volume;
-    GKSlimits_3 view_volume;
+    GKSlimits_3 volume_world;
+    GKSlimits_3 volume_view;
     GKSlimits_2 port_rect;
-    GKSmatrix_3 view_transform;
-    GKSmatrix_3 projection_transform;
-    GKSfloat perspective_depth;
+    GKSmatrix_3 view_matrix;
+    GKSmatrix_3 proj_matrix;
+    GKSfloat focus;
     GKSfloat near;
     GKSfloat far;
     GKSint projection_type;
     
+    GKSfloat wrld_xscale;
+    GKSfloat wrld_xcoord;
+    GKSfloat wrld_yscale;
+    GKSfloat wrld_ycoord;
+    GKSfloat wrld_zscale;
+    GKSfloat wrld_zcoord;
+    
+    GKSfloat dev_xscale;
+    GKSfloat dev_xcoord;
+    GKSfloat dev_yscale;
+    GKSfloat dev_ycoord;
 } GKScontext3D;
 typedef GKScontext3D *GKScontext3DPtr;
 

@@ -45,7 +45,6 @@
 		FAE5E74D27D591DF008E793F /* GKS3DObjectRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E74B27D591DF008E793F /* GKS3DObjectRep.m */; };
 		FAE5E75027D59380008E793F /* GKSScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E74F27D59380008E793F /* GKSScene.m */; };
 		FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E75227D59C52008E793F /* GKSDrawingController.m */; };
-		FAF2DE20276ADBA600E1B29C /* gks_3d_model_world.c in Sources */ = {isa = PBXBuildFile; fileRef = FAF2DE1F276ADBA600E1B29C /* gks_3d_model_world.c */; };
 		FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA1AD227E163F8009FCA8B /* GKSContent.m */; };
 /* End PBXBuildFile section */
 
@@ -141,8 +140,6 @@
 		FAE5E74F27D59380008E793F /* GKSScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKSScene.m; sourceTree = "<group>"; };
 		FAE5E75127D59C52008E793F /* GKSDrawingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSDrawingController.h; sourceTree = "<group>"; };
 		FAE5E75227D59C52008E793F /* GKSDrawingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSDrawingController.m; sourceTree = "<group>"; };
-		FAF2DE1E276ADBA600E1B29C /* gks_3d_model_world.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_model_world.h; sourceTree = "<group>"; };
-		FAF2DE1F276ADBA600E1B29C /* gks_3d_model_world.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_model_world.c; sourceTree = "<group>"; };
 		FAFA1AD127E163F8009FCA8B /* GKSContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSContent.h; sourceTree = "<group>"; };
 		FAFA1AD227E163F8009FCA8B /* GKSContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSContent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,8 +183,6 @@
 				FAA5C30E2760F2E20005ACAE /* gks_3d_context.c */,
 				FA24691B27FE340F00295BAC /* gks_3d_normalization.h */,
 				FA24691C27FE340F00295BAC /* gks_3d_normalization.c */,
-				FAF2DE1E276ADBA600E1B29C /* gks_3d_model_world.h */,
-				FAF2DE1F276ADBA600E1B29C /* gks_3d_model_world.c */,
 				FA274D63276BF659005104A4 /* gks_3d_view_orient.h */,
 				FA274D64276BF659005104A4 /* gks_3d_view_orient.c */,
 				FA58B8A3275F0EF000BFFB11 /* gks_3d_projection.h */,
@@ -444,7 +439,6 @@
 				FAE5E74D27D591DF008E793F /* GKS3DObjectRep.m in Sources */,
 				FA274D65276BF659005104A4 /* gks_3d_view_orient.c in Sources */,
 				FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */,
-				FAF2DE20276ADBA600E1B29C /* gks_3d_model_world.c in Sources */,
 				FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */,
 				FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */,
 				FA3283F527F0B4C600978468 /* gks_utility.c in Sources */,

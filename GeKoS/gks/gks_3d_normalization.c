@@ -115,27 +115,30 @@ void gks_trans_set_world_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *wrld_v
 }
 
 // MARK: Computation
-void setup_transform_world_view(GKScontext3DPtr context_ptr, GKSlimits_3 winlim, GKSlimits_3 vwplim) {
+void setup_transform_world_view(GKScontext3DPtr context_ptr, GKSlimits_3 world_volume, GKSlimits_3 view_volume) {
     GKSfloat        x_min,x_max,y_min,y_max,z_min,z_max;
     GKSfloat        u_min,u_max,v_min,v_max,w_min,w_max;
     
-    x_min = winlim.xmin;
-    x_max = winlim.xmax;
-    y_min = winlim.ymin;
-    y_max = winlim.ymax;
-    z_min = winlim.zmin;
-    z_max = winlim.zmax;
-    u_min = vwplim.xmin;
-    u_max = vwplim.xmax;
-    v_min = vwplim.ymin;
-    v_max = vwplim.ymax;
-    w_min = vwplim.zmin;
-    w_max = vwplim.zmax;
+    x_min = world_volume.xmin;
+    x_max = world_volume.xmax;
+    y_min = world_volume.ymin;
+    y_max = world_volume.ymax;
+    z_min = world_volume.zmin;
+    z_max = world_volume.zmax;
+    
+    u_min = view_volume.xmin;
+    u_max = view_volume.xmax;
+    v_min = view_volume.ymin;
+    v_max = view_volume.ymax;
+    w_min = view_volume.zmin;
+    w_max = view_volume.zmax;
     
     g_wrld_xscale = (u_max - u_min)/(x_max - x_min);
     g_wrld_xcoord = g_wrld_xscale*(-x_min) + u_min;
+    
     g_wrld_yscale = (v_max - v_min)/(y_max - y_min);
     g_wrld_ycoord = g_wrld_yscale*(-y_min) + v_min;
+    
     g_wrld_zscale = (w_max - w_min)/(z_max - z_min);
     g_wrld_zcoord = g_wrld_zscale*(-z_min) + w_min;
 }

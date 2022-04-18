@@ -7,7 +7,6 @@
 
 #include "gks_3d_pipeline.h"
 #include "gks_drawing_glue.h"
-#include "gks_3d_model_world.h"
 #include "gks_3d_view_orient.h"
 #include "gks_3d_projection.h"
 #include "gks_3d_matrix.h"
@@ -29,7 +28,7 @@ GKSbool do_clipping(GKSint polygon_id, GKSvector3dPtr dir_vec, GKSvector3dPtr po
 }
 
 // Primitive 3D pipeline
-GKSbool pipeline_polygon(GKScontext3DPtr context, GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
+GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
 {
     GKSbool visible = true;
     GKSvector3d   world_model_coord = GKSMakeVector(0.0, 0.0, 0.0);
@@ -40,13 +39,12 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSint polygonID, GKSint num_p
     GKSpoint_2    dc;  // device coordinate
     
     // Get transformation matrices
-    GKSmatrixPtr world_matrix = gks_get_model_world_matrix(context);
     GKSmatrixPtr view_matrix = gks_view_matrix_get(context);
     GKSmatrixPtr projection_matrix = gks_projection_get_matrix(context);
 
     for (GKSint i=0; i<num_pt; i++) {
         // put object in world
-        gks_transform_vector_3(*world_matrix, vertex_array[i], &world_model_coord);
+        gks_transform_vector_3(trans_matrix, vertex_array[i], &world_model_coord);
         
         // normalize world
         gks_trans_wc_to_nwc(context, world_model_coord, &world_model_norm_coord);
@@ -103,7 +101,7 @@ void gks_pipeline_object_actor(GKScontext3DPtr context, GKSactor *the_actor)
     the_actor->hidden = false;
     
     // set object into the world
-    gks_set_model_world_matrix(context, the_actor->model_transform);
+//    gks_set_model_world_matrix(context, the_actor->model_transform);
     
     // TODO: transform all object vertices first
     // to speed things up I should transform all the vertices of the object
@@ -124,7 +122,7 @@ void gks_pipeline_object_actor(GKScontext3DPtr context, GKSactor *the_actor)
         }
 
         // do transforms on temporary device polygons
-        GKSbool in = pipeline_polygon(context, pid, polygon_size, polygon_vertex_buffer, dev_coord_buffer, &the_actor->line_color);
+        GKSbool in = pipeline_polygon(context, the_actor->model_transform, pid, polygon_size, polygon_vertex_buffer, dev_coord_buffer, &the_actor->line_color);
         if (!in) {
             the_actor->hidden = true;
             break;
