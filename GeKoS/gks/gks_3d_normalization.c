@@ -218,21 +218,44 @@ void compute_transforms(GKScontext3DPtr context)
 // MARK: Transforms
 // World coordinates (wc) to Normalized World Coordinates (nwc)
 // World space -> Normalized World space
-void gks_norms_wc_to_nwc (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
+void gks_norms_wc_to_nwc (GKScontext3DPtr context, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
 {
+    
     nwc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
     nwc_pt->crd.y = g_wrld_yscale * wc_pt.crd.y + g_wrld_ycoord;
     nwc_pt->crd.z = g_wrld_zscale * wc_pt.crd.z + g_wrld_zcoord;
     nwc_pt->crd.w = 1.0;    // TODO: verify if ok
 }
 
+void gks_norms_wc_to_nwc_ctx (GKScontext3DPtr context, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
+{
+    
+    nwc_pt->crd.x = context->wrld_xscale * wc_pt.crd.x + context->wrld_xcoord;
+    nwc_pt->crd.y = context->wrld_yscale * wc_pt.crd.y + context->wrld_ycoord;
+    nwc_pt->crd.z = context->wrld_zscale * wc_pt.crd.z + context->wrld_zcoord;
+    nwc_pt->crd.w = 1.0;    // TODO: verify if ok
+}
+
+
 
 // Normalized Device Coordinates (ndc) to Device Coordinates (dc) 2D
 // If I were to build a 2D drawing library, this function would be
 // part of that.
-void gks_norms_nwc_3_to_dc_2 (GKScontext3DPtr context_ptr, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
+void gks_norms_nwc_3_to_dc_2 (GKScontext3DPtr context, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
 {
+    
     *r = g_dev_xscale * ndc_pt.crd.x + g_dev_xcoord;
     *s = g_dev_yscale * ndc_pt.crd.y + g_dev_ycoord;
+
 }
+
+void gks_norms_nwc_3_to_dc_2_ctx (GKScontext3DPtr context, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
+{
+    
+    *r = context->dev_xscale * ndc_pt.crd.x + context->dev_xcoord;
+    *s = context->dev_yscale * ndc_pt.crd.y + context->dev_ycoord;
+    
+
+}
+
 

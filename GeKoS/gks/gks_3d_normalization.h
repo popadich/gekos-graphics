@@ -18,5 +18,7 @@ void gks_norms_set_device_viewport(GKScontext3DPtr context_ptr, GKSlimits_2 *dev
 // the heart of the matter
 void gks_norms_wc_to_nwc (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt);
 void gks_norms_nwc_3_to_dc_2 (GKScontext3DPtr context_ptr, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s);
+void gks_norms_wc_to_nwc_ctx (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt);
+void gks_norms_nwc_3_to_dc_2_ctx (GKScontext3DPtr context_ptr, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s);
 
 #endif /* gks_3d_normalization_h */

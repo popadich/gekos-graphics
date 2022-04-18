@@ -47,7 +47,7 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSi
         gks_transform_vector_3(trans_matrix, vertex_array[i], &world_model_coord);
         
         // normalize world
-        gks_norms_wc_to_nwc(context, world_model_coord, &world_model_norm_coord);
+        gks_norms_wc_to_nwc_ctx(context, world_model_coord, &world_model_norm_coord);
 
         // move object to view space
         gks_transform_vector_3(*view_matrix, world_model_norm_coord, &view_coord);
@@ -79,7 +79,7 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSi
         cartesian_coord = GKSMakeVector(camera_coord.crd.x/camera_coord.crd.w, camera_coord.crd.y/camera_coord.crd.w, camera_coord.crd.z/camera_coord.crd.w);
         
         // convert to device port coordinates
-        gks_norms_nwc_3_to_dc_2 (context, cartesian_coord,  &dc.x, &dc.y);
+        gks_norms_nwc_3_to_dc_2_ctx(context, cartesian_coord,  &dc.x, &dc.y);
 
         dc_array[i] = dc;
     }

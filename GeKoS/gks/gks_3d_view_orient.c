@@ -50,18 +50,18 @@ GKSmatrix_3 *gks_view_matrix_get_ctx(GKScontext3DPtr context)
 void gks_view_matrix_w_get(GKScontext3DPtr context, GKSvector3dPtr w_dir)
 {
     for (int i=0; i<4; i++) {
-        GKSfloat a = gViewMatrix[2][i];
+//        GKSfloat a = gViewMatrix[2][i];
         GKSfloat p = context->view_matrix[2][i];
-        w_dir->arr[i] = a;
+        w_dir->arr[i] = p;
     }
 }
 
 void gks_view_matrix_p_get(GKScontext3DPtr context, GKSvector3dPtr p_loc)
 {
     for (int i=0; i<4; i++) {
-        GKSfloat a = gViewMatrix[i][3];
+//        GKSfloat a = gViewMatrix[i][3];
         GKSfloat p = context->view_matrix[i][3];
-       p_loc->arr[i] = a;
+       p_loc->arr[i] = p;
     }
 }
 
