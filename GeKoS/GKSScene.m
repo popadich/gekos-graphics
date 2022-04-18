@@ -110,7 +110,7 @@
 {
     // very esoteric calls here, make this simpler
     GKSlimits_3 *volume = [self worldVolumeLimits];
-    gks_trans_set_world_volume(self.context, volume);
+    gks_norms_set_world_volume(self.context, volume);
     
 }
 

@@ -25,6 +25,7 @@ static GKSfloat       g_dev_yscale, g_dev_ycoord;
 
 // PROTOTYPE
 void compute_transforms(GKScontext3DPtr context_ptr);
+void norms_set_view_volume(GKScontext3DPtr context_ptr, GKSlimits_3 *view_volume);
 
 
 void gks_norms_init(GKScontext3DPtr context)
@@ -62,31 +63,13 @@ void gks_norms_init(GKScontext3DPtr context)
     GKSlimits_3 world_volume = GKSMakeVolume(min, max);
     
     // 3D World volume
-    gks_trans_set_world_volume(context, &world_volume);
+    gks_norms_set_world_volume(context, &world_volume);
     // 3D View volume
-    gks_trans_set_view_volume(context, &view_volume);
+    norms_set_view_volume(context, &view_volume);
 
     
 }
 
-
-// MARK: Getters
-GKSlimits_3 *gks_norms_get_world_volume(GKScontext3DPtr context_ptr)
-{
-    return &g_world_volume;
-}
-
-
-GKSlimits_3 *gks_norms_get_view_volume(GKScontext3DPtr context_ptr)
-{
-    return &g_view_volume;
-}
-
-
-GKSlimits_2 *gks_norms_get_device_port(GKScontext3DPtr context_ptr)
-{
-    return &g_device_port;
-}
 
 
 // MARK: Setters
@@ -115,7 +98,7 @@ void gks_norms_set_device_viewport(GKScontext3DPtr context, GKSlimits_2 *device_
 }
 
 
-void gks_trans_set_view_volume(GKScontext3DPtr context, GKSlimits_3 *view_volume)
+void norms_set_view_volume(GKScontext3DPtr context, GKSlimits_3 *view_volume)
 {
     g_view_volume.xmin = view_volume->xmin;
     g_view_volume.xmax = view_volume->xmax;
@@ -135,7 +118,7 @@ void gks_trans_set_view_volume(GKScontext3DPtr context, GKSlimits_3 *view_volume
 
 }
 
-void gks_trans_set_world_volume(GKScontext3DPtr context, GKSlimits_3 *wrld_volume)
+void gks_norms_set_world_volume(GKScontext3DPtr context, GKSlimits_3 *wrld_volume)
 {
     g_world_volume.xmin = wrld_volume->xmin;
     g_world_volume.xmax = wrld_volume->xmax;
@@ -235,7 +218,7 @@ void compute_transforms(GKScontext3DPtr context)
 // MARK: Transforms
 // World coordinates (wc) to Normalized World Coordinates (nwc)
 // World space -> Normalized World space
-void gks_trans_wc_to_nwc (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
+void gks_norms_wc_to_nwc (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt)
 {
     nwc_pt->crd.x = g_wrld_xscale * wc_pt.crd.x + g_wrld_xcoord;
     nwc_pt->crd.y = g_wrld_yscale * wc_pt.crd.y + g_wrld_ycoord;
@@ -247,7 +230,7 @@ void gks_trans_wc_to_nwc (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvec
 // Normalized Device Coordinates (ndc) to Device Coordinates (dc) 2D
 // If I were to build a 2D drawing library, this function would be
 // part of that.
-void gks_trans_nwc_3_to_dc_2 (GKScontext3DPtr context_ptr, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
+void gks_norms_nwc_3_to_dc_2 (GKScontext3DPtr context_ptr, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s)
 {
     *r = g_dev_xscale * ndc_pt.crd.x + g_dev_xcoord;
     *s = g_dev_yscale * ndc_pt.crd.y + g_dev_ycoord;

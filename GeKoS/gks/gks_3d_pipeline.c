@@ -47,7 +47,7 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSi
         gks_transform_vector_3(trans_matrix, vertex_array[i], &world_model_coord);
         
         // normalize world
-        gks_trans_wc_to_nwc(context, world_model_coord, &world_model_norm_coord);
+        gks_norms_wc_to_nwc(context, world_model_coord, &world_model_norm_coord);
 
         // move object to view space
         gks_transform_vector_3(*view_matrix, world_model_norm_coord, &view_coord);
@@ -79,7 +79,7 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSi
         cartesian_coord = GKSMakeVector(camera_coord.crd.x/camera_coord.crd.w, camera_coord.crd.y/camera_coord.crd.w, camera_coord.crd.z/camera_coord.crd.w);
         
         // convert to device port coordinates
-        gks_trans_nwc_3_to_dc_2 (context, cartesian_coord,  &dc.x, &dc.y);
+        gks_norms_nwc_3_to_dc_2 (context, cartesian_coord,  &dc.x, &dc.y);
 
         dc_array[i] = dc;
     }
@@ -99,10 +99,7 @@ void gks_pipeline_object_actor(GKScontext3DPtr context, GKSactor *the_actor)
     GKSindexArrPtr poly_array = the_actor->mesh_object.polygons;
     GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     the_actor->hidden = false;
-    
-    // set object into the world
-//    gks_set_model_world_matrix(context, the_actor->model_transform);
-    
+        
     // TODO: transform all object vertices first
     // to speed things up I should transform all the vertices of the object
     // to viewport space coordinates, and then do tests on polygons.
@@ -141,34 +138,35 @@ void gks_pipeline_object_actor(GKScontext3DPtr context, GKSactor *the_actor)
 
 void gks_draw_piped_actor(GKSactor *the_actor)
 {
-    if (the_actor->hidden) {
-        return;
-    }
-    GKSpoint_2          dev_coord_buffer[GKS_POLY_VERTEX_MAX];
-
-    GKSint poly_count           = the_actor->mesh_object.polynum;
-    GKSindexArrPtr polygon_array = the_actor->mesh_object.polygons;
-    GKSDCArrPtr dev_coord_array = the_actor->devcoords;
     
-    GKSint k = 0;
-    for (GKSint i=0; i < poly_count; i++) {
-        GKSint polygon_size = polygon_array[k];
-        k += 1;     // vertex count part
-        for(GKSint j=0; j<polygon_size; j++){
-            
-            // TODO: check addObjectRepToScene
-            // vertex numbers in MESH file start at 1.
-            // the ( - 1) turns a point number
-            // which normally start at 1 into a
-            // zero based array index.
-            GKSint vertex_idx = polygon_array[k] - 1;
-            dev_coord_buffer[j] = dev_coord_array[vertex_idx];
+    if (!the_actor->hidden) {
+        GKSpoint_2          dev_coord_buffer[GKS_POLY_VERTEX_MAX];
 
-            k += 1;
+        GKSint poly_count           = the_actor->mesh_object.polynum;
+        GKSindexArrPtr polygon_array = the_actor->mesh_object.polygons;
+        GKSDCArrPtr dev_coord_array = the_actor->devcoords;
+        
+        GKSint k = 0;
+        for (GKSint i=0; i < poly_count; i++) {
+            GKSint polygon_size = polygon_array[k];
+            k += 1;     // vertex count part
+            for(GKSint j=0; j<polygon_size; j++){
+                
+                // TODO: check addObjectRepToScene
+                // vertex numbers in MESH file start at 1.
+                // the ( - 1) turns a point number
+                // which normally start at 1 into a
+                // zero based array index.
+                GKSint vertex_idx = polygon_array[k] - 1;
+                dev_coord_buffer[j] = dev_coord_array[vertex_idx];
+
+                k += 1;
+            }
+            
+            // call-back to drawing routine
+            gks_localpolyline_3(i, polygon_size, dev_coord_buffer, &the_actor->line_color);
+            
         }
-        
-        // call-back to drawing routine
-        gks_localpolyline_3(i, polygon_size, dev_coord_buffer, &the_actor->line_color);
-        
     }
+
 }

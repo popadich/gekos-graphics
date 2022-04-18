@@ -856,11 +856,11 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     GKScontext3DPtr ctx = gks_init();
     
     gks_norms_set_device_viewport(ctx, &portlims);
-    gks_trans_set_world_volume(ctx, &wrldlims);
+    gks_norms_set_world_volume(ctx, &wrldlims);
 
     
     // not a verified test, try some different values for p1 and limits
-    gks_trans_wc_to_nwc (ctx, p1, &p2);
+    gks_norms_wc_to_nwc (ctx, p1, &p2);
     
     XCTAssertEqual(p1.crd.x, 1.0);
     XCTAssertEqual(p1.crd.y, 1.0);
@@ -877,12 +877,12 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
         
     GKScontext3DPtr context = gks_init();
     
-    gks_trans_set_world_volume(context, &wrldlims);
+    gks_norms_set_world_volume(context, &wrldlims);
     gks_norms_set_device_viewport(context, &portlims);
 
     
     // TODO: verify, with different values for p1 and limits
-    gks_trans_nwc_3_to_dc_2(context, p1, &u, &v);
+    gks_norms_nwc_3_to_dc_2(context, p1, &u, &v);
     
     XCTAssertEqual(p1.crd.x, 1.0);
     XCTAssertEqual(p1.crd.y, 1.0);
@@ -891,7 +891,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqual(u, 400.0);
     XCTAssertEqual(v, 400.0);
     
-    gks_trans_nwc_3_to_dc_2(context, p2, &u, &v);
+    gks_norms_nwc_3_to_dc_2(context, p2, &u, &v);
     XCTAssertEqual(u, 300.0);
     XCTAssertEqual(v, 300.0);
     
