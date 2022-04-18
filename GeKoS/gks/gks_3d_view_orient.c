@@ -9,8 +9,6 @@
 #include "gks_3d_matrix.h"
 #include "stdio.h"
 
-// P R I V A T E    O K
-static GKSmatrix_3      gViewMatrix;       // View Plane Orientation Matrix
 
 void gks_view_matrix_init(GKScontext3DPtr context)
 {
@@ -29,19 +27,13 @@ void gks_view_matrix_set(GKScontext3DPtr context, GKSmatrix_3 viewMatrix)
 {
     for(int i=0; i<4; i++)
         for (int j=0; j<4; j++) {
-            gViewMatrix[i][j] = viewMatrix[i][j];
             context->view_matrix[i][j] = viewMatrix[i][j];
         }
             
 }
 
-GKSmatrix_3 *gks_view_matrix_get_g(GKScontext3DPtr context_ptr)
-{
-    return &gViewMatrix;
-}
 
-
-GKSmatrix_3 *gks_view_matrix_get_ctx(GKScontext3DPtr context)
+GKSmatrix_3 *gks_view_matrix_get(GKScontext3DPtr context)
 {
     return &context->view_matrix;
 }
@@ -50,7 +42,6 @@ GKSmatrix_3 *gks_view_matrix_get_ctx(GKScontext3DPtr context)
 void gks_view_matrix_w_get(GKScontext3DPtr context, GKSvector3dPtr w_dir)
 {
     for (int i=0; i<4; i++) {
-//        GKSfloat a = gViewMatrix[2][i];
         GKSfloat p = context->view_matrix[2][i];
         w_dir->arr[i] = p;
     }
@@ -59,7 +50,6 @@ void gks_view_matrix_w_get(GKScontext3DPtr context, GKSvector3dPtr w_dir)
 void gks_view_matrix_p_get(GKScontext3DPtr context, GKSvector3dPtr p_loc)
 {
     for (int i=0; i<4; i++) {
-//        GKSfloat a = gViewMatrix[i][3];
         GKSfloat p = context->view_matrix[i][3];
        p_loc->arr[i] = p;
     }
