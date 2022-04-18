@@ -10,7 +10,7 @@
 
 #include "gks_types.h"
 
-void gks_pipeline_object_actor(GKSactor *anActor);
+void gks_pipeline_object_actor(GKScontext3DPtr context, GKSactor *anActor);
 void gks_draw_piped_actor(GKSactor *anActor);
 
 

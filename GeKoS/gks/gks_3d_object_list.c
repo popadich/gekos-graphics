@@ -111,9 +111,4 @@ void gks_objarr_update_object(GKSint index, GKSkind kind, GKSvector3d translate,
 
 void gks_objarr_draw_list(void)
 {
-    for (int i=0; i<_object_count; i++) {
-        GKSactor *actor_ptr = &object_array[i];
-        gks_pipeline_object_actor(actor_ptr);
-        gks_draw_piped_actor(actor_ptr);
-    }
 }

@@ -29,7 +29,7 @@ GKSbool do_clipping(GKSint polygon_id, GKSvector3dPtr dir_vec, GKSvector3dPtr po
 }
 
 // Primitive 3D pipeline
-GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
+GKSbool pipeline_polygon(GKScontext3DPtr context, GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
 {
     GKSbool visible = true;
     GKSvector3d   world_model_coord = GKSMakeVector(0.0, 0.0, 0.0);
@@ -40,16 +40,16 @@ GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
     GKSpoint_2    dc;  // device coordinate
     
     // Get transformation matrices
-    GKSmatrixPtr world_matrix = gks_get_world_model_matrix();
-    GKSmatrixPtr view_matrix = gks_view_matrix_get(NULL);
-    GKSmatrixPtr projection_matrix = gks_projection_get_matrix(NULL);
+    GKSmatrixPtr world_matrix = gks_get_model_world_matrix(context);
+    GKSmatrixPtr view_matrix = gks_view_matrix_get(context);
+    GKSmatrixPtr projection_matrix = gks_projection_get_matrix(context);
 
     for (GKSint i=0; i<num_pt; i++) {
         // put object in world
         gks_transform_vector_3(*world_matrix, vertex_array[i], &world_model_coord);
         
         // normalize world
-        gks_trans_wc_to_nwc(NULL, world_model_coord, &world_model_norm_coord);
+        gks_trans_wc_to_nwc(context, world_model_coord, &world_model_norm_coord);
 
         // move object to view space
         gks_transform_vector_3(*view_matrix, world_model_norm_coord, &view_coord);
@@ -68,25 +68,20 @@ GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
         // ON CAMERA COORDINATE BEFORE HOMOGENEOUS PROJECTION SCALING
         // clipping on the view volume which is now shaped like a cube
 
+        // TODO: use filter flag to turn this on or off
         // clip against back wall
         GKSvector3d back_normal;
-        gks_view_matrix_w_get(NULL, &back_normal);
+        gks_view_matrix_w_get(context, &back_normal);
         GKSvector3d location_vec;
-        gks_view_matrix_p_get(NULL, &location_vec);
+        gks_view_matrix_p_get(context, &location_vec);
         visible = do_clipping(polygonID, &back_normal, &location_vec, &camera_coord);
         
-        // clip against left wall
-        // GKSvector3d left_normal;
-        
-        // clip against right wall
-        // GKSvector3d right_normal;
-
         
         // Delayed projection scaling/normalization
         cartesian_coord = GKSMakeVector(camera_coord.crd.x/camera_coord.crd.w, camera_coord.crd.y/camera_coord.crd.w, camera_coord.crd.z/camera_coord.crd.w);
         
         // convert to device port coordinates
-        gks_trans_nwc_3_to_dc_2 (NULL, cartesian_coord,  &dc.x, &dc.y);
+        gks_trans_nwc_3_to_dc_2 (context, cartesian_coord,  &dc.x, &dc.y);
 
         dc_array[i] = dc;
     }
@@ -96,7 +91,7 @@ GKSbool pipeline_polygon(GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex
 
 
 
-void gks_pipeline_object_actor(GKSactor *the_actor)
+void gks_pipeline_object_actor(GKScontext3DPtr context, GKSactor *the_actor)
 {
     GKSvector3d polygon_vertex_buffer[GKS_POLY_VERTEX_MAX];
     GKSpoint_2 dev_coord_buffer[GKS_POLY_VERTEX_MAX];
@@ -108,7 +103,7 @@ void gks_pipeline_object_actor(GKSactor *the_actor)
     the_actor->hidden = false;
     
     // set object into the world
-    gks_set_world_model_matrix(the_actor->model_transform);
+    gks_set_model_world_matrix(context, the_actor->model_transform);
     
     // TODO: transform all object vertices first
     // to speed things up I should transform all the vertices of the object
@@ -129,7 +124,7 @@ void gks_pipeline_object_actor(GKSactor *the_actor)
         }
 
         // do transforms on temporary device polygons
-        GKSbool in = pipeline_polygon(pid, polygon_size, polygon_vertex_buffer, dev_coord_buffer, &the_actor->line_color);
+        GKSbool in = pipeline_polygon(context, pid, polygon_size, polygon_vertex_buffer, dev_coord_buffer, &the_actor->line_color);
         if (!in) {
             the_actor->hidden = true;
             break;

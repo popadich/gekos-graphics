@@ -182,7 +182,7 @@
 
 - (void)computeActorInContext:(GKScontext3DPtr)context
 {
-    gks_pipeline_object_actor(&the_actor);
+    gks_pipeline_object_actor(context, &the_actor);
 }
 
 - (void)drawActor

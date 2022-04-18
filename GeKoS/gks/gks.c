@@ -10,7 +10,7 @@
 
 void gks_init_3D(GKScontext3DPtr context_ptr)
 {
-    gks_init_world_model();
+    gks_init_model_world(context_ptr);
 
     gks_norms_init(context_ptr);
     gks_projection_init(context_ptr);

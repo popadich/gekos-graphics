@@ -894,27 +894,27 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
 
 // MARK: MODEL
 - (void)testModelWorldInit {
-    GKSmatrix_3 *world_model_matrix;
+    GKSmatrix_3 *model_matrix;
     
-    gks_init_world_model();
-    world_model_matrix = gks_get_world_model_matrix();
-    GKSfloat avalue = (*world_model_matrix)[0][0];
-    GKSfloat bvalue = (*world_model_matrix)[1][1];
-    GKSfloat evalue = (*world_model_matrix)[2][1];
+    gks_init_model_world(NULL);
+    model_matrix = gks_get_model_world_matrix(NULL);
+    GKSfloat avalue = (*model_matrix)[0][0];
+    GKSfloat bvalue = (*model_matrix)[1][1];
+    GKSfloat evalue = (*model_matrix)[2][1];
     XCTAssertEqual(avalue, 1.0);
     XCTAssertEqual(bvalue, 1.0);
     XCTAssertEqual(evalue, 0.0);
 }
 
 - (void)testModelWorldGetMatrix {
-    GKSmatrix_3 *world_model_matrix;
+    GKSmatrix_3 *model_matrix;
     
-    gks_init_world_model();
-    world_model_matrix = gks_get_world_model_matrix();
-    GKSfloat avalue = (*world_model_matrix)[0][0];
-    GKSfloat bvalue = (*world_model_matrix)[1][1];
-    GKSfloat cvalue = (*world_model_matrix)[2][2];
-    GKSfloat dvalue = (*world_model_matrix)[3][3];
+    gks_init_model_world(NULL);
+    model_matrix = gks_get_model_world_matrix(NULL);
+    GKSfloat avalue = (*model_matrix)[0][0];
+    GKSfloat bvalue = (*model_matrix)[1][1];
+    GKSfloat cvalue = (*model_matrix)[2][2];
+    GKSfloat dvalue = (*model_matrix)[3][3];
     XCTAssertEqual(avalue, 1.0);
     XCTAssertEqual(bvalue, 1.0);
     XCTAssertEqual(cvalue, 1.0);
