@@ -9,6 +9,7 @@
 #include "gks.h"
 #include "gks_drawing_glue.h"
 
+// FIXME: drawing routine call back is a global
 localpolyline_cb_t gksPOLYLINE = NULL;
 void *gksPOLYLINEDATA = NULL;
 

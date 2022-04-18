@@ -20,23 +20,7 @@
 
 #include <stdlib.h>
 #include "gks_3d_context.h"
-#include "gks_3d_normalization.h"
-#include "gks_3d_view_orient.h"
-#include "gks_3d_matrix.h"
-#include "gks_3d_projection.h"
 
-
-const GKSint kWorldVolumeSetup = 0;
-const GKSint kViewVolumeSetup = 1;
-
-const GKSint kViewMatrixSetup = 0;
-const GKSint kProjectionMatrixSetup = 1;
-
-//  P R O T O T Y P E S
-void store_context(GKSint vantage_point);
-
-// S T A T I C   G L O B A L S
-static GKScontext3DPtr   g_curr_context;
 
 
 //
@@ -46,7 +30,6 @@ GKScontext3DPtr gks_context_init(void)
 {
     GKScontext3DPtr theContext;
     theContext = (GKScontext3D *)calloc(1, sizeof(GKScontext3D));
-    g_curr_context = theContext;
     return theContext;
 }
 

@@ -104,6 +104,8 @@
                 GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
                 GKS3DObject *customMeshObj = [[GKS3DObject alloc] initWithMesh:mesh atLocation:loc withRotation:rot andScale:sca];
+                
+                // FIXME: gks is not initialized
                 [self.content.theScene add3DObject:customMeshObj];
                 
             }
