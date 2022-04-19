@@ -78,18 +78,18 @@
     NSWindowController *wc =  [[NSApplication.sharedApplication mainWindow] windowController];
     if ([wc isKindOfClass:[GKSWindowController class]]) {
         GKSContent *repobj = wc.contentViewController.representedObject;
-        GKSSceneController *scene = repobj.theScene;
+        GKSSceneController *sceneController = repobj.sceneController;
         
-        NSInteger count = [scene.objectList count];
+        NSInteger count = [sceneController.objectList count];
         self.objectCount = [NSNumber numberWithInteger:count];
         
-        GKSint vertices = [self countVertexesInArray:scene.objectList];
+        GKSint vertices = [self countVertexesInArray:sceneController.objectList];
         self.vertexCount = @(vertices);
         
-        GKSint polys = [self countPolygonsInArray:scene.objectList];
+        GKSint polys = [self countPolygonsInArray:sceneController.objectList];
         self.polygonCount = @(polys);
         
-        self.theScene = scene;
+        self.sceneController = sceneController;
 
     }
 }

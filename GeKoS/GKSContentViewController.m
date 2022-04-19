@@ -27,7 +27,7 @@
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
-@property (nonatomic, strong) GKSSceneController* theScene;
+@property (nonatomic, strong) GKSSceneController* sceneController;
 
 @property (assign) GKSint currentVantage;
 @property (strong) NSMutableArray *vantageViews;
@@ -67,7 +67,7 @@ static void *worldDataContext = &worldDataContext;
     [self.view addConstraints:vertConstraints];
 
     [self.drawingViewController drawingSetViewRectG];
-    [self.theScene setTheWorldVolume];  // TODO: the scene needs a controller
+    [self.sceneController setTheWorldVolume];
 
     // Set all vantage points to the same default values
     self.currentVantage = 0;
@@ -90,12 +90,12 @@ static void *worldDataContext = &worldDataContext;
     
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
-    GKSSceneController *scene = content.theScene;
-    GKSCameraRep *scene_camera = scene.camera;
+    GKSSceneController *sceneController = content.sceneController;
+    GKSCameraRep *scene_camera = sceneController.camera;
     
     // MARK: SET CONTEXT
-    GKScontext3DPtr context = content.theContext;
-    self.context = content.theContext;
+    GKScontext3DPtr context = content.context3D;
+    self.context = content.context3D;
     self.cameraViewController.context = context;
     self.drawingViewController.context = context;
 
@@ -103,8 +103,8 @@ static void *worldDataContext = &worldDataContext;
     self.cameraRep = scene_camera;
     self.cameraViewController.representedObject = self.cameraRep;
 
-    self.theScene = scene;
-    self.drawingViewController.representedObject = self.theScene;
+    self.sceneController = sceneController;
+    self.drawingViewController.representedObject = self.sceneController;
 
     NSError *error;
     NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
@@ -136,7 +136,7 @@ static void *worldDataContext = &worldDataContext;
             [object3D locateX:0.0 Y:i%2 Z: -2.0 * i];
             [object3D rotateX:0.0 Y:rad Z:0.0];
 
-            [scene add3DObject:object3D];
+            [sceneController add3DObject:object3D];
             rad += DEG_TO_RAD * 35;
         }
     }
@@ -150,7 +150,7 @@ static void *worldDataContext = &worldDataContext;
 - (void)viewDidLayout {
 
     // TODO: make sure all matrices have been initialized and set
-    [self.theScene transformAllObjects];
+    [self.sceneController transformAllObjects];
 }
 
 - (void)dealloc {
@@ -166,7 +166,7 @@ static void *worldDataContext = &worldDataContext;
     if ([[notification name] isEqualToString:@"cameraMoved"]) {
 //        NSDictionary *userInfo = notification.userInfo;
 //        NSString *moveType = [userInfo objectForKey:@"moveType"];
-        [self.theScene transformAllObjects];
+        [self.sceneController transformAllObjects];
         [self.drawingViewController.view setNeedsDisplay:YES];
     }
 }
@@ -174,11 +174,11 @@ static void *worldDataContext = &worldDataContext;
 
 - (void)registerAsObserverForScene
 {
-    GKSSceneController *scene = self.theScene;
+    GKSSceneController *sceneController = self.sceneController;
 
-    [scene addObserver:self forKeyPath:@"worldBackColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
-    [scene addObserver:self forKeyPath:@"worldFillColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
-    [scene addObserver:self forKeyPath:@"worldLineColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
+    [sceneController addObserver:self forKeyPath:@"worldBackColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
+    [sceneController addObserver:self forKeyPath:@"worldFillColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
+    [sceneController addObserver:self forKeyPath:@"worldLineColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
 
 }
 
@@ -215,7 +215,7 @@ static void *worldDataContext = &worldDataContext;
         newGuy.lineColor = objRep.lineColor;
         newGuy.fillColor = objRep.fillColor;
         
-        [self.theScene add3DObject:newGuy];
+        [self.sceneController add3DObject:newGuy];
         [self.drawingViewController refresh];
     
     }
@@ -272,16 +272,16 @@ static void *worldDataContext = &worldDataContext;
         self.cameraRep.far = far;
         self.cameraRep.projectionType = projectionType;
 
-        self.theScene.worldVolumeMinX = [vantage valueForKey:@"worldVolumeMinX"];
-        self.theScene.worldVolumeMinY = [vantage valueForKey:@"worldVolumeMinY"];
-        self.theScene.worldVolumeMinZ = [vantage valueForKey:@"worldVolumeMinZ"];
-        self.theScene.worldVolumeMaxX = [vantage valueForKey:@"worldVolumeMaxX"];
-        self.theScene.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
-        self.theScene.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
+        self.sceneController.worldVolumeMinX = [vantage valueForKey:@"worldVolumeMinX"];
+        self.sceneController.worldVolumeMinY = [vantage valueForKey:@"worldVolumeMinY"];
+        self.sceneController.worldVolumeMinZ = [vantage valueForKey:@"worldVolumeMinZ"];
+        self.sceneController.worldVolumeMaxX = [vantage valueForKey:@"worldVolumeMaxX"];
+        self.sceneController.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
+        self.sceneController.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
 
-        [self.theScene setTheWorldVolume];
+        [self.sceneController setTheWorldVolume];
         
-        [self.theScene transformAllObjects];
+        [self.sceneController transformAllObjects];
         [self.drawingViewController refresh];
         self.currentVantage = newTag;
     }
@@ -289,8 +289,8 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
-    [self.theScene setTheWorldVolume];
-    [self.theScene transformAllObjects];
+    [self.sceneController setTheWorldVolume];
+    [self.sceneController transformAllObjects];
     [self.drawingViewController refresh];
 
 }
@@ -307,7 +307,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performDeleteQuick:(id)sender {
     
-    [self.theScene deleteLast3DObject];
+    [self.sceneController deleteLast3DObject];
     [self.drawingViewController refresh];
 
 }
@@ -316,14 +316,14 @@ static void *worldDataContext = &worldDataContext;
 - (IBAction)performLookQuick:(id)sender {
     
     [self.cameraViewController cameraSetViewLookAtG];
-    [self.theScene transformAllObjects];
+    [self.sceneController transformAllObjects];
     [self.drawingViewController refresh];
 }
 
 
 - (IBAction)performUpdateQuick:(id)sender {
     
-    [self.theScene transformAllObjects];
+    [self.sceneController transformAllObjects];
     [self.drawingViewController refresh];
 }
 
@@ -378,7 +378,7 @@ static void *worldDataContext = &worldDataContext;
                 customObj.fillColor = [self.object3DRep fillColor];
     
                 
-                [self.theScene add3DObject:customObj];
+                [self.sceneController add3DObject:customObj];
                 [self.drawingViewController refresh];
                 
             }
@@ -391,7 +391,7 @@ static void *worldDataContext = &worldDataContext;
     NSDictionary *vantage = nil;
     
     GKSCameraRep *camera = self.cameraRep;
-    GKSSceneController *scene = self.theScene;
+    GKSSceneController *sceneController = self.sceneController;
     
     NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
     [collector setValue:camera.upX forKey:@"upX"];
@@ -412,13 +412,13 @@ static void *worldDataContext = &worldDataContext;
     
     [collector setValue:camera.projectionType forKey:@"projectionType"];
     
-    [collector setValue:scene.worldVolumeMinX forKey:@"worldVolumeMinX"];
-    [collector setValue:scene.worldVolumeMinY forKey:@"worldVolumeMinY"];
-    [collector setValue:scene.worldVolumeMinZ forKey:@"worldVolumeMinZ"];
+    [collector setValue:sceneController.worldVolumeMinX forKey:@"worldVolumeMinX"];
+    [collector setValue:sceneController.worldVolumeMinY forKey:@"worldVolumeMinY"];
+    [collector setValue:sceneController.worldVolumeMinZ forKey:@"worldVolumeMinZ"];
 
-    [collector setValue:scene.worldVolumeMaxX forKey:@"worldVolumeMaxX"];
-    [collector setValue:scene.worldVolumeMaxY forKey:@"worldVolumeMaxY"];
-    [collector setValue:scene.worldVolumeMaxZ forKey:@"worldVolumeMaxZ"];
+    [collector setValue:sceneController.worldVolumeMaxX forKey:@"worldVolumeMaxX"];
+    [collector setValue:sceneController.worldVolumeMaxY forKey:@"worldVolumeMaxY"];
+    [collector setValue:sceneController.worldVolumeMaxZ forKey:@"worldVolumeMaxZ"];
 
     vantage = [NSDictionary dictionaryWithDictionary:collector];
         

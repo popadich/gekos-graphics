@@ -17,7 +17,7 @@
 {
     self = [super init];
     if (self) {
-        _theContext =  gks_init();
+        _context3D =  gks_init();
 
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
         GKSSceneController *aScene = [[GKSSceneController alloc] initWithCamera:cameraRep];
@@ -32,8 +32,8 @@
         aScene.worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
         aScene.worldVolumeMaxZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ];
 
-        aScene.context = _theContext;
-        _theScene = aScene;
+        aScene.context = _context3D;
+        _sceneController = aScene;
     }
     return self;
 }

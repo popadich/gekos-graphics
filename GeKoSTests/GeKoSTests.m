@@ -57,7 +57,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         GKSContent *content = windowController.contentViewController.representedObject;
-        GKSSceneController *scene = content.theScene;
+        GKSSceneController *sceneController = content.sceneController;
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
                 GKSmesh_3 *sphere = SphereMesh();
@@ -67,12 +67,12 @@
                 
                 GKS3DObject *object3D = [[GKS3DObject alloc] initWithMesh:sphere atLocation:location withRotation:rotation andScale:scale];
 
-                [scene add3DObject:object3D];
+                [sceneController add3DObject:object3D];
             }
         }
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
-                [scene deleteLast3DObject];
+                [sceneController deleteLast3DObject];
             }
         }
     }];
@@ -95,8 +95,8 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         GKSContent *content = windowController.contentViewController.representedObject;
-        GKSSceneController *scene = content.theScene;
-        GKSCameraRep *camera = content.theScene.camera;
+        GKSSceneController *sceneController = content.sceneController;
+        GKSCameraRep *camera = content.sceneController.camera;
         
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
@@ -107,7 +107,7 @@
                 
                 GKS3DObject *object3D = [[GKS3DObject alloc] initWithMesh:sphere atLocation:location withRotation:rotation andScale:scale];
                 
-                [scene add3DObject:object3D];
+                [sceneController add3DObject:object3D];
             }
         }
         
@@ -116,11 +116,11 @@
       
         [contentController.cameraViewController cameraSetProjectionTypeG];
         [contentController.cameraViewController cameraSetViewLookAtG];
-        [scene transformAllObjects];
+        [sceneController transformAllObjects];
         
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
-                [scene deleteLast3DObject];
+                [sceneController deleteLast3DObject];
             }
         }
     }];

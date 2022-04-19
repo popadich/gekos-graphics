@@ -358,7 +358,7 @@
                         </tabViewItem>
                         <tabViewItem label="World" identifier="2" id="C8m-h0-NnB">
                             <view key="view" id="RyS-4c-ou8">
-                                <rect key="frame" x="10" y="33" width="362" height="370"/>
+                                <rect key="frame" x="10" y="33" width="394" height="370"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PnG-2R-wWq">
@@ -380,9 +380,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMinX" id="EOF-rY-BLW"/>
-                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qfm-Mu-72o">
                                         <rect key="frame" x="62" y="285" width="40" height="19"/>
@@ -395,9 +392,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMaxX" id="gHQ-PA-kpp"/>
-                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="56Y-u9-qIW">
                                         <rect key="frame" x="125" y="338" width="12" height="14"/>
@@ -426,9 +420,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMinY" id="He8-xv-VPh"/>
-                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4JC-z5-Ez1">
                                         <rect key="frame" x="159" y="285" width="40" height="19"/>
@@ -441,9 +432,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMaxZ" id="Cm0-07-B9O"/>
-                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HbM-XL-cq9">
                                         <rect key="frame" x="159" y="311" width="40" height="19"/>
@@ -456,9 +444,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMinZ" id="L1T-zD-0gA"/>
-                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QwX-9E-lhh">
                                         <rect key="frame" x="111" y="285" width="40" height="19"/>
@@ -471,9 +456,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMaxY" id="ilF-Wq-w6e"/>
-                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bzf-8c-7w9">
                                         <rect key="frame" x="76" y="338" width="12" height="14"/>

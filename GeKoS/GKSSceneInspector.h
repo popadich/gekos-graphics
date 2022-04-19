@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id)sharedInspector;
 
-@property (nonatomic,weak) GKSSceneController* theScene;
+@property (nonatomic,weak) GKSSceneController* sceneController;
 
 @end
 

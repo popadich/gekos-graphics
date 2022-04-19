@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContent : NSObject
 
-@property (strong)GKSSceneController *theScene;
-@property (assign)GKScontext3DPtr theContext;
+@property (strong)GKSSceneController *sceneController;
+@property (assign)GKScontext3DPtr context3D;
 
 
 @end

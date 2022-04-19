@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="428" height="268"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="428" height="268"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -75,9 +75,6 @@
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMinX" id="Q2e-DL-ydd"/>
-                                    </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KXA-d0-dCa">
                                     <rect key="frame" x="85" y="48" width="21" height="11"/>
@@ -86,9 +83,6 @@
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMinY" id="tAk-QV-FbG"/>
-                                    </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xOT-DK-wiT">
                                     <rect key="frame" x="117" y="48" width="21" height="11"/>
@@ -97,9 +91,6 @@
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMinZ" id="9le-xQ-NED"/>
-                                    </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hdk-NC-AIN">
                                     <rect key="frame" x="55" y="27" width="18" height="11"/>
@@ -108,9 +99,6 @@
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMaxX" id="gXg-dZ-B5c"/>
-                                    </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mXG-4B-vit">
                                     <rect key="frame" x="87" y="27" width="18" height="11"/>
@@ -119,9 +107,6 @@
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMaxY" id="acf-QQ-6vy"/>
-                                    </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CAl-gO-zZu">
                                     <rect key="frame" x="119" y="27" width="18" height="11"/>
@@ -130,9 +115,6 @@
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
-                                    <connections>
-                                        <binding destination="-2" name="value" keyPath="self.theScene.worldVolumeMaxZ" id="r8i-Xs-5xR"/>
-                                    </connections>
                                 </textField>
                             </subviews>
                             <constraints>

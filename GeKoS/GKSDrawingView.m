@@ -119,7 +119,7 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
     [self redDot];
     
     // TODO: split up the compute and draw
-    for (GKS3DObject *obj in self.scene.objectList) {
+    for (GKS3DObject *obj in self.sceneController.objectList) {
 
         [obj drawActor];
         

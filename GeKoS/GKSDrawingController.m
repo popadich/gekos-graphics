@@ -11,7 +11,7 @@
 
 @interface GKSDrawingController ()
 
-@property (strong)GKSSceneController *theScene;
+@property (strong)GKSSceneController *sceneController;
 
 @end
 
@@ -21,10 +21,10 @@
     [super viewDidLoad];
     // Do view setup here.
     
-    GKSSceneController *scene = self.representedObject;
+    GKSSceneController *sceneController = self.representedObject;
     GKSDrawingView *drawView = (GKSDrawingView *)self.view;
-    drawView.scene = scene;
-    self.theScene = scene;
+    drawView.sceneController = sceneController;
+    self.sceneController = sceneController;
 
 }
 

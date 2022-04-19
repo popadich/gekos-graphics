@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSDrawingView : NSView
 
 @property (nonatomic, copy) NSColor *backgroundColor;
-@property (weak) GKSSceneController *scene;
+@property (weak) GKSSceneController *sceneController;
 
 @end
 
