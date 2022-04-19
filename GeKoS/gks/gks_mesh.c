@@ -12,7 +12,6 @@
 //
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include "gks_mesh.h"
 #include "gks_3d_matrix.h"

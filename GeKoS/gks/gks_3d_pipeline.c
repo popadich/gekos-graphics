@@ -31,11 +31,11 @@ GKSbool do_clipping(GKSint polygon_id, GKSvector3dPtr dir_vec, GKSvector3dPtr po
 GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSint polygonID, GKSint num_pt, GKSvertexArrPtr vertex_array, GKSDCArrPtr dc_array, GKScolor *lineColor)
 {
     GKSbool visible = true;
-    GKSvector3d   world_model_coord = GKSMakeVector(0.0, 0.0, 0.0);
-    GKSvector3d   world_model_norm_coord = GKSMakeVector(0.0, 0.0, 0.0);
-    GKSvector3d   cartesian_coord = GKSMakeVector(0.0, 0.0, 0.0);
-    GKSvector3d   camera_coord = GKSMakeVector(0.0, 0.0, 0.0);
-    GKSvector3d   view_coord = GKSMakeVector(0.0, 0.0, 0.0);
+    GKSvector3d   world_model_coord;
+    GKSvector3d   world_model_norm_coord;
+    GKSvector3d   view_coord;
+    GKSvector3d   camera_coord;
+    GKSvector3d   cartesian_coord;
     GKSpoint_2    dc;  // device coordinate
     
     // Get transformation matrices
