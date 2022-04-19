@@ -14,11 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSSceneController : NSObject
 
+@property (strong) GKSSceneRep *scene;
+@property (nonatomic, strong) GKSCameraRep* camera;
+
 @property (nonatomic, strong) NSMutableArray* objectActors;
 @property (assign) GKScontext3DPtr context;
 
 
-@property (nonatomic,strong) GKSCameraRep* camera;
 
 @property (nonatomic,strong) NSNumber* worldVolumeMinX;
 @property (nonatomic,strong) NSNumber* worldVolumeMinY;

@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSSceneRep : NSObject
 
+@property (nonatomic, strong) NSMutableArray* toObject3DReps;
+
 @end
 
 NS_ASSUME_NONNULL_END

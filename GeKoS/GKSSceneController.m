@@ -20,7 +20,7 @@
 
 @implementation GKSSceneController
 
-- (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)scene
+- (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)sceneRep
 {
     self = [super init];
     if (self) {
@@ -58,7 +58,8 @@
                 self.worldFillColor = aColor;
             }
         }
-        self.camera = aCamera;
+        _camera = aCamera;
+        _scene = sceneRep;
     }
     return self;
 }

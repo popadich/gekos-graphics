@@ -88,4 +88,22 @@
 }
 
 
+- (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ {
+    self.scaleX = [NSNumber numberWithDouble:scaleFactorX];
+    self.scaleY = [NSNumber numberWithDouble:scaleFactorY];
+    self.scaleZ = [NSNumber numberWithDouble:scaleFactorZ];
+}
+
+- (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ {
+    self.rotX = [NSNumber numberWithDouble:rotFactorX];
+    self.rotY = [NSNumber numberWithDouble:rotFactorY];
+    self.rotZ = [NSNumber numberWithDouble:rotFactorZ];
+}
+
+- (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ {
+    self.transX = [NSNumber numberWithDouble:locFactorX];
+    self.transY = [NSNumber numberWithDouble:locFactorY];
+    self.transZ = [NSNumber numberWithDouble:locFactorZ];
+}
+
 @end

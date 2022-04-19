@@ -78,8 +78,31 @@ static void *worldDataContext = &worldDataContext;
     }
 
     
-    [self setIsCenteredObject:@NO];
+    [self setIsCenteredObject:@YES];
     [self registerAsObserverForScene];
+    
+    // TODO: remove when done with playing
+    BOOL playing = YES;
+    if (playing) {
+        setMeshCenteredFlag(self.isCenteredObject.boolValue);
+        GKSfloat rad = 0.0;
+        for (int i=1; i<8; i++) {
+            GKS3DObject *object3D = [[GKS3DObject alloc] init];
+            GKS3DObjectRep *object3DRep = [[GKS3DObjectRep alloc] init];
+            
+            [object3D locateX:0.0 Y:i%2 Z: -2.0 * i];
+            [object3DRep locateX:0.0 Y:i%2 Z: -2.0 * i];
+
+            [object3D rotateX:0.0 Y:rad Z:0.0];
+            [object3DRep rotateX:0.0 Y:rad Z:0.0];
+
+            [self.sceneController add3DObject:object3D];
+            [self.sceneController.scene.toObject3DReps addObject:object3DRep];
+            
+            rad += DEG_TO_RAD * 35;
+        }
+    }
+    
         
     // notifications come after camera values have been set
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
@@ -122,25 +145,6 @@ static void *worldDataContext = &worldDataContext;
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
-    
-    
-    
-    
-    // TODO: remove when done with playing
-    BOOL playing = YES;
-    if (playing) {
-        setMeshCenteredFlag(true);
-        GKSfloat rad = 0.0;
-        for (int i=0; i<7; i++) {
-            GKS3DObject *object3D = [[GKS3DObject alloc] init];
-            [object3D locateX:0.0 Y:i%2 Z: -2.0 * i];
-            [object3D rotateX:0.0 Y:rad Z:0.0];
-
-            [sceneController add3DObject:object3D];
-            rad += DEG_TO_RAD * 35;
-        }
-    }
-    
     
     
     self.theContent = content;
@@ -216,6 +220,11 @@ static void *worldDataContext = &worldDataContext;
         newGuy.fillColor = objRep.fillColor;
         
         [self.sceneController add3DObject:newGuy];
+        
+        // put a copy of the 3d object rep into an array
+        GKS3DObjectRep *repCopy = [objRep copy];
+        [self.sceneController.scene.toObject3DReps addObject:repCopy];
+        
         [self.drawingViewController refresh];
     
     }
