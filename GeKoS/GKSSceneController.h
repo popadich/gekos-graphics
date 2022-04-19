@@ -8,12 +8,13 @@
 #import <Foundation/Foundation.h>
 #import "GKS3DObject.h"
 #import "GKSCameraRep.h"
+#import "GKSSceneRep.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSSceneController : NSObject
 
-@property (nonatomic, strong) NSMutableArray* objectList;
+@property (nonatomic, strong) NSMutableArray* objectActors;
 @property (assign) GKScontext3DPtr context;
 
 
@@ -32,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSColor* worldFillColor;
 
 
-- (instancetype)initWithCamera:(GKSCameraRep *)aCamera;
+- (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)scene;
 
 - (void)add3DObject:(GKS3DObject*)anObject3D;
 - (void)deleteLast3DObject;

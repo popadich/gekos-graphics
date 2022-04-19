@@ -80,13 +80,13 @@
         GKSContent *repobj = wc.contentViewController.representedObject;
         GKSSceneController *sceneController = repobj.sceneController;
         
-        NSInteger count = [sceneController.objectList count];
+        NSInteger count = [sceneController.objectActors count];
         self.objectCount = [NSNumber numberWithInteger:count];
         
-        GKSint vertices = [self countVertexesInArray:sceneController.objectList];
+        GKSint vertices = [self countVertexesInArray:sceneController.objectActors];
         self.vertexCount = @(vertices);
         
-        GKSint polys = [self countPolygonsInArray:sceneController.objectList];
+        GKSint polys = [self countPolygonsInArray:sceneController.objectActors];
         self.polygonCount = @(polys);
         
         self.sceneController = sceneController;

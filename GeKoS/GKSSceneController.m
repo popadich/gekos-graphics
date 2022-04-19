@@ -20,12 +20,12 @@
 
 @implementation GKSSceneController
 
-- (instancetype)initWithCamera:(GKSCameraRep *)aCamera
+- (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)scene
 {
     self = [super init];
     if (self) {
         // initialize scene array
-        _objectList = [[NSMutableArray alloc] init];
+        _objectActors = [[NSMutableArray alloc] init];
         
         _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
         _worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
@@ -81,7 +81,7 @@
     // TODO: assert not null
     if (self.context != NULL) {
         [object3D computeActorInContext:self.context];               // is this the time?
-        [self.objectList addObject:object3D];
+        [self.objectActors addObject:object3D];
     }
 }
 
@@ -91,17 +91,17 @@
 {
     
     GKSmesh_3 *its_mesh = NULL;
-    GKS3DObject *lasObj = [self.objectList lastObject];
+    GKS3DObject *lasObj = [self.objectActors lastObject];
     its_mesh = lasObj.getMeshPointer;
     free_mesh(its_mesh);
     
-    [self.objectList removeLastObject];
+    [self.objectActors removeLastObject];
 }
 
 - (void)transformAllObjects
 {
     GKScontext3DPtr ctx = self.context;
-    for (GKS3DObject *obj in self.objectList) {
+    for (GKS3DObject *obj in self.objectActors) {
         [obj computeActorInContext:ctx];
     }
 }

@@ -9,6 +9,7 @@
 #import "GKSCameraRep.h"
 #import "GKS3DObject.h"
 #import "GKSConstants.h"
+#import "GKSSceneRep.h"
 
 
 @implementation GKSContent
@@ -20,20 +21,21 @@
         _context3D =  gks_init();
 
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
-        GKSSceneController *aScene = [[GKSSceneController alloc] initWithCamera:cameraRep];
+        GKSSceneRep *sceneRep = [[GKSSceneRep alloc] init];
+        GKSSceneController *sceneController = [[GKSSceneController alloc] initWithCamera:cameraRep andScene:sceneRep];
         
         // Default volume bounds to the GKS 3D world.
         
-        aScene.worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
-        aScene.worldVolumeMinY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY];
-        aScene.worldVolumeMinZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ];
+        sceneController.worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
+        sceneController.worldVolumeMinY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY];
+        sceneController.worldVolumeMinZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ];
         
-        aScene.worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
-        aScene.worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
-        aScene.worldVolumeMaxZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ];
+        sceneController.worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
+        sceneController.worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
+        sceneController.worldVolumeMaxZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ];
 
-        aScene.context = _context3D;
-        _sceneController = aScene;
+        sceneController.context = _context3D;
+        _sceneController = sceneController;
     }
     return self;
 }
