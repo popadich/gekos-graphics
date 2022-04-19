@@ -20,7 +20,7 @@
         _theContext =  gks_init();
 
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
-        GKSScene *aScene = [[GKSScene alloc] initWithCamera:cameraRep];
+        GKSSceneController *aScene = [[GKSSceneController alloc] initWithCamera:cameraRep];
         
         // Default volume bounds to the GKS 3D world.
         

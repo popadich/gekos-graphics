@@ -6,12 +6,12 @@
 //
 
 #import "GKSDrawingController.h"
-#import "GKSScene.h"
+#import "GKSSceneController.h"
 #include "gks/gks.h"
 
 @interface GKSDrawingController ()
 
-@property (strong)GKSScene *theScene;
+@property (strong)GKSSceneController *theScene;
 
 @end
 
@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do view setup here.
     
-    GKSScene *scene = self.representedObject;
+    GKSSceneController *scene = self.representedObject;
     GKSDrawingView *drawView = (GKSDrawingView *)self.view;
     drawView.scene = scene;
     self.theScene = scene;

@@ -12,7 +12,7 @@
 
 #import "GKS3DObjectRep.h"
 #import "GKS3DObject.h"
-#import "GKSScene.h"
+#import "GKSSceneController.h"
 #import "GKSMeshParser.h"
 
 #define GKS_MAX_VANTAGE_PTS 6
@@ -27,7 +27,7 @@
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
-@property (nonatomic, strong) GKSScene* theScene;
+@property (nonatomic, strong) GKSSceneController* theScene;
 
 @property (assign) GKSint currentVantage;
 @property (strong) NSMutableArray *vantageViews;
@@ -90,7 +90,7 @@ static void *worldDataContext = &worldDataContext;
     
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
-    GKSScene *scene = content.theScene;
+    GKSSceneController *scene = content.theScene;
     GKSCameraRep *scene_camera = scene.camera;
     
     // MARK: SET CONTEXT
@@ -174,7 +174,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (void)registerAsObserverForScene
 {
-    GKSScene *scene = self.theScene;
+    GKSSceneController *scene = self.theScene;
 
     [scene addObserver:self forKeyPath:@"worldBackColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
     [scene addObserver:self forKeyPath:@"worldFillColor" options:NSKeyValueObservingOptionNew context:worldDataContext];
@@ -391,7 +391,7 @@ static void *worldDataContext = &worldDataContext;
     NSDictionary *vantage = nil;
     
     GKSCameraRep *camera = self.cameraRep;
-    GKSScene *scene = self.theScene;
+    GKSSceneController *scene = self.theScene;
     
     NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
     [collector setValue:camera.upX forKey:@"upX"];

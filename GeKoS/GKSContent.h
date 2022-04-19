@@ -6,13 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GKSScene.h"
+#import "GKSSceneController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContent : NSObject
 
-@property (strong)GKSScene *theScene;
+@property (strong)GKSSceneController *theScene;
 @property (assign)GKScontext3DPtr theContext;
 
 

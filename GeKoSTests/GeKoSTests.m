@@ -57,7 +57,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         GKSContent *content = windowController.contentViewController.representedObject;
-        GKSScene *scene = content.theScene;
+        GKSSceneController *scene = content.theScene;
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
                 GKSmesh_3 *sphere = SphereMesh();
@@ -95,7 +95,7 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         GKSContent *content = windowController.contentViewController.representedObject;
-        GKSScene *scene = content.theScene;
+        GKSSceneController *scene = content.theScene;
         GKSCameraRep *camera = content.theScene.camera;
         
         for (int j=0; j<20; j++) {

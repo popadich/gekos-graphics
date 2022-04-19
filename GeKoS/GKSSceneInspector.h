@@ -8,13 +8,13 @@
 #import <Cocoa/Cocoa.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@class GKSScene;
+@class GKSSceneController;
 
 @interface GKSSceneInspector : NSWindowController <NSWindowDelegate>
 
 + (id)sharedInspector;
 
-@property (nonatomic,weak) GKSScene* theScene;
+@property (nonatomic,weak) GKSSceneController* theScene;
 
 @end
 

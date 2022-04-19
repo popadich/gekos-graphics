@@ -5,10 +5,10 @@
 //  Created by Alex Popadich on 7/31/21.
 //
 
-#import "GKSScene.h"
+#import "GKSSceneController.h"
 #import "GKSConstants.h"
 
-@interface GKSScene () {
+@interface GKSSceneController () {
     float seg_vect[3];
     GKSlimits_3 volume;
 }
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation GKSScene
+@implementation GKSSceneController
 
 - (instancetype)initWithCamera:(GKSCameraRep *)aCamera
 {

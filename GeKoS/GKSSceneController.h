@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GKSScene : NSObject
+@interface GKSSceneController : NSObject
 
 @property (nonatomic, strong) NSMutableArray* objectList;
 @property (assign) GKScontext3DPtr context;

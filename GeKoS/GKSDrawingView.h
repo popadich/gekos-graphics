@@ -6,14 +6,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GKSScene.h"
+#import "GKSSceneController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSDrawingView : NSView
 
 @property (nonatomic, copy) NSColor *backgroundColor;
-@property (weak) GKSScene *scene;
+@property (weak) GKSSceneController *scene;
 
 @end
 
