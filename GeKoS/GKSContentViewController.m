@@ -17,9 +17,7 @@
 
 #define GKS_MAX_VANTAGE_PTS 6
 
-@interface GKSContentViewController () {
-    GKScontext3DPtr context;
-}
+@interface GKSContentViewController ()
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 
@@ -35,6 +33,8 @@
 @property (strong) NSMutableArray *vantageViews;
 
 @end
+
+
 
 static void *volumeSceneContext = &volumeSceneContext;
 static void *worldDataContext = &worldDataContext;
@@ -71,7 +71,7 @@ static void *worldDataContext = &worldDataContext;
     GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
     
     // Set normalization value transforms
-    gks_norms_set_device_viewport(context, &port_rect); // get a controller to do this
+    gks_norms_set_device_viewport(self.context, &port_rect); // get a controller to do this
     
     [self.theScene setTheWorldVolume];
 
@@ -99,11 +99,11 @@ static void *worldDataContext = &worldDataContext;
     GKSScene *scene = content.theScene;
     GKSCameraRep *scene_camera = scene.camera;
     
-    // MARK: INIT GKS
-    context = gks_init();
+    // MARK: SET CONTEXT
+    GKScontext3DPtr context = content.theContext;
+    self.context = content.theContext;
     self.cameraViewController.context = context;
     self.drawingViewController.context = context;
-    scene.context = context;
 
     
     self.cameraRep = scene_camera;
