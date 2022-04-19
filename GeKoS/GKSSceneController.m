@@ -77,12 +77,39 @@
     return &volume;
 }
 
-- (void) add3DObject:(GKS3DObject*)object3D
+- (void) add3DObjectActor:(GKS3DObject*)object3D
 {
     // TODO: assert not null
     if (self.context != NULL) {
         [object3D computeActorInContext:self.context];               // is this the time?
         [self.objectActors addObject:object3D];
+    }
+}
+
+- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
+{
+    // TODO: assert not null
+    if (self.context != NULL) {
+        
+        GKSkind kind = object3DRep.objectKind.intValue;
+        GKSmesh_3 *theMesh = MeshOfKind(kind);
+        
+        if (theMesh != NULL) {
+            GKSvector3d loc = [object3DRep positionVector];
+            GKSvector3d rot = [object3DRep rotationVector];
+            GKSvector3d sca = [object3DRep scaleVector];
+
+            GKS3DObject *newActor = [[GKS3DObject alloc] initWithMesh:theMesh atLocation:loc withRotation:rot andScale:sca];
+
+            newActor.lineColor = object3DRep.lineColor;
+            newActor.fillColor = object3DRep.fillColor;
+            
+            [self add3DObjectActor:newActor];
+
+        }
+        
+        
+        [self.scene.toObject3DReps addObject:object3DRep];
     }
 }
 

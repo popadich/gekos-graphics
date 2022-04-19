@@ -67,7 +67,7 @@
                 
                 GKS3DObject *object3D = [[GKS3DObject alloc] initWithMesh:sphere atLocation:location withRotation:rotation andScale:scale];
 
-                [sceneController add3DObject:object3D];
+                [sceneController add3DObjectActor:object3D];
             }
         }
         for (int j=0; j<20; j++) {
@@ -107,7 +107,7 @@
                 
                 GKS3DObject *object3D = [[GKS3DObject alloc] initWithMesh:sphere atLocation:location withRotation:rotation andScale:scale];
                 
-                [sceneController add3DObject:object3D];
+                [sceneController add3DObjectActor:object3D];
             }
         }
         

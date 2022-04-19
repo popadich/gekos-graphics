@@ -37,6 +37,57 @@
 }
 
 
+- (instancetype)initWithKind:(GKSint)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rotation andScale:(GKSvector3d)scale;
+{
+    
+    self = [super init];
+    if (self) {
+        
+        [self zeroLocation];
+        
+        _transX = [NSNumber numberWithDouble:location.crd.x];
+        _transY = [NSNumber numberWithDouble:location.crd.y];
+        _transZ = [NSNumber numberWithDouble:location.crd.z];
+
+        _rotX = [NSNumber numberWithDouble:rotation.crd.x];
+        _rotY = [NSNumber numberWithDouble:rotation.crd.y];
+        _rotZ = [NSNumber numberWithDouble:rotation.crd.z];
+        
+        _scaleX = [NSNumber numberWithDouble:scale.crd.x];
+        _scaleY = [NSNumber numberWithDouble:scale.crd.y];
+        _scaleZ = [NSNumber numberWithDouble:scale.crd.z];
+        
+        GKScolor line_color = {0.0, 1.0, 0.0, 1.0};
+        GKScolor fill_color = {0.0, 1.0, 0.0, 1.0};
+        
+    }
+    return self;
+}
+
+
+- (void)zeroLocation
+{
+    _hidden = [NSNumber numberWithBool:NO];
+    _objectID = @0;
+    _priority = @0;
+    
+    _transX = [NSNumber numberWithDouble:0.0];
+    _transY = [NSNumber numberWithDouble:0.0];
+    _transZ = [NSNumber numberWithDouble:0.0];
+    _scaleX = [NSNumber numberWithDouble:1.0];
+    _scaleY = [NSNumber numberWithDouble:1.0];
+    _scaleZ = [NSNumber numberWithDouble:1.0];
+    _rotX = [NSNumber numberWithDouble:0.0];
+    _rotY = [NSNumber numberWithDouble:0.0];
+    _rotZ = [NSNumber numberWithDouble:0.0];
+    
+    // TODO: better defaults
+    _lineColor = [NSColor greenColor];
+    _fillColor = [NSColor greenColor];
+
+}
+
+
 - (GKSvector3d)positionVector
 {
     GKSvector3d pos;

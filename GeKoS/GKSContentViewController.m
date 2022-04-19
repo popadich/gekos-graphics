@@ -87,18 +87,11 @@ static void *worldDataContext = &worldDataContext;
         setMeshCenteredFlag(self.isCenteredObject.boolValue);
         GKSfloat rad = 0.0;
         for (int i=1; i<8; i++) {
-            GKS3DObject *object3D = [[GKS3DObject alloc] init];
             GKS3DObjectRep *object3DRep = [[GKS3DObjectRep alloc] init];
-            
-            [object3D locateX:0.0 Y:i%2 Z: -2.0 * i];
             [object3DRep locateX:0.0 Y:i%2 Z: -2.0 * i];
-
-            [object3D rotateX:0.0 Y:rad Z:0.0];
             [object3DRep rotateX:0.0 Y:rad Z:0.0];
+            [self.sceneController add3DObjectRep:object3DRep];
 
-            [self.sceneController add3DObject:object3D];
-            [self.sceneController.scene.toObject3DReps addObject:object3DRep];
-            
             rad += DEG_TO_RAD * 35;
         }
     }
@@ -206,28 +199,11 @@ static void *worldDataContext = &worldDataContext;
 {
     // use ObjRep to create an Obj3D
     
-    GKSkind kind = objRep.objectKind.intValue;
-    GKSmesh_3 *theMesh = MeshOfKind(kind);
+    // put a copy of the 3d object rep into an array
+    GKS3DObjectRep *repCopy = [objRep copy];
+    [self.sceneController add3DObjectRep:repCopy];
     
-    if (theMesh != NULL) {
-        GKSvector3d loc = [objRep positionVector];
-        GKSvector3d rot = [objRep rotationVector];
-        GKSvector3d sca = [objRep scaleVector];
-
-        GKS3DObject *newGuy = [[GKS3DObject alloc] initWithMesh:theMesh atLocation:loc withRotation:rot andScale:sca];
-
-        newGuy.lineColor = objRep.lineColor;
-        newGuy.fillColor = objRep.fillColor;
-        
-        [self.sceneController add3DObject:newGuy];
-        
-        // put a copy of the 3d object rep into an array
-        GKS3DObjectRep *repCopy = [objRep copy];
-        [self.sceneController.scene.toObject3DReps addObject:repCopy];
-        
-        [self.drawingViewController refresh];
-    
-    }
+    [self.drawingViewController refresh];
      
 }
 
@@ -386,8 +362,8 @@ static void *worldDataContext = &worldDataContext;
                 customObj.lineColor = [self.object3DRep lineColor];
                 customObj.fillColor = [self.object3DRep fillColor];
     
-                
-                [self.sceneController add3DObject:customObj];
+                // FIXME: use objectRep
+                [self.sceneController add3DObjectActor:customObj];
                 [self.drawingViewController refresh];
                 
             }

@@ -105,8 +105,8 @@
                 GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
                 GKS3DObject *customMeshObj = [[GKS3DObject alloc] initWithMesh:mesh atLocation:loc withRotation:rot andScale:sca];
                 
-                // FIXME: gks is not initialized
-                [self.content.sceneController add3DObject:customMeshObj];
+                // FIXME: use objRep
+                [self.content.sceneController add3DObjectActor:customMeshObj];
                 
             }
             hasRead = YES;

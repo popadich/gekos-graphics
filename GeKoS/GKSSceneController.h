@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GKS3DObject.h"
+#import "GKS3DObjectRep.h"
 #import "GKSCameraRep.h"
 #import "GKSSceneRep.h"
 
@@ -37,10 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)scene;
 
-- (void)add3DObject:(GKS3DObject*)anObject3D;
+- (void)add3DObjectActor:(GKS3DObject*)anObject3D;
+
+- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
+
 - (void)deleteLast3DObject;
 
 - (void)transformAllObjects;
+
 - (void)setTheWorldVolume;
 
 
