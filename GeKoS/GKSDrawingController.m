@@ -58,4 +58,12 @@
     return new_limits;
 }
 
+- (void)drawingSetViewRectG {
+    // Get values world volume from data and device limits from view bounds
+    GKSlimits_2 port_rect = [self getPortLimits];
+    
+    // Set normalization value transforms
+    gks_norms_set_device_viewport(self.context, &port_rect); // get a controller to do this
+}
+
 @end

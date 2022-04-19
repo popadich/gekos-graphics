@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)refresh;
 - (GKSlimits_2)getPortLimits;
 
+- (void)drawingSetViewRectG;
 
 @end
 

@@ -189,7 +189,7 @@ void logMatrix(GKSmatrix_3 M) {
             double far = [camera.far doubleValue];
             gks_projection_set_perspective(self.context, alpha, near, far);
         }
-        else if (projectionType == kAxonometric) {
+        else if (projectionType == kAlternate) {
             double distance = [camera.focalLength doubleValue];
             double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
             double near = [camera.near doubleValue];

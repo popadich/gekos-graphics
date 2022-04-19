@@ -66,14 +66,8 @@ static void *worldDataContext = &worldDataContext;
     [self.view addConstraints:horzConstraints];
     [self.view addConstraints:vertConstraints];
 
-
-    // Get values world volume from data and device limits from view bounds
-    GKSlimits_2 port_rect = [self.drawingViewController getPortLimits];
-    
-    // Set normalization value transforms
-    gks_norms_set_device_viewport(self.context, &port_rect); // get a controller to do this
-    
-    [self.theScene setTheWorldVolume];
+    [self.drawingViewController drawingSetViewRectG];
+    [self.theScene setTheWorldVolume];  // TODO: the scene needs a controller
 
     // Set all vantage points to the same default values
     self.currentVantage = 0;

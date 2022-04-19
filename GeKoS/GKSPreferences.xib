@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -422,6 +422,16 @@
                             <binding destination="XI3-BN-hwX" name="selectedIndex" keyPath="values.projectionTypeIndex" id="xua-Ah-0FO"/>
                         </connections>
                     </popUpButton>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7vH-cZ-NX1">
+                        <rect key="frame" x="303" y="268" width="50" height="18"/>
+                        <buttonCell key="cell" type="check" title="Cull" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="M51-ui-1rZ">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="XI3-BN-hwX" name="value" keyPath="values.frustumCullFlag" id="Gjo-Fs-ys6"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="39F-Uj-HS2" firstAttribute="firstBaseline" secondItem="7cu-q1-QUe" secondAttribute="firstBaseline" id="0ZH-MU-DHH"/>
@@ -436,6 +446,7 @@
                     <constraint firstItem="Zpv-1T-gAl" firstAttribute="bottom" secondItem="84r-7O-vnc" secondAttribute="bottom" id="6le-9J-IS3"/>
                     <constraint firstItem="7cu-q1-QUe" firstAttribute="centerX" secondItem="SQ1-yp-dPK" secondAttribute="centerX" id="6vz-bH-871"/>
                     <constraint firstAttribute="bottom" secondItem="DGf-fx-jLg" secondAttribute="bottom" constant="20" symbolic="YES" id="6zL-OF-tkb"/>
+                    <constraint firstItem="7vH-cZ-NX1" firstAttribute="leading" secondItem="KzO-5P-5Hw" secondAttribute="trailing" constant="26" id="6zO-7I-Abd"/>
                     <constraint firstItem="0AZ-T0-ug0" firstAttribute="top" secondItem="Ic9-Zv-la7" secondAttribute="bottom" constant="8" symbolic="YES" id="7Ct-7d-9kR"/>
                     <constraint firstItem="Atr-7T-XUZ" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="330" id="7HR-T1-ejV"/>
                     <constraint firstItem="QAc-Wo-dTJ" firstAttribute="centerX" secondItem="7cu-q1-QUe" secondAttribute="centerX" id="7ie-cM-GgK"/>
@@ -458,6 +469,7 @@
                     <constraint firstItem="Atr-7T-XUZ" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="SIT-aU-YqC"/>
                     <constraint firstItem="5Ha-ar-oCH" firstAttribute="centerX" secondItem="NOM-JG-2vb" secondAttribute="centerX" id="TIv-W9-cKs"/>
                     <constraint firstItem="NOM-JG-2vb" firstAttribute="centerY" secondItem="CDu-rL-b9H" secondAttribute="centerY" id="TW6-Fw-AYj"/>
+                    <constraint firstItem="7vH-cZ-NX1" firstAttribute="centerY" secondItem="KzO-5P-5Hw" secondAttribute="centerY" id="TZg-wX-mac"/>
                     <constraint firstItem="cGO-Qq-XtI" firstAttribute="leading" secondItem="aAg-Ac-ah7" secondAttribute="trailing" constant="8" symbolic="YES" id="UuR-g5-lpx"/>
                     <constraint firstItem="QAc-Wo-dTJ" firstAttribute="top" secondItem="7cu-q1-QUe" secondAttribute="bottom" constant="5" id="VLd-PZ-I0N"/>
                     <constraint firstItem="1R3-O6-i6o" firstAttribute="centerY" secondItem="pdN-eY-xmN" secondAttribute="centerY" id="WRZ-u8-GKN"/>

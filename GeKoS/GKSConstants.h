@@ -20,6 +20,7 @@
 #define gksPrefCameraLocY @"cameraLocationY"
 #define gksPrefCameraLocZ @"cameraLocationZ"
 #define gksPrefVisibleSurfaceFlag @"visibleSurfaceFlag"
+#define gksPrefFrustumCullFlag @"frustumCullFlag"
 #define gksPrefBackgroundColor @"backgroundColor"
 #define gksPrefFillColor @"fillColor"
 #define gksPrefPenColor @"penColor"
@@ -35,7 +36,7 @@ typedef enum ProjectionIndex : NSUInteger {
     kOrthogonal,
     kPerspectiveSimple,
     kPerspective,
-    kAxonometric
+    kAlternate
 } ProjectionIndex;
 
 #endif /* GKSConstants_h */

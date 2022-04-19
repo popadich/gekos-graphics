@@ -42,7 +42,7 @@ static NSDictionary *defaultValues() {
                 [NSNumber numberWithInteger:400], gksPrefViewWidth,
                 [NSNumber numberWithInteger:400], gksPrefViewHeight,
                 [NSNumber numberWithDouble:1.0], gksPrefPerspectiveDistance,
-                [NSNumber numberWithInteger:kPerspective], gksPrefProjectionType,
+                [NSNumber numberWithInteger:kAlternate], gksPrefProjectionType,
                 [NSNumber numberWithDouble:0.1], gksPrefNearPlaneDistance,
                 [NSNumber numberWithDouble:100.0], gksPrefFarPlaneDistance,
                 [NSNumber numberWithDouble:locX], gksPrefCameraLocX,
@@ -59,6 +59,7 @@ static NSDictionary *defaultValues() {
                 [NSNumber numberWithDouble:world_volume[3]], gksPrefWorldVolumeMaxY,
                 [NSNumber numberWithDouble:world_volume[4]], gksPrefWorldVolumeMinZ,
                 [NSNumber numberWithDouble:world_volume[5]], gksPrefWorldVolumeMaxZ,
+                [NSNumber numberWithBool:YES], gksPrefFrustumCullFlag,
                 nil];
     }
     return dict;
