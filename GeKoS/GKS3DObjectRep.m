@@ -57,9 +57,9 @@
         _scaleY = [NSNumber numberWithDouble:scale.crd.y];
         _scaleZ = [NSNumber numberWithDouble:scale.crd.z];
         
-        GKScolor line_color = {0.0, 1.0, 0.0, 1.0};
-        GKScolor fill_color = {0.0, 1.0, 0.0, 1.0};
-        
+        // TODO: better defaults
+        _lineColor = [NSColor greenColor];
+        _fillColor = [NSColor greenColor];
     }
     return self;
 }

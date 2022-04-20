@@ -10,6 +10,7 @@
 #import "GKS3DObject.h"
 #import "GKSConstants.h"
 #import "GKSSceneRep.h"
+#import "GKSMeshMonger.h"
 
 
 @implementation GKSContent
@@ -22,7 +23,9 @@
 
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] init];
+        GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
         GKSSceneController *sceneController = [[GKSSceneController alloc] initWithCamera:cameraRep andScene:sceneRep];
+        sceneController.monger = monger;
         
         // Default volume bounds to the GKS 3D world.
         

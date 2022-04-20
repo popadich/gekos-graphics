@@ -10,6 +10,7 @@
 #import "GKS3DObjectRep.h"
 #import "GKSCameraRep.h"
 #import "GKSSceneRep.h"
+#import "GKSMeshMonger.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSSceneRep *scene;
 @property (nonatomic, strong) GKSCameraRep* camera;
+@property (strong) GKSMeshMonger *monger;
 
 @property (nonatomic, strong) NSMutableArray* objectActors;
 @property (assign) GKScontext3DPtr context;

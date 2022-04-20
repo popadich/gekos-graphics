@@ -26,6 +26,8 @@
 		FA53417027C82C6800015433 /* GKSDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA53416F27C82C6800015433 /* GKSDrawingView.m */; };
 		FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */ = {isa = PBXBuildFile; fileRef = FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */; };
 		FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E47280F3345009C1047 /* GKSSceneRep.m */; };
+		FA697E4B280F776E009C1047 /* GKSMeshRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4A280F776E009C1047 /* GKSMeshRep.m */; };
+		FA697E4E28104C45009C1047 /* GKSMeshMonger.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4D28104C45009C1047 /* GKSMeshMonger.m */; };
 		FA9842CC2782023E00EBDC7D /* gks.c in Sources */ = {isa = PBXBuildFile; fileRef = FA9842CB2782023E00EBDC7D /* gks.c */; };
 		FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE7BF27E24E1A005A4150 /* GKSSceneInspector.m */; };
 		FA9EE7C227E24E1A005A4150 /* GKSSceneInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */; };
@@ -103,6 +105,10 @@
 		FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_projection.c; sourceTree = "<group>"; };
 		FA697E46280F3345009C1047 /* GKSSceneRep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSSceneRep.h; sourceTree = "<group>"; };
 		FA697E47280F3345009C1047 /* GKSSceneRep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSSceneRep.m; sourceTree = "<group>"; };
+		FA697E49280F776E009C1047 /* GKSMeshRep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSMeshRep.h; sourceTree = "<group>"; };
+		FA697E4A280F776E009C1047 /* GKSMeshRep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSMeshRep.m; sourceTree = "<group>"; };
+		FA697E4C28104C45009C1047 /* GKSMeshMonger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSMeshMonger.h; sourceTree = "<group>"; };
+		FA697E4D28104C45009C1047 /* GKSMeshMonger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSMeshMonger.m; sourceTree = "<group>"; };
 		FA9842CA2781FDE400EBDC7D /* GKSConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSConstants.h; sourceTree = "<group>"; };
 		FA9842CB2782023E00EBDC7D /* gks.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks.c; sourceTree = "<group>"; };
 		FA9EE7BE27E24E1A005A4150 /* GKSSceneInspector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSSceneInspector.h; sourceTree = "<group>"; };
@@ -256,6 +262,10 @@
 				FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */,
 				FAE5E74E27D59380008E793F /* GKSSceneController.h */,
 				FAE5E74F27D59380008E793F /* GKSSceneController.m */,
+				FA697E49280F776E009C1047 /* GKSMeshRep.h */,
+				FA697E4A280F776E009C1047 /* GKSMeshRep.m */,
+				FA697E4C28104C45009C1047 /* GKSMeshMonger.h */,
+				FA697E4D28104C45009C1047 /* GKSMeshMonger.m */,
 				FA697E46280F3345009C1047 /* GKSSceneRep.h */,
 				FA697E47280F3345009C1047 /* GKSSceneRep.m */,
 				FAE5E74C27D591DF008E793F /* GKS3DObjectRep.h */,
@@ -434,6 +444,7 @@
 				FACF8B582800BAFA00B9BD5F /* GKSMeshParser.m in Sources */,
 				FA9842CC2782023E00EBDC7D /* gks.c in Sources */,
 				FA2D4937275D817300727B7B /* gks_mesh.c in Sources */,
+				FA697E4E28104C45009C1047 /* GKSMeshMonger.m in Sources */,
 				FA3C4E892794E3B000A1196D /* GKSPreferences.m in Sources */,
 				FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */,
 				FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */,
@@ -452,6 +463,7 @@
 				FA0146DB27C6B88200AE01E8 /* GKSWindowController.m in Sources */,
 				FAC906BF2805BDD4002F80E2 /* gks_3d_pipeline.c in Sources */,
 				FA24691D27FE340F00295BAC /* gks_3d_normalization.c in Sources */,
+				FA697E4B280F776E009C1047 /* GKSMeshRep.m in Sources */,
 				FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */,
 				FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */,
 				FAA5C30F2760F2E20005ACAE /* gks_3d_context.c in Sources */,

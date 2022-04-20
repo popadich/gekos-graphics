@@ -7,13 +7,14 @@
 
 #import "GKSSceneController.h"
 #import "GKSConstants.h"
+#import "GKSMeshRep.h"
 
 @interface GKSSceneController () {
     float seg_vect[3];
     GKSlimits_3 volume;
 }
 
-
+@property (strong)NSMutableArray *meshes;
 
 @end
 
@@ -26,6 +27,7 @@
     if (self) {
         // initialize scene array
         _objectActors = [[NSMutableArray alloc] init];
+        _meshes = [[NSMutableArray alloc] init];
         
         _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
         _worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
@@ -58,6 +60,17 @@
                 self.worldFillColor = aColor;
             }
         }
+        
+        
+        // TODO: mesh monger can do this
+        NSNumber *meshID = [NSNumber numberWithInt:kCubeKind];
+        GKSmesh_3 *meshCat = CubeMesh();
+        GKSMeshRep *meshRep = [[GKSMeshRep alloc] init];
+        meshRep.meshId = meshID;
+        meshRep.meshPtr = meshCat;
+        [self.meshes addObject:meshRep];
+        
+        
         _camera = aCamera;
         _scene = sceneRep;
     }
