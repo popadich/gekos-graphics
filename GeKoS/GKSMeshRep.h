@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong)NSNumber *meshId;
 @property (assign)GKSmesh_3 *meshPtr;
 
+- (instancetype)initWithID:(NSNumber *)meshID andMeshPtr:(GKSmesh_3 *)meshPtr;
+
 @end
 
 NS_ASSUME_NONNULL_END

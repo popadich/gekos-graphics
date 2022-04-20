@@ -6,10 +6,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GKSMeshRep.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSMeshMonger : NSObject
+
+@property (strong)NSMutableDictionary *meshes;
+
+- (void)addMeshRep:(GKSMeshRep *)meshRep;
+- (GKSMeshRep *)getMeshRep:(NSNumber *)meshID;
 
 @end
 

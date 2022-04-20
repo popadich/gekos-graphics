@@ -9,6 +9,7 @@
 #import "GKSConstants.h"
 #import "GKSMeshRep.h"
 
+
 @interface GKSSceneController () {
     float seg_vect[3];
     GKSlimits_3 volume;
@@ -61,14 +62,8 @@
             }
         }
         
+
         
-        // TODO: mesh monger can do this
-        NSNumber *meshID = [NSNumber numberWithInt:kCubeKind];
-        GKSmesh_3 *meshCat = CubeMesh();
-        GKSMeshRep *meshRep = [[GKSMeshRep alloc] init];
-        meshRep.meshId = meshID;
-        meshRep.meshPtr = meshCat;
-        [self.meshes addObject:meshRep];
         
         
         _camera = aCamera;
@@ -104,8 +99,10 @@
     // TODO: assert not null
     if (self.context != NULL) {
         
-        GKSkind kind = object3DRep.objectKind.intValue;
-        GKSmesh_3 *theMesh = MeshOfKind(kind);
+//        GKSkind kind = object3DRep.objectKind.intValue;
+//        GKSmesh_3 *theMesh = MeshOfKind(kind);
+        GKSMeshRep *theMeshRep = [self.monger getMeshRep:object3DRep.objectKind];
+        GKSmesh_3 *theMesh = theMeshRep.meshPtr;
         
         if (theMesh != NULL) {
             GKSvector3d loc = [object3DRep positionVector];
@@ -130,11 +127,6 @@
 
 - (void)deleteLast3DObject
 {
-    
-    GKSmesh_3 *its_mesh = NULL;
-    GKS3DObject *lasObj = [self.objectActors lastObject];
-    its_mesh = lasObj.getMeshPointer;
-    free_mesh(its_mesh);
     
     [self.objectActors removeLastObject];
 }
