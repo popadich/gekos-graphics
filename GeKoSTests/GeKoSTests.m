@@ -60,14 +60,13 @@
         GKSSceneController *sceneController = content.sceneController;
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
-                GKSmesh_3 *sphere = SphereMesh();
                 GKSvector3d location = GKSMakeVector(2.0 * i, i%2, -2.0 * (1 + j));
                 GKSvector3d rotation = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d scale = GKSMakeVector(1.0, 1.0, 1.0);
                 
-                GKS3DObject *object3D = [[GKS3DObject alloc] initWithMesh:sphere atLocation:location withRotation:rotation andScale:scale];
+                GKS3DObjectRep *object3D = [[GKS3DObjectRep alloc] initWithKind:kSphereKind atLocation:location withRotation:rotation andScale:scale];
 
-                [sceneController add3DObjectActor:object3D];
+                [sceneController add3DObjectRep:object3D];
             }
         }
         for (int j=0; j<20; j++) {
@@ -100,14 +99,13 @@
         
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
-                GKSmesh_3 *sphere = SphereMesh();
                 GKSvector3d location = GKSMakeVector(2.0 * i, i%2, -2.0 * (1 + j));
                 GKSvector3d rotation = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d scale = GKSMakeVector(1.0, 1.0, 1.0);
                 
-                GKS3DObject *object3D = [[GKS3DObject alloc] initWithMesh:sphere atLocation:location withRotation:rotation andScale:scale];
-                
-                [sceneController add3DObjectActor:object3D];
+                GKS3DObjectRep *object3D = [[GKS3DObjectRep alloc] initWithKind:kSphereKind atLocation:location withRotation:rotation andScale:scale];
+
+                [sceneController add3DObjectRep:object3D];
             }
         }
         

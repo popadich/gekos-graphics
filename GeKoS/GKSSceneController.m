@@ -87,11 +87,9 @@
 
 - (void) add3DObjectActor:(GKS3DObject*)object3D
 {
-    // TODO: assert not null
-    if (self.context != NULL) {
-        [object3D computeActorInContext:self.context];               // is this the time?
-        [self.objectActors addObject:object3D];
-    }
+    [object3D computeActorInContext:self.context];
+    [self.objectActors addObject:object3D];
+    
 }
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
@@ -99,8 +97,6 @@
     // TODO: assert not null
     if (self.context != NULL) {
         
-//        GKSkind kind = object3DRep.objectKind.intValue;
-//        GKSmesh_3 *theMesh = MeshOfKind(kind);
         GKSMeshRep *theMeshRep = [self.monger getMeshRep:object3DRep.objectKind];
         GKSmesh_3 *theMesh = theMeshRep.meshPtr;
         

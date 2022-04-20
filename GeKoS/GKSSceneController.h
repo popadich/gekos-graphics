@@ -40,8 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)scene;
 
-- (void)add3DObjectActor:(GKS3DObject*)anObject3D;
-
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
 
 - (void)deleteLast3DObject;
