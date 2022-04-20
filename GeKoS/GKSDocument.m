@@ -98,15 +98,21 @@
             mesh = [parser parseOFFMeshString:meshString error:error];
             if (mesh) {
                 
-                // TODO: do this elsewhere
+                // TODO: mesh monger is too buried and this could all be move there
+                // add new mesh to monger
+                NSNumber *meshID = [self.content.sceneController.monger nextID];
+                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh];
+                [self.content.sceneController.monger addMeshRep:meshRep];
                 
                 GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
-                GKS3DObject *customMeshObj = [[GKS3DObject alloc] initWithMesh:mesh atLocation:loc withRotation:rot andScale:sca];
                 
-                // FIXME: use objRep
-                [self.content.sceneController add3DObjectActor:customMeshObj];
+                // use mesh here
+                GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:meshID.intValue atLocation:loc withRotation:rot andScale:sca];
+                                
+                [self.content.sceneController add3DObjectRep:objectRep];
+                
                 
             }
             hasRead = YES;

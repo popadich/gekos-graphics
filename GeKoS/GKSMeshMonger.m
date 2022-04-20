@@ -8,6 +8,12 @@
 #import "GKSMeshMonger.h"
 #include "gks/gks.h"
 
+@interface GKSMeshMonger ()
+
+@property (assign) NSInteger maxID;
+
+@end
+
 @implementation GKSMeshMonger
 
 - (instancetype)init
@@ -31,7 +37,7 @@
         meshRep = [[GKSMeshRep alloc] initWithID:@(kConeKind) andMeshPtr:ConeMesh()];
         [self.meshes setObject:meshRep forKey:meshRep.meshId];
 
-        
+        _maxID = kHouseKind;
     }
     return self;
 }
@@ -50,6 +56,13 @@
     
     
     return theMesh;
+}
+
+- (NSNumber *)nextID
+{
+    self.maxID += 1;
+    NSNumber *newID = [NSNumber numberWithInt:(GKSint)self.maxID];
+    return newID;
 }
 
 

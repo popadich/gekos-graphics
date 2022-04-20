@@ -352,18 +352,14 @@ static void *worldDataContext = &worldDataContext;
             GKSmesh_3* mesh_ptr = [parser parseOFFMeshFile:theURL error:&error];
             if (mesh_ptr != NULL) {
                 
-                GKSvector3d loc = [self.object3DRep positionVector];
-                GKSvector3d rot = [self.object3DRep rotationVector];
-                GKSvector3d sca = [self.object3DRep scaleVector];
+                NSNumber *meshID = [self.sceneController.monger nextID];
+                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh_ptr];
+                [self.sceneController.monger addMeshRep:meshRep];
                 
-                GKS3DObject *customObj = [[GKS3DObject alloc] initWithMesh:mesh_ptr atLocation:loc withRotation:rot andScale:sca];
-
-                // copy data from Rep to Obj3D
-                customObj.lineColor = [self.object3DRep lineColor];
-                customObj.fillColor = [self.object3DRep fillColor];
-    
-                // FIXME: use objectRep
-                [self.sceneController add3DObjectActor:customObj];
+                GKS3DObjectRep *repCopy = [self.object3DRep copy];
+                repCopy.objectKind = meshID;
+                [self.sceneController add3DObjectRep:repCopy];
+                
                 [self.drawingViewController refresh];
                 
             }

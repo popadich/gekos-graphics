@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addMeshRep:(GKSMeshRep *)meshRep;
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID;
+- (NSNumber *)nextID;
 
 @end
 

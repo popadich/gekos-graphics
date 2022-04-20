@@ -45,6 +45,8 @@
         
         [self zeroLocation];
         
+        _objectKind = [NSNumber numberWithInt:kind];
+        
         _transX = [NSNumber numberWithDouble:location.crd.x];
         _transY = [NSNumber numberWithDouble:location.crd.y];
         _transZ = [NSNumber numberWithDouble:location.crd.z];
