@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ;
 - (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ;
 
+- (void)drawActor;
+
 @end
 
 NS_ASSUME_NONNULL_END

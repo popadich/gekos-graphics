@@ -161,4 +161,9 @@
     self.transZ = [NSNumber numberWithDouble:locFactorZ];
 }
 
+- (void)drawActor
+{
+    [self.actorObject drawActor];
+}
+
 @end

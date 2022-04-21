@@ -118,13 +118,10 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
     // tracking dot for coordinate settings
     [self redDot];
     
-    // TODO: split up the compute and draw
-    for (GKS3DObject *obj in self.sceneController.objectActors) {
 
-        [obj drawActor];
-        
+    for (GKS3DObjectRep *objRep in self.scene.toObject3DReps) {
+        [objRep drawActor];
     }
-    
 }
 
 @end
