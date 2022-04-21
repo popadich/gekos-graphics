@@ -11,16 +11,17 @@
 
 @implementation GKSSceneRep
 
-- (instancetype)init
+- (instancetype)initWithContext:(GKScontext3D *)contextPtr
 {
     self = [super init];
     if (self) {
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
+        _context = contextPtr;
     }
     return self;
 }
 
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep withMesh:(GKSmesh_3 *)aMesh forContext:(GKScontext3D *)context
+- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep withMesh:(GKSmesh_3 *)aMesh
 {
     
     GKSvector3d loc = [object3DRep positionVector];
@@ -32,7 +33,7 @@
     newActor.lineColor = object3DRep.lineColor;
     newActor.fillColor = object3DRep.fillColor;
     
-    [newActor computeActorInContext:context];
+    [newActor computeActorInContext:self.context];
     
     object3DRep.actorObject = newActor;
     

@@ -113,7 +113,7 @@
                 // TODO: pass mesh here
                 GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:meshID.intValue atLocation:loc withRotation:rot andScale:sca];
                                 
-                [self.content.scene add3DObjectRep:objectRep withMesh:mesh forContext:self.content.context3D];
+                [self.content.scene add3DObjectRep:objectRep withMesh:mesh];
                 
                 
             }

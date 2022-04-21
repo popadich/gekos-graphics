@@ -90,7 +90,7 @@
         GKSmesh_3 *theMesh = theMeshRep.meshPtr;
         
         if (theMesh != NULL) {
-            [self.scene add3DObjectRep:object3DRep withMesh:theMesh forContext:self.context];
+            [self.scene add3DObjectRep:object3DRep withMesh:theMesh];
         }
     }
 }

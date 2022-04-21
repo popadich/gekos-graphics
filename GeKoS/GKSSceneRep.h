@@ -14,9 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSSceneRep : NSObject
 
+@property (assign)GKScontext3DPtr context;
+
 @property (nonatomic, strong) NSMutableArray* toObject3DReps;
 
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep withMesh:(GKSmesh_3 *)aMesh forContext:(GKScontext3D *)context;
+- (instancetype)initWithContext:(GKScontext3D *)contextPtr;
+
+- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep withMesh:(GKSmesh_3 *)aMesh;
 - (void)deleteLast3DObjectRep;
 
 @end

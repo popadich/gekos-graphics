@@ -21,7 +21,7 @@
         _context3D =  gks_init();
 
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
-        GKSSceneRep *sceneRep = [[GKSSceneRep alloc] init];
+        GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
         GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
         
         _meshMonger = monger;
