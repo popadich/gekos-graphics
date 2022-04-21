@@ -107,6 +107,8 @@
             
             [newActor computeActorInContext:self.context];
             [self.objectActors addObject:newActor];
+            
+            object3DRep.actorObject = newActor;
         }
         
         

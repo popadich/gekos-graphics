@@ -39,9 +39,7 @@
     GKSint vertices = 0;
     
     for (GKS3DObject *obj in objArr) {
-        GKSactor *actor = obj.objectActor;
-        GKSmesh_3 mesh = actor->mesh_object;
-        GKSint vertex_count = mesh.vertnum;
+        GKSint vertex_count = obj.getVertexCount;
         vertices += vertex_count;
     }
     
@@ -53,13 +51,13 @@
     GKSint polygons = 0;
     
     for (GKS3DObject *obj in objArr) {
-        GKSactor *actor = obj.objectActor;
-        GKSmesh_3 mesh = actor->mesh_object;
-        polygons += mesh.polynum;
+        GKSint pc = obj.getPolygonCount;
+        polygons += pc;
     }
     
     return polygons;
 }
+
 
 - (void)windowDidLoad {
     [super windowDidLoad];

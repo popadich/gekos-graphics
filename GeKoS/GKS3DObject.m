@@ -214,9 +214,19 @@
     gks_copy_matrix_3(transform, the_actor.model_transform);
 }
 
-- (GKSactor *)objectActor
+
+- (GKSint)getPolygonCount
 {
-    return &the_actor;
+    GKSint polynum = 0;
+    polynum = mesh_ptr->polynum;
+    return polynum;
+}
+
+- (GKSint)getVertexCount
+{
+    GKSint vertnum = 0;
+    vertnum = mesh_ptr->vertnum;
+    return vertnum;
 }
 
 

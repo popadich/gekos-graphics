@@ -32,6 +32,8 @@
         // TODO: better defaults
         _lineColor = [NSColor greenColor];
         _fillColor = [NSColor greenColor];
+        
+        _actorObject = nil;
     }
     return self;
 }

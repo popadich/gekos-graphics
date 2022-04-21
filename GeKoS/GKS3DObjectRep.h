@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSColor* lineColor;
 @property (nonatomic, strong) NSColor* fillColor;
 
+@property (weak) id actorObject;
+
+
 
 - (instancetype)initWithKind:(GKSint)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rot andScale:(GKSvector3d)scale;
 
