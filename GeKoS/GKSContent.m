@@ -28,8 +28,6 @@
         _scene = sceneRep;
         _camera = cameraRep;
         
-        // TODO: move out
-//        GKSSceneController *sceneController = [[GKSSceneController alloc] init];
     }
     return self;
 }

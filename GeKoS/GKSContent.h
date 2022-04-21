@@ -16,9 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) GKSSceneRep *scene;
 @property (strong) GKSMeshMonger *meshMonger;
 
-//@property (strong) GKSSceneController *sceneController;
 @property (assign) GKScontext3DPtr context3D;
-
 
 @end
 

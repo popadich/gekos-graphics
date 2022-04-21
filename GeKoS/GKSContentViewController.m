@@ -21,6 +21,8 @@
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 
+@property (strong) GKSContent *itsContent;
+
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
 
@@ -105,16 +107,12 @@ static void *worldDataContext = &worldDataContext;
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
     
+    self.itsContent = content;
     
-    // TODO: instantiate controller in nib file
-    GKSSceneController *sceneController = [[GKSSceneController alloc] init];
-//    GKSSceneController *sceneController = content.sceneController;
+    self.sceneController.scene = content.scene;
+    self.sceneController.monger = content.meshMonger;
+    self.sceneController.context = content.context3D;
     
-    sceneController.scene = content.scene;
-    sceneController.monger = content.meshMonger;
-    sceneController.context = content.context3D;
-    
-    self.sceneController = sceneController;
     
     // !!!: THIS MUST BE FIRST
     GKScontext3DPtr context = content.context3D;
@@ -128,7 +126,6 @@ static void *worldDataContext = &worldDataContext;
     self.cameraRep = scene_camera;
     self.cameraViewController.representedObject = scene_camera;
 
-    self.sceneController = sceneController;
     // TODO: pass a sceneRep instead
     self.drawingViewController.representedObject = self.sceneController;
 

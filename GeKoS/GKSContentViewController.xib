@@ -11,6 +11,7 @@
                 <outlet property="cameraCustomView" destination="TxN-l7-jPx" id="aJz-1v-zOA"/>
                 <outlet property="cameraViewController" destination="NFN-fq-5sy" id="r2C-xL-U5N"/>
                 <outlet property="drawingViewController" destination="sxa-LD-8zy" id="Lna-fI-O4D"/>
+                <outlet property="sceneController" destination="Fm7-nA-xaM" id="LuX-29-e8M"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -623,6 +624,7 @@
                 <outlet property="view" destination="p2B-JL-RKD" id="IMi-jl-hWl"/>
             </connections>
         </viewController>
+        <customObject id="Fm7-nA-xaM" customClass="GKSSceneController"/>
         <userDefaultsController representsSharedInstance="YES" id="HFF-pk-F7y"/>
     </objects>
 </document>

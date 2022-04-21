@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
 @property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
-@property (strong) GKSSceneController* sceneController;
+@property (strong) IBOutlet GKSSceneController* sceneController;
 
 
 
