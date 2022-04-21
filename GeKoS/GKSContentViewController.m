@@ -122,6 +122,7 @@ static void *worldDataContext = &worldDataContext;
     self.sceneController = sceneController;
     self.drawingViewController.representedObject = self.sceneController;
 
+    // Load Default Colors for Content View
     NSError *error;
     NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
     if (colorData != nil) {
@@ -131,6 +132,10 @@ static void *worldDataContext = &worldDataContext;
     if (colorData != nil) {
         self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
     }
+    
+    // Load Default Options for Content View
+    BOOL cullFlag = [[NSUserDefaults standardUserDefaults] boolForKey:gksPrefFrustumCullFlag];
+    [self.sceneController setFrustumCulling:cullFlag];
     
     // Instantiate one 3D object representation to act as a data entry buffer;
     // the data is used to create the actual 3D object added to the 3D world

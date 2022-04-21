@@ -173,6 +173,8 @@ typedef struct {
     GKSfloat dev_xcoord;
     GKSfloat dev_yscale;
     GKSfloat dev_ycoord;
+    
+    GKSbool cullFlag;
 } GKScontext3D;
 typedef GKScontext3D *GKScontext3DPtr;
 

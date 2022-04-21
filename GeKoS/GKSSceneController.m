@@ -62,10 +62,6 @@
             }
         }
         
-
-        
-        
-        
         _camera = aCamera;
         _scene = sceneRep;
     }
@@ -85,12 +81,11 @@
     return &volume;
 }
 
-- (void) add3DObjectActor:(GKS3DObject*)object3D
+- (void)setFrustumCulling:(BOOL)flag
 {
-    [object3D computeActorInContext:self.context];
-    [self.objectActors addObject:object3D];
-    
+    self.context->cullFlag = flag;
 }
+
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
@@ -110,8 +105,8 @@
             newActor.lineColor = object3DRep.lineColor;
             newActor.fillColor = object3DRep.fillColor;
             
-            [self add3DObjectActor:newActor];
-
+            [newActor computeActorInContext:self.context];
+            [self.objectActors addObject:newActor];
         }
         
         

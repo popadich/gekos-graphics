@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)scene;
+- (void)setFrustumCulling:(BOOL)flag;
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
 

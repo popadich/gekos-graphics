@@ -13,7 +13,7 @@
 #include "gks_3d_normalization.h"
 
 
-GKSbool do_clipping(GKSint polygon_id, GKSvector3dPtr dir_vec, GKSvector3dPtr point_on_plane, GKSvector3dPtr segment_point)
+GKSbool do_plane_clip(GKSint polygon_id, GKSvector3dPtr dir_vec, GKSvector3dPtr point_on_plane, GKSvector3dPtr segment_point)
 {
     GKSbool in = true;
     
@@ -66,13 +66,15 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSi
         // ON CAMERA COORDINATE BEFORE HOMOGENEOUS PROJECTION SCALING
         // clipping on the view volume which is now shaped like a cube
 
-        // TODO: use filter flag to turn this on or off
-        // clip against back wall
-        GKSvector3d back_normal;
-        gks_view_matrix_w_get(context, &back_normal);
-        GKSvector3d location_vec;
-        gks_view_matrix_p_get(context, &location_vec);
-        visible = do_clipping(polygonID, &back_normal, &location_vec, &camera_coord);
+        if (context->cullFlag) {
+            // cull against back wall
+            GKSvector3d back_normal;
+            gks_view_matrix_w_get(context, &back_normal);
+            GKSvector3d location_vec;
+            gks_view_matrix_p_get(context, &location_vec);
+            visible = do_plane_clip(polygonID, &back_normal, &location_vec, &camera_coord);
+        }
+
         
         
         // Delayed projection scaling/normalization
