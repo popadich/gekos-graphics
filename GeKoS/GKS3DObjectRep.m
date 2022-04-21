@@ -10,12 +10,6 @@
 #import "GKS3DObject.h"
 
 
-@interface GKS3DObjectRep () {
-    GKSmesh_3 *mesh;
-
-}
-@end
-
 
 @implementation GKS3DObjectRep
 
@@ -73,6 +67,8 @@
         // TODO: better defaults
         _lineColor = [NSColor greenColor];
         _fillColor = [NSColor greenColor];
+        
+        _actorObject = nil;
     }
     return self;
 }
@@ -192,14 +188,5 @@
     return vertnum;
 }
 
-- (void)storeMesh:(GKSmesh_3 *)meshPtr
-{
-    mesh = meshPtr;
-}
-
-- (GKSmesh_3 *)getMesh
-{
-    return mesh;
-}
 
 @end
