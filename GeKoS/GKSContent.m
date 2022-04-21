@@ -24,6 +24,12 @@
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] init];
         GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
+        
+        _meshMonger = monger;
+        _scene = sceneRep;
+        _camera = cameraRep;
+        
+        // TODO: move out
         GKSSceneController *sceneController = [[GKSSceneController alloc] initWithCamera:cameraRep andScene:sceneRep];
         sceneController.monger = monger;
         

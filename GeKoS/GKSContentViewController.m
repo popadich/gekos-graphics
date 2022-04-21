@@ -21,7 +21,6 @@
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 
-@property (strong) GKSContent *theContent;
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
 
@@ -106,20 +105,26 @@ static void *worldDataContext = &worldDataContext;
     
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
-    GKSSceneController *sceneController = content.sceneController;
-    GKSCameraRep *scene_camera = sceneController.camera;
     
-    // MARK: SET CONTEXT
+    
+    // TODO: instantiate controller in nib file
+    GKSSceneController *sceneController = content.sceneController;
+    self.sceneController = sceneController;
+    
+    // !!!: THIS MUST BE FIRST
     GKScontext3DPtr context = content.context3D;
     self.context = content.context3D;
     self.cameraViewController.context = context;
     self.drawingViewController.context = context;
-
+    self.sceneController.context = context;
     
+    GKSCameraRep *scene_camera = content.camera;
+
     self.cameraRep = scene_camera;
-    self.cameraViewController.representedObject = self.cameraRep;
+    self.cameraViewController.representedObject = scene_camera;
 
     self.sceneController = sceneController;
+    // TODO: pass a sceneRep instead
     self.drawingViewController.representedObject = self.sceneController;
 
     // Load Default Colors for Content View
@@ -132,10 +137,11 @@ static void *worldDataContext = &worldDataContext;
     if (colorData != nil) {
         self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
     }
-    
+
     // Load Default Options for Content View
     BOOL cullFlag = [[NSUserDefaults standardUserDefaults] boolForKey:gksPrefFrustumCullFlag];
     [self.sceneController setFrustumCulling:cullFlag];
+    
     
     // Instantiate one 3D object representation to act as a data entry buffer;
     // the data is used to create the actual 3D object added to the 3D world
@@ -143,9 +149,6 @@ static void *worldDataContext = &worldDataContext;
     self.object3DRep =  [[GKS3DObjectRep alloc] init];
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
-    
-    
-    self.theContent = content;
 
 }
 
