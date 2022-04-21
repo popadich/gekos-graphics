@@ -197,4 +197,9 @@
     mesh = meshPtr;
 }
 
+- (GKSmesh_3 *)getMesh
+{
+    return mesh;
+}
+
 @end

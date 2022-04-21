@@ -90,23 +90,23 @@
         GKSmesh_3 *theMesh = theMeshRep.meshPtr;
         
         if (theMesh != NULL) {
-            GKSvector3d loc = [object3DRep positionVector];
-            GKSvector3d rot = [object3DRep rotationVector];
-            GKSvector3d sca = [object3DRep scaleVector];
-
-            GKS3DObject *newActor = [[GKS3DObject alloc] initWithMesh:theMesh atLocation:loc withRotation:rot andScale:sca];
-
-            newActor.lineColor = object3DRep.lineColor;
-            newActor.fillColor = object3DRep.fillColor;
+//            GKSvector3d loc = [object3DRep positionVector];
+//            GKSvector3d rot = [object3DRep rotationVector];
+//            GKSvector3d sca = [object3DRep scaleVector];
+//
+//            GKS3DObject *newActor = [[GKS3DObject alloc] initWithMesh:theMesh atLocation:loc withRotation:rot andScale:sca];
+//
+//            newActor.lineColor = object3DRep.lineColor;
+//            newActor.fillColor = object3DRep.fillColor;
+//
+//            [newActor computeActorInContext:self.context];
+//
+//            object3DRep.actorObject = newActor;
             
-            [newActor computeActorInContext:self.context];
             
-            object3DRep.actorObject = newActor;
+            [object3DRep storeMesh:theMesh]; // make part of add function
             
-            
-            [object3DRep storeMesh:theMesh];
-            
-            [self.scene add3DObjectRep:object3DRep];
+            [self.scene add3DObjectRep:object3DRep withMesh:theMesh forContext:self.context];
             
         }
     }

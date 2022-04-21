@@ -110,10 +110,10 @@
                 GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
                 
-                // use mesh here
+                // TODO: pass mesh here
                 GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:meshID.intValue atLocation:loc withRotation:rot andScale:sca];
                                 
-//                [self.content.sceneController add3DObjectRep:objectRep];
+                [self.content.scene add3DObjectRep:objectRep withMesh:mesh forContext:self.content.context3D];
                 
                 
             }

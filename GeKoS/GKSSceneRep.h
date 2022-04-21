@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#include "gks/gks_types.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray* toObject3DReps;
 
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
+- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep withMesh:(GKSmesh_3 *)aMesh forContext:(GKScontext3D *)context;
 - (void)deleteLast3DObjectRep;
 
 @end
