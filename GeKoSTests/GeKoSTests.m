@@ -72,7 +72,7 @@
         }
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
-                [sceneController deleteLast3DObject];
+                [sceneController deleteLastObject];
             }
         }
     }];
@@ -120,7 +120,7 @@
         
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
-                [sceneController deleteLast3DObject];
+                [sceneController deleteLastObject];
             }
         }
     }];

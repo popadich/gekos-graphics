@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSColor* lineColor;
 @property (nonatomic, strong) NSColor* fillColor;
 
-@property (weak) id actorObject;
+@property (strong) id actorObject;
 
 
 
@@ -43,6 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ;
 - (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ;
 - (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ;
+
+- (GKSint)getPolygonCount;
+- (GKSint)getVertexCount;
 
 - (void)drawActor;
 

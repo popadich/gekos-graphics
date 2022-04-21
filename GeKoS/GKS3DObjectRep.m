@@ -7,6 +7,8 @@
 
 #import "GKS3DObjectRep.h"
 
+#import "GKS3DObject.h"
+
 
 @implementation GKS3DObjectRep
 
@@ -164,6 +166,23 @@
 - (void)drawActor
 {
     [self.actorObject drawActor];
+}
+
+
+- (GKSint)getPolygonCount
+{
+    GKSint polynum = 0;
+    GKS3DObject *actor = self.actorObject;
+    polynum = actor.getMeshPointer->polynum;
+    return polynum;
+}
+
+- (GKSint)getVertexCount
+{
+    GKSint vertnum = 0;
+    GKS3DObject *actor = self.actorObject;
+    vertnum = actor.getMeshPointer->vertnum;
+    return vertnum;
 }
 
 @end

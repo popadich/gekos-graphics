@@ -18,10 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSSceneRep *scene;
 @property (strong) GKSMeshMonger *monger;
-
-@property (nonatomic, strong) NSMutableArray* objectActors;
 @property (assign) GKScontext3DPtr context;
-
 
 
 @property (nonatomic,strong) NSNumber* worldVolumeMinX;
@@ -41,11 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
 
-- (void)deleteLast3DObject;
+- (void)deleteLastObject;
 
 - (void)transformAllObjects;
 
-- (void)setTheWorldVolume;
+- (void)setWorldVolumeG;
 
 
 @end

@@ -15,7 +15,6 @@
     GKSlimits_3 volume;
 }
 
-@property (strong)NSMutableArray *meshes;
 
 @end
 
@@ -26,9 +25,6 @@
 {
     self = [super init];
     if (self) {
-        // initialize scene array
-        _objectActors = [[NSMutableArray alloc] init];
-        _meshes = [[NSMutableArray alloc] init];
         
         _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
         _worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
@@ -104,33 +100,31 @@
             newActor.fillColor = object3DRep.fillColor;
             
             [newActor computeActorInContext:self.context];
-            [self.objectActors addObject:newActor];
             
             object3DRep.actorObject = newActor;
         }
         
         
-        [self.scene.toObject3DReps addObject:object3DRep];
+        [self.scene add3DObjectRep:object3DRep];
     }
 }
 
 
 
-- (void)deleteLast3DObject
+- (void)deleteLastObject
 {
-    
-    [self.objectActors removeLastObject];
+    [self.scene deleteLast3DObjectRep];
 }
 
 - (void)transformAllObjects
 {
     GKScontext3DPtr ctx = self.context;
-    for (GKS3DObject *obj in self.objectActors) {
-        [obj computeActorInContext:ctx];
+    for (GKS3DObjectRep *objRep in self.scene.toObject3DReps) {
+        [objRep.actorObject computeActorInContext:ctx];
     }
 }
 
-- (void)setTheWorldVolume
+- (void)setWorldVolumeG
 {
     // very esoteric calls here, make this simpler
     if (self.context != NULL) {

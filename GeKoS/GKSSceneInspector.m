@@ -38,7 +38,7 @@
 {
     GKSint vertices = 0;
     
-    for (GKS3DObject *obj in objArr) {
+    for (GKS3DObjectRep *obj in objArr) {
         GKSint vertex_count = obj.getVertexCount;
         vertices += vertex_count;
     }
@@ -50,7 +50,7 @@
 {
     GKSint polygons = 0;
     
-    for (GKS3DObject *obj in objArr) {
+    for (GKS3DObjectRep *obj in objArr) {
         GKSint pc = obj.getPolygonCount;
         polygons += pc;
     }
@@ -80,13 +80,13 @@
         GKSContentViewController *cvc = (GKSContentViewController *)wc.contentViewController;
         GKSSceneController *sceneController = cvc.sceneController;
         
-        NSInteger count = [sceneController.objectActors count];
+        NSInteger count = [sceneController.scene.toObject3DReps count];
         self.objectCount = [NSNumber numberWithInteger:count];
         
-        GKSint vertices = [self countVertexesInArray:sceneController.objectActors];
+        GKSint vertices = [self countVertexesInArray:sceneController.scene.toObject3DReps];
         self.vertexCount = @(vertices);
         
-        GKSint polys = [self countPolygonsInArray:sceneController.objectActors];
+        GKSint polys = [self countPolygonsInArray:sceneController.scene.toObject3DReps];
         self.polygonCount = @(polys);
         
         self.sceneController = sceneController;

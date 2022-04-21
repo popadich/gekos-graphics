@@ -67,7 +67,7 @@ static void *worldDataContext = &worldDataContext;
     [self.view addConstraints:vertConstraints];
 
     [self.drawingViewController drawingSetViewRectG];
-    [self.sceneController setTheWorldVolume];
+    [self.sceneController setWorldVolumeG];
 
     // Set all vantage points to the same default values
     self.currentVantage = 0;
@@ -274,7 +274,7 @@ static void *worldDataContext = &worldDataContext;
         self.sceneController.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
         self.sceneController.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
 
-        [self.sceneController setTheWorldVolume];
+        [self.sceneController setWorldVolumeG];
         
         [self.sceneController transformAllObjects];
         [self.drawingViewController refresh];
@@ -284,7 +284,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
-    [self.sceneController setTheWorldVolume];
+    [self.sceneController setWorldVolumeG];
     [self.sceneController transformAllObjects];
     [self.drawingViewController refresh];
 
@@ -302,7 +302,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performDeleteQuick:(id)sender {
     
-    [self.sceneController deleteLast3DObject];
+    [self.sceneController deleteLastObject];
     [self.drawingViewController refresh];
 
 }
