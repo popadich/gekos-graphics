@@ -10,6 +10,13 @@
 #import "GKS3DObject.h"
 
 
+@interface GKS3DObjectRep () {
+    GKSmesh_3 *mesh;
+
+}
+@end
+
+
 @implementation GKS3DObjectRep
 
 - (instancetype)init
@@ -183,6 +190,11 @@
     GKS3DObject *actor = self.actorObject;
     vertnum = actor.getMeshPointer->vertnum;
     return vertnum;
+}
+
+- (void)storeMesh:(GKSmesh_3 *)meshPtr
+{
+    mesh = meshPtr;
 }
 
 @end

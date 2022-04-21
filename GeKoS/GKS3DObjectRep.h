@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSint)getVertexCount;
 
 - (void)drawActor;
+- (void)storeMesh:(GKSmesh_3 *)meshPtr;
 
 @end
 

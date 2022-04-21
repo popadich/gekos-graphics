@@ -102,10 +102,13 @@
             [newActor computeActorInContext:self.context];
             
             object3DRep.actorObject = newActor;
+            
+            
+            [object3DRep storeMesh:theMesh];
+            
+            [self.scene add3DObjectRep:object3DRep];
+            
         }
-        
-        
-        [self.scene add3DObjectRep:object3DRep];
     }
 }
 
