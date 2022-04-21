@@ -22,7 +22,7 @@
 
 @implementation GKSSceneController
 
-- (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)sceneRep
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -62,8 +62,6 @@
             }
         }
         
-        _camera = aCamera;
-        _scene = sceneRep;
     }
     return self;
 }

@@ -26,7 +26,6 @@
 
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
-@property (nonatomic, strong) GKSSceneController* sceneController;
 
 @property (assign) GKSint currentVantage;
 @property (strong) NSMutableArray *vantageViews;
@@ -108,7 +107,13 @@ static void *worldDataContext = &worldDataContext;
     
     
     // TODO: instantiate controller in nib file
-    GKSSceneController *sceneController = content.sceneController;
+    GKSSceneController *sceneController = [[GKSSceneController alloc] init];
+//    GKSSceneController *sceneController = content.sceneController;
+    
+    sceneController.scene = content.scene;
+    sceneController.monger = content.meshMonger;
+    sceneController.context = content.context3D;
+    
     self.sceneController = sceneController;
     
     // !!!: THIS MUST BE FIRST

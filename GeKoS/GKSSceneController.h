@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSSceneController : NSObject
 
 @property (strong) GKSSceneRep *scene;
-@property (nonatomic, strong) GKSCameraRep* camera;
 @property (strong) GKSMeshMonger *monger;
 
 @property (nonatomic, strong) NSMutableArray* objectActors;
@@ -38,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSColor* worldFillColor;
 
 
-- (instancetype)initWithCamera:(GKSCameraRep *)aCamera andScene:(GKSSceneRep *)scene;
 - (void)setFrustumCulling:(BOOL)flag;
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;

@@ -100,10 +100,12 @@
                 
                 // TODO: mesh monger is too buried and this could all be move there
                 // add new mesh to monger
-                NSNumber *meshID = [self.content.sceneController.monger nextID];
+                NSNumber *meshID = [self.content.meshMonger nextID];
                 GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh];
-                [self.content.sceneController.monger addMeshRep:meshRep];
+                [self.content.meshMonger addMeshRep:meshRep];
                 
+                
+                // TODO: object add should happen elsewhere
                 GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
@@ -111,7 +113,7 @@
                 // use mesh here
                 GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:meshID.intValue atLocation:loc withRotation:rot andScale:sca];
                                 
-                [self.content.sceneController add3DObjectRep:objectRep];
+//                [self.content.sceneController add3DObjectRep:objectRep];
                 
                 
             }

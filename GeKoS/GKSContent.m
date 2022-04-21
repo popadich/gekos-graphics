@@ -6,9 +6,8 @@
 //
 
 #import "GKSContent.h"
-#import "GKSCameraRep.h"
-#import "GKS3DObject.h"
 #import "GKSConstants.h"
+#import "GKSCameraRep.h"
 #import "GKSSceneRep.h"
 #import "GKSMeshMonger.h"
 
@@ -30,21 +29,7 @@
         _camera = cameraRep;
         
         // TODO: move out
-        GKSSceneController *sceneController = [[GKSSceneController alloc] initWithCamera:cameraRep andScene:sceneRep];
-        sceneController.monger = monger;
-        
-        // Default volume bounds to the GKS 3D world.
-        
-        sceneController.worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
-        sceneController.worldVolumeMinY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY];
-        sceneController.worldVolumeMinZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ];
-        
-        sceneController.worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
-        sceneController.worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
-        sceneController.worldVolumeMaxZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ];
-
-        sceneController.context = _context3D;
-        _sceneController = sceneController;
+//        GKSSceneController *sceneController = [[GKSSceneController alloc] init];
     }
     return self;
 }

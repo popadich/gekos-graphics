@@ -9,7 +9,7 @@
 #import "GKSSceneController.h"
 #import "GKSContent.h"
 #import "GKSWindowController.h"
-
+#import "GKSContentViewController.h"
 
 @interface GKSSceneInspector ()
 
@@ -75,8 +75,10 @@
 {
     NSWindowController *wc =  [[NSApplication.sharedApplication mainWindow] windowController];
     if ([wc isKindOfClass:[GKSWindowController class]]) {
-        GKSContent *repobj = wc.contentViewController.representedObject;
-        GKSSceneController *sceneController = repobj.sceneController;
+        
+        // TODO: use represented object
+        GKSContentViewController *cvc = (GKSContentViewController *)wc.contentViewController;
+        GKSSceneController *sceneController = cvc.sceneController;
         
         NSInteger count = [sceneController.objectActors count];
         self.objectCount = [NSNumber numberWithInteger:count];

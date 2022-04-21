@@ -56,8 +56,9 @@
     
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
-        GKSContent *content = windowController.contentViewController.representedObject;
-        GKSSceneController *sceneController = content.sceneController;
+        GKSContentViewController *cvc = (GKSContentViewController *)windowController.contentViewController;
+//        GKSContent *content = windowController.contentViewController.representedObject;
+        GKSSceneController *sceneController = cvc.sceneController;
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
                 GKSvector3d location = GKSMakeVector(2.0 * i, i%2, -2.0 * (1 + j));
@@ -93,9 +94,10 @@
     
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
+        GKSContentViewController *cvc = (GKSContentViewController *)windowController.contentViewController;
         GKSContent *content = windowController.contentViewController.representedObject;
-        GKSSceneController *sceneController = content.sceneController;
-        GKSCameraRep *camera = content.sceneController.camera;
+        GKSSceneController *sceneController = cvc.sceneController;
+        GKSCameraRep *camera = content.camera;
         
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {

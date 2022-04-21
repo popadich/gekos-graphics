@@ -11,6 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@class GKSSceneController;
+
 @interface GKSContentViewController : NSViewController
 
 @property (assign) GKScontext3DPtr context;
@@ -18,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
 @property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
+@property (strong) GKSSceneController* sceneController;
 
 
 
