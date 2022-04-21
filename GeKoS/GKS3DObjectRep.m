@@ -15,30 +15,11 @@
 
 - (instancetype)init
 {
-    self = [super init];
-    if (self) {
-        _objectKind = [NSNumber numberWithInteger:kCubeKind];
-        _hidden = [NSNumber numberWithBool:NO];
-        _objectID = @0;
-        _priority = @0;
-        
-        _transX = [NSNumber numberWithDouble:0.0];
-        _transY = [NSNumber numberWithDouble:0.0];
-        _transZ = [NSNumber numberWithDouble:0.0];
-        _scaleX = [NSNumber numberWithDouble:1.0];
-        _scaleY = [NSNumber numberWithDouble:1.0];
-        _scaleZ = [NSNumber numberWithDouble:1.0];
-        _rotX = [NSNumber numberWithDouble:0.0];
-        _rotY = [NSNumber numberWithDouble:0.0];
-        _rotZ = [NSNumber numberWithDouble:0.0];
-        
-        // TODO: better defaults
-        _lineColor = [NSColor greenColor];
-        _fillColor = [NSColor greenColor];
-        
-        _actorObject = nil;
-    }
-    return self;
+    GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
+    GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
+    GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+    return ( [self initWithKind:kCubeKind atLocation:loc withRotation:rot andScale:sca] );
+    
 }
 
 
