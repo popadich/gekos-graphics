@@ -386,7 +386,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
         {0.0, 0.0,  0.0,  1.0}
     };
     
-    gks_copy_matrix_3(im, s);
+    gks_matrix_copy_3(im, s);
     XCTAssertEqual(s[0][0], 1.0, @"Identity 1.0 not in diagonal");
     XCTAssertEqual(s[1][1], 1.0, @"Identity 1.0 not in diagonal");
     XCTAssertEqual(s[2][2], 1.0, @"Identity 1.0 not in diagonal");
@@ -399,7 +399,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     is_identity = isIdentity_3(s);
     XCTAssertFalse(is_identity, @"Identity check failed");
 
-    gks_copy_matrix_3(M, im);
+    gks_matrix_copy_3(M, im);
     XCTAssertEqualWithAccuracy(1.0, im[0][0], 0.001);
     XCTAssertEqualWithAccuracy(-2.0, im[2][2], 0.001);
     XCTAssertEqualWithAccuracy(3.0, im[0][2], 0.001);
@@ -434,7 +434,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     };
     GKSmatrix_3 t, o;
     
-    gks_transpose_matrix_3(m, t);
+    gks_matrix_transpose_3(m, t);
     
     XCTAssertEqualWithAccuracy(t[0][0], 1.0, 0.001);
     XCTAssertEqualWithAccuracy(t[0][1], 4.0, 0.001);
@@ -453,7 +453,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     XCTAssertEqualWithAccuracy(t[3][2], 0.0, 0.001);
     XCTAssertEqualWithAccuracy(t[3][3], 1.0, 0.001);
     
-    gks_transpose_matrix_3(t, o);
+    gks_matrix_transpose_3(t, o);
     
     bool identical = isEqual_3(o, m);
     XCTAssertTrue(identical);
@@ -481,7 +481,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
         {17, 10, 21, -27}
     };
     
-    gks_multiply_matrix_3(m1, m2, verify);
+    gks_matrix_multiply_3(m1, m2, verify);
     
     XCTAssertTrue(isEqual_3(verify, result));
 
@@ -514,7 +514,7 @@ bool isSame_3(GKSmatrix_3 matrix, GKSmatrix_3 matrix_b)
     
     GKSmatrix_3 verify;
     
-    gks_multiply_matrix_3(euler_angles, translation, verify);
+    gks_matrix_multiply_3(euler_angles, translation, verify);
     
     XCTAssertEqualWithAccuracy(verify[0][0], result[0][0], 0.001);
     

@@ -35,7 +35,7 @@ GKScontext3DPtr gks_context_init(void)
 
 void gks_context_set_cull_flag(GKScontext3DPtr theContext, GKSbool flag)
 {
-    theContext->cullFlag = flag;
+    theContext->cull_flag = flag;
 }
 
 

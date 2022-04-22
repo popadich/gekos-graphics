@@ -66,7 +66,7 @@ GKSbool pipeline_polygon(GKScontext3DPtr context, GKSmatrix_3 trans_matrix, GKSi
         // ON CAMERA COORDINATE BEFORE HOMOGENEOUS PROJECTION SCALING
         // clipping on the view volume which is now shaped like a cube
 
-        if (context->cullFlag) {
+        if (context->cull_flag) {
             // cull against back wall
             GKSvector3d back_normal;
             gks_view_matrix_w_get(context, &back_normal);
@@ -99,7 +99,7 @@ void gks_pipeline_object_actor(GKScontext3DPtr context, GKSactor *the_actor)
     GKSint polygon_count = the_actor->mesh_object.polynum;
     GKSvertexArrPtr vertex_array = the_actor->mesh_object.vertices;
     GKSindexArrPtr poly_array = the_actor->mesh_object.polygons;
-    GKSDCArrPtr dev_coord_array = the_actor->devcoords;
+    GKSDCArrPtr dev_coord_array = the_actor->dev_coords;
     the_actor->hidden = false;
         
     // TODO: transform all object vertices first
@@ -146,7 +146,7 @@ void gks_draw_piped_actor(GKSactor *the_actor)
 
         GKSint poly_count           = the_actor->mesh_object.polynum;
         GKSindexArrPtr polygon_array = the_actor->mesh_object.polygons;
-        GKSDCArrPtr dev_coord_array = the_actor->devcoords;
+        GKSDCArrPtr dev_coord_array = the_actor->dev_coords;
         
         GKSint k = 0;
         for (GKSint i=0; i < poly_count; i++) {

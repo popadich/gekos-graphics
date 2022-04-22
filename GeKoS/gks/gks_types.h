@@ -138,7 +138,7 @@ typedef struct
     GKSfloat priority;
     GKSkind kind;
     GKSmesh_3 mesh_object;    // TODO: this should be a pointer?
-    GKSmatrix_3 model_transform; // TODO: not necessary if vectors are kept
+    GKSmatrix_3 model_transform;
     GKSvector3d scale_vector;
     GKSvector3d rotate_vector;
     GKSvector3d translate_vector;
@@ -146,7 +146,7 @@ typedef struct
     GKScolor line_color;
     
     GKSnormalArrPtr  normals;
-    GKSDCArrPtr      devcoords;
+    GKSDCArrPtr      dev_coords;
 
 } GKSactor;
 
@@ -174,7 +174,7 @@ typedef struct {
     GKSfloat dev_yscale;
     GKSfloat dev_ycoord;
     
-    GKSbool cullFlag;
+    GKSbool cull_flag;
 } GKScontext3D;
 typedef GKScontext3D *GKScontext3DPtr;
 

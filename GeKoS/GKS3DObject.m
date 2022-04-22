@@ -81,7 +81,7 @@
         dev_coord_ptr = (GKSDCArrPtr)calloc(mesh_ptr->vertnum, sizeof(GKSpoint_2));
         
         the_actor.mesh_object = *mesh_ptr;
-        the_actor.devcoords = dev_coord_ptr;
+        the_actor.dev_coords = dev_coord_ptr;
         
         [self generateModelTransform];
         
@@ -211,7 +211,7 @@
     gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, transform);
     
     gks_matrix_copy_3(transform, model_transform);
-    gks_copy_matrix_3(transform, the_actor.model_transform);
+    gks_matrix_copy_3(transform, the_actor.model_transform);
 }
 
 

@@ -77,7 +77,7 @@
 
 - (void)setFrustumCulling:(BOOL)flag
 {
-    self.context->cullFlag = flag;
+    self.context->cull_flag = flag;
 }
 
 

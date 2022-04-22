@@ -105,7 +105,7 @@ void gks_view_matrix_compute(GKScontext3DPtr context_ptr, GKSvector3d obs, GKSve
         0, 0, 0, 1
     };
 
-    gks_multiply_matrix_3(orientation, translation, result);
+    gks_matrix_multiply_3(orientation, translation, result);
     
 }
 
@@ -150,7 +150,7 @@ void gks_view_matrix_lookat_compute(GKScontext3DPtr context_ptr, GKSvector3d obs
         0, 0, 0, 1
     };
 
-    gks_multiply_matrix_3(orientation, translation, result);
+    gks_matrix_multiply_3(orientation, translation, result);
 
 }
 

@@ -156,13 +156,6 @@ void gks_accumulate_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, 
     accumulate_matrices_3(temp,m,m);
 }
 
-void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 result)
-{
-    for(int i=0; i<4; i++)
-        for (int j=0; j<4; j++)
-            result[i][j] = original[i][j];
-
-}
 
 // Computes a new point using homogeneous coordinate transformation matrix
 // it assumes the w component of the point is always 1.
@@ -260,17 +253,17 @@ void gks_plane_equation_3(GKSvector3d p1, GKSvector3d p2, GKSvector3d p3, GKSvec
 
 
 // Copies matrix A -> B
-void gks_copy_matrix_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_b)
+void gks_matrix_copy_3(GKSmatrix_3 original, GKSmatrix_3 result)
 {
-    int i,j;
-    for(i=0;i<4;i++)
-        for(j=0;j<4;j++)
-            matrix_b[i][j]=matrix_a[i][j];
+    for(int i=0; i<4; i++)
+        for (int j=0; j<4; j++)
+            result[i][j] = original[i][j];
+
 }
 
 // Transpose matrix
 //  A -> AT
-void gks_transpose_matrix_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_trans)
+void gks_matrix_transpose_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_trans)
 {
     int i,j;
     for(i=0;i<4;i++)
@@ -286,7 +279,7 @@ void gks_transpose_matrix_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_trans)
 //    [...  ... ... ...]    [b30  ...  ... ...]
 //
 //
-void gks_multiply_matrix_3(GKSmatrix_3 a, GKSmatrix_3 b, GKSmatrix_3 r)
+void gks_matrix_multiply_3(GKSmatrix_3 a, GKSmatrix_3 b, GKSmatrix_3 r)
 {
     r[0][0] = a[0][0]*b[0][0] + a[0][1]*b[1][0] + a[0][2]*b[2][0] + a[0][3]*b[3][0];
     r[0][1] = a[0][0]*b[0][1] + a[0][1]*b[1][1] + a[0][2]*b[2][1] + a[0][3]*b[3][1];
@@ -336,7 +329,7 @@ void subMatrix(GKSint n, GKSfloat m[n][n], GKSint I, GKSint J, GKSfloat M[n-1][n
     }
 }
 
-//this recursive function calculates the determinant
+// this recursive function calculates the determinant
 GKSfloat determinant(GKSint n, GKSfloat M[n][n])
 {
     double det = 0;

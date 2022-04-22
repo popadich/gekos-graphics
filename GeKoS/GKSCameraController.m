@@ -328,7 +328,7 @@ void logMatrix(GKSmatrix_3 M) {
 //    NSLog(@"Euler");
 //    logMatrix(matrixEuler);
     
-    gks_multiply_matrix_3(matrixEuler, earth_coords, model_coords);
+    gks_matrix_multiply_3(matrixEuler, earth_coords, model_coords);
     
 //    NSLog(@"Model");
 //    logMatrix(model_coords);
@@ -338,7 +338,7 @@ void logMatrix(GKSmatrix_3 M) {
 //    NSLog(@"Translation");
 //    logMatrix(translationMatrix);
     
-    gks_multiply_matrix_3(model_coords, translationMatrix, result);
+    gks_matrix_multiply_3(model_coords, translationMatrix, result);
     
 //    NSLog(@"Result");
 //    logMatrix(result);
