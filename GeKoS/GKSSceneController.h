@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSSceneRep *scene;
 @property (strong) GKSMeshMonger *monger;
-@property (assign) GKScontext3DPtr context;
 
 
 @property (nonatomic,strong) NSNumber* worldVolumeMinX;

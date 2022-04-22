@@ -44,11 +44,7 @@ static void *worldDataContext = &worldDataContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    
-    
-    // init gks
 
-    
     // Can't use replace subview because constraints in parent view are lost
     NSView* cameraSubView = self.cameraViewController.view;
     cameraSubView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -111,14 +107,12 @@ static void *worldDataContext = &worldDataContext;
     
     self.sceneController.scene = content.scene;
     self.sceneController.monger = content.meshMonger;
-    self.sceneController.context = content.context3D;
     
     
     // !!!: THIS MUST BE FIRST
     GKScontext3DPtr context = content.context3D;
     self.context = content.context3D;
     self.drawingViewController.context = context;
-    self.sceneController.context = context;
     
     GKSCameraRep *scene_camera = content.camera;
 

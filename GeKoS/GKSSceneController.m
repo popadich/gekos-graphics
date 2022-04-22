@@ -77,14 +77,14 @@
 
 - (void)setFrustumCulling:(BOOL)flag
 {
-    self.context->cull_flag = flag;
+    self.scene.context->cull_flag = flag;
 }
 
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
     // TODO: assert not null
-    if (self.context != NULL) {
+    if (self.scene.context != NULL) {
         
         GKSMeshRep *theMeshRep = [self.monger getMeshRep:object3DRep.objectKind];
         GKSmesh_3 *theMesh = theMeshRep.meshPtr;
@@ -95,8 +95,6 @@
     }
 }
 
-
-
 - (void)deleteLastObject
 {
     [self.scene deleteLast3DObjectRep];
@@ -104,7 +102,7 @@
 
 - (void)transformAllObjects
 {
-    GKScontext3DPtr ctx = self.context;
+    GKScontext3DPtr ctx = self.scene.context;
     for (GKS3DObjectRep *objRep in self.scene.toObject3DReps) {
         [objRep.actorObject computeActorInContext:ctx];
     }
@@ -113,9 +111,9 @@
 - (void)setWorldVolumeG
 {
     // very esoteric calls here, make this simpler
-    if (self.context != NULL) {
+    if (self.scene.context != NULL) {
         GKSlimits_3 *volume = [self worldVolumeLimits];
-        gks_norms_set_world_volume(self.context, volume);
+        gks_norms_set_world_volume(self.scene.context, volume);
     }
     
 }
