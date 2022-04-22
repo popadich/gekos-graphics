@@ -11,7 +11,6 @@
     GKSactor the_actor;
     GKSmesh_3 *mesh_ptr;
     GKSDCArrPtr dev_coord_ptr;
-    GKSmatrix_3 model_transform;
 }
 
 @property (nonatomic, strong) NSNumber* objectID;
@@ -83,7 +82,7 @@
         the_actor.mesh_object = *mesh_ptr;
         the_actor.dev_coords = dev_coord_ptr;
         
-        [self generateModelTransform];
+        gks_actor_transform_to_world(&the_actor);
         
     }
     return self;
@@ -111,32 +110,6 @@
     _fillColor = [NSColor greenColor];
     mesh_ptr = NULL;
     dev_coord_ptr = NULL;
-}
-
-- (GKSmesh_3 *)getMeshPointer
-{
-    return mesh_ptr;
-}
-
-- (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ {
-    self.scaleX = [NSNumber numberWithDouble:scaleFactorX];
-    self.scaleY = [NSNumber numberWithDouble:scaleFactorY];
-    self.scaleZ = [NSNumber numberWithDouble:scaleFactorZ];
-    [self generateModelTransform];
-}
-
-- (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ {
-    self.rotX = [NSNumber numberWithDouble:rotFactorX];
-    self.rotY = [NSNumber numberWithDouble:rotFactorY];
-    self.rotZ = [NSNumber numberWithDouble:rotFactorZ];
-    [self generateModelTransform];
-}
-
-- (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ {
-    self.transX = [NSNumber numberWithDouble:locFactorX];
-    self.transY = [NSNumber numberWithDouble:locFactorY];
-    self.transZ = [NSNumber numberWithDouble:locFactorZ];
-    [self generateModelTransform];
 }
 
 - (GKSvector3d)positionVector
@@ -189,29 +162,6 @@
 {
     gks_draw_piped_actor(&the_actor);
     
-}
-
-- (void)generateModelTransform {
-    GKSmatrix_3 transform;
-    GKSvector3d scaleVec;
-    GKSvector3d rotVec;
-    GKSvector3d transVec;
-    
-    scaleVec = [self scaleVector];
-    rotVec = [self rotationVector];
-    transVec = [self positionVector];
-    
-    // Create transform matrix for world object to model space
-    gks_create_scaling_matrix_3(scaleVec.crd.x,scaleVec.crd.y,scaleVec.crd.z, transform);
-    
-    // ORDER MATTERS S x R x T
-    gks_accumulate_x_rotation_matrix_3(rotVec.crd.x, transform);
-    gks_accumulate_y_rotation_matrix_3(rotVec.crd.y, transform);
-    gks_accumulate_z_rotation_matrix_3(rotVec.crd.z, transform);
-    gks_accumulate_translation_matrix_3(transVec.crd.x, transVec.crd.y, transVec.crd.z, transform);
-    
-    gks_matrix_copy_3(transform, model_transform);
-    gks_matrix_copy_3(transform, the_actor.model_transform);
 }
 
 

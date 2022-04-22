@@ -21,9 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rot andScale:(GKSvector3d)scale;
 
-- (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ;
-- (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ;
-- (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ;
 - (GKSvector3d)positionVector;
 - (GKSvector3d)rotationVector;
 - (GKSvector3d)scaleVector;
@@ -35,8 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)computeActorInContext:(GKScontext3DPtr)context;
 - (void)drawActor;
 
-// testing
-- (GKSmesh_3 *)getMeshPointer;          // for debug, delete when done
+
 
 @end
 

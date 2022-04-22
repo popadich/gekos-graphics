@@ -157,7 +157,7 @@
 {
     GKSint polynum = 0;
     GKS3DObject *actor = self.actorObject;
-    polynum = actor.getMeshPointer->polynum;
+    polynum = actor.getPolygonCount;
     return polynum;
 }
 
@@ -165,7 +165,7 @@
 {
     GKSint vertnum = 0;
     GKS3DObject *actor = self.actorObject;
-    vertnum = actor.getMeshPointer->vertnum;
+    vertnum = actor.getVertexCount;
     return vertnum;
 }
 
