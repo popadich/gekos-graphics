@@ -117,7 +117,6 @@ static void *worldDataContext = &worldDataContext;
     // !!!: THIS MUST BE FIRST
     GKScontext3DPtr context = content.context3D;
     self.context = content.context3D;
-    self.cameraViewController.context = context;
     self.drawingViewController.context = context;
     self.sceneController.context = context;
     

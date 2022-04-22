@@ -154,3 +154,9 @@ void gks_view_matrix_lookat_compute(GKScontext3DPtr context_ptr, GKSvector3d obs
 
 }
 
+void gks_view_look_unit(GKSvector3d look_at, GKSvector3d pos, GKSvector3dPtr w_dir)
+{
+    vectorsubtract(look_at, pos,  w_dir);
+    vectornormal(*w_dir,  w_dir);
+}
+

@@ -20,7 +20,7 @@
     if (self) {
         _context3D =  gks_init();
 
-        GKSCameraRep *cameraRep = [[GKSCameraRep alloc] init];
+        GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
         GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
         

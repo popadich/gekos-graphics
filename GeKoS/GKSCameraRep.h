@@ -38,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSNumber* near;
 @property (strong) NSNumber* far;
 
+@property (assign)GKScontext3DPtr context;
+
+- (instancetype)initWithContext:(GKScontext3D *)contextPtr;
+
 - (GKSvector3d)positionVector;
 - (GKSvector3d)directionVector;
 

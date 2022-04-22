@@ -22,5 +22,6 @@ void gks_view_matrix_lookat_compute(GKScontext3DPtr context_ptr, GKSvector3d obs
 void gks_view_matrix_w_get(GKScontext3DPtr context_ptr, GKSvector3dPtr w_dir);
 void gks_view_matrix_p_get(GKScontext3DPtr context_ptr, GKSvector3dPtr p_loc);
 
+void gks_view_look_unit(GKSvector3d pos, GKSvector3d look_at, GKSvector3dPtr w_dir);
 
 #endif /* gks_3d_view_orient_h */

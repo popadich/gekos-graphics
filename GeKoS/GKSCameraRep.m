@@ -25,13 +25,20 @@
 
 - (instancetype)init
 {
+    return nil;
+}
+
+
+- (instancetype)initWithContext:(GKScontext3D *)contextPtr
+{
     self = [super init];
     if (self) {
         [self zeroSettings];
-   }
-    
+        _context = contextPtr;
+    }
     return self;
 }
+
 
 
 - (GKSvector3d)positionVector

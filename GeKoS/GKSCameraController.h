@@ -16,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSCameraController : NSViewController
 
-@property (assign)GKScontext3DPtr context;
-
 
 - (IBAction)doCameraReset:(id)sender;
 

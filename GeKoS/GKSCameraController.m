@@ -175,26 +175,26 @@ void logMatrix(GKSmatrix_3 M) {
     if (camera != nil) {
         NSInteger projectionType = [prType integerValue];
         if (projectionType == kOrthogonalProjection) {
-            gks_projection_set_orthogonal(self.context);
+            gks_projection_set_orthogonal(camera.context);
         }
         else if (projectionType == kPerspectiveSimple) {
             //Set perspective distance
             double distance = [camera.focalLength doubleValue];
-            gks_projection_set_simple(self.context, distance);
+            gks_projection_set_simple(camera.context, distance);
         }
         else if (projectionType == kPerspective) {
             double distance = [camera.focalLength doubleValue];
             double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
-            gks_projection_set_perspective(self.context, alpha, near, far);
+            gks_projection_set_perspective(camera.context, alpha, near, far);
         }
         else if (projectionType == kAlternate) {
             double distance = [camera.focalLength doubleValue];
             double alpha = 90.0 - (90.0 * distance / 100.0) + 0.1;
             double near = [camera.near doubleValue];
             double far = [camera.far doubleValue];
-            gks_projection_set_alternate(self.context, alpha, near, far);
+            gks_projection_set_alternate(camera.context, alpha, near, far);
         }
     }
 }
@@ -227,14 +227,12 @@ void logMatrix(GKSmatrix_3 M) {
         
         GKSvector3d pos = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
         
-        GKSvector3d dir_vector = GKSMakeVector(0.0, 0.0, 0.0);
-        vectorsubtract(look_at, pos,  &dir_vector);
-        vectornormal(dir_vector,  &dir_vector);
-//        gks_view_matrix_dir_vector_calc(pos, look_at, &dir_vector);
+        GKSvector3d dir_vector;
+        gks_view_look_unit(look_at, pos, &dir_vector);
 
         // Set Camera View Matrix
-        gks_view_matrix_compute(self.context, pos, dir_vector, up_vector, aViewMatrix);
-        gks_view_matrix_set(self.context, aViewMatrix);
+        gks_view_matrix_compute(camera.context, pos, dir_vector, up_vector, aViewMatrix);
+        gks_view_matrix_set(camera.context, aViewMatrix);
 
         
         // Set UI values
@@ -277,8 +275,8 @@ void logMatrix(GKSmatrix_3 M) {
 
         GKSvector3d position = GKSMakeVector(camera.positionX.doubleValue, camera.positionY.doubleValue, camera.positionZ.doubleValue);
 
-        gks_view_matrix_compute(self.context, position, dir_vector, up_vector, aViewMatrix);
-        gks_view_matrix_set(self.context, aViewMatrix);
+        gks_view_matrix_compute(camera.context, position, dir_vector, up_vector, aViewMatrix);
+        gks_view_matrix_set(camera.context, aViewMatrix);
         
         
         // Set UI values
@@ -319,31 +317,17 @@ void logMatrix(GKSmatrix_3 M) {
     GKSfloat theta = pitchNum.doubleValue;
     GKSfloat phi = rollNum.doubleValue ;
     
-    // maybe theta needs be negative? Or control min and max switched?
+    
+    // TODO: move to library
     gks_create_identity_matrix_3(matrixEuler);
     gks_create_z_rotation_matrix_3(phi, matrixEuler);
     gks_accumulate_y_rotation_matrix_3(psi, matrixEuler);
     gks_accumulate_x_rotation_matrix_3(theta, matrixEuler);
     
-//    NSLog(@"Euler");
-//    logMatrix(matrixEuler);
-    
     gks_matrix_multiply_3(matrixEuler, earth_coords, model_coords);
-    
-//    NSLog(@"Model");
-//    logMatrix(model_coords);
-
     gks_create_translation_matrix_3(-pos.crd.x, -pos.crd.y, -pos.crd.z, translationMatrix);
-
-//    NSLog(@"Translation");
-//    logMatrix(translationMatrix);
-    
     gks_matrix_multiply_3(model_coords, translationMatrix, result);
-    
-//    NSLog(@"Result");
-//    logMatrix(result);
-    
-    gks_view_matrix_set(self.context, result);
+    gks_view_matrix_set(self.camera.context, result);
     
     // set the UI values
     NSNumber *uhatx = [NSNumber numberWithDouble:result[0][0]];
