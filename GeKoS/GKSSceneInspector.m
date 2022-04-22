@@ -79,14 +79,15 @@
         // TODO: use represented object
         GKSContentViewController *cvc = (GKSContentViewController *)wc.contentViewController;
         GKSSceneController *sceneController = cvc.sceneController;
+        GKSSceneRep *scene = [sceneController getCurrentSceneRep];
         
-        NSInteger count = [sceneController.scene.toObject3DReps count];
+        NSInteger count = [scene.toObject3DReps count];
         self.objectCount = [NSNumber numberWithInteger:count];
         
-        GKSint vertices = [self countVertexesInArray:sceneController.scene.toObject3DReps];
+        GKSint vertices = [self countVertexesInArray:scene.toObject3DReps];
         self.vertexCount = @(vertices);
         
-        GKSint polys = [self countPolygonsInArray:sceneController.scene.toObject3DReps];
+        GKSint polys = [self countPolygonsInArray:scene.toObject3DReps];
         self.polygonCount = @(polys);
         
         self.sceneController = sceneController;

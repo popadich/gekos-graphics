@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSSceneController : NSObject
 
-@property (strong) GKSSceneRep *scene;
+@property (strong) NSMutableArray *scenes;
 @property (strong) GKSMeshMonger *monger;
 
 
@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setFrustumCulling:(BOOL)flag;
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
+- (void)addSceneRep:(GKSSceneRep *)sceneRep;
+- (GKSSceneRep *)getCurrentSceneRep;
 
 - (void)deleteLastObject;
 

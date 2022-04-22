@@ -13,6 +13,7 @@
 @interface GKSSceneController () {
     float seg_vect[3];
     GKSlimits_3 volume;
+    NSInteger max_scene;
 }
 
 
@@ -59,7 +60,22 @@
         }
         
     }
+    _scenes = [[NSMutableArray alloc] init];
+    max_scene = -1;
     return self;
+}
+
+- (void)addSceneRep:(GKSSceneRep *)sceneRep
+{
+    [self.scenes addObject:sceneRep];
+    max_scene = self.scenes.count - 1;
+    
+}
+
+- (GKSSceneRep *)getCurrentSceneRep
+{
+    GKSSceneRep *current = [self.scenes objectAtIndex:max_scene];
+    return current;
 }
 
 
@@ -77,43 +93,52 @@
 
 - (void)setFrustumCulling:(BOOL)flag
 {
-    self.scene.context->cull_flag = flag;
+    GKSSceneRep *scene = [self getCurrentSceneRep];
+    scene.context->cull_flag = flag;
 }
 
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
+    GKSSceneRep *scene = [self getCurrentSceneRep];
+    
     // TODO: assert not null
-    if (self.scene.context != NULL) {
+    if (scene.context != NULL) {
         
         GKSMeshRep *theMeshRep = [self.monger getMeshRep:object3DRep.objectKind];
         GKSmesh_3 *theMesh = theMeshRep.meshPtr;
         
         if (theMesh != NULL) {
-            [self.scene add3DObjectRep:object3DRep withMesh:theMesh];
+            [scene add3DObjectRep:object3DRep withMesh:theMesh];
         }
     }
 }
 
 - (void)deleteLastObject
 {
-    [self.scene deleteLast3DObjectRep];
+    GKSSceneRep *scene = [self getCurrentSceneRep];
+
+    [scene deleteLast3DObjectRep];
 }
 
 - (void)transformAllObjects
 {
-    GKScontext3DPtr ctx = self.scene.context;
-    for (GKS3DObjectRep *objRep in self.scene.toObject3DReps) {
+    GKSSceneRep *scene = [self getCurrentSceneRep];
+
+    GKScontext3DPtr ctx = scene.context;
+    for (GKS3DObjectRep *objRep in scene.toObject3DReps) {
         [objRep.actorObject computeActorInContext:ctx];
     }
 }
 
 - (void)setWorldVolumeG
 {
+    GKSSceneRep *scene = [self getCurrentSceneRep];
+
     // very esoteric calls here, make this simpler
-    if (self.scene.context != NULL) {
+    if (scene.context != NULL) {
         GKSlimits_3 *volume = [self worldVolumeLimits];
-        gks_norms_set_world_volume(self.scene.context, volume);
+        gks_norms_set_world_volume(scene.context, volume);
     }
     
 }

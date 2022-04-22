@@ -105,7 +105,7 @@ static void *worldDataContext = &worldDataContext;
     
     self.itsContent = content;
     
-    self.sceneController.scene = content.scene;
+    [self.sceneController addSceneRep:content.scene];
     self.sceneController.monger = content.meshMonger;
     
     

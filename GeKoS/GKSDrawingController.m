@@ -15,9 +15,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-        
+    
+    GKSSceneController *sc = (GKSSceneController *)self.representedObject;
+    
     GKSDrawingView *drawingView = (GKSDrawingView *)self.view;
-    drawingView.scene = ((GKSSceneController *)self.representedObject).scene;
+    drawingView.scene = sc.getCurrentSceneRep;
     
 }
 
