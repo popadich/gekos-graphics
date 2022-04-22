@@ -9,6 +9,11 @@
 #import "GKSSceneController.h"
 #include "gks/gks.h"
 
+@interface GKSDrawingController ()
+
+@property (strong)GKSSceneRep *scene;
+
+@end
 
 @implementation GKSDrawingController
 
@@ -20,7 +25,7 @@
     
     GKSDrawingView *drawingView = (GKSDrawingView *)self.view;
     drawingView.scene = sc.getCurrentSceneRep;
-    
+    self.scene = sc.getCurrentSceneRep;
 }
 
 - (void)viewDidLayout {
@@ -35,7 +40,7 @@
     new_limits.xmax = myRect.size.width;
     new_limits.ymax = myRect.size.height;
 
-    gks_norms_set_device_viewport(self.context, &new_limits);
+    gks_norms_set_device_viewport(self.scene.context, &new_limits);
 }
 
 - (void)refresh {
@@ -58,7 +63,7 @@
     GKSlimits_2 port_rect = [self getPortLimits];
     
     // Set normalization value transforms
-    gks_norms_set_device_viewport(self.context, &port_rect); // get a controller to do this
+    gks_norms_set_device_viewport(self.scene.context, &port_rect); // get a controller to do this
 }
 
 @end

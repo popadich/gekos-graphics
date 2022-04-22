@@ -107,12 +107,7 @@ static void *worldDataContext = &worldDataContext;
     
     [self.sceneController addSceneRep:content.scene];
     self.sceneController.monger = content.meshMonger;
-    
-    
-    // !!!: THIS MUST BE FIRST
-    GKScontext3DPtr context = content.context3D;
-    self.context = content.context3D;
-    self.drawingViewController.context = context;
+
     
     GKSCameraRep *scene_camera = content.camera;
 

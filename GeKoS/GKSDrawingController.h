@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSDrawingController : NSViewController
 
-@property (assign)GKScontext3DPtr context;
-
 - (void)refresh;
 - (GKSlimits_2)getPortLimits;
 

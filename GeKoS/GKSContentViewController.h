@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContentViewController : NSViewController
 
-@property (assign) GKScontext3DPtr context;
 @property (strong)NSNumber *isCenteredObject;
 
 @property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
