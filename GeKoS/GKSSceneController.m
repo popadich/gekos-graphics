@@ -93,14 +93,14 @@
 
 - (void)setFrustumCulling:(BOOL)flag
 {
-    GKSSceneRep *scene = self.currentScene;
+    GKSSceneRep *scene = self.scene;
     scene.context->cull_flag = flag;
 }
 
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
-    GKSSceneRep *scene = self.currentScene;
+    GKSSceneRep *scene = self.scene;
     
     // TODO: assert not null
     if (scene.context != NULL) {
@@ -116,14 +116,14 @@
 
 - (void)deleteLastObject
 {
-    GKSSceneRep *scene = self.currentScene;
+    GKSSceneRep *scene = self.scene;
 
     [scene deleteLast3DObjectRep];
 }
 
 - (void)transformAllObjects
 {
-    GKSSceneRep *scene = self.currentScene;
+    GKSSceneRep *scene = self.scene;
 
     GKScontext3DPtr ctx = scene.context;
     for (GKS3DObjectRep *objRep in scene.toObject3DReps) {
@@ -133,7 +133,7 @@
 
 - (void)setWorldVolumeG
 {
-    GKSSceneRep *scene = self.currentScene;
+    GKSSceneRep *scene = self.scene;
 
     // very esoteric calls here, make this simpler
     if (scene.context != NULL) {

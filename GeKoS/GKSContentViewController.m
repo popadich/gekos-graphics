@@ -111,7 +111,7 @@ static void *worldDataContext = &worldDataContext;
     [self.toScenes addObject:content.scene];
 
     // set the current scene on the scene controller
-    self.sceneController.currentScene = content.scene;
+    self.sceneController.scene = content.scene;
     
     // TODO: monger singleton?
     self.sceneController.monger = content.meshMonger;
@@ -124,7 +124,7 @@ static void *worldDataContext = &worldDataContext;
     self.cameraViewController.representedObject = scene_camera;
 
     // TODO: pass a sceneRep instead
-    self.drawingViewController.representedObject = self.sceneController;
+    self.drawingViewController.representedObject = content.scene;
 
     // Load Default Colors for Content View
     NSError *error;

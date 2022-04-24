@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSSceneController : NSObject
 
-@property (strong) GKSSceneRep *currentScene;
+@property (strong) GKSSceneRep *scene;
 @property (strong) GKSMeshMonger *monger;
 
 

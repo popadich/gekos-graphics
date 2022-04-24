@@ -79,7 +79,7 @@
         // TODO: use represented object
         GKSContentViewController *cvc = (GKSContentViewController *)wc.contentViewController;
         GKSSceneController *sceneController = cvc.sceneController;
-        GKSSceneRep *scene = sceneController.currentScene;
+        GKSSceneRep *scene = sceneController.scene;
         
         NSInteger count = [scene.toObject3DReps count];
         self.objectCount = [NSNumber numberWithInteger:count];
