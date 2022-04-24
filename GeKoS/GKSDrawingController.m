@@ -24,8 +24,8 @@
     GKSSceneController *sc = (GKSSceneController *)self.representedObject;
     
     GKSDrawingView *drawingView = (GKSDrawingView *)self.view;
-    drawingView.scene = sc.getCurrentSceneRep;
-    self.scene = sc.getCurrentSceneRep;
+    drawingView.scene = sc.currentScene;
+    self.scene = sc.currentScene;
 }
 
 - (void)viewDidLayout {

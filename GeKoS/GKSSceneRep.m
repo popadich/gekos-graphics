@@ -6,6 +6,7 @@
 //
 
 #import "GKSSceneRep.h"
+#import "GKSConstants.h"
 #import "GKS3DObjectRep.h"
 #import "GKS3DObject.h"
 
@@ -17,6 +18,13 @@
     if (self) {
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
         _context = contextPtr;
+        
+        _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
+        _worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
+        _worldVolumeMinY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY];
+        _worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
+        _worldVolumeMinZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ];
+        _worldVolumeMaxZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ];
     }
     return self;
 }

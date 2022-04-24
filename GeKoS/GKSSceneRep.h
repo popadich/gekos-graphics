@@ -14,9 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSSceneRep : NSObject
 
-@property (assign)GKScontext3DPtr context;
-
+@property (assign) GKScontext3DPtr context;
 @property (nonatomic, strong) NSMutableArray* toObject3DReps;
+
+@property (nonatomic,strong) NSNumber* worldVolumeMinX;
+@property (nonatomic,strong) NSNumber* worldVolumeMinY;
+@property (nonatomic,strong) NSNumber* worldVolumeMinZ;
+@property (nonatomic,strong) NSNumber* worldVolumeMaxX;
+@property (nonatomic,strong) NSNumber* worldVolumeMaxY;
+@property (nonatomic,strong) NSNumber* worldVolumeMaxZ;
 
 - (instancetype)initWithContext:(GKScontext3D *)contextPtr;
 

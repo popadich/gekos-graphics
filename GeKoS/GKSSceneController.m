@@ -60,23 +60,23 @@
         }
         
     }
-    _scenes = [[NSMutableArray alloc] init];
+//    _scenes = [[NSMutableArray alloc] init];
     max_scene = -1;
     return self;
 }
 
-- (void)addSceneRep:(GKSSceneRep *)sceneRep
-{
-    [self.scenes addObject:sceneRep];
-    max_scene = self.scenes.count - 1;
-    
-}
+//- (void)addSceneRep:(GKSSceneRep *)sceneRep
+//{
+//    [self.scenes addObject:sceneRep];
+//    max_scene = self.scenes.count - 1;
+//
+//}
 
-- (GKSSceneRep *)getCurrentSceneRep
-{
-    GKSSceneRep *current = [self.scenes objectAtIndex:max_scene];
-    return current;
-}
+//- (GKSSceneRep *)getCurrentSceneRep
+//{
+//    GKSSceneRep *current = [self.scenes objectAtIndex:max_scene];
+//    return nil;
+//}
 
 
 - (GKSlimits_3 *)worldVolumeLimits
@@ -93,14 +93,14 @@
 
 - (void)setFrustumCulling:(BOOL)flag
 {
-    GKSSceneRep *scene = [self getCurrentSceneRep];
+    GKSSceneRep *scene = self.currentScene;
     scene.context->cull_flag = flag;
 }
 
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
-    GKSSceneRep *scene = [self getCurrentSceneRep];
+    GKSSceneRep *scene = self.currentScene;
     
     // TODO: assert not null
     if (scene.context != NULL) {
@@ -116,14 +116,14 @@
 
 - (void)deleteLastObject
 {
-    GKSSceneRep *scene = [self getCurrentSceneRep];
+    GKSSceneRep *scene = self.currentScene;
 
     [scene deleteLast3DObjectRep];
 }
 
 - (void)transformAllObjects
 {
-    GKSSceneRep *scene = [self getCurrentSceneRep];
+    GKSSceneRep *scene = self.currentScene;
 
     GKScontext3DPtr ctx = scene.context;
     for (GKS3DObjectRep *objRep in scene.toObject3DReps) {
@@ -133,7 +133,7 @@
 
 - (void)setWorldVolumeG
 {
-    GKSSceneRep *scene = [self getCurrentSceneRep];
+    GKSSceneRep *scene = self.currentScene;
 
     // very esoteric calls here, make this simpler
     if (scene.context != NULL) {

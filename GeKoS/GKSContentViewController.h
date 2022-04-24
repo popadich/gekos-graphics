@@ -22,9 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
 @property (strong) IBOutlet GKSSceneController* sceneController;
 
+@property (strong) NSMutableArray *toScenes;
 
-
-- (IBAction)performUpdateQuick:(id)sender;
 
 @end
 

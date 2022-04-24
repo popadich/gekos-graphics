@@ -32,6 +32,7 @@
 @property (assign) GKSint currentVantage;
 @property (strong) NSMutableArray *vantageViews;
 
+
 @end
 
 
@@ -105,8 +106,16 @@ static void *worldDataContext = &worldDataContext;
     
     self.itsContent = content;
     
-    [self.sceneController addSceneRep:content.scene];
+    // allocate scenes array and add scenes (only one)
+    self.toScenes = [[NSMutableArray alloc] init];
+    [self.toScenes addObject:content.scene];
+
+    // set the current scene on the scene controller
+    self.sceneController.currentScene = content.scene;
+    
+    // TODO: monger singleton?
     self.sceneController.monger = content.meshMonger;
+
 
     
     GKSCameraRep *scene_camera = content.camera;
@@ -303,12 +312,6 @@ static void *worldDataContext = &worldDataContext;
     [self.drawingViewController refresh];
 }
 
-
-- (IBAction)performUpdateQuick:(id)sender {
-    
-    [self.sceneController transformAllObjects];
-    [self.drawingViewController refresh];
-}
 
 - (IBAction)setCenterObjects:(id)sender {
     
