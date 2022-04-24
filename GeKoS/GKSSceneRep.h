@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) GKScontext3DPtr context;
 @property (nonatomic, strong) NSMutableArray* toObject3DReps;
 
+@property (strong) NSString *title;
+@property (strong) NSString *kind;
+
 @property (nonatomic,strong) NSNumber* worldVolumeMinX;
 @property (nonatomic,strong) NSNumber* worldVolumeMinY;
 @property (nonatomic,strong) NSNumber* worldVolumeMinZ;

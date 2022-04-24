@@ -110,7 +110,7 @@
         
         if (theMesh != NULL) {
             [scene add3DObjectRep:object3DRep withMesh:theMesh];
-        }
+      }
     }
 }
 

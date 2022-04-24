@@ -16,6 +16,9 @@
 {
     self = [super init];
     if (self) {
+        _title = @"Untitled Scene";
+        _kind = @"simple";
+        
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
         _context = contextPtr;
         
@@ -44,8 +47,11 @@
     [newActor computeActorInContext:self.context];
     
     object3DRep.actorObject = newActor;
+    object3DRep.objectID = @(self.toObject3DReps.count + 1);
     
+    [self willChangeValueForKey:@"toObject3DReps"];
     [self.toObject3DReps addObject:object3DRep];
+    [self didChangeValueForKey:@"toObject3DReps"];
 
 }
 

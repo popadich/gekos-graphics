@@ -105,26 +105,25 @@ static void *worldDataContext = &worldDataContext;
     GKSContent *content = self.representedObject;
     
     self.itsContent = content;
+    self.cameraRep = content.camera;
+    
+    [self willChangeValueForKey:@"toScenes"];
     
     // allocate scenes array and add scenes (only one)
     self.toScenes = [[NSMutableArray alloc] init];
     [self.toScenes addObject:content.scene];
 
+    [self didChangeValueForKey:@"toScenes"];
+
+    
     // set the current scene on the scene controller
     self.sceneController.scene = content.scene;
-    
+    self.cameraViewController.representedObject = content.camera;
+    self.drawingViewController.representedObject = content.scene;
+
     // TODO: monger singleton?
     self.sceneController.monger = content.meshMonger;
 
-
-    
-    GKSCameraRep *scene_camera = content.camera;
-
-    self.cameraRep = scene_camera;
-    self.cameraViewController.representedObject = scene_camera;
-
-    // TODO: pass a sceneRep instead
-    self.drawingViewController.representedObject = content.scene;
 
     // Load Default Colors for Content View
     NSError *error;
