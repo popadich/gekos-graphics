@@ -86,10 +86,11 @@ static void *worldDataContext = &worldDataContext;
         for (int i=1; i<8; i++) {
             GKS3DObjectRep *object3DRep = [[GKS3DObjectRep alloc] init];
             [object3DRep locateX:0.0 Y:i%2 Z: -2.0 * i];
-            [object3DRep rotateX:0.0 Y:rad Z:0.0];
+//            [object3DRep rotateX:0.0 Y:rad Z:0.0];
+//            [object3DRep scaleX:(0.5 * i) Y:(0.5 * i) Z:(0.5 * i)];
             [self.sceneController add3DObjectRep:object3DRep];
 
-            rad += DEG_TO_RAD * 35;
+            rad += 35;
         }
     }
     

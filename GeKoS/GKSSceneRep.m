@@ -49,15 +49,17 @@
     object3DRep.actorObject = newActor;
     object3DRep.objectID = @(self.toObject3DReps.count + 1);
     
-    [self willChangeValueForKey:@"toObject3DReps"];
-    [self.toObject3DReps addObject:object3DRep];
-    [self didChangeValueForKey:@"toObject3DReps"];
+//    [self willChangeValueForKey:@"toObject3DReps"];
+    NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
+    [bindingsCompliantArray addObject:object3DRep];
+//    [self didChangeValueForKey:@"toObject3DReps"];
 
 }
 
 - (void)deleteLast3DObjectRep
 {
-    [self.toObject3DReps removeLastObject];
+    NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
+    [bindingsCompliantArray removeLastObject];
 }
 
 @end
