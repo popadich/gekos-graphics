@@ -171,7 +171,7 @@
 
 - (NSString *)description
 {
-    NSString *desc = [NSString stringWithFormat:@"(%.2f %.2f %.2f), (%.2f %.2f %.2f)", self.transX.floatValue, self.transY.floatValue, self.transZ.floatValue, self.rotX.floatValue, self.rotY.floatValue, self.rotZ.floatValue];
+    NSString *desc = [NSString stringWithFormat:@"%.2f  %.2f  %.2f", self.transX.floatValue, self.transY.floatValue, self.transZ.floatValue];
     return desc;
 }
 
