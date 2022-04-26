@@ -11,7 +11,7 @@
 #import "GKSCameraRep.h"
 
 #import "GKS3DObjectRep.h"
-#import "GKS3DObject.h"
+#import "GKS3DActor.h"
 #import "GKSSceneController.h"
 #import "GKSMeshParser.h"
 

@@ -1,13 +1,13 @@
 //
-//  GKS3DObject.m
+//  GKS3DActor.m
 //  GeKoS
 //
 //  Created by Alex Popadich on 3/28/22.
 //
 
-#import "GKS3DObject.h"
+#import "GKS3DActor.h"
 
-@interface GKS3DObject () {
+@interface GKS3DActor () {
     GKSactor the_actor;
     GKSmesh_3 *mesh_ptr;
     GKSDCArrPtr dev_coord_ptr;
@@ -31,7 +31,7 @@
 
 
 
-@implementation GKS3DObject
+@implementation GKS3DActor
 
 
 - (instancetype)init

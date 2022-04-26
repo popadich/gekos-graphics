@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GKSSceneController.h"
+#import "GKSStoryBoardRep.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) GKSCameraRep *camera;
 @property (strong) GKSSceneRep *scene;
 @property (strong) GKSMeshMonger *meshMonger;
+@property (strong) GKSStoryBoardRep *storyBoard;
 
 @property (assign) GKScontext3DPtr context3D;
 

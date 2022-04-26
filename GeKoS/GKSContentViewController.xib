@@ -567,7 +567,7 @@
                         </tabViewItem>
                         <tabViewItem label="World" identifier="2" id="C8m-h0-NnB">
                             <view key="view" id="RyS-4c-ou8">
-                                <rect key="frame" x="10" y="33" width="394" height="370"/>
+                                <rect key="frame" x="10" y="33" width="545" height="370"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PnG-2R-wWq">

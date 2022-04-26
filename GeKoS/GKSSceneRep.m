@@ -8,7 +8,7 @@
 #import "GKSSceneRep.h"
 #import "GKSConstants.h"
 #import "GKS3DObjectRep.h"
-#import "GKS3DObject.h"
+#import "GKS3DActor.h"
 
 @interface GKSSceneRep ()
 @property (assign) GKSint gObjectID;
@@ -43,7 +43,7 @@
     GKSvector3d rot = [object3DRep rotationVector];
     GKSvector3d sca = [object3DRep scaleVector];
 
-    GKS3DObject *newActor = [[GKS3DObject alloc] initWithMesh:aMesh atLocation:loc withRotation:rot andScale:sca];
+    GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:aMesh atLocation:loc withRotation:rot andScale:sca];
 
     newActor.lineColor = object3DRep.lineColor;
     newActor.fillColor = object3DRep.fillColor;

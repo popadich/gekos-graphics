@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GKS3DObject.h"
+#import "GKS3DActor.h"
 #import "GKS3DObjectRep.h"
 #import "GKSCameraRep.h"
 #import "GKSSceneRep.h"

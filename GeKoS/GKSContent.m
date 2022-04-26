@@ -12,6 +12,7 @@
 #import "GKSMeshMonger.h"
 
 
+
 @implementation GKSContent
 
 - (instancetype)init
@@ -23,10 +24,12 @@
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
         GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
+        GKSStoryBoardRep *storyBoard = [[GKSStoryBoardRep alloc] init];
         
         _meshMonger = monger;
         _scene = sceneRep;
         _camera = cameraRep;
+        _storyBoard = storyBoard;
         
     }
     return self;

@@ -1,5 +1,5 @@
 //
-//  GKS3DObject.h
+//  GKS3DActor.h
 //  GeKoS
 //
 //  Created by Alex Popadich on 3/28/22.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GKS3DObject : NSObject
+@interface GKS3DActor : NSObject
 
 
 

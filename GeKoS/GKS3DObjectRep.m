@@ -7,7 +7,7 @@
 
 #import "GKS3DObjectRep.h"
 
-#import "GKS3DObject.h"
+#import "GKS3DActor.h"
 
 
 
@@ -156,7 +156,7 @@
 - (GKSint)getPolygonCount
 {
     GKSint polynum = 0;
-    GKS3DObject *actor = self.actorObject;
+    GKS3DActor *actor = self.actorObject;
     polynum = actor.getPolygonCount;
     return polynum;
 }
@@ -164,7 +164,7 @@
 - (GKSint)getVertexCount
 {
     GKSint vertnum = 0;
-    GKS3DObject *actor = self.actorObject;
+    GKS3DActor *actor = self.actorObject;
     vertnum = actor.getVertexCount;
     return vertnum;
 }
