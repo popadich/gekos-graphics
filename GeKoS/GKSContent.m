@@ -23,11 +23,9 @@
 
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
-        GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
         GKSStoryBoardRep *storyBoard = [[GKSStoryBoardRep alloc] init];
         [storyBoard.keyScenes addObject:sceneRep];
         
-        _meshMonger = monger;
         _camera = cameraRep;
         _storyBoard = storyBoard;
         

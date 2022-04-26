@@ -100,9 +100,11 @@
                 
                 // TODO: mesh monger is too buried and this could all be move there
                 // add new mesh to monger
-                NSNumber *meshID = [self.content.meshMonger nextID];
+                GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+                
+                NSNumber *meshID = [monger nextID];
                 GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh];
-                [self.content.meshMonger addMeshRep:meshRep];
+                [monger addMeshRep:meshRep];
                 
                 
                 // TODO: object add should happen elsewhere
