@@ -6,6 +6,7 @@
 //
 
 #include <math.h>
+#include <stdlib.h>
 #include "gks_utility.h"
 
 
@@ -32,4 +33,10 @@ bool definitelyGreaterThan(float a, float b, float epsilon)
 bool definitelyLessThan(float a, float b, float epsilon)
 {
     return (b - a) > ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * epsilon);
+}
+
+float randomBetween(float smallNumber, float bigNumber)
+{
+    float diff = bigNumber - smallNumber;
+    return (((float) rand() / RAND_MAX) * diff) + smallNumber;
 }

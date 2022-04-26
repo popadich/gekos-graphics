@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSSceneController : NSObject
 
 @property (strong) GKSSceneRep *scene;
-@property (strong) GKSMeshMonger *monger;
-
 
 @property (nonatomic,strong) NSNumber* worldVolumeMinX;
 @property (nonatomic,strong) NSNumber* worldVolumeMinY;

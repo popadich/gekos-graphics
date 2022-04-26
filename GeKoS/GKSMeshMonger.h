@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong)NSMutableDictionary *meshes;
 
++ (id)sharedMeshMonger;
+
 - (void)addMeshRep:(GKSMeshRep *)meshRep;
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID;
 - (NSNumber *)nextID;

@@ -107,7 +107,7 @@ static void *worldDataContext = &worldDataContext;
     GKSStoryBoardRep *storyBoard = content.storyBoard;
 
     
-    // allocate scenes array and add scenes (only one)
+    // set scenes array to the story board scenes array
     NSMutableArray *keyScenes = storyBoard.keyScenes;
     [self willChangeValueForKey:@"toScenes"];
     self.toScenes = keyScenes;
@@ -115,15 +115,11 @@ static void *worldDataContext = &worldDataContext;
 
     self.cameraRep = content.camera;
 
-    // set the current scene on the scene controller
-//    self.sceneController.scene = content.scene;
+    // set the scene controller's scene, part of an initializer maybe?
     self.sceneController.scene = [storyBoard sceneOne];
 
     self.cameraViewController.representedObject = content.camera;
     self.drawingViewController.representedObject = [storyBoard sceneOne];
-
-    // TODO: monger singleton?
-    self.sceneController.monger = content.meshMonger;
 
 
     // Load Default Colors for Content View
@@ -355,9 +351,11 @@ static void *worldDataContext = &worldDataContext;
             GKSmesh_3* mesh_ptr = [parser parseOFFMeshFile:theURL error:&error];
             if (mesh_ptr != NULL) {
                 
-                NSNumber *meshID = [self.sceneController.monger nextID];
+                GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+                
+                NSNumber *meshID = [monger nextID];
                 GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh_ptr];
-                [self.sceneController.monger addMeshRep:meshRep];
+                [monger addMeshRep:meshRep];
                 
                 GKS3DObjectRep *repCopy = [self.object3DRep copy];
                 repCopy.objectKind = meshID;
