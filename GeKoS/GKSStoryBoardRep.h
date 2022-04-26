@@ -9,7 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class GKSSceneRep;
+
 @interface GKSStoryBoardRep : NSObject
+
+@property (strong) NSMutableArray *keyScenes;
+
+-(GKSSceneRep *)sceneOne;
 
 @end
 

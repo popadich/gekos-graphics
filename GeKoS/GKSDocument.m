@@ -112,8 +112,10 @@
                 
                 // TODO: pass mesh here
                 GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:meshID.intValue atLocation:loc withRotation:rot andScale:sca];
-                                
-                [self.content.scene add3DObjectRep:objectRep withMesh:mesh];
+                
+                // TODO: fragile
+                GKSSceneRep *theScene = [self.content.storyBoard sceneOne];
+                [theScene add3DObjectRep:objectRep withMesh:mesh];
                 
                 
             }

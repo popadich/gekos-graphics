@@ -104,23 +104,23 @@ static void *worldDataContext = &worldDataContext;
     
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
-    
-    self.itsContent = content;
-    self.cameraRep = content.camera;
-    
-    [self willChangeValueForKey:@"toScenes"];
+    GKSStoryBoardRep *storyBoard = content.storyBoard;
+
     
     // allocate scenes array and add scenes (only one)
-    self.toScenes = [[NSMutableArray alloc] init];
-    [self.toScenes addObject:content.scene];
-
+    NSMutableArray *keyScenes = storyBoard.keyScenes;
+    [self willChangeValueForKey:@"toScenes"];
+    self.toScenes = keyScenes;
     [self didChangeValueForKey:@"toScenes"];
 
-    
+    self.cameraRep = content.camera;
+
     // set the current scene on the scene controller
-    self.sceneController.scene = content.scene;
+//    self.sceneController.scene = content.scene;
+    self.sceneController.scene = [storyBoard sceneOne];
+
     self.cameraViewController.representedObject = content.camera;
-    self.drawingViewController.representedObject = content.scene;
+    self.drawingViewController.representedObject = [storyBoard sceneOne];
 
     // TODO: monger singleton?
     self.sceneController.monger = content.meshMonger;
@@ -149,6 +149,8 @@ static void *worldDataContext = &worldDataContext;
     self.object3DRep.lineColor = self.contentLineColor;
     self.object3DRep.fillColor = self.contentFillColor;
 
+    
+    self.itsContent = content;
 }
 
 - (void)viewDidLayout {

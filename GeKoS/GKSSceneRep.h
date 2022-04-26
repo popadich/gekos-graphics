@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSNumber* worldVolumeMaxZ;
 
 - (instancetype)initWithContext:(GKScontext3D *)contextPtr;
-
+- (NSNumber *)sceneID;
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep withMesh:(GKSmesh_3 *)aMesh;
 - (void)deleteLast3DObjectRep;
 

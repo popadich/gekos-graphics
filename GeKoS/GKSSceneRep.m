@@ -10,8 +10,11 @@
 #import "GKS3DObjectRep.h"
 #import "GKS3DActor.h"
 
-@interface GKSSceneRep ()
-@property (assign) GKSint gObjectID;
+
+@interface GKSSceneRep()
+
+@property (assign) GKSint gSceneID;
+
 @end
 
 @implementation GKSSceneRep
@@ -21,7 +24,7 @@
     self = [super init];
     if (self) {
         _title = @"Untitled Scene";
-        _gObjectID = 1;
+        _gSceneID = 1;
         
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
         _context = contextPtr;
@@ -51,8 +54,8 @@
     [newActor computeActorInContext:self.context];
     
     object3DRep.actorObject = newActor;
-    object3DRep.objectID = @(self.gObjectID);
-    self.gObjectID += 1;
+    object3DRep.objectID = @(self.gSceneID);
+    self.gSceneID += 1;
     
     NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
     [bindingsCompliantArray addObject:object3DRep];
@@ -63,6 +66,12 @@
 {
     NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
     [bindingsCompliantArray removeLastObject];
+}
+
+- (NSNumber *)sceneID
+{
+    NSNumber *theId = [NSNumber numberWithInt:self.gSceneID];
+    return theId;
 }
 
 @end

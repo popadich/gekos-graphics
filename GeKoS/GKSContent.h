@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSContent : NSObject
 
 @property (strong) GKSCameraRep *camera;
-@property (strong) GKSSceneRep *scene;
 @property (strong) GKSMeshMonger *meshMonger;
 @property (strong) GKSStoryBoardRep *storyBoard;
 
