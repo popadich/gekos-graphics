@@ -13,7 +13,6 @@
 @interface GKSSceneController () {
     float seg_vect[3];
     GKSlimits_3 volume;
-    NSInteger max_scene;
 }
 
 
@@ -60,23 +59,9 @@
         }
         
     }
-//    _scenes = [[NSMutableArray alloc] init];
-    max_scene = -1;
+
     return self;
 }
-
-//- (void)addSceneRep:(GKSSceneRep *)sceneRep
-//{
-//    [self.scenes addObject:sceneRep];
-//    max_scene = self.scenes.count - 1;
-//
-//}
-
-//- (GKSSceneRep *)getCurrentSceneRep
-//{
-//    GKSSceneRep *current = [self.scenes objectAtIndex:max_scene];
-//    return nil;
-//}
 
 
 - (GKSlimits_3 *)worldVolumeLimits
@@ -101,9 +86,10 @@
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
     GKSSceneRep *scene = self.scene;
-    
-    // TODO: assert not null
-    if (scene.context != NULL) {
+    GKScontext3DPtr ctx = scene.context;
+
+    NSAssert(ctx != NULL, @"Scene context not set");
+    if (ctx != NULL) {
         
         GKSMeshRep *theMeshRep = [self.monger getMeshRep:object3DRep.objectKind];
         GKSmesh_3 *theMesh = theMeshRep.meshPtr;
@@ -124,8 +110,8 @@
 - (void)transformAllObjects
 {
     GKSSceneRep *scene = self.scene;
-
     GKScontext3DPtr ctx = scene.context;
+    NSAssert(ctx != NULL, @"Scene context not set");
     for (GKS3DObjectRep *objRep in scene.toObject3DReps) {
         [objRep.actorObject computeActorInContext:ctx];
     }
@@ -134,11 +120,13 @@
 - (void)setWorldVolumeG
 {
     GKSSceneRep *scene = self.scene;
+    GKScontext3DPtr ctx = scene.context;
 
     // very esoteric calls here, make this simpler
-    if (scene.context != NULL) {
+    NSAssert(ctx != NULL, @"Scene context not set");
+    if (ctx != NULL) {
         GKSlimits_3 *volume = [self worldVolumeLimits];
-        gks_norms_set_world_volume(scene.context, volume);
+        gks_norms_set_world_volume(ctx, volume);
     }
     
 }
