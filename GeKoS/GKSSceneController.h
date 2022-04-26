@@ -18,13 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSSceneRep *scene;
 
-@property (nonatomic,strong) NSNumber* worldVolumeMinX;
-@property (nonatomic,strong) NSNumber* worldVolumeMinY;
-@property (nonatomic,strong) NSNumber* worldVolumeMinZ;
-@property (nonatomic,strong) NSNumber* worldVolumeMaxX;
-@property (nonatomic,strong) NSNumber* worldVolumeMaxY;
-@property (nonatomic,strong) NSNumber* worldVolumeMaxZ;
-
 // TODO: verify this is used
 @property (nonatomic,strong) NSColor* worldBackColor;
 @property (nonatomic,strong) NSColor* worldLineColor;

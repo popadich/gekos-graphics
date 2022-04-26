@@ -11,11 +11,13 @@
 #import "GKS3DActor.h"
 
 
-@interface GKSSceneRep()
-
+@interface GKSSceneRep() {
+    GKSlimits_3 volume;
+}
 @property (assign) GKSint gSceneID;
 
 @end
+
 
 @implementation GKSSceneRep
 
@@ -23,7 +25,7 @@
 {
     self = [super init];
     if (self) {
-        _title = @"Untitled Scene";
+        _title = @"Scene One";
         _gSceneID = 1;
         
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
@@ -73,5 +75,18 @@
     NSNumber *theId = [NSNumber numberWithInt:self.gSceneID];
     return theId;
 }
+
+- (GKSlimits_3 *)worldVolumeLimits
+{
+    volume.xmin = self.worldVolumeMinX.doubleValue;
+    volume.ymin = self.worldVolumeMinY.doubleValue;
+    volume.zmin = self.worldVolumeMinZ.doubleValue;
+    
+    volume.xmax = self.worldVolumeMaxX.doubleValue;
+    volume.ymax = self.worldVolumeMaxY.doubleValue;
+    volume.zmax = self.worldVolumeMaxZ.doubleValue;
+    return &volume;
+}
+
 
 @end

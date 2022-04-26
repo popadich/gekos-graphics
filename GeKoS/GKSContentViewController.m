@@ -261,16 +261,17 @@ static void *worldDataContext = &worldDataContext;
         self.cameraRep.near = near;
         self.cameraRep.far = far;
         self.cameraRep.projectionType = projectionType;
+        
+        GKSSceneRep *scene = self.sceneController.scene;
 
-        self.sceneController.worldVolumeMinX = [vantage valueForKey:@"worldVolumeMinX"];
-        self.sceneController.worldVolumeMinY = [vantage valueForKey:@"worldVolumeMinY"];
-        self.sceneController.worldVolumeMinZ = [vantage valueForKey:@"worldVolumeMinZ"];
-        self.sceneController.worldVolumeMaxX = [vantage valueForKey:@"worldVolumeMaxX"];
-        self.sceneController.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
-        self.sceneController.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
+        scene.worldVolumeMinX = [vantage valueForKey:@"worldVolumeMinX"];
+        scene.worldVolumeMinY = [vantage valueForKey:@"worldVolumeMinY"];
+        scene.worldVolumeMinZ = [vantage valueForKey:@"worldVolumeMinZ"];
+        scene.worldVolumeMaxX = [vantage valueForKey:@"worldVolumeMaxX"];
+        scene.worldVolumeMaxY = [vantage valueForKey:@"worldVolumeMaxY"];
+        scene.worldVolumeMaxZ = [vantage valueForKey:@"worldVolumeMaxZ"];
 
         [self.sceneController setWorldVolumeG];
-        
         [self.sceneController transformAllObjects];
         [self.drawingViewController refresh];
         self.currentVantage = newTag;
@@ -280,8 +281,8 @@ static void *worldDataContext = &worldDataContext;
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
     [self.sceneController setWorldVolumeG];
-    [self.sceneController transformAllObjects];
-    [self.drawingViewController refresh];
+//    [self.sceneController transformAllObjects];
+//    [self.drawingViewController refresh];
 
 }
 
@@ -373,7 +374,7 @@ static void *worldDataContext = &worldDataContext;
     NSDictionary *vantage = nil;
     
     GKSCameraRep *camera = self.cameraRep;
-    GKSSceneController *sceneController = self.sceneController;
+    GKSSceneRep *scene = self.sceneController.scene;
     
     NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
     [collector setValue:camera.upX forKey:@"upX"];
@@ -394,13 +395,13 @@ static void *worldDataContext = &worldDataContext;
     
     [collector setValue:camera.projectionType forKey:@"projectionType"];
     
-    [collector setValue:sceneController.worldVolumeMinX forKey:@"worldVolumeMinX"];
-    [collector setValue:sceneController.worldVolumeMinY forKey:@"worldVolumeMinY"];
-    [collector setValue:sceneController.worldVolumeMinZ forKey:@"worldVolumeMinZ"];
+    [collector setValue:scene.worldVolumeMinX forKey:@"worldVolumeMinX"];
+    [collector setValue:scene.worldVolumeMinY forKey:@"worldVolumeMinY"];
+    [collector setValue:scene.worldVolumeMinZ forKey:@"worldVolumeMinZ"];
 
-    [collector setValue:sceneController.worldVolumeMaxX forKey:@"worldVolumeMaxX"];
-    [collector setValue:sceneController.worldVolumeMaxY forKey:@"worldVolumeMaxY"];
-    [collector setValue:sceneController.worldVolumeMaxZ forKey:@"worldVolumeMaxZ"];
+    [collector setValue:scene.worldVolumeMaxX forKey:@"worldVolumeMaxX"];
+    [collector setValue:scene.worldVolumeMaxY forKey:@"worldVolumeMaxY"];
+    [collector setValue:scene.worldVolumeMaxZ forKey:@"worldVolumeMaxZ"];
 
     vantage = [NSDictionary dictionaryWithDictionary:collector];
         

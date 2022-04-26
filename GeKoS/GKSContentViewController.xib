@@ -373,7 +373,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="eid-YX-vGy">
-                                                                    <rect key="frame" x="8" y="0.0" width="99" height="24"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="99" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="egK-wp-dwD">
@@ -403,7 +403,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="CSe-bh-maz">
-                                            <rect key="frame" x="1" y="119" width="116" height="15"/>
+                                            <rect key="frame" x="1" y="118" width="116" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="JIP-o2-HLd">
@@ -442,7 +442,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="wKC-m9-s5p">
-                                                                    <rect key="frame" x="8" y="0.0" width="38" height="24"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="38" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8pY-A0-Kd9">
@@ -477,7 +477,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="c5c-O5-KLr">
-                                                                    <rect key="frame" x="63" y="0.0" width="67" height="24"/>
+                                                                    <rect key="frame" x="73" y="0.0" width="67" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvw-TY-pxL">
@@ -512,7 +512,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="944-zS-fFw">
-                                                                    <rect key="frame" x="147" y="0.0" width="173" height="24"/>
+                                                                    <rect key="frame" x="157" y="0.0" width="173" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qn8-CX-t9L">
@@ -542,7 +542,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="1bf-pu-6QP">
-                                            <rect key="frame" x="1" y="119" width="329" height="15"/>
+                                            <rect key="frame" x="1" y="118" width="329" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="JTE-ZV-paQ">
@@ -590,7 +590,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMinX" id="bhw-TN-dpv"/>
+                                            <binding destination="sXT-GZ-21n" name="value" keyPath="selection.worldVolumeMinX" id="4hf-He-FvG"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qfm-Mu-72o">
@@ -605,7 +605,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMaxX" id="hYh-Vw-v7n"/>
+                                            <binding destination="sXT-GZ-21n" name="value" keyPath="selection.worldVolumeMaxX" id="uWS-JA-hoG"/>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="56Y-u9-qIW">
@@ -636,7 +636,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMinY" id="xUq-Wl-BCq"/>
+                                            <binding destination="sXT-GZ-21n" name="value" keyPath="selection.worldVolumeMinY" id="aOo-5a-ncl"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4JC-z5-Ez1">
@@ -651,7 +651,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMaxZ" id="hz1-0l-NRN"/>
+                                            <binding destination="sXT-GZ-21n" name="value" keyPath="selection.worldVolumeMaxZ" id="3p0-VD-LwO"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HbM-XL-cq9">
@@ -666,7 +666,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMinZ" id="dTH-k2-Yu8"/>
+                                            <binding destination="sXT-GZ-21n" name="value" keyPath="selection.worldVolumeMinZ" id="kzZ-3v-id4"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QwX-9E-lhh">
@@ -681,7 +681,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMaxY" id="1pw-PK-mgB"/>
+                                            <binding destination="sXT-GZ-21n" name="value" keyPath="selection.worldVolumeMaxY" id="TXV-Cm-Ore"/>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bzf-8c-7w9">

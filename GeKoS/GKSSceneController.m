@@ -12,7 +12,6 @@
 
 @interface GKSSceneController () {
     float seg_vect[3];
-    GKSlimits_3 volume;
 }
 
 
@@ -25,13 +24,6 @@
 {
     self = [super init];
     if (self) {
-        
-        _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
-        _worldVolumeMaxX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX];
-        _worldVolumeMinY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY];
-        _worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
-        _worldVolumeMinZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ];
-        _worldVolumeMaxZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ];
         
         NSError* error;
         NSColor* aColor;
@@ -64,17 +56,6 @@
 }
 
 
-- (GKSlimits_3 *)worldVolumeLimits
-{
-    volume.xmin = self.worldVolumeMinX.doubleValue;
-    volume.ymin = self.worldVolumeMinY.doubleValue;
-    volume.zmin = self.worldVolumeMinZ.doubleValue;
-    
-    volume.xmax = self.worldVolumeMaxX.doubleValue;
-    volume.ymax = self.worldVolumeMaxY.doubleValue;
-    volume.zmax = self.worldVolumeMaxZ.doubleValue;
-    return &volume;
-}
 
 - (void)setFrustumCulling:(BOOL)flag
 {
@@ -124,10 +105,16 @@
     GKSSceneRep *scene = self.scene;
     GKScontext3DPtr ctx = scene.context;
 
+    
     // very esoteric calls here, make this simpler
     NSAssert(ctx != NULL, @"Scene context not set");
+    
+
     if (ctx != NULL) {
-        GKSlimits_3 *volume = [self worldVolumeLimits];
+        GKSlimits_3 *volume = [scene worldVolumeLimits];
+        NSLog(@"get scene bolume %lf, %lf, %lf, %lf, %lf, %lf", volume->xmin, volume->xmax,
+              volume->ymin, volume->ymax,
+              volume->zmin, volume->zmax);
         gks_norms_set_world_volume(ctx, volume);
     }
     
