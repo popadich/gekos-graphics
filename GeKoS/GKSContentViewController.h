@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @class GKSSceneController;
+@class GKSStoryBoardRep;
 
 @interface GKSContentViewController : NSViewController
 
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) IBOutlet GKSSceneController* sceneController;
 
 @property (strong) NSMutableArray *toScenes;
-
+@property (strong) GKSStoryBoardRep* itsStoryBoard;
 
 @end
 

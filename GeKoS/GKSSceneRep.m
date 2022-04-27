@@ -97,12 +97,6 @@
     [bindingsCompliantArray removeLastObject];
 }
 
-- (NSNumber *)sceneID
-{
-    NSNumber *theId = [NSNumber numberWithInt:self.gSceneID];
-    return theId;
-}
-
 - (GKSlimits_3 *)worldVolumeLimits
 {
     volume.xmin = self.worldVolumeMinX.doubleValue;

@@ -29,7 +29,7 @@
 @property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
 
-@property (assign) GKSint currentVantage;
+@property (assign) GKSint currentVantagePoint;
 @property (strong) NSMutableArray *vantagePoints;
 
 
@@ -67,7 +67,7 @@ static void *worldDataContext = &worldDataContext;
     [self.sceneController setWorldVolumeG];
 
     // Set all vantage points to the same default values
-    self.currentVantage = 0;
+    self.currentVantagePoint = 0;
     self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
     for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
         NSDictionary *vantageProperties = [self gatherVantage];
@@ -120,6 +120,7 @@ static void *worldDataContext = &worldDataContext;
 
     self.cameraViewController.representedObject = content.camera;
     self.drawingViewController.representedObject = [storyBoard sceneOne];
+    
 
 
     // Load Default Colors for Content View
@@ -147,6 +148,7 @@ static void *worldDataContext = &worldDataContext;
 
     
     self.itsContent = content;
+    self.itsStoryBoard = storyBoard;
 }
 
 - (void)viewDidLayout {
@@ -218,7 +220,7 @@ static void *worldDataContext = &worldDataContext;
 {
     if ([sender isKindOfClass:[NSButton class]]) {
         
-        GKSint currentTag = self.currentVantage;
+        GKSint currentTag = self.currentVantagePoint;
         NSDictionary *currentVantageProperties = [self gatherVantage];
         [self.vantagePoints replaceObjectAtIndex:currentTag withObject:currentVantageProperties];
         
@@ -245,7 +247,7 @@ static void *worldDataContext = &worldDataContext;
         [self.sceneController setWorldVolumeG];
         [self.sceneController transformAllObjects];
         [self.drawingViewController refresh];
-        self.currentVantage = newTag;
+        self.currentVantagePoint = newTag;
     }
 }
 

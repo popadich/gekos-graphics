@@ -24,6 +24,7 @@
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
         GKSStoryBoardRep *storyBoard = [[GKSStoryBoardRep alloc] init];
+        [storyBoard setStoryTitle:@"Untitled Story"];
         [storyBoard.keyScenes addObject:sceneRep];
         
         _camera = cameraRep;
