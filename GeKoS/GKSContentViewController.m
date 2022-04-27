@@ -272,8 +272,8 @@ static void *worldDataContext = &worldDataContext;
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
     [self.sceneController setWorldVolumeG];
-//    [self.sceneController transformAllObjects];
-//    [self.drawingViewController refresh];
+    [self.sceneController transformAllObjects];
+    [self.drawingViewController refresh];
 
 }
 
@@ -363,9 +363,7 @@ static void *worldDataContext = &worldDataContext;
 - (NSDictionary *)gatherVantage
 {
     NSDictionary *vantage = nil;
-    
     GKSCameraRep *camera = self.cameraRep;
-    GKSSceneRep *scene = self.sceneController.scene;
     
     NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
     [collector setValue:camera.upX forKey:@"upX"];

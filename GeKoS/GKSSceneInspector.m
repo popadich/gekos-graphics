@@ -6,6 +6,7 @@
 //
 
 #import "GKSSceneInspector.h"
+#import "GKSSceneRep.h"
 #import "GKSSceneController.h"
 #import "GKSContent.h"
 #import "GKSWindowController.h"
@@ -90,7 +91,8 @@
         GKSint polys = [self countPolygonsInArray:scene.toObject3DReps];
         self.polygonCount = @(polys);
         
-        self.sceneController = sceneController;
+//        self.sceneController = sceneController;
+        self.scene = scene;
 
     }
 }

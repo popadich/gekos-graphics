@@ -157,6 +157,8 @@ void gks_projection_set_perspective(GKScontext3DPtr context, GKSfloat alpha, GKS
     0    1/t⍺ 0   0
     0    0    a  -1 (positive/negative controls left/right coordinate system)
     0    0    b   0
+ 
+    alpha needs to be the aspect ratio of the screen
 */
 void gks_projection_set_alternate(GKScontext3DPtr context, GKSfloat alpha, GKSfloat near, GKSfloat far)
 {

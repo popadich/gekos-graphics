@@ -13,7 +13,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+        <window title="Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="428" height="268"/>
@@ -76,7 +76,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMinX" id="8r6-Bg-JNu"/>
+                                        <binding destination="-2" name="value" keyPath="self.scene.worldVolumeMinX" id="rHT-zG-GiK"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KXA-d0-dCa">
@@ -87,7 +87,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMinY" id="VjT-9W-qKr"/>
+                                        <binding destination="-2" name="value" keyPath="self.scene.worldVolumeMinY" id="LbX-rn-K7X"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xOT-DK-wiT">
@@ -98,7 +98,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMinZ" id="ya8-yf-qtb"/>
+                                        <binding destination="-2" name="value" keyPath="self.scene.worldVolumeMinZ" id="s0M-Xy-8jb"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hdk-NC-AIN">
@@ -109,7 +109,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMaxX" id="Umi-hC-0Oe"/>
+                                        <binding destination="-2" name="value" keyPath="self.scene.worldVolumeMaxX" id="g7V-uy-tYY"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mXG-4B-vit">
@@ -120,7 +120,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMaxY" id="uzG-wo-Fbl"/>
+                                        <binding destination="-2" name="value" keyPath="self.scene.worldVolumeMaxY" id="3qX-YC-QLd"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CAl-gO-zZu">
@@ -131,7 +131,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="self.sceneController.worldVolumeMaxZ" id="nrV-RT-7is"/>
+                                        <binding destination="-2" name="value" keyPath="self.scene.worldVolumeMaxZ" id="oAh-uW-yhU"/>
                                     </connections>
                                 </textField>
                             </subviews>
