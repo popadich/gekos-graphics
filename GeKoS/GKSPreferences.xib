@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="267" y="956" width="480" height="492"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="492"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -80,7 +80,11 @@
                         </constraints>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
-                            <binding destination="-2" name="value" keyPath="self.fillDefaultColor" id="ack-YO-jGs"/>
+                            <binding destination="XI3-BN-hwX" name="value" keyPath="values.fillColor" id="JQB-Ou-c21">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </colorWell>
                     <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="Gz2-Ej-sCh">
@@ -91,7 +95,11 @@
                         </constraints>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
-                            <binding destination="-2" name="value" keyPath="self.lineDefaultColor" id="eDs-S1-F4I"/>
+                            <binding destination="XI3-BN-hwX" name="value" keyPath="values.penColor" id="PnP-Sb-KjI">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </colorWell>
                     <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="Sox-6N-jUB">
@@ -102,7 +110,11 @@
                         </constraints>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
-                            <binding destination="-2" name="value" keyPath="self.backgroundDefaultColor" id="oxD-EV-aYi"/>
+                            <binding destination="XI3-BN-hwX" name="value" keyPath="values.backgroundColor" id="fwK-At-2nM">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </colorWell>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1R3-O6-i6o">
@@ -319,7 +331,7 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DGf-fx-jLg">
-                        <rect key="frame" x="205" y="13" width="70" height="32"/>
+                        <rect key="frame" x="206" y="13" width="69" height="32"/>
                         <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2sT-Z2-JPX">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>

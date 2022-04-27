@@ -95,7 +95,6 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
         GKSContentViewController *cvc = (GKSContentViewController *)windowController.contentViewController;
-        GKSContent *content = windowController.contentViewController.representedObject;
         GKSSceneController *sceneController = cvc.sceneController;
         GKSSceneRep *scene = cvc.sceneController.scene;
         GKSCameraRep *camera = scene.toCamera;
