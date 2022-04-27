@@ -30,7 +30,7 @@
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
 
 @property (assign) GKSint currentVantage;
-@property (strong) NSMutableArray *vantageViews;
+@property (strong) NSMutableArray *vantagePoints;
 
 
 @end
@@ -68,10 +68,10 @@ static void *worldDataContext = &worldDataContext;
 
     // Set all vantage points to the same default values
     self.currentVantage = 0;
-    self.vantageViews = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
+    self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
     for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
         NSDictionary *vantageProperties = [self gatherVantage];
-        [self.vantageViews addObject:vantageProperties];
+        [self.vantagePoints addObject:vantageProperties];
     }
 
     
@@ -220,47 +220,27 @@ static void *worldDataContext = &worldDataContext;
         
         GKSint currentTag = self.currentVantage;
         NSDictionary *currentVantageProperties = [self gatherVantage];
-        [self.vantageViews replaceObjectAtIndex:currentTag withObject:currentVantageProperties];
+        [self.vantagePoints replaceObjectAtIndex:currentTag withObject:currentVantageProperties];
         
         GKSint newTag = (GKSint)[sender tag];
+        NSDictionary *vantage = [self.vantagePoints objectAtIndex:newTag];
         
+        self.cameraRep.yaw = [vantage valueForKey:@"yaw"];
+        self.cameraRep.pitch = [vantage valueForKey:@"pitch"];
+        self.cameraRep.roll = [vantage valueForKey:@"roll"];
         
-        NSDictionary *vantage = [self.vantageViews objectAtIndex:newTag];
+        self.cameraRep.positionX = [vantage valueForKey:@"positionX"];
+        self.cameraRep.positionY = [vantage valueForKey:@"positionY"];
+        self.cameraRep.positionZ = [vantage valueForKey:@"positionZ"];
         
-        NSNumber *yaw = [vantage valueForKey:@"yaw"];
-        NSNumber *pitch = [vantage valueForKey:@"pitch"];
-        NSNumber *roll = [vantage valueForKey:@"roll"];
-
-        NSNumber *positionX = [vantage valueForKey:@"positionX"];
-        NSNumber *positionY = [vantage valueForKey:@"positionY"];
-        NSNumber *positionZ = [vantage valueForKey:@"positionZ"];
-
-        NSNumber *upX = [vantage valueForKey:@"upX"];
-        NSNumber *upY = [vantage valueForKey:@"upY"];
-        NSNumber *upZ = [vantage valueForKey:@"upZ"];
+        self.cameraRep.upX = [vantage valueForKey:@"upX"];
+        self.cameraRep.upY = [vantage valueForKey:@"upY"];
+        self.cameraRep.upZ = [vantage valueForKey:@"upZ"];
         
-        NSNumber *focalLength = [vantage valueForKey:@"focalLength"];
-        NSNumber *near = [vantage valueForKey:@"near"];
-        NSNumber *far = [vantage valueForKey:@"far"];
-        
-        NSNumber *projectionType = [vantage valueForKey:@"projectionType"];
-
-        self.cameraRep.yaw = yaw;
-        self.cameraRep.pitch = pitch;
-        self.cameraRep.roll = roll;
-        
-        self.cameraRep.positionX = positionX;
-        self.cameraRep.positionY = positionY;
-        self.cameraRep.positionZ = positionZ;
-        
-        self.cameraRep.upX = upX;
-        self.cameraRep.upY = upY;
-        self.cameraRep.upZ = upZ;
-        
-        self.cameraRep.focalLength = focalLength;
-        self.cameraRep.near = near;
-        self.cameraRep.far = far;
-        self.cameraRep.projectionType = projectionType;
+        self.cameraRep.focalLength = [vantage valueForKey:@"focalLength"];
+        self.cameraRep.near = [vantage valueForKey:@"near"];
+        self.cameraRep.far = [vantage valueForKey:@"far"];
+        self.cameraRep.projectionType = [vantage valueForKey:@"projectionType"];
         
         [self.sceneController setWorldVolumeG];
         [self.sceneController transformAllObjects];
