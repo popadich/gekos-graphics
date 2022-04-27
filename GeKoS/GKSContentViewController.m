@@ -26,7 +26,6 @@
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
 
-@property (nonatomic, strong) GKSCameraRep* cameraRep;
 @property (nonatomic, strong) GKS3DObjectRep* object3DRep;
 
 @property (assign) GKSint currentVantagePoint;
@@ -113,13 +112,12 @@ static void *worldDataContext = &worldDataContext;
     self.toScenes = keyScenes;
     [self didChangeValueForKey:@"toScenes"];
 
-    self.cameraRep = content.camera;
-
+ 
     // set the scene controller's scene, part of an initializer maybe?
-    self.sceneController.scene = [storyBoard sceneOne];
-
-    self.cameraViewController.representedObject = content.camera;
-    self.drawingViewController.representedObject = [storyBoard sceneOne];
+    GKSSceneRep *sceneOne = [storyBoard sceneOne];
+    self.sceneController.scene = sceneOne;
+    self.cameraViewController.representedObject = sceneOne.toCamera;
+    self.drawingViewController.representedObject = sceneOne;
     
 
 
@@ -227,22 +225,25 @@ static void *worldDataContext = &worldDataContext;
         GKSint newTag = (GKSint)[sender tag];
         NSDictionary *vantage = [self.vantagePoints objectAtIndex:newTag];
         
-        self.cameraRep.yaw = [vantage valueForKey:@"yaw"];
-        self.cameraRep.pitch = [vantage valueForKey:@"pitch"];
-        self.cameraRep.roll = [vantage valueForKey:@"roll"];
+        GKSSceneRep *scene = self.sceneController.scene;
+        GKSCameraRep *camera = scene.toCamera;
         
-        self.cameraRep.positionX = [vantage valueForKey:@"positionX"];
-        self.cameraRep.positionY = [vantage valueForKey:@"positionY"];
-        self.cameraRep.positionZ = [vantage valueForKey:@"positionZ"];
+        camera.yaw = [vantage valueForKey:@"yaw"];
+        camera.pitch = [vantage valueForKey:@"pitch"];
+        camera.roll = [vantage valueForKey:@"roll"];
         
-        self.cameraRep.upX = [vantage valueForKey:@"upX"];
-        self.cameraRep.upY = [vantage valueForKey:@"upY"];
-        self.cameraRep.upZ = [vantage valueForKey:@"upZ"];
+        camera.positionX = [vantage valueForKey:@"positionX"];
+        camera.positionY = [vantage valueForKey:@"positionY"];
+        camera.positionZ = [vantage valueForKey:@"positionZ"];
         
-        self.cameraRep.focalLength = [vantage valueForKey:@"focalLength"];
-        self.cameraRep.near = [vantage valueForKey:@"near"];
-        self.cameraRep.far = [vantage valueForKey:@"far"];
-        self.cameraRep.projectionType = [vantage valueForKey:@"projectionType"];
+        camera.upX = [vantage valueForKey:@"upX"];
+        camera.upY = [vantage valueForKey:@"upY"];
+        camera.upZ = [vantage valueForKey:@"upZ"];
+        
+        camera.focalLength = [vantage valueForKey:@"focalLength"];
+        camera.near = [vantage valueForKey:@"near"];
+        camera.far = [vantage valueForKey:@"far"];
+        camera.projectionType = [vantage valueForKey:@"projectionType"];
         
         [self.sceneController setWorldVolumeG];
         [self.sceneController transformAllObjects];
@@ -345,7 +346,8 @@ static void *worldDataContext = &worldDataContext;
 - (NSDictionary *)gatherVantage
 {
     NSDictionary *vantage = nil;
-    GKSCameraRep *camera = self.cameraRep;
+    GKSSceneRep *scene = self.sceneController.scene;
+    GKSCameraRep *camera = scene.toCamera;
     
     NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
     [collector setValue:camera.upX forKey:@"upX"];

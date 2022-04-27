@@ -12,20 +12,22 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class GKS3DObjectRep;
+@class GKSCameraRep;
 
 @interface GKSSceneRep : NSObject
 
 @property (assign) GKScontext3DPtr context;
-@property (nonatomic, strong) NSMutableArray* toObject3DReps;
+@property (strong) GKSCameraRep *toCamera;
+@property (strong) NSMutableArray* toObject3DReps;
 
 @property (strong) NSString *title;
 
-@property (nonatomic,strong) NSNumber* worldVolumeMinX;
-@property (nonatomic,strong) NSNumber* worldVolumeMinY;
-@property (nonatomic,strong) NSNumber* worldVolumeMinZ;
-@property (nonatomic,strong) NSNumber* worldVolumeMaxX;
-@property (nonatomic,strong) NSNumber* worldVolumeMaxY;
-@property (nonatomic,strong) NSNumber* worldVolumeMaxZ;
+@property (strong) NSNumber* worldVolumeMinX;
+@property (strong) NSNumber* worldVolumeMinY;
+@property (strong) NSNumber* worldVolumeMinZ;
+@property (strong) NSNumber* worldVolumeMaxX;
+@property (strong) NSNumber* worldVolumeMaxY;
+@property (strong) NSNumber* worldVolumeMaxZ;
 
 // TODO: verify this is used
 @property (nonatomic,strong) NSColor* worldBackColor;

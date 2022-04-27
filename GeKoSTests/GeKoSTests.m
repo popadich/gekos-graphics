@@ -97,7 +97,8 @@
         GKSContentViewController *cvc = (GKSContentViewController *)windowController.contentViewController;
         GKSContent *content = windowController.contentViewController.representedObject;
         GKSSceneController *sceneController = cvc.sceneController;
-        GKSCameraRep *camera = content.camera;
+        GKSSceneRep *scene = cvc.sceneController.scene;
+        GKSCameraRep *camera = scene.toCamera;
         
         for (int j=0; j<20; j++) {
             for (int i=-20; i<21; i++) {
