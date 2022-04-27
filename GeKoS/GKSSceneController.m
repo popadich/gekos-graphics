@@ -20,42 +20,6 @@
 
 @implementation GKSSceneController
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        
-        NSError* error;
-        NSColor* aColor;
-        
-        NSData* theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
-        if (theData != nil){
-            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
-            if (error.code == noErr) {
-                self.worldBackColor = aColor;
-            }
-        }
-        theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
-        if (theData != nil){
-            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
-            if (error.code == noErr) {
-                self.worldLineColor = aColor;
-            }
-        };
-        theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
-        if (theData != nil) {
-            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
-            if (error.code == noErr) {
-                self.worldFillColor = aColor;
-            }
-        }
-        
-    }
-
-    return self;
-}
-
-
 
 - (void)setFrustumCulling:(BOOL)flag
 {
@@ -104,17 +68,10 @@
 {
     GKSSceneRep *scene = self.scene;
     GKScontext3DPtr ctx = scene.context;
-
     
-    // very esoteric calls here, make this simpler
     NSAssert(ctx != NULL, @"Scene context not set");
-    
-
     if (ctx != NULL) {
         GKSlimits_3 *volume = [scene worldVolumeLimits];
-        NSLog(@"get scene bolume %lf, %lf, %lf, %lf, %lf, %lf", volume->xmin, volume->xmax,
-              volume->ymin, volume->ymax,
-              volume->zmin, volume->zmax);
         gks_norms_set_world_volume(ctx, volume);
     }
     

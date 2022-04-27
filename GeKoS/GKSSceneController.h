@@ -18,10 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSSceneRep *scene;
 
-// TODO: verify this is used
-@property (nonatomic,strong) NSColor* worldBackColor;
-@property (nonatomic,strong) NSColor* worldLineColor;
-@property (nonatomic,strong) NSColor* worldFillColor;
+
 
 
 - (void)setFrustumCulling:(BOOL)flag;

@@ -37,6 +37,33 @@
         _worldVolumeMaxY = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY];
         _worldVolumeMinZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ];
         _worldVolumeMaxZ = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ];
+    
+    
+        NSError* error;
+        NSColor* aColor;
+        
+        NSData* theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
+        if (theData != nil){
+            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+            if (error.code == noErr) {
+                self.worldBackColor = aColor;
+            }
+        }
+        theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
+        if (theData != nil){
+            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+            if (error.code == noErr) {
+                self.worldLineColor = aColor;
+            }
+        };
+        theData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
+        if (theData != nil) {
+            aColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:theData error:&error];
+            if (error.code == noErr) {
+                self.worldFillColor = aColor;
+            }
+        }
+        
     }
     return self;
 }

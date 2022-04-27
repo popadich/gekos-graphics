@@ -5,6 +5,7 @@
 //  Created by Alex Popadich on 4/19/22.
 //
 
+#import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 #include "gks/gks_types.h"
 
@@ -25,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSNumber* worldVolumeMaxX;
 @property (nonatomic,strong) NSNumber* worldVolumeMaxY;
 @property (nonatomic,strong) NSNumber* worldVolumeMaxZ;
+
+// TODO: verify this is used
+@property (nonatomic,strong) NSColor* worldBackColor;
+@property (nonatomic,strong) NSColor* worldLineColor;
+@property (nonatomic,strong) NSColor* worldFillColor;
 
 - (instancetype)initWithContext:(GKScontext3D *)contextPtr;
 - (NSNumber *)sceneID;
