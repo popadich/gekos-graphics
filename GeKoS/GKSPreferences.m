@@ -8,11 +8,6 @@
 #import "GKSPreferences.h"
 #import "GKSConstants.h"
 
-@interface GKSPreferences ()
-
-@property (strong) NSNumber* projectionTypeDefault;
-
-@end
 
 @implementation GKSPreferences
 
@@ -34,9 +29,6 @@
     if (self != nil) {
         _etherealStringPropery = @"Some ethereal string";
         _enableEtherealOptions = NO;
-        
-        _projectionTypeDefault = @(kPerspective);
-        
     }
     return self;
 }
