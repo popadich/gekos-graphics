@@ -39,8 +39,8 @@
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toObjects" inverseEntity="SceneEntity"/>
     </entity>
     <entity name="SceneEntity" representedClassName="SceneEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="sceneID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="sceneType" optional="YES" attributeType="String" defaultValueString="START"/>
+        <attribute name="title" attributeType="String" defaultValueString="Untitled Scene"/>
         <attribute name="volumeMaxX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="volumeMaxY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="volumeMaxZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -52,15 +52,16 @@
         <relationship name="toStoryBoard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoryBoardEntity" inverseName="toScenes" inverseEntity="StoryBoardEntity"/>
     </entity>
     <entity name="StoryBoardEntity" representedClassName="StoryBoardEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="storyDescription" optional="YES" attributeType="String"/>
         <attribute name="storyTitle" attributeType="String" defaultValueString="Untitled Story"/>
         <relationship name="toScenes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toStoryBoard" inverseEntity="SceneEntity"/>
     </entity>
     <elements>
-        <element name="CameraEntity" positionX="-18" positionY="144" width="128" height="284"/>
-        <element name="MeshEntity" positionX="0" positionY="180" width="128" height="59"/>
-        <element name="Object3DEntity" positionX="-36" positionY="63" width="128" height="224"/>
-        <element name="SceneEntity" positionX="-54" positionY="9" width="128" height="194"/>
-        <element name="StoryBoardEntity" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
+        <element name="MeshEntity" positionX="-66.2364501953125" positionY="241.6806793212891" width="128" height="59"/>
+        <element name="Object3DEntity" positionX="-425.70849609375" positionY="130.377197265625" width="128" height="224"/>
+        <element name="SceneEntity" positionX="-194.2896728515625" positionY="-185.5485382080078" width="128" height="208"/>
+        <element name="StoryBoardEntity" positionX="-22.0419921875" positionY="52.19068908691406" width="128" height="103"/>
     </elements>
 </model>

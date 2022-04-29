@@ -37,6 +37,10 @@
     
     // No need to specify nib file if it has the same name as the class
     GKSContentViewController *contentController = [[GKSContentViewController alloc] init];
+
+    // TODO: move this to content object
+    NSManagedObjectContext *cont = self.managedObjectContext;
+    self.content.managedObjectContext = cont;
     contentController.representedObject = self.content;
     windowController.contentViewController = contentController;
 }
@@ -85,6 +89,8 @@
 //    return  mesh;
 //}
 
+// TODO: enable when done with core data setup
+/*
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError *__autoreleasing  _Nullable *)error
 {
     BOOL hasRead = NO;
@@ -131,5 +137,6 @@
     return hasRead;
 
 }
+ */
 
 @end

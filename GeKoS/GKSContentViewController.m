@@ -15,6 +15,7 @@
 #import "GKSSceneController.h"
 #import "GKSMeshParser.h"
 
+
 #define GKS_MAX_VANTAGE_PTS 6
 
 @interface GKSContentViewController ()
@@ -104,6 +105,10 @@ static void *worldDataContext = &worldDataContext;
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
     GKSStoryBoardRep *storyBoard = content.storyBoard;
+    
+    
+    self.contentStories  = [[NSMutableSet alloc] init];
+    self.context = content.managedObjectContext;
 
     
     // set scenes array to the story board scenes array
@@ -197,7 +202,6 @@ static void *worldDataContext = &worldDataContext;
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
-
 
 // Add a 3d object to the scene/world
 - (void)addObjectRepToScene:(GKS3DObjectRep *)objRep

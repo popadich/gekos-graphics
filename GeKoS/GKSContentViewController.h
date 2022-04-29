@@ -23,8 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
 @property (strong) IBOutlet GKSSceneController* sceneController;
 
+@property (strong) NSManagedObjectContext *context;
+
 @property (strong) NSMutableArray *toScenes;
 @property (strong) GKSStoryBoardRep* itsStoryBoard;
+
+@property (strong) NSMutableSet *contentStories;
 
 @end
 
