@@ -92,7 +92,7 @@
                     GKSfloat locZ = -2.0 * i;
                     
                     ActorEntity *actor = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
-                    actor.objectKind = kCubeKind;
+                    actor.kind = kCubeKind;
                     actor.positionX = locX;
                     actor.positionY = locY;
                     actor.positionZ = locZ;
