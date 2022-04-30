@@ -11,6 +11,7 @@
 #import "GKSWindowController.h"
 #import "GKSContentViewController.h"
 #import "GKSMeshParser.h"
+#import "Document+CoreDataModel.h"
 
 @interface GKSDocument ()
 
@@ -18,6 +19,8 @@
 
 @implementation GKSDocument
 
+
+// TODO: make this the designated init
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -26,6 +29,43 @@
     }
     return self;
 }
+
+
+
+- (instancetype)initWithType:(NSString *)typeName error:(NSError *__autoreleasing  _Nullable *)outError
+{
+    self = [super init];
+    if (self) {
+        // Add your subclass-specific initialization here.
+        if ([typeName isEqual:@"com.xephyr.gekos"]) {
+            NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+            StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:managedObjectContext];
+
+            story.storyTitle = @"Gekos";
+            story.storyDescription = @"A geko's story";
+
+            NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
+
+            SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:managedObjectContext];
+            scene.title = @"Scene 1";
+            scene.toStoryBoard = story;
+            [toScenes addObject:scene];
+            
+            
+            [managedObjectContext processPendingChanges];
+            [[managedObjectContext undoManager] removeAllActions];
+            [self updateChangeCount:NSChangeCleared];
+            
+            
+            _storyBoard = story;
+            _content = [[GKSContent alloc] init];
+        }
+
+    }
+    return self;
+}
+
+
 
 + (BOOL)autosavesInPlace {
     return YES;
