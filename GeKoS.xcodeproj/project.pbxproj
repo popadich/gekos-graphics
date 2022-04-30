@@ -26,6 +26,7 @@
 		FA43CAF32812F766005A0AB1 /* gks_3d_actor.c in Sources */ = {isa = PBXBuildFile; fileRef = FA43CAF22812F766005A0AB1 /* gks_3d_actor.c */; };
 		FA53417027C82C6800015433 /* GKSDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA53416F27C82C6800015433 /* GKSDrawingView.m */; };
 		FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */ = {isa = PBXBuildFile; fileRef = FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */; };
+		FA658891281CC47E008CDF60 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA658890281CC47E008CDF60 /* Defaults.plist */; };
 		FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E47280F3345009C1047 /* GKSSceneRep.m */; };
 		FA697E4B280F776E009C1047 /* GKSMeshRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4A280F776E009C1047 /* GKSMeshRep.m */; };
 		FA697E4E28104C45009C1047 /* GKSMeshMonger.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4D28104C45009C1047 /* GKSMeshMonger.m */; };
@@ -107,6 +108,7 @@
 		FA53416F27C82C6800015433 /* GKSDrawingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSDrawingView.m; sourceTree = "<group>"; };
 		FA58B8A3275F0EF000BFFB11 /* gks_3d_projection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gks_3d_projection.h; sourceTree = "<group>"; };
 		FA58B8A4275F0EF000BFFB11 /* gks_3d_projection.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gks_3d_projection.c; sourceTree = "<group>"; };
+		FA658890281CC47E008CDF60 /* Defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		FA697E46280F3345009C1047 /* GKSSceneRep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSSceneRep.h; sourceTree = "<group>"; };
 		FA697E47280F3345009C1047 /* GKSSceneRep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSSceneRep.m; sourceTree = "<group>"; };
 		FA697E49280F776E009C1047 /* GKSMeshRep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSMeshRep.h; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				FAA02D512756D6F600A0C454 /* Assets.xcassets */,
 				FAA02D532756D6F600A0C454 /* MainMenu.xib */,
 				FAA02D562756D6F600A0C454 /* Info.plist */,
+				FA658890281CC47E008CDF60 /* Defaults.plist */,
 				FAA02D572756D6F600A0C454 /* main.m */,
 				FAA02D592756D6F600A0C454 /* GeKoS.entitlements */,
 				FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */,
@@ -419,6 +422,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA658891281CC47E008CDF60 /* Defaults.plist in Resources */,
 				FAA02D522756D6F600A0C454 /* Assets.xcassets in Resources */,
 				FA9EE7C227E24E1A005A4150 /* GKSSceneInspector.xib in Resources */,
 				FAA02D4D2756D6E800A0C454 /* GKSDocument.xib in Resources */,

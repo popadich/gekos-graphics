@@ -17,11 +17,11 @@
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toActors" inverseEntity="SceneEntity"/>
     </entity>
     <entity name="CameraEntity" representedClassName="CameraEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="dirX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="dirY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="dirZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="far" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="focalLength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lookX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lookY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lookZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="near" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="pitch" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="positionX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -38,6 +38,7 @@
     <entity name="MeshEntity" representedClassName="MeshEntity" syncable="YES" codeGenerationType="class">
         <attribute name="meshData" optional="YES" attributeType="Binary"/>
         <attribute name="meshID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="meshName" optional="YES" attributeType="String"/>
     </entity>
     <entity name="SceneEntity" representedClassName="SceneEntity" syncable="YES" codeGenerationType="class">
         <attribute name="sceneType" optional="YES" attributeType="String" defaultValueString="START"/>
@@ -59,9 +60,9 @@
         <relationship name="toScenes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toStoryBoard" inverseEntity="SceneEntity"/>
     </entity>
     <elements>
-        <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
-        <element name="MeshEntity" positionX="-66.2364501953125" positionY="241.6806793212891" width="128" height="59"/>
         <element name="ActorEntity" positionX="-425.70849609375" positionY="130.377197265625" width="128" height="239"/>
+        <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
+        <element name="MeshEntity" positionX="-66.2364501953125" positionY="241.6806793212891" width="128" height="74"/>
         <element name="SceneEntity" positionX="-194.2896728515625" positionY="-185.5485382080078" width="128" height="194"/>
         <element name="StoryBoardEntity" positionX="-22.0419921875" positionY="52.19068908691406" width="128" height="103"/>
     </elements>

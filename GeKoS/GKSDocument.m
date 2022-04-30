@@ -38,22 +38,78 @@
     if (self) {
         // Add your subclass-specific initialization here.
         if ([typeName isEqual:@"com.xephyr.gekos"]) {
-            NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-            StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:managedObjectContext];
+            NSManagedObjectContext *moc = [self managedObjectContext];
+            
+            NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
+            
+            StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
 
             story.storyTitle = @"Gekos";
             story.storyDescription = @"A geko's story";
 
             NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
 
-            SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:managedObjectContext];
+            SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
             scene.title = @"Scene 1";
             scene.toStoryBoard = story;
             [toScenes addObject:scene];
             
+            NSDictionary *cameraSettings = [defaults valueForKey:@"camera"];
+            CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
             
-            [managedObjectContext processPendingChanges];
-            [[managedObjectContext undoManager] removeAllActions];
+            camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
+            camera.positionY = [[cameraSettings valueForKey:@"posY"] doubleValue];
+            camera.positionZ = [[cameraSettings valueForKey:@"posZ"] doubleValue];
+            
+            camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
+            camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
+            camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
+
+            camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
+            camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
+            camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
+
+            camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
+            camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
+            camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
+
+            camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
+            camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
+            camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
+
+            camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
+
+            scene.toCamera = camera;
+            
+            // TODO: remove when done with playing
+            BOOL playing = YES;
+            if (playing) {
+                NSMutableSet *actors = [[NSMutableSet alloc] init];
+                GKSfloat rad = 0.0;
+                for (int i=1; i<8; i++) {
+                    GKSfloat locX = 0.0;
+                    GKSfloat locY = i%2;
+                    GKSfloat locZ = -2.0 * i;
+                    
+                    ActorEntity *actor = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
+                    actor.objectKind = kCubeKind;
+                    actor.positionX = locX;
+                    actor.positionY = locY;
+                    actor.positionZ = locZ;
+                    actor.scaleX = 1.0;
+                    actor.scaleY = 1.0;
+                    actor.scaleZ = 1.0;
+                    actor.name = [NSString stringWithFormat:@"Cubey %d", i];
+
+                    [actors addObject:actor];
+
+                    rad += 35;
+                }
+                scene.toActors = actors;
+            }
+            
+            [moc processPendingChanges];
+            [[moc undoManager] removeAllActions];
             [self updateChangeCount:NSChangeCleared];
             
             

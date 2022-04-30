@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>cameraDefaults</key>
+	<dict>
+		<key>posX</key>
+		<integer>3</integer>
+		<key>posY</key>
+		<integer>3</integer>
+		<key>posZ</key>
+		<integer>4</integer>
+		<key>lookX</key>
+		<integer>3</integer>
+		<key>lookY</key>
+		<integer>3</integer>
+		<key>lookZ</key>
+		<integer>0</integer>
+		<key>upX</key>
+		<integer>0</integer>
+		<key>upY</key>
+		<integer>1</integer>
+		<key>upZ</key>
+		<integer>0</integer>
+		<key>yaw</key>
+		<integer>0</integer>
+		<key>pitch</key>
+		<integer>0</integer>
+		<key>roll</key>
+		<integer>0</integer>
+		<key>projectionType</key>
+		<integer>3</integer>
+		<key>focalLength</key>
+		<integer>1</integer>
+		<key>near</key>
+		<real>0.1</real>
+		<key>far</key>
+		<integer>100</integer>
+	</dict>
+</dict>
+</plist>
