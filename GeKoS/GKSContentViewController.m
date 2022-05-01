@@ -21,6 +21,7 @@
 @interface GKSContentViewController ()
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
+@property (weak) IBOutlet NSArrayController *objectArrayController;
 
 @property (strong) GKSContent *itsContent;
 
@@ -276,7 +277,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performDeleteQuick:(id)sender {
     
-    [self.sceneController deleteLastObject];
+    [self.objectArrayController remove:sender];
     [self.drawingViewController refresh];
 
 }
