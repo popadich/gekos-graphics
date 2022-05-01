@@ -12,6 +12,7 @@
 #import "GKSWindowController.h"
 #import "GKSContentViewController.h"
 #import "GKSContent.h"
+#import "GKSCameraRep.h"
 
 
 @interface GeKoSTests : XCTestCase
