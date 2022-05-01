@@ -85,13 +85,17 @@ static void *worldDataContext = &worldDataContext;
         setMeshCenteredFlag(self.isCenteredObject.boolValue);
         GKSfloat rad = 0.0;
         for (int i=1; i<8; i++) {
-            GKS3DObjectRep *object3DRep = [[GKS3DObjectRep alloc] init];
-            [object3DRep locateX:0.0 Y:i%2 Z: -2.0 * i];
+            GKSvector3d pos = GKSMakeVector(0.0, 0.0,  -2.5 * i);
+            GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
+            GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+            GKS3DObjectRep *object3DRep = [[GKS3DObjectRep alloc] initWithKind:kPyramidKind atLocation:pos withRotation:rot andScale:sca];
+//            [object3DRep locateX:0.0 Y:i%2 Z: -2.0 * i];
 //            [object3DRep rotateX:0.0 Y:rad Z:0.0];
 //            [object3DRep scaleX:(0.5 * i) Y:(0.5 * i) Z:(0.5 * i)];
+            
             [self.sceneController add3DObjectRep:object3DRep];
 
-            rad += 35;
+            rad += 5;
         }
     }
     

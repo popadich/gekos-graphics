@@ -23,7 +23,7 @@
 }
 
 
-- (instancetype)initWithKind:(GKSint)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rotation andScale:(GKSvector3d)scale;
+- (instancetype)initWithKind:(GKSkind)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rotation andScale:(GKSvector3d)scale;
 {
     
     self = [super init];

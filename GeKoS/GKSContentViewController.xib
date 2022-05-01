@@ -57,7 +57,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.scaleZ" id="dqP-Hf-hxo"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.scaleZ" id="rmy-FS-Zcv"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kHM-gj-4IR">
@@ -72,7 +72,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transX" id="4ga-Oi-Gn4"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.transX" id="C9H-yl-jgB"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IV0-tS-yBd">
@@ -87,7 +87,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transY" id="c1D-p7-D3E"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.transY" id="HLc-vv-HGh"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8xZ-4P-ka8">
@@ -102,7 +102,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.scaleY" id="Qrn-f9-Mlw"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.scaleY" id="dxo-VL-G3W"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="no7-G4-4AF">
@@ -117,7 +117,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transZ" id="dzQ-6b-qxl"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.transZ" id="0ga-Jp-wOg"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dX7-S1-00H">
@@ -132,7 +132,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.scaleX" id="veT-s0-skY"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.scaleX" id="ULN-68-gNI"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BuE-m4-Qh8">
@@ -147,7 +147,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.rotX" id="rYr-wK-1bN"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.rotX" id="MvR-jV-9z2"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6KX-5B-LZX">
@@ -162,7 +162,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.rotY" id="5bS-P6-CDu"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.rotY" id="Uiy-AJ-zTD"/>
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoW-79-nwa">
@@ -217,7 +217,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.rotZ" id="v6s-Kb-XZu"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.rotZ" id="M0j-ZA-krN"/>
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qoX-Va-7vz">
@@ -276,7 +276,7 @@
                                                         </menu>
                                                     </popUpButtonCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="selectedTag" keyPath="selection.objectKind" id="Kvq-kM-bOI"/>
+                                                        <binding destination="MSV-HF-aKR" name="selectedTag" keyPath="selection.actorObject.objectKind" id="zIx-ws-Uyl"/>
                                                     </connections>
                                                 </popUpButton>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TNB-ul-360">
@@ -719,7 +719,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.transZ" id="SB2-Dj-bqn"/>
+                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.actorObject.transZ" id="aOB-f8-a4E"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -769,7 +769,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="FrO-Nl-grR">
                                             <rect key="frame" x="1" y="1" width="69" height="99"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="P51-9p-5jr" viewBased="YES" id="AXG-Xj-398">
                                                     <rect key="frame" x="0.0" y="0.0" width="69" height="71"/>
@@ -791,7 +791,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="7gs-Cp-fWc">
-                                                                    <rect key="frame" x="8" y="0.0" width="52" height="24"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="52" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8h-jy-wzS">
@@ -839,7 +839,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="V4q-jP-tIb">
                                             <rect key="frame" x="1" y="1" width="101" height="99"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="2A9-1V-jkH" viewBased="YES" id="SUZ-cS-6th">
                                                     <rect key="frame" x="0.0" y="0.0" width="101" height="71"/>
@@ -861,7 +861,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="7nF-UP-7cg">
-                                                                    <rect key="frame" x="8" y="0.0" width="84" height="24"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="84" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="460-Pr-GpM">
@@ -931,7 +931,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="VaA-R7-h3c">
                                             <rect key="frame" x="1" y="1" width="315" height="133"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="nVG-60-xmF" viewBased="YES" id="wpd-E1-Vtw">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="105"/>
@@ -953,7 +953,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="php-Bt-zcx">
-                                                                    <rect key="frame" x="8" y="0.0" width="71" height="24"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="71" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRh-OO-kHb">
@@ -988,7 +988,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="hDu-xQ-1Yi">
-                                                                    <rect key="frame" x="96" y="0.0" width="71" height="24"/>
+                                                                    <rect key="frame" x="106" y="0.0" width="71" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVu-TG-Okq">
@@ -1023,7 +1023,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="FNQ-zf-7Fr">
-                                                                    <rect key="frame" x="184" y="0.0" width="86" height="24"/>
+                                                                    <rect key="frame" x="194" y="0.0" width="86" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLn-nv-zTX">

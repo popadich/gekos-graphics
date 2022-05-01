@@ -60,7 +60,7 @@
 //        GKSContent *content = windowController.contentViewController.representedObject;
         GKSSceneController *sceneController = cvc.sceneController;
         for (int j=0; j<20; j++) {
-            for (int i=-20; i<21; i++) {
+            for (int i=-10; i<11; i++) {
                 GKSvector3d location = GKSMakeVector(2.0 * i, i%2, -2.0 * (1 + j));
                 GKSvector3d rotation = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d scale = GKSMakeVector(1.0, 1.0, 1.0);
@@ -71,7 +71,7 @@
             }
         }
         for (int j=0; j<20; j++) {
-            for (int i=-20; i<21; i++) {
+            for (int i=-10; i<11; i++) {
                 [sceneController deleteLastObject];
             }
         }
@@ -100,7 +100,7 @@
         GKSCameraRep *camera = scene.toCamera;
         
         for (int j=0; j<20; j++) {
-            for (int i=-20; i<21; i++) {
+            for (int i=-10; i<11; i++) {
                 GKSvector3d location = GKSMakeVector(2.0 * i, i%2, -2.0 * (1 + j));
                 GKSvector3d rotation = GKSMakeVector(0.0, 0.0, 0.0);
                 GKSvector3d scale = GKSMakeVector(1.0, 1.0, 1.0);
@@ -119,7 +119,7 @@
         [sceneController transformAllObjects];
         
         for (int j=0; j<20; j++) {
-            for (int i=-20; i<21; i++) {
+            for (int i=-10; i<11; i++) {
                 [sceneController deleteLastObject];
             }
         }

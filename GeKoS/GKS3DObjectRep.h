@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-- (instancetype)initWithKind:(GKSint)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rot andScale:(GKSvector3d)scale;
+- (instancetype)initWithKind:(GKSkind)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rot andScale:(GKSvector3d)scale;
 
 
 - (GKSvector3d)positionVector;

@@ -14,6 +14,7 @@
 }
 
 @property (nonatomic, strong) NSNumber* objectID;
+@property (nonatomic, strong) NSNumber* objectKind;
 @property (nonatomic, strong) NSNumber* hidden;
 @property (nonatomic, strong) NSNumber* priority;
 
@@ -40,17 +41,19 @@
     GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
-    return ( [self initWithMesh:mesh atLocation:loc withRotation:rot andScale:sca] );
+    return ( [self initWithMesh:mesh ofKind:@(kCubeKind) atLocation:loc withRotation:rot andScale:sca] );
 }
 
 
-- (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rotation andScale:(GKSvector3d)scale;
+- (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh ofKind:(NSNumber *)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rotation andScale:(GKSvector3d)scale;
 {
     
     self = [super init];
     if (self) {
         
         [self zeroLocation];
+        
+        _objectKind = kind;
         
         _transX = [NSNumber numberWithDouble:location.crd.x];
         _transY = [NSNumber numberWithDouble:location.crd.y];
@@ -93,6 +96,7 @@
 {
     _hidden = [NSNumber numberWithBool:NO];
     _objectID = @0;
+    _objectKind = @0;
     _priority = @0;
     
     _transX = [NSNumber numberWithDouble:0.0];

@@ -75,7 +75,7 @@
     GKSvector3d rot = [object3DRep rotationVector];
     GKSvector3d sca = [object3DRep scaleVector];
 
-    GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:aMesh atLocation:loc withRotation:rot andScale:sca];
+    GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:aMesh ofKind:[object3DRep objectKind] atLocation:loc withRotation:rot andScale:sca];
 
     newActor.lineColor = object3DRep.lineColor;
     newActor.fillColor = object3DRep.fillColor;
