@@ -8,9 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "GKS3DActor.h"
 #import "GKS3DObjectRep.h"
-#import "GKSCameraRep.h"
 #import "GKSSceneRep.h"
-#import "GKSMeshMonger.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,6 +9,7 @@
 #import "GKSConstants.h"
 #import "GKS3DObjectRep.h"
 #import "GKS3DActor.h"
+#import "GKSMeshMonger.h"
 
 
 @interface GKSSceneRep() {
@@ -68,14 +69,21 @@
     return self;
 }
 
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep withMesh:(GKSmesh_3 *)aMesh
+- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
     
     GKSvector3d loc = [object3DRep positionVector];
     GKSvector3d rot = [object3DRep rotationVector];
     GKSvector3d sca = [object3DRep scaleVector];
+    
+    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+    
+    GKSMeshRep *theMeshRep = [monger getMeshRep:object3DRep.objectKind];
+    GKSmesh_3 *the_mesh = theMeshRep.meshPtr;
 
-    GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:aMesh ofKind:[object3DRep objectKind] atLocation:loc withRotation:rot andScale:sca];
+    NSAssert(the_mesh != NULL, @"Mesh pointer is missing");
+    
+    GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:object3DRep.objectKind atLocation:loc withRotation:rot andScale:sca];
 
     newActor.lineColor = object3DRep.lineColor;
     newActor.fillColor = object3DRep.fillColor;

@@ -35,15 +35,7 @@
 
     NSAssert(ctx != NULL, @"Scene context not set");
     if (ctx != NULL) {
-        
-        GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-        
-        GKSMeshRep *theMeshRep = [monger getMeshRep:object3DRep.objectKind];
-        GKSmesh_3 *theMesh = theMeshRep.meshPtr;
-        
-        if (theMesh != NULL) {
-            [scene add3DObjectRep:object3DRep withMesh:theMesh];
-      }
+        [scene add3DObjectRep:object3DRep];
     }
 }
 

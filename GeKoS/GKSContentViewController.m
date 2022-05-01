@@ -9,7 +9,7 @@
 #import "GKSConstants.h"
 #import "GKSContent.h"
 #import "GKSCameraRep.h"
-
+#import "GKSMeshMonger.h"
 #import "GKS3DObjectRep.h"
 #import "GKS3DActor.h"
 #import "GKSSceneController.h"

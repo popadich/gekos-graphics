@@ -67,7 +67,7 @@
         _scaleY = [NSNumber numberWithDouble:scale.crd.y];
         _scaleZ = [NSNumber numberWithDouble:scale.crd.z];
         
-        the_actor.kind = 0;       // not needed
+        the_actor.kind = kind.intValue;       // not needed
         the_actor.hidden = false;
         the_actor.priority = 0.0;
         the_actor.scale_vector = scale;
@@ -78,6 +78,7 @@
         GKScolor fill_color = {0.0, 1.0, 0.0, 1.0};
         the_actor.line_color = line_color;
         the_actor.fill_color = fill_color;
+        
         
         mesh_ptr = the_mesh;
         dev_coord_ptr = (GKSDCArrPtr)calloc(mesh_ptr->vertnum, sizeof(GKSpoint_2));
