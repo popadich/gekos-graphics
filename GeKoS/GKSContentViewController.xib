@@ -1668,19 +1668,19 @@
         </arrayController>
         <arrayController mode="entity" entityName="StoryBoardEntity" automaticallyPreparesContent="YES" id="9yN-p9-N6p" userLabel="StoryBoards">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.context" id="NYr-of-KdO"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="4IQ-gy-Fz9"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="SceneEntity" id="ziB-ro-WAM" userLabel="Scenes">
             <connections>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="dN7-sd-T6h"/>
                 <binding destination="9yN-p9-N6p" name="contentSet" keyPath="selection.toScenes" id="Qt5-tg-Kkg"/>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.context" id="j9S-8h-Bwa"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="ActorEntity" id="Zea-HR-mJE" userLabel="Actors">
             <connections>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="NGx-Ar-B8U"/>
                 <binding destination="ziB-ro-WAM" name="contentSet" keyPath="selection.toActors" id="8Tk-h6-XsS"/>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.context" id="dMs-zb-AFW"/>
             </connections>
         </arrayController>
     </objects>

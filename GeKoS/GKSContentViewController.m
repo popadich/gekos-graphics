@@ -113,7 +113,7 @@ static void *worldDataContext = &worldDataContext;
     
     
     self.contentStories  = [[NSMutableSet alloc] init];
-    self.context = content.managedObjectContext;
+    self.managedObjectContext = content.managedObjectContext;
 
     
     // set scenes array to the story board scenes array

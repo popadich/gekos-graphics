@@ -17,18 +17,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContentViewController : NSViewController
 
-@property (strong)NSNumber *isCenteredObject;
-
-@property (nonatomic, strong) IBOutlet GKSCameraController* cameraViewController;
-@property (nonatomic, strong) IBOutlet GKSDrawingController* drawingViewController;
+@property (strong) IBOutlet GKSCameraController* cameraViewController;
+@property (strong) IBOutlet GKSDrawingController* drawingViewController;
 @property (strong) IBOutlet GKSSceneController* sceneController;
 
-@property (strong) NSManagedObjectContext *context;
+@property (strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong) NSMutableArray *toScenes;
 @property (strong) GKSStoryBoardRep* itsStoryBoard;
 
 @property (strong) NSMutableSet *contentStories;
+
+@property (strong) NSNumber *isCenteredObject;
 
 @end
 
