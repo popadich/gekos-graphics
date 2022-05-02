@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) NSString *storyTitle;
 @property (strong) NSString *storyDescription;
-@property (strong) NSMutableArray *keyScenes;
+@property (strong) NSMutableArray *toScenes;
 
 -(GKSSceneRep *)sceneOne;
 

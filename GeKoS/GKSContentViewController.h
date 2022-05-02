@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) NSManagedObjectContext *managedObjectContext;
 
-@property (strong) NSMutableArray *toScenes;
 @property (strong) GKSStoryBoardRep* itsStoryBoard;
 
 @property (strong) NSMutableSet *contentStories;

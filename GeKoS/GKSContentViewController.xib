@@ -1676,7 +1676,7 @@
         <arrayController objectClassName="GKSSceneRep" id="sXT-GZ-21n" userLabel="Scene Array Controller">
             <classReference key="objectClass" className="GKSSceneRep"/>
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.toScenes" id="fIM-oA-gBr"/>
+                <binding destination="wUC-JT-nNB" name="contentArray" keyPath="selection.toScenes" id="LUX-Da-6EU"/>
             </connections>
         </arrayController>
         <arrayController objectClassName="GKS3DObjectRep" id="MSV-HF-aKR" userLabel="Object Array Controller">

@@ -27,7 +27,7 @@
         
         GKSStoryBoardRep *storyBoard = [[GKSStoryBoardRep alloc] init];
         [storyBoard setStoryTitle:@"A Gekos Story"];
-        [storyBoard.keyScenes addObject:sceneRep];
+        [storyBoard.toScenes addObject:sceneRep];
         
         _storyBoard = storyBoard;
         
