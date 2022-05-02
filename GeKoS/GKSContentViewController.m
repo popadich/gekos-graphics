@@ -80,6 +80,8 @@ static void *worldDataContext = &worldDataContext;
     [self registerAsObserverForScene];
     
     // TODO: remove when done with playing
+    
+    // attach Actor objects to objectReps
     BOOL playing = YES;
     if (playing) {
         setMeshCenteredFlag(self.isCenteredObject.boolValue);
@@ -90,14 +92,9 @@ static void *worldDataContext = &worldDataContext;
             GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
             
             GKSkind mykind =  i%2 ? kCubeKind : kPyramidKind;
-            GKS3DObjectRep *object3DRep = [[GKS3DObjectRep alloc] initWithKind:mykind atLocation:pos withRotation:rot andScale:sca];
+            GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:mykind atLocation:pos withRotation:rot andScale:sca];
             
-            
-//            [object3DRep locateX:0.0 Y:i%2 Z: -2.0 * i];
-//            [object3DRep rotateX:0.0 Y:rad Z:0.0];
-//            [object3DRep scaleX:(0.5 * i) Y:(0.5 * i) Z:(0.5 * i)];
-            
-            [self.sceneController add3DObjectRep:object3DRep];
+            [self.sceneController add3DObjectRep:objectRep];
 
             rad += 5;
         }
@@ -126,8 +123,6 @@ static void *worldDataContext = &worldDataContext;
     self.sceneController.scene = sceneOne;
     self.cameraViewController.representedObject = sceneOne.toCamera;
     self.drawingViewController.representedObject = sceneOne;
-    
-
 
     // Load Default Colors for Content View
     NSError *error;
@@ -144,14 +139,7 @@ static void *worldDataContext = &worldDataContext;
     BOOL cullFlag = [[NSUserDefaults standardUserDefaults] boolForKey:gksPrefFrustumCullFlag];
     [self.sceneController setFrustumCulling:cullFlag];
     
-    
-    // Instantiate one 3D object representation to act as a data entry buffer;
-    // the data is used to create the actual 3D object added to the 3D world
-    // later.
-    self.object3DRep =  [[GKS3DObjectRep alloc] init];
-    self.object3DRep.lineColor = self.contentLineColor;
-    self.object3DRep.fillColor = self.contentFillColor;
-
+    // TODO: populate object3DRep fun list
     
     self.itsContent = content;
 
@@ -207,13 +195,15 @@ static void *worldDataContext = &worldDataContext;
 }
 
 // Add a 3d object to the scene/world
-- (void)addObjectRepToScene:(GKS3DObjectRep *)objRep
+- (void)addObjectRepToScene
 {
     // use ObjRep to create an Obj3D
     
     // put a copy of the 3d object rep into an array
-    GKS3DObjectRep *repCopy = [objRep copy];
-    [self.sceneController add3DObjectRep:repCopy];
+    GKS3DObjectRep *newObjectRep = [[GKS3DObjectRep alloc] init];
+    newObjectRep.fillColor = self.contentFillColor;
+    newObjectRep.lineColor = self.contentLineColor;
+    [self.sceneController add3DObjectRep:newObjectRep];
     
     [self.drawingViewController refresh];
      
@@ -271,7 +261,7 @@ static void *worldDataContext = &worldDataContext;
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
-    [self addObjectRepToScene:self.object3DRep];
+    [self addObjectRepToScene];
     
     [self.drawingViewController refresh];
 
@@ -380,9 +370,10 @@ static void *worldDataContext = &worldDataContext;
                 GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh_ptr];
                 [monger addMeshRep:meshRep];
                 
-                GKS3DObjectRep *repCopy = [self.object3DRep copy];
-                repCopy.objectKind = meshID;
-                [self.sceneController add3DObjectRep:repCopy];
+                // TODO: this is a cube
+                GKS3DObjectRep *objRep = [[GKS3DObjectRep alloc] init];
+                objRep.objectKind = meshID;
+                [self.sceneController add3DObjectRep:objRep];
                 
                 [self.drawingViewController refresh];
                 

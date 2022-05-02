@@ -247,7 +247,7 @@
                                                     </constraints>
                                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <binding destination="-2" name="value" keyPath="self.object3DRep.lineColor" id="1Qn-4Q-hMq"/>
+                                                        <binding destination="-2" name="value" keyPath="self.contentLineColor" id="NOX-UD-44G"/>
                                                     </connections>
                                                 </colorWell>
                                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bHd-yo-a1f">
