@@ -35,24 +35,26 @@
 }
 
 
-- (GKSint)countVertexesInArray:(NSArray *)objArr
+- (GKSint)totalVerticesInSet:(NSSet *)actorSet
 {
     GKSint vertices = 0;
     
-    for (GKS3DObjectRep *obj in objArr) {
-        GKSint vertex_count = obj.getVertexCount;
+    for (GKS3DActor *act in actorSet) {
+        GKSint vertex_count = act.getVertexCount;
         vertices += vertex_count;
     }
     
     return vertices;
 }
 
-- (GKSint)countPolygonsInArray:(NSArray *)objArr
+
+
+- (GKSint)countPolygonsInSet:(NSSet *)actorSet
 {
     GKSint polygons = 0;
     
-    for (GKS3DObjectRep *obj in objArr) {
-        GKSint pc = obj.getPolygonCount;
+    for (GKS3DActor *act in actorSet) {
+        GKSint pc = act.getPolygonCount;
         polygons += pc;
     }
     
@@ -82,14 +84,13 @@
         GKSSceneController *sceneController = cvc.sceneController;
         GKSSceneRep *scene = sceneController.scene;
         
-        NSMutableArray *toObject3DReps = [scene valueForKey:@"toObject3DReps"];
         NSInteger count = [scene.toActors count];
         self.objectCount = [NSNumber numberWithInteger:count];
         
-        GKSint vertices = [self countVertexesInArray:toObject3DReps];
+        GKSint vertices = [self totalVerticesInSet:scene.toActors];
         self.vertexCount = @(vertices);
         
-        GKSint polys = [self countPolygonsInArray:toObject3DReps];
+        GKSint polys = [self countPolygonsInSet:scene.toActors];
         self.polygonCount = @(polys);
         
         self.scene = scene;

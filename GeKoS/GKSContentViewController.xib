@@ -57,7 +57,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.scaleZ" id="rmy-FS-Zcv"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.scaleZ" id="VBy-VB-WAo"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kHM-gj-4IR">
@@ -72,7 +72,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.transX" id="C9H-yl-jgB"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transX" id="TLG-yL-Yu2"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IV0-tS-yBd">
@@ -87,7 +87,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.transY" id="HLc-vv-HGh"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transY" id="HmY-I1-L0v"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8xZ-4P-ka8">
@@ -102,7 +102,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.scaleY" id="dxo-VL-G3W"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.scaleY" id="o5U-Ky-WRz"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="no7-G4-4AF">
@@ -117,7 +117,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.transZ" id="0ga-Jp-wOg"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transZ" id="IIM-Y3-GU3"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dX7-S1-00H">
@@ -132,7 +132,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.scaleX" id="ULN-68-gNI"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.scaleX" id="PP4-CM-Bi8"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BuE-m4-Qh8">
@@ -147,7 +147,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.rotX" id="MvR-jV-9z2"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.rotX" id="qQn-nS-YAX"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6KX-5B-LZX">
@@ -162,7 +162,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.rotY" id="Uiy-AJ-zTD"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.rotY" id="BXu-7J-Er8"/>
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoW-79-nwa">
@@ -217,7 +217,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.actorObject.rotZ" id="M0j-ZA-krN"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.rotZ" id="4Tq-MS-1jv"/>
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qoX-Va-7vz">
@@ -276,7 +276,7 @@
                                                         </menu>
                                                     </popUpButtonCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="selectedTag" keyPath="selection.actorObject.kind" id="c8s-QW-ZdM"/>
+                                                        <binding destination="MSV-HF-aKR" name="selectedTag" keyPath="selection.objectKind" id="90w-XZ-gVS"/>
                                                     </connections>
                                                 </popUpButton>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TNB-ul-360">
@@ -722,7 +722,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.actorObject.transZ" id="aOB-f8-a4E"/>
+                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.transZ" id="SNu-lQ-tEu"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>

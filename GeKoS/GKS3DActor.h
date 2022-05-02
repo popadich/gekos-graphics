@@ -24,7 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSvector3d)positionVector;
 - (GKSvector3d)rotationVector;
 - (GKSvector3d)scaleVector;
-
+- (void)setScaling:(GKSvector3d)scale;
+- (void)setRotation:(GKSvector3d)rotation;
+- (void)setPosition:(GKSvector3d)location;
 
 - (GKSint)getPolygonCount;
 - (GKSint)getVertexCount;

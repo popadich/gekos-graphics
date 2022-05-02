@@ -18,16 +18,6 @@
 @property (nonatomic, strong) NSNumber* hidden;
 @property (nonatomic, strong) NSNumber* priority;
 
-@property (nonatomic, strong) NSNumber* transX;
-@property (nonatomic, strong) NSNumber* transY;
-@property (nonatomic, strong) NSNumber* transZ;
-@property (nonatomic, strong) NSNumber* rotX;
-@property (nonatomic, strong) NSNumber* rotY;
-@property (nonatomic, strong) NSNumber* rotZ;
-@property (nonatomic, strong) NSNumber* scaleX;
-@property (nonatomic, strong) NSNumber* scaleY;
-@property (nonatomic, strong) NSNumber* scaleZ;
-
 @property (assign) GKSvector3d location_vec;
 @property (assign) GKSvector3d rotation_vec;
 @property (assign) GKSvector3d scale_vec;
@@ -59,18 +49,6 @@
         _kind = kind;
         _priority = @0;
         _actorID = @0;
-
-        _transX = [NSNumber numberWithDouble:location.crd.x];
-        _transY = [NSNumber numberWithDouble:location.crd.y];
-        _transZ = [NSNumber numberWithDouble:location.crd.z];
-
-        _rotX = [NSNumber numberWithDouble:rotation.crd.x];
-        _rotY = [NSNumber numberWithDouble:rotation.crd.y];
-        _rotZ = [NSNumber numberWithDouble:rotation.crd.z];
-        
-        _scaleX = [NSNumber numberWithDouble:scale.crd.x];
-        _scaleY = [NSNumber numberWithDouble:scale.crd.y];
-        _scaleZ = [NSNumber numberWithDouble:scale.crd.z];
         
         // TODO: better defaults
         _lineColor = [NSColor greenColor];
@@ -106,25 +84,40 @@
 }
 
 
+- (void)setPosition:(GKSvector3d)location
+{
+    self.location_vec = location;
+}
+
+- (void)setRotation:(GKSvector3d)rotation
+{
+    self.rotation_vec = rotation;
+}
+
+- (void)setScaling:(GKSvector3d)scale
+{
+    self.scale_vec = scale;
+}
+
 - (GKSvector3d)positionVector
 {
     GKSvector3d pos;
-    pos = GKSMakeVector([self.transX doubleValue], [self.transY doubleValue], [self.transZ doubleValue]);
+    pos = self.location_vec;
     return pos;
 }
 
 - (GKSvector3d)rotationVector
 {
     GKSvector3d rot;
-    rot = GKSMakeVector([self.rotX doubleValue], [self.rotY doubleValue], [self.rotZ doubleValue]);
+    rot = self.rotation_vec;
     return rot;
 }
 
 - (GKSvector3d)scaleVector
 {
-    GKSvector3d rot;
-    rot = GKSMakeVector([self.scaleX doubleValue], [self.scaleY doubleValue], [self.scaleZ doubleValue]);
-    return rot;
+    GKSvector3d sca;
+    sca = self.scale_vec;
+    return sca;
 }
 
 - (void)setLineColor:(NSColor *)lineColor
