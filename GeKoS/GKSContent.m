@@ -26,7 +26,7 @@
         sceneRep.toCamera = cameraRep;
         
         GKSStoryBoardRep *storyBoard = [[GKSStoryBoardRep alloc] init];
-        [storyBoard setStoryTitle:@"Untitled Story"];
+        [storyBoard setStoryTitle:@"A Gekos Story"];
         [storyBoard.keyScenes addObject:sceneRep];
         
         _storyBoard = storyBoard;

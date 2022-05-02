@@ -361,14 +361,14 @@
                                         <font key="titleFont" metaFont="miniSystem"/>
                                     </box>
                                     <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Rb-OQ-sfv">
-                                        <rect key="frame" x="12" y="194" width="189" height="173"/>
+                                        <rect key="frame" x="12" y="194" width="189" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="JPF-9Z-SmO">
-                                            <rect key="frame" x="1" y="1" width="187" height="171"/>
+                                            <rect key="frame" x="1" y="1" width="187" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="m7V-w9-tf4" viewBased="YES" id="0Ni-tP-a2B">
-                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="143"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="71"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="17" height="0.0"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -750,6 +750,18 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XkI-6v-SNu">
+                                        <rect key="frame" x="15" y="303" width="186" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="This is a Gekos Story" id="zfe-ZP-wez">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="wUC-JT-nNB" name="value" keyPath="selection.storyTitle" id="aig-fU-gcl"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="YBv-mF-T7n" firstAttribute="centerY" secondItem="AjZ-gR-p9g" secondAttribute="centerY" id="1yn-vW-NZp"/>
@@ -1654,6 +1666,13 @@
         </viewController>
         <customObject id="Fm7-nA-xaM" customClass="GKSSceneController"/>
         <userDefaultsController representsSharedInstance="YES" id="HFF-pk-F7y"/>
+        <objectController objectClassName="GKSStoryBoardRep" id="wUC-JT-nNB" userLabel="Story Board Controller">
+            <classReference key="objectClass" className="GKSStoryBoardRep"/>
+            <connections>
+                <binding destination="-2" name="contentObject" keyPath="self.itsStoryBoard" id="yet-qH-EPi"/>
+                <outlet property="content" destination="-2" id="sAP-fh-R8h"/>
+            </connections>
+        </objectController>
         <arrayController objectClassName="GKSSceneRep" id="sXT-GZ-21n" userLabel="Scene Array Controller">
             <classReference key="objectClass" className="GKSSceneRep"/>
             <connections>

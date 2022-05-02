@@ -119,7 +119,10 @@ static void *worldDataContext = &worldDataContext;
     self.contentStories  = [[NSMutableSet alloc] init];
     self.managedObjectContext = content.managedObjectContext;
 
-    
+    [self willChangeValueForKey:@"itsStoryBoard"];
+    self.itsStoryBoard = storyBoard;
+    [self didChangeValueForKey:@"itsStoryBoard"];
+
     // set scenes array to the story board scenes array
     NSMutableArray *keyScenes = storyBoard.keyScenes;
     [self willChangeValueForKey:@"toScenes"];
@@ -160,7 +163,7 @@ static void *worldDataContext = &worldDataContext;
 
     
     self.itsContent = content;
-    self.itsStoryBoard = storyBoard;
+
 }
 
 - (void)viewDidLayout {
