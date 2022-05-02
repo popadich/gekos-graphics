@@ -15,7 +15,7 @@
 @interface GKSSceneRep() {
     GKSlimits_3 volume;
 }
-@property (assign) GKSint gSceneID;
+@property (assign) GKSint gObjectRepID;
 
 @end
 
@@ -27,7 +27,7 @@
     self = [super init];
     if (self) {
         _title = @"Scene One";
-        _gSceneID = 1;
+        _gObjectRepID = 1;
         
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
         _context = contextPtr;
@@ -91,8 +91,8 @@
     [newActor computeActorInContext:self.context];
     
     object3DRep.actorObject = newActor;
-    object3DRep.objectID = @(self.gSceneID);
-    self.gSceneID += 1;
+    object3DRep.objectID = @(self.gObjectRepID);
+    self.gObjectRepID += 1;
     
     NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
     [bindingsCompliantArray addObject:object3DRep];

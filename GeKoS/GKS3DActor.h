@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSint)getPolygonCount;
 - (GKSint)getVertexCount;
 
+- (void)stageUpdateActor;
 - (void)computeActorInContext:(GKScontext3DPtr)context;
 - (void)drawActor;
 

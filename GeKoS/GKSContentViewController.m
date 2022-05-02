@@ -284,6 +284,15 @@ static void *worldDataContext = &worldDataContext;
 
 }
 
+- (IBAction)performUpdateQuick:(id)sender {
+    GKS3DActor *selectedActor = [self.objectArrayController.selection valueForKey:@"actorObject"];
+    
+    [selectedActor stageUpdateActor];
+//    NSLog(@"Update Actor %@", selectedActor);
+    [self.sceneController transformAllObjects];
+    [self.drawingViewController refresh];
+}
+
 
 - (IBAction)performLookQuick:(id)sender {
     

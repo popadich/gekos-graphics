@@ -147,6 +147,15 @@
     _fillColor = fillColor;
 }
 
+- (void)stageUpdateActor
+{
+    the_actor.scale_vector = self.scaleVector;
+    the_actor.rotate_vector = self.rotationVector;
+    the_actor.translate_vector = self.positionVector;
+
+    gks_actor_transform_to_world(&the_actor);
+}
+
 - (void)computeActorInContext:(GKScontext3DPtr)context
 {
     gks_pipeline_object_actor(context, &the_actor);

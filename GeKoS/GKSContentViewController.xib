@@ -305,6 +305,9 @@
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
+                                                    <connections>
+                                                        <action selector="performUpdateQuick:" target="-1" id="Lvu-xq-x5E"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -418,7 +421,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="CSe-bh-maz">
-                                            <rect key="frame" x="1" y="157" width="187" height="15"/>
+                                            <rect key="frame" x="1" y="85" width="187" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="JIP-o2-HLd">
@@ -1692,14 +1695,14 @@
         </arrayController>
         <arrayController mode="entity" entityName="SceneEntity" id="ziB-ro-WAM" userLabel="Scenes">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="dN7-sd-T6h"/>
                 <binding destination="9yN-p9-N6p" name="contentSet" keyPath="selection.toScenes" id="Qt5-tg-Kkg"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="dN7-sd-T6h"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="ActorEntity" id="Zea-HR-mJE" userLabel="Actors">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="NGx-Ar-B8U"/>
                 <binding destination="ziB-ro-WAM" name="contentSet" keyPath="selection.toActors" id="8Tk-h6-XsS"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="NGx-Ar-B8U"/>
             </connections>
         </arrayController>
     </objects>
