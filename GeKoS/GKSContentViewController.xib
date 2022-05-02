@@ -276,7 +276,7 @@
                                                         </menu>
                                                     </popUpButtonCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="selectedTag" keyPath="selection.actorObject.objectKind" id="zIx-ws-Uyl"/>
+                                                        <binding destination="MSV-HF-aKR" name="selectedTag" keyPath="selection.actorObject.kind" id="c8s-QW-ZdM"/>
                                                     </connections>
                                                 </popUpButton>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TNB-ul-360">
@@ -684,7 +684,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="c5c-O5-KLr" name="value" keyPath="objectValue.objectKind" id="2GJ-ky-PdJ"/>
+                                                                                <binding destination="c5c-O5-KLr" name="value" keyPath="objectValue.objectKind" id="Hvk-BK-8ul"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>

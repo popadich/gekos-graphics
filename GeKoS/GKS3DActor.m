@@ -13,8 +13,8 @@
     GKSDCArrPtr dev_coord_ptr;
 }
 
-@property (nonatomic, strong) NSNumber* objectID;
-@property (nonatomic, strong) NSNumber* objectKind;
+@property (nonatomic, strong) NSNumber* actorID;
+@property (nonatomic, strong) NSNumber* kind;
 @property (nonatomic, strong) NSNumber* hidden;
 @property (nonatomic, strong) NSNumber* priority;
 
@@ -27,6 +27,10 @@
 @property (nonatomic, strong) NSNumber* scaleX;
 @property (nonatomic, strong) NSNumber* scaleY;
 @property (nonatomic, strong) NSNumber* scaleZ;
+
+@property (assign) GKSvector3d location_vec;
+@property (assign) GKSvector3d rotation_vec;
+@property (assign) GKSvector3d scale_vec;
 
 @end
 
@@ -50,11 +54,12 @@
     
     self = [super init];
     if (self) {
-        
-        [self zeroLocation];
-        
-        _objectKind = kind;
-        
+                
+        _hidden = [NSNumber numberWithBool:NO];
+        _kind = kind;
+        _priority = @0;
+        _actorID = @0;
+
         _transX = [NSNumber numberWithDouble:location.crd.x];
         _transY = [NSNumber numberWithDouble:location.crd.y];
         _transZ = [NSNumber numberWithDouble:location.crd.z];
@@ -67,7 +72,15 @@
         _scaleY = [NSNumber numberWithDouble:scale.crd.y];
         _scaleZ = [NSNumber numberWithDouble:scale.crd.z];
         
-        the_actor.kind = kind.intValue;       // not needed
+        // TODO: better defaults
+        _lineColor = [NSColor greenColor];
+        _fillColor = [NSColor greenColor];
+        
+        _location_vec = location;
+        _rotation_vec = rotation;
+        _scale_vec = scale;
+        
+        the_actor.kind = kind.intValue;
         the_actor.hidden = false;
         the_actor.priority = 0.0;
         the_actor.scale_vector = scale;
@@ -92,30 +105,6 @@
     return self;
 }
 
-
-- (void)zeroLocation
-{
-    _hidden = [NSNumber numberWithBool:NO];
-    _objectID = @0;
-    _objectKind = @0;
-    _priority = @0;
-    
-    _transX = [NSNumber numberWithDouble:0.0];
-    _transY = [NSNumber numberWithDouble:0.0];
-    _transZ = [NSNumber numberWithDouble:0.0];
-    _scaleX = [NSNumber numberWithDouble:1.0];
-    _scaleY = [NSNumber numberWithDouble:1.0];
-    _scaleZ = [NSNumber numberWithDouble:1.0];
-    _rotX = [NSNumber numberWithDouble:0.0];
-    _rotY = [NSNumber numberWithDouble:0.0];
-    _rotZ = [NSNumber numberWithDouble:0.0];
-    
-    // TODO: better defaults
-    _lineColor = [NSColor greenColor];
-    _fillColor = [NSColor greenColor];
-    mesh_ptr = NULL;
-    dev_coord_ptr = NULL;
-}
 
 - (GKSvector3d)positionVector
 {
