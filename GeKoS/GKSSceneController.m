@@ -51,8 +51,9 @@
     GKSSceneRep *scene = self.scene;
     GKScontext3DPtr ctx = scene.context;
     NSAssert(ctx != NULL, @"Scene context not set");
-    for (GKS3DObjectRep *objRep in scene.toObject3DReps) {
-        [objRep.actorObject computeActorInContext:ctx];
+
+    for (GKS3DActor *actorObject in scene.toActors) {
+        [actorObject computeActorInContext:ctx];
     }
 }
 

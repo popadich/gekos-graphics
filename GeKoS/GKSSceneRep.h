@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) GKScontext3DPtr context;
 @property (strong) GKSCameraRep *toCamera;
 @property (strong) NSMutableArray* toObject3DReps;
+@property (strong) NSMutableArray* toActors;
 
 @property (strong) NSString *title;
 

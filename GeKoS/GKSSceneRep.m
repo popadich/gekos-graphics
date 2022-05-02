@@ -30,6 +30,7 @@
         _gObjectRepID = 1;
         
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
+        _toActors = [[NSMutableArray alloc] initWithCapacity:1024];
         _context = contextPtr;
         
         _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
@@ -96,6 +97,7 @@
     
     NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
     [bindingsCompliantArray addObject:object3DRep];
+    [self.toActors addObject:newActor];
 
 }
 
