@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSint)getVertexCount;
 
 - (void)stageUpdateActor;
+- (void)stageRemoveActor;
 - (void)computeActorInContext:(GKScontext3DPtr)context;
 - (void)drawActor;
 

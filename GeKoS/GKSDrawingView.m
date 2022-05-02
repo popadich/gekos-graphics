@@ -118,10 +118,11 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
     // tracking dot for coordinate settings
     [self redDot];
     
-
-    for (GKS3DObjectRep *objRep in self.scene.toObject3DReps) {
-        [objRep drawActor];
+    // draw the actors
+    for (GKS3DActor *actorObect in self.scene.toActors) {
+        [actorObect drawActor];
     }
+
 }
 
 @end

@@ -82,16 +82,16 @@
         GKSSceneController *sceneController = cvc.sceneController;
         GKSSceneRep *scene = sceneController.scene;
         
-        NSInteger count = [scene.toObject3DReps count];
+        NSMutableArray *toObject3DReps = [scene valueForKey:@"toObject3DReps"];
+        NSInteger count = [scene.toActors count];
         self.objectCount = [NSNumber numberWithInteger:count];
         
-        GKSint vertices = [self countVertexesInArray:scene.toObject3DReps];
+        GKSint vertices = [self countVertexesInArray:toObject3DReps];
         self.vertexCount = @(vertices);
         
-        GKSint polys = [self countPolygonsInArray:scene.toObject3DReps];
+        GKSint polys = [self countPolygonsInArray:toObject3DReps];
         self.polygonCount = @(polys);
         
-//        self.sceneController = sceneController;
         self.scene = scene;
 
     }

@@ -39,6 +39,14 @@
     }
 }
 
+- (void)remove3DObjectRep:(GKS3DObjectRep *)objectRep
+{
+    NSMutableSet *actors = self.scene.toActors;
+    
+    GKS3DActor *actorPull = objectRep.actorObject;
+    [actors removeObject:actorPull];
+}
+
 - (void)deleteLastObject
 {
     GKSSceneRep *scene = self.scene;

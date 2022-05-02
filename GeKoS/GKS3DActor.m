@@ -156,6 +156,12 @@
     gks_actor_transform_to_world(&the_actor);
 }
 
+
+- (void)stageRemoveActor
+{
+    
+}
+
 - (void)computeActorInContext:(GKScontext3DPtr)context
 {
     gks_pipeline_object_actor(context, &the_actor);

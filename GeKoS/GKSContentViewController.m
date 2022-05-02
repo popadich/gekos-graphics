@@ -278,9 +278,21 @@ static void *worldDataContext = &worldDataContext;
 }
 
 - (IBAction)performDeleteQuick:(id)sender {
+
+    NSArray *objects = [self.objectArrayController selectedObjects];
     
-    [self.objectArrayController remove:sender];
-    [self.drawingViewController refresh];
+    NSAssert(objects.count == 1, @"One selection is mandatory");
+    
+    if (objects.count == 1) {
+        GKS3DObjectRep *objectRep = [objects objectAtIndex:0];
+
+        // Pull the actor first
+        [self.sceneController remove3DObjectRep:objectRep];
+        
+        
+        [self.objectArrayController remove:sender];
+        [self.drawingViewController refresh];
+    }
 
 }
 

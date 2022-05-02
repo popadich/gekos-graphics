@@ -16,6 +16,7 @@
     GKSlimits_3 volume;
 }
 @property (assign) GKSint gObjectRepID;
+@property (strong) NSMutableArray* toObject3DReps;
 
 @end
 
@@ -30,7 +31,7 @@
         _gObjectRepID = 1;
         
         _toObject3DReps = [[NSMutableArray alloc] initWithCapacity:1024];
-        _toActors = [[NSMutableArray alloc] initWithCapacity:1024];
+        _toActors = [[NSMutableSet alloc] initWithCapacity:1024];
         _context = contextPtr;
         
         _worldVolumeMinX = [[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX];
