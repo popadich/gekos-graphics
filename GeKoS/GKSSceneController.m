@@ -27,6 +27,15 @@
     scene.context->cull_flag = flag;
 }
 
+- (NSArray *)sceneObjects {
+    NSArray *objects = nil;
+    
+    NSMutableArray *objectArr = [self.scene valueForKey:@"toObject3DReps"];
+    objects = [NSArray arrayWithArray:objectArr];
+    
+    return objects;
+}
+
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
@@ -45,6 +54,10 @@
     
     GKS3DActor *actorPull = objectRep.actorObject;
     [actors removeObject:actorPull];
+}
+
+- (void)stageActorForRep:(GKS3DObjectRep *)objectRep {
+    [self.scene doStageActor:objectRep];
 }
 
 - (void)deleteLastObject

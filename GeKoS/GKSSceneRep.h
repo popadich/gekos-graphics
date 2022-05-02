@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (GKSlimits_3 *)worldVolumeLimits;
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
+- (void)doStageActor:(GKS3DObjectRep * _Nonnull)object3DRep;
 - (void)deleteLast3DObjectRep;
 
 @end

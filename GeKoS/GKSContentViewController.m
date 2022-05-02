@@ -80,23 +80,14 @@ static void *worldDataContext = &worldDataContext;
     [self registerAsObserverForScene];
     
     // TODO: remove when done with playing
-    
     // attach Actor objects to objectReps
+    // delayed adding actors until after the model data is loaded into controllers
     BOOL playing = YES;
     if (playing) {
-        setMeshCenteredFlag(self.isCenteredObject.boolValue);
-        GKSfloat rad = 0.0;
-        for (int i=1; i<8; i++) {
-            GKSvector3d pos = GKSMakeVector(0.0, 0.0,  -2.5 * i);
-            GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
-            GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
-            
-            GKSkind mykind =  i%2 ? kCubeKind : kPyramidKind;
-            GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:mykind atLocation:pos withRotation:rot andScale:sca];
-            
-            [self.sceneController add3DObjectRep:objectRep];
-
-            rad += 5;
+        NSArray *objectReps = [self.sceneController sceneObjects];
+        
+        for (GKS3DObjectRep *objRep in objectReps) {
+            [self.sceneController stageActorForRep:objRep];
         }
     }
     
@@ -139,7 +130,24 @@ static void *worldDataContext = &worldDataContext;
     BOOL cullFlag = [[NSUserDefaults standardUserDefaults] boolForKey:gksPrefFrustumCullFlag];
     [self.sceneController setFrustumCulling:cullFlag];
     
-    // TODO: populate object3DRep fun list
+    // TODO: remove when done with playing
+    BOOL playing = YES;
+    if (playing) {
+        setMeshCenteredFlag(self.isCenteredObject.boolValue);
+        GKSfloat rad = 0.0;
+        for (int i=1; i<8; i++) {
+            GKSvector3d pos = GKSMakeVector(0.0, 0.0,  -2.5 * i);
+            GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
+            GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+            
+            GKSkind mykind =  i%2 ? kCubeKind : kPyramidKind;
+            GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:mykind atLocation:pos withRotation:rot andScale:sca];
+            
+            [self.sceneController add3DObjectRep:objectRep];
+
+            rad += 5;
+        }
+    }
     
     self.itsContent = content;
 

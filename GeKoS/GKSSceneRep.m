@@ -71,9 +71,8 @@
     return self;
 }
 
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
-{
-    
+- (void)doStageActor:(GKS3DObjectRep * _Nonnull)object3DRep {
+
     GKSvector3d loc = [object3DRep positionVector];
     GKSvector3d rot = [object3DRep rotationVector];
     GKSvector3d sca = [object3DRep scaleVector];
@@ -82,23 +81,32 @@
     
     GKSMeshRep *theMeshRep = [monger getMeshRep:object3DRep.objectKind];
     GKSmesh_3 *the_mesh = theMeshRep.meshPtr;
-
+    
     NSAssert(the_mesh != NULL, @"Mesh pointer is missing");
     
     GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:object3DRep.objectKind atLocation:loc withRotation:rot andScale:sca];
-
+    
     newActor.lineColor = object3DRep.lineColor;
     newActor.fillColor = object3DRep.fillColor;
-    
     [newActor computeActorInContext:self.context];
     
     object3DRep.actorObject = newActor;
+    [self.toActors addObject:newActor];
+
+}
+
+- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
+{
+//    BOOL createActors = NO;
+//    if (createActors) {
+//        [self doStageActor:object3DRep];
+//    }
+//    
     object3DRep.objectID = @(self.gObjectRepID);
     self.gObjectRepID += 1;
     
     NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
     [bindingsCompliantArray addObject:object3DRep];
-    [self.toActors addObject:newActor];
 
 }
 
