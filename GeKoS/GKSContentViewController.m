@@ -28,9 +28,7 @@
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
 
-@property (nonatomic, strong) GKS3DObjectRep* object3DRep;
-
-@property (assign) GKSint currentVantagePoint;
+@property (assign) NSInteger currentVPIndex;
 @property (strong) NSMutableArray *vantagePoints;
 
 
@@ -68,7 +66,7 @@ static void *worldDataContext = &worldDataContext;
     [self.sceneController setWorldVolumeG];
 
     // Set all vantage points to the same default values
-    self.currentVantagePoint = 0;
+    self.currentVPIndex = 0;
     self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
     for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
         NSDictionary *vantageProperties = [self gatherVantage];
@@ -228,12 +226,14 @@ static void *worldDataContext = &worldDataContext;
 {
     if ([sender isKindOfClass:[NSButton class]]) {
         
-        GKSint currentTag = self.currentVantagePoint;
+        // store current vantage properties for later
+        NSInteger currentButonTag = self.currentVPIndex;
         NSDictionary *currentVantageProperties = [self gatherVantage];
-        [self.vantagePoints replaceObjectAtIndex:currentTag withObject:currentVantageProperties];
+        [self.vantagePoints replaceObjectAtIndex:currentButonTag withObject:currentVantageProperties];
         
-        GKSint newTag = (GKSint)[sender tag];
-        NSDictionary *vantage = [self.vantagePoints objectAtIndex:newTag];
+        // restore new vantage point properties to application model objects
+        GKSint newButtonTag = (GKSint)[sender tag];
+        NSDictionary *vantage = [self.vantagePoints objectAtIndex:newButtonTag];
         
         GKSSceneRep *scene = self.sceneController.scene;
         GKSCameraRep *camera = scene.toCamera;
@@ -258,7 +258,7 @@ static void *worldDataContext = &worldDataContext;
         [self.sceneController setWorldVolumeG];
         [self.sceneController transformAllObjects];
         [self.drawingViewController refresh];
-        self.currentVantagePoint = newTag;
+        self.currentVPIndex = newButtonTag;
     }
 }
 

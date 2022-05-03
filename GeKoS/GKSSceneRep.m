@@ -102,7 +102,7 @@
 //        [self doStageActor:object3DRep];
 //    }
 //    
-    object3DRep.objectID = @(self.gObjectRepID);
+    object3DRep.objectRepID = @(self.gObjectRepID);
     self.gObjectRepID += 1;
     
     NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];

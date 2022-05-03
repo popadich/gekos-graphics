@@ -58,7 +58,7 @@
 - (void)zeroLocation
 {
     _hidden = [NSNumber numberWithBool:NO];
-    _objectID = @0;
+    _objectRepID = @0;
     _priority = @0;
     
     _transX = [NSNumber numberWithDouble:0.0];
@@ -112,7 +112,7 @@
     another.objectKind = self.objectKind;
     another.hidden = self.hidden;
     another.priority = self.priority;
-    another.objectID = self.objectID;
+    another.objectRepID = self.objectRepID;
     another.transX = self.transX;
     another.transY = self.transY;
     another.transZ = self.transZ;
@@ -147,27 +147,6 @@
     self.transZ = [NSNumber numberWithDouble:locFactorZ];
 }
 
-- (void)drawActor
-{
-    [self.actorObject drawActor];
-}
-
-
-- (GKSint)getPolygonCount
-{
-    GKSint polynum = 0;
-    GKS3DActor *actor = self.actorObject;
-    polynum = actor.getPolygonCount;
-    return polynum;
-}
-
-- (GKSint)getVertexCount
-{
-    GKSint vertnum = 0;
-    GKS3DActor *actor = self.actorObject;
-    vertnum = actor.getVertexCount;
-    return vertnum;
-}
 
 - (NSString *)description
 {

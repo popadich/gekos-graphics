@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKS3DObjectRep : NSObject <NSCopying>
 
-@property (nonatomic, strong) NSNumber* objectID;
+@property (nonatomic, strong) NSNumber* objectRepID;
 @property (nonatomic, strong) NSNumber* hidden;
 @property (nonatomic, strong) NSNumber* priority;
 @property (nonatomic, strong) NSNumber* objectKind;
@@ -31,10 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) id actorObject;
 
-
-
 - (instancetype)initWithKind:(GKSkind)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rot andScale:(GKSvector3d)scale;
-
 
 - (GKSvector3d)positionVector;
 - (GKSvector3d)rotationVector;
@@ -43,12 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scaleX:(CGFloat)scaleFactorX Y:(CGFloat)scaleFactorY Z:(CGFloat)scaleFactorZ;
 - (void)rotateX:(CGFloat)rotFactorX Y:(CGFloat)rotFactorY Z:(CGFloat)rotFactorZ;
 - (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ;
-
-- (GKSint)getPolygonCount;
-- (GKSint)getVertexCount;
-
-- (void)drawActor;
-
 
 @end
 

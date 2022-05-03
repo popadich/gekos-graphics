@@ -652,7 +652,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="wKC-m9-s5p" name="value" keyPath="objectValue.objectID" id="ogN-e6-VPH"/>
+                                                                                <binding destination="wKC-m9-s5p" name="value" keyPath="objectValue.objectRepID" id="4Fd-tH-Eb4"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -722,7 +722,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.transZ" id="SNu-lQ-tEu"/>
+                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.transZ" id="SFP-PD-kFA"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -1659,7 +1659,7 @@
                     </connections>
                 </colorWell>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dx2-vw-2jy">
-                    <rect key="frame" x="928" y="276" width="78" height="25"/>
+                    <rect key="frame" x="46" y="318" width="116" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="lnt-3s-vsQ" id="XCT-9o-XZo">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
