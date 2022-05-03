@@ -77,6 +77,7 @@ static void *worldDataContext = &worldDataContext;
 
     
     [self setIsCenteredObject:@YES];
+    [self setMakeKinds:@(kPyramidKind)];
     [self registerAsObserverForScene];
     
     // TODO: remove when done with playing
@@ -205,13 +206,17 @@ static void *worldDataContext = &worldDataContext;
 // Add a 3d object to the scene/world
 - (void)addObjectRepToScene
 {
-    // use ObjRep to create an Obj3D
     
-    // put a copy of the 3d object rep into an array
-    GKS3DObjectRep *newObjectRep = [[GKS3DObjectRep alloc] init];
+    GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
+    GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
+    GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+
+    GKS3DObjectRep *newObjectRep = [[GKS3DObjectRep alloc] initWithKind:self.makeKinds.intValue atLocation:loc withRotation:rot andScale:sca];
+
     newObjectRep.fillColor = self.contentFillColor;
     newObjectRep.lineColor = self.contentLineColor;
     [self.sceneController add3DObjectRep:newObjectRep];
+    [self.sceneController stageActorForRep:newObjectRep];
     
     [self.drawingViewController refresh];
      

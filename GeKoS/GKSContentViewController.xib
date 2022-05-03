@@ -247,7 +247,7 @@
                                                     </constraints>
                                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <binding destination="-2" name="value" keyPath="self.contentLineColor" id="NOX-UD-44G"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.lineColor" id="qbO-nR-cFZ"/>
                                                     </connections>
                                                 </colorWell>
                                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bHd-yo-a1f">
@@ -1650,6 +1650,44 @@
                         <action selector="updateVantage:" target="-2" id="3D5-o6-UfW"/>
                     </connections>
                 </button>
+                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tMv-mV-ezh">
+                    <rect key="frame" x="20" y="322" width="21" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.contentLineColor" id="Meb-U1-8AQ"/>
+                    </connections>
+                </colorWell>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dx2-vw-2jy">
+                    <rect key="frame" x="928" y="276" width="78" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="lnt-3s-vsQ" id="XCT-9o-XZo">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="Jof-7H-0aj">
+                            <items>
+                                <menuItem title="Cube" state="on" tag="1" id="lnt-3s-vsQ">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Sphere" tag="2" id="nqB-27-1eu">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Pyramid" tag="3" id="JBy-eH-oea">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Cone" tag="4" id="2Jl-zW-Cve">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="House" tag="5" id="OzZ-SF-325">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                        <connections>
+                            <binding destination="-2" name="selectedTag" keyPath="self.makeKinds" id="qFe-j6-tgA"/>
+                        </connections>
+                    </popUpButtonCell>
+                </popUpButton>
             </subviews>
             <constraints>
                 <constraint firstItem="TCR-Jr-Xrg" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="12" symbolic="YES" id="1Ga-mf-3sn"/>

@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSMutableSet *contentStories;
 
 @property (strong) NSNumber *isCenteredObject;
+@property (strong) NSNumber *makeKinds;
 
 @end
 
