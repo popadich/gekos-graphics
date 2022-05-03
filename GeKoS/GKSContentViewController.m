@@ -385,7 +385,7 @@ static void *worldDataContext = &worldDataContext;
                 
                 // TODO: this is a cube
                 GKS3DObjectRep *objRep = [[GKS3DObjectRep alloc] init];
-                objRep.objectKind = meshID;
+                objRep.kind = meshID;
                 [self.sceneController add3DObjectRep:objRep];
                 
                 [self.drawingViewController refresh];

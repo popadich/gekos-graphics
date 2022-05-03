@@ -31,7 +31,7 @@
         
         [self zeroLocation];
         
-        _objectKind = [NSNumber numberWithInt:kind];
+        _kind = [NSNumber numberWithInt:kind];
         
         _transX = [NSNumber numberWithDouble:location.crd.x];
         _transY = [NSNumber numberWithDouble:location.crd.y];
@@ -109,7 +109,7 @@
 - (id)copyWithZone:(NSZone *)zone
 {
     GKS3DObjectRep *another = [[GKS3DObjectRep allocWithZone: zone] init];;
-    another.objectKind = self.objectKind;
+    another.kind = self.kind;
     another.hidden = self.hidden;
     another.priority = self.priority;
     another.objectRepID = self.objectRepID;

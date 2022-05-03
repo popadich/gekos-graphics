@@ -79,12 +79,12 @@
     
     GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
     
-    GKSMeshRep *theMeshRep = [monger getMeshRep:object3DRep.objectKind];
+    GKSMeshRep *theMeshRep = [monger getMeshRep:object3DRep.kind];
     GKSmesh_3 *the_mesh = theMeshRep.meshPtr;
     
     NSAssert(the_mesh != NULL, @"Mesh pointer is missing");
     
-    GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:object3DRep.objectKind atLocation:loc withRotation:rot andScale:sca];
+    GKS3DActor *newActor = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:object3DRep.kind atLocation:loc withRotation:rot andScale:sca];
     
     newActor.lineColor = object3DRep.lineColor;
     newActor.fillColor = object3DRep.fillColor;
