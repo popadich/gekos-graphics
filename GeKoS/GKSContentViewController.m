@@ -308,18 +308,18 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performUpdateQuick:(id)sender {
 
-    NSArray *objects = [self.objectArrayController selectedObjects];
+    NSArray *objects = [self.actorArrayController selectedObjects];
     
     NSAssert(objects.count == 1, @"One selection is mandatory");
     
     if (objects.count == 1) {
-        GKS3DObjectRep *objectRep = [objects objectAtIndex:0];
+        ActorEntity *actorEnt = [objects objectAtIndex:0];
         //    GKS3DActor *selectedActor = [self.objectArrayController.selection valueForKey:@"actorObject"];
-        GKS3DActor *selectedActor = objectRep.actorObject;
+        GKS3DActor *selectedActor = actorEnt.actorObject;
         
-        GKSvector3d pos = objectRep.positionVector;
-        GKSvector3d rot = objectRep.rotationVector;
-        GKSvector3d sca = objectRep.scaleVector;
+        GKSvector3d pos = actorEnt.positionVector;
+        GKSvector3d rot = actorEnt.rotationVector;
+        GKSvector3d sca = actorEnt.scaleVector;
         
         [selectedActor setPosition:pos];
         [selectedActor setRotation:rot];
