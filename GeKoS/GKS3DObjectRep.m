@@ -57,6 +57,7 @@
 
 - (void)zeroLocation
 {
+    _name = @"noname";
     _hidden = [NSNumber numberWithBool:NO];
     _objectRepID = @0;
     _priority = @0;

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKS3DObjectRep : NSObject <NSCopying>
 
+@property (strong) NSString* name;
 @property (nonatomic, strong) NSNumber* objectRepID;
 @property (nonatomic, strong) NSNumber* hidden;
 @property (nonatomic, strong) NSNumber* priority;

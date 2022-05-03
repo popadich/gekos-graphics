@@ -784,7 +784,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="FrO-Nl-grR">
                                             <rect key="frame" x="1" y="1" width="69" height="99"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="P51-9p-5jr" viewBased="YES" id="AXG-Xj-398">
                                                     <rect key="frame" x="0.0" y="0.0" width="69" height="71"/>
@@ -806,7 +806,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="7gs-Cp-fWc">
-                                                                    <rect key="frame" x="18" y="0.0" width="52" height="24"/>
+                                                                    <rect key="frame" x="8" y="0.0" width="52" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8h-jy-wzS">
@@ -854,7 +854,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="V4q-jP-tIb">
                                             <rect key="frame" x="1" y="1" width="101" height="99"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="2A9-1V-jkH" viewBased="YES" id="SUZ-cS-6th">
                                                     <rect key="frame" x="0.0" y="0.0" width="101" height="71"/>
@@ -876,7 +876,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="7nF-UP-7cg">
-                                                                    <rect key="frame" x="18" y="0.0" width="84" height="24"/>
+                                                                    <rect key="frame" x="8" y="0.0" width="84" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="460-Pr-GpM">
@@ -946,7 +946,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="VaA-R7-h3c">
                                             <rect key="frame" x="1" y="1" width="315" height="133"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="nVG-60-xmF" viewBased="YES" id="wpd-E1-Vtw">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="105"/>
@@ -968,7 +968,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="php-Bt-zcx">
-                                                                    <rect key="frame" x="18" y="0.0" width="71" height="24"/>
+                                                                    <rect key="frame" x="8" y="0.0" width="71" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRh-OO-kHb">
@@ -1003,7 +1003,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="hDu-xQ-1Yi">
-                                                                    <rect key="frame" x="106" y="0.0" width="71" height="24"/>
+                                                                    <rect key="frame" x="96" y="0.0" width="71" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVu-TG-Okq">
@@ -1038,7 +1038,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="FNQ-zf-7Fr">
-                                                                    <rect key="frame" x="194" y="0.0" width="86" height="24"/>
+                                                                    <rect key="frame" x="184" y="0.0" width="86" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLn-nv-zTX">
@@ -1050,7 +1050,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="FNQ-zf-7Fr" name="value" keyPath="objectValue.positionZ" id="FCa-oR-MKa"/>
+                                                                                <binding destination="FNQ-zf-7Fr" name="value" keyPath="objectValue.locZ" id="8f1-A1-kRb"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>
@@ -1114,7 +1114,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.positionX" id="SS2-aN-Cso"/>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.locX" id="ZmH-a7-hHe"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bVs-re-h9h">
@@ -1129,7 +1129,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.positionY" id="Dfb-Ne-Vva"/>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.locY" id="Xys-XM-gl2"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vcx-US-Wo9">
@@ -1159,7 +1159,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.positionZ" id="SF0-lb-E1D"/>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.locZ" id="wfG-KA-2yv"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AcB-qh-IYm">
@@ -1189,7 +1189,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.rotationX" id="mn7-ag-qi6"/>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.rotX" id="tNl-ZS-YMQ"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zpf-FW-L7p">
@@ -1204,7 +1204,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.rotationY" id="9d3-N4-cvn"/>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.rotY" id="VVq-ws-mRX"/>
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xdo-0C-MqB">
@@ -1259,7 +1259,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.rotationZ" id="rf3-W2-QUF"/>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.rotZ" id="abs-0J-Cd9"/>
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QHA-ir-v9V">

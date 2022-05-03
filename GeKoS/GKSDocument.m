@@ -93,9 +93,9 @@
                     
                     ActorEntity *actor = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
                     actor.kind = kCubeKind;
-                    actor.positionX = locX;
-                    actor.positionY = locY;
-                    actor.positionZ = locZ;
+                    actor.locX = locX;
+                    actor.locY = locY;
+                    actor.locZ = locZ;
                     actor.scaleX = 1.0;
                     actor.scaleY = 1.0;
                     actor.scaleZ = 1.0;
