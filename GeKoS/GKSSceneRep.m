@@ -95,13 +95,34 @@
 
 }
 
+- (void)doStageActorEnt:(ActorEntity * _Nonnull)actor
+{
+    GKSvector3d loc = [actor positionVector];
+    GKSvector3d rot = [actor rotationVector];
+    GKSvector3d sca = [actor scaleVector];
+    
+    NSNumber *kine = @(actor.kind);
+    
+    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+    GKSMeshRep *theMeshRep = [monger getMeshRep:kine];
+    GKSmesh_3 *the_mesh = theMeshRep.meshPtr;
+    
+    NSAssert(the_mesh != NULL, @"Mesh pointer is missing");
+    GKS3DActor *newActorObject = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:kine atLocation:loc withRotation:rot andScale:sca];
+    // TODO: where are the colors stored?
+    newActorObject.lineColor = [NSColor greenColor];
+    newActorObject.fillColor = [NSColor greenColor];
+    [newActorObject computeActorInContext:self.context];
+    
+    // TODO: name confusion
+    actor.actorObject = newActorObject;         // hook from coredata entiry
+    [self.toActors addObject:newActorObject];   // add to local mutable set
+}
+
+
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
 {
-//    BOOL createActors = NO;
-//    if (createActors) {
-//        [self doStageActor:object3DRep];
-//    }
-//    
+    
     object3DRep.objectRepID = @(self.gObjectRepID);
     self.gObjectRepID += 1;
     
@@ -110,11 +131,13 @@
 
 }
 
+
 - (void)deleteLast3DObjectRep
 {
     NSMutableArray *bindingsCompliantArray = [self mutableArrayValueForKey:@"toObject3DReps"];
     [bindingsCompliantArray removeLastObject];
 }
+
 
 - (GKSlimits_3 *)worldVolumeLimits
 {

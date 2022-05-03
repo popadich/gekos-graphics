@@ -8,6 +8,7 @@
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 #include "gks/gks_types.h"
+#import "ActorEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
 - (void)doStageActor:(GKS3DObjectRep * _Nonnull)object3DRep;
+- (void)doStageActorEnt:(ActorEntity * _Nonnull)actor;
 - (void)deleteLast3DObjectRep;
 
 @end

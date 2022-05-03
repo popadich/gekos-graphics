@@ -9,6 +9,7 @@
 #import "GKS3DActor.h"
 #import "GKS3DObjectRep.h"
 #import "GKSSceneRep.h"
+#import "ActorEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
 - (void)remove3DObjectRep:(GKS3DObjectRep *)object3DRep;
 - (void)stageActorForRep:(GKS3DObjectRep *)object3DRep;
+- (void)stageActorForEnt:(ActorEntity *)actorEntity;
 
 
 - (void)deleteLastObject;

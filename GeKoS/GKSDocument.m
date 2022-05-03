@@ -11,6 +11,8 @@
 #import "GKSWindowController.h"
 #import "GKSContentViewController.h"
 #import "GKSMeshParser.h"
+#import "GKSMeshMonger.h"
+#import "ActorEntity+CoreDataClass.h"
 #import "Document+CoreDataModel.h"
 
 @interface GKSDocument ()
@@ -30,6 +32,29 @@
     return self;
 }
 
+- (void)doStageActor:(ActorEntity * _Nonnull)actor
+{
+    GKSvector3d loc = [actor positionVector];
+    GKSvector3d rot = [actor rotationVector];
+    GKSvector3d sca = [actor scaleVector];
+    
+    NSNumber *kine = @(actor.kind);
+    
+    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+    GKSMeshRep *theMeshRep = [monger getMeshRep:kine];
+    GKSmesh_3 *the_mesh = theMeshRep.meshPtr;
+    
+    NSAssert(the_mesh != NULL, @"Mesh pointer is missing");
+    GKS3DActor *newActorObject = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:kine atLocation:loc withRotation:rot andScale:sca];
+    // TODO: where are the colors stored?
+    newActorObject.lineColor = [NSColor greenColor];
+    newActorObject.fillColor = [NSColor greenColor];
+//    [newActorObject computeActorInContext:self.context];
+    
+    // TODO: name confusion
+    actor.actorObject = newActorObject;         // hook from coredata entiry
+//    [self.toActors addObject:newActorObject];   // add to local mutable set
+}
 
 
 - (instancetype)initWithType:(NSString *)typeName error:(NSError *__autoreleasing  _Nullable *)outError
@@ -37,6 +62,7 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
+        _content = [[GKSContent alloc] init];
         if ([typeName isEqual:@"com.xephyr.gekos"]) {
             NSManagedObjectContext *moc = [self managedObjectContext];
             
@@ -112,9 +138,7 @@
             [[moc undoManager] removeAllActions];
             [self updateChangeCount:NSChangeCleared];
             
-            
             _storyBoard = story;
-            _content = [[GKSContent alloc] init];
         }
 
     }

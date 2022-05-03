@@ -14,6 +14,7 @@
 #import "GKS3DActor.h"
 #import "GKSSceneController.h"
 #import "GKSMeshParser.h"
+#import "ActorEntity+CoreDataClass.h"
 
 
 #define GKS_MAX_VANTAGE_PTS 6
@@ -22,6 +23,7 @@
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 @property (weak) IBOutlet NSArrayController *objectArrayController;
+@property (weak) IBOutlet NSArrayController *actorArrayController;
 
 @property (strong) GKSContent *itsContent;
 
@@ -31,6 +33,8 @@
 @property (assign) NSInteger currentVPIndex;
 @property (strong) NSMutableArray *vantagePoints;
 
+
+@property (strong) NSMutableSet *currentActorSet;
 
 @end
 
@@ -111,6 +115,8 @@ static void *worldDataContext = &worldDataContext;
     // set the scene controller's scene, part of an initializer maybe?
     GKSSceneRep *sceneOne = [storyBoard sceneOne];
     self.sceneController.scene = sceneOne;
+    self.currentActorSet = sceneOne.toActors;
+    
     self.cameraViewController.representedObject = sceneOne.toCamera;
     self.drawingViewController.representedObject = sceneOne;
 

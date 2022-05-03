@@ -25,8 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSStoryBoardRep* itsStoryBoard;
 
-@property (strong) NSMutableSet *contentStories;
-
 @property (strong) NSNumber *isCenteredObject;
 @property (strong) NSNumber *makeKinds;
 

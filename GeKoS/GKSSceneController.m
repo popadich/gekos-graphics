@@ -60,6 +60,11 @@
     [self.scene doStageActor:objectRep];
 }
 
+- (void)stageActorForEnt:(ActorEntity *)actorEntity
+{
+    [self.scene doStageActorEnt:actorEntity];
+}
+
 - (void)deleteLastObject
 {
     GKSSceneRep *scene = self.scene;
