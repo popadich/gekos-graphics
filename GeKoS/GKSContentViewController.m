@@ -82,18 +82,18 @@ static void *worldDataContext = &worldDataContext;
     [self setMakeKinds:@(kPyramidKind)];
     [self registerAsObserverForScene];
     
-    // TODO: remove when done with playing
-    // attach Actor objects to objectReps
-    // delayed adding actors until after the model data is loaded into controllers
-    BOOL playing = YES;
-    if (playing) {
-        NSArray *objectReps = [self.sceneController sceneObjects];
-        
-        for (GKS3DObjectRep *objRep in objectReps) {
-            [self.sceneController stageActorForRep:objRep];
-        }
+
+    // Stage actors for all Actor entities
+    NSFetchRequest *request = [ActorEntity fetchRequest];
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (!results) {
+        NSLog(@"Error fetching Employee objects: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
     }
-    
+    for (ActorEntity *act in results) {
+        [self.sceneController stageActorForEnt:act];
+    }
         
     // notifications come after camera values have been set
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
@@ -134,25 +134,6 @@ static void *worldDataContext = &worldDataContext;
     // Load Default Options for Content View
     BOOL cullFlag = [[NSUserDefaults standardUserDefaults] boolForKey:gksPrefFrustumCullFlag];
     [self.sceneController setFrustumCulling:cullFlag];
-    
-    // TODO: remove when done with playing
-    BOOL playing = YES;
-    if (playing) {
-        setMeshCenteredFlag(self.isCenteredObject.boolValue);
-        GKSfloat rad = 0.0;
-        for (int i=1; i<8; i++) {
-            GKSvector3d pos = GKSMakeVector(0.0, 0.0,  -2.5 * i);
-            GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
-            GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
-            
-            GKSkind mykind =  i%2 ? kCubeKind : kPyramidKind;
-            GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:mykind atLocation:pos withRotation:rot andScale:sca];
-            
-            [self.sceneController add3DObjectRep:objectRep];
-
-            rad += 5;
-        }
-    }
     
     self.itsContent = content;
 
@@ -226,6 +207,25 @@ static void *worldDataContext = &worldDataContext;
      
 }
 
+- (void)addActorEntToScene
+{
+    ActorEntity *actor = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
+    actor.kind  = self.makeKinds.intValue;
+    actor.locX = 0.0;
+    actor.locY = 0.0;
+    actor.locZ = 0.0;
+    actor.rotX = 0.0;
+    actor.rotY = 0.0;
+    actor.rotZ = 0.0;
+    actor.scaleX = 1.0;
+    actor.scaleY = 1.0;
+    actor.scaleZ = 1.0;
+    actor.name = [NSString stringWithFormat:@"new actor"];
+    
+    [self.sceneController stageActorForEnt:actor];
+    [self.actorArrayController addObject:actor];
+}
+
 
 // MARK: ACTIONS
 - (IBAction)updateVantage:(id)sender
@@ -280,7 +280,8 @@ static void *worldDataContext = &worldDataContext;
 
     // Add 3d object to the object list
     // some other controller needs to handle this?
-    [self addObjectRepToScene];
+//    [self addObjectRepToScene];
+    [self addActorEntToScene];
     
     [self.drawingViewController refresh];
 
@@ -288,18 +289,18 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performDeleteQuick:(id)sender {
 
-    NSArray *objects = [self.objectArrayController selectedObjects];
+    NSArray *objects = [self.actorArrayController selectedObjects];
     
     NSAssert(objects.count == 1, @"One selection is mandatory");
     
     if (objects.count == 1) {
-        GKS3DObjectRep *objectRep = [objects objectAtIndex:0];
+        ActorEntity *act = [objects objectAtIndex:0];
 
         // Pull the actor first
-        [self.sceneController remove3DObjectRep:objectRep];
+        [self.sceneController unstageActorEnt:act];
         
-        
-        [self.objectArrayController remove:sender];
+        // removes selected object
+        [self.actorArrayController removeObject:act];
         [self.drawingViewController refresh];
     }
 

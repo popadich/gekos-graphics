@@ -56,6 +56,15 @@
     [actors removeObject:actorPull];
 }
 
+
+- (void)unstageActorEnt:(ActorEntity *)actorEntity
+{
+    NSMutableSet *actors = self.scene.toActors;
+    
+    GKS3DActor *actorPull = actorEntity.actorObject;
+    [actors removeObject:actorPull];
+}
+
 - (void)stageActorForRep:(GKS3DObjectRep *)objectRep {
     [self.scene doStageActor:objectRep];
 }

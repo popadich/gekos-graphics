@@ -585,7 +585,7 @@
                                                         <font key="font" metaFont="miniSystem"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <action selector="remove:" target="Zea-HR-mJE" id="yyx-ZV-X8u"/>
+                                                        <action selector="performDeleteQuick:" target="-2" id="e0R-dK-0fc"/>
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YoR-zK-5gB">
@@ -595,7 +595,7 @@
                                                         <font key="font" metaFont="miniSystem"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <action selector="add:" target="Zea-HR-mJE" id="o6c-Hv-fPp"/>
+                                                        <action selector="performAddQuick:" target="-2" id="8Q9-Ug-dX3"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1740,7 +1740,11 @@
         </arrayController>
         <arrayController mode="entity" entityName="ActorEntity" id="Zea-HR-mJE" userLabel="Actors">
             <connections>
-                <binding destination="ziB-ro-WAM" name="contentSet" keyPath="selection.toActors" id="8Tk-h6-XsS"/>
+                <binding destination="ziB-ro-WAM" name="contentSet" keyPath="selection.toActors" id="oZN-aI-708">
+                    <dictionary key="options">
+                        <bool key="NSDeletesObjectsOnRemove" value="YES"/>
+                    </dictionary>
+                </binding>
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="NGx-Ar-B8U"/>
             </connections>
         </arrayController>

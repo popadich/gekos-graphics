@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)remove3DObjectRep:(GKS3DObjectRep *)object3DRep;
 - (void)stageActorForRep:(GKS3DObjectRep *)object3DRep;
 - (void)stageActorForEnt:(ActorEntity *)actorEntity;
+- (void)unstageActorEnt:(ActorEntity *)actorEntity;
 
 
 - (void)deleteLastObject;
