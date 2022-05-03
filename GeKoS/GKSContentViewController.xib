@@ -72,7 +72,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transX" id="TLG-yL-Yu2"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.locX" id="xIL-th-Qzi"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IV0-tS-yBd">
@@ -87,7 +87,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transY" id="HmY-I1-L0v"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.locY" id="Svz-TD-WtQ"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8xZ-4P-ka8">
@@ -117,7 +117,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.transZ" id="IIM-Y3-GU3"/>
+                                                        <binding destination="MSV-HF-aKR" name="value" keyPath="selection.locZ" id="2lG-8G-CWW"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dX7-S1-00H">
@@ -722,7 +722,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.transZ" id="SFP-PD-kFA"/>
+                                                                                <binding destination="944-zS-fFw" name="value" keyPath="objectValue.locZ" id="erQ-7B-LiL"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>

@@ -33,9 +33,9 @@
         
         _kind = [NSNumber numberWithInt:kind];
         
-        _transX = [NSNumber numberWithDouble:location.crd.x];
-        _transY = [NSNumber numberWithDouble:location.crd.y];
-        _transZ = [NSNumber numberWithDouble:location.crd.z];
+        _locX = [NSNumber numberWithDouble:location.crd.x];
+        _locY = [NSNumber numberWithDouble:location.crd.y];
+        _locZ = [NSNumber numberWithDouble:location.crd.z];
 
         _rotX = [NSNumber numberWithDouble:rotation.crd.x];
         _rotY = [NSNumber numberWithDouble:rotation.crd.y];
@@ -61,9 +61,9 @@
     _objectRepID = @0;
     _priority = @0;
     
-    _transX = [NSNumber numberWithDouble:0.0];
-    _transY = [NSNumber numberWithDouble:0.0];
-    _transZ = [NSNumber numberWithDouble:0.0];
+    _locX = [NSNumber numberWithDouble:0.0];
+    _locY = [NSNumber numberWithDouble:0.0];
+    _locZ = [NSNumber numberWithDouble:0.0];
     _scaleX = [NSNumber numberWithDouble:1.0];
     _scaleY = [NSNumber numberWithDouble:1.0];
     _scaleZ = [NSNumber numberWithDouble:1.0];
@@ -81,7 +81,7 @@
 - (GKSvector3d)positionVector
 {
     GKSvector3d pos;
-    pos = GKSMakeVector([self.transX doubleValue], [self.transY doubleValue], [self.transZ doubleValue]);
+    pos = GKSMakeVector([self.locX doubleValue], [self.locY doubleValue], [self.locZ doubleValue]);
     return pos;
 }
 
@@ -113,9 +113,9 @@
     another.hidden = self.hidden;
     another.priority = self.priority;
     another.objectRepID = self.objectRepID;
-    another.transX = self.transX;
-    another.transY = self.transY;
-    another.transZ = self.transZ;
+    another.locX = self.locX;
+    another.locY = self.locY;
+    another.locZ = self.locZ;
     another.scaleX = self.scaleX;
     another.scaleY = self.scaleY;
     another.scaleZ = self.scaleZ;
@@ -142,15 +142,15 @@
 }
 
 - (void)locateX:(CGFloat)locFactorX Y:(CGFloat)locFactorY Z:(CGFloat)locFactorZ {
-    self.transX = [NSNumber numberWithDouble:locFactorX];
-    self.transY = [NSNumber numberWithDouble:locFactorY];
-    self.transZ = [NSNumber numberWithDouble:locFactorZ];
+    self.locX = [NSNumber numberWithDouble:locFactorX];
+    self.locY = [NSNumber numberWithDouble:locFactorY];
+    self.locZ = [NSNumber numberWithDouble:locFactorZ];
 }
 
 
 - (NSString *)description
 {
-    NSString *desc = [NSString stringWithFormat:@"%.2f  %.2f  %.2f", self.transX.floatValue, self.transY.floatValue, self.transZ.floatValue];
+    NSString *desc = [NSString stringWithFormat:@"%.2f  %.2f  %.2f", self.locX.floatValue, self.locY.floatValue, self.locZ.floatValue];
     return desc;
 }
 
