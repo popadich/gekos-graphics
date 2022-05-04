@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @class GKSSceneController;
-@class GKSStoryBoardRep;
 
 @interface GKSContentViewController : NSViewController
 

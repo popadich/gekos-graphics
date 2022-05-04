@@ -23,12 +23,7 @@
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
         sceneRep.toCamera = cameraRep;
-        
-        GKSStoryBoardRep *storyBoard = [[GKSStoryBoardRep alloc] init];
-        [storyBoard setStoryTitle:@"A Gekos Story"];
-        [storyBoard.toScenes addObject:sceneRep];
-        
-        _storyBoard = storyBoard;
+
         _theScene = sceneRep;
         
     }

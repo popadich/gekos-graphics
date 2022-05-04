@@ -7,14 +7,12 @@
 
 #import <Foundation/Foundation.h>
 #import "GKSSceneController.h"
-#import "GKSStoryBoardRep.h"
 #import "GKSSceneRep.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContent : NSObject
 
-@property (strong) GKSStoryBoardRep *storyBoard;
 @property (strong) GKSSceneRep *theScene;
 @property (weak) NSManagedObjectContext *managedObjectContext;
 @property (assign) GKScontext3DPtr context3D;
