@@ -71,8 +71,6 @@
     return self;
 }
 
-
-
 - (GKS3DActor *)castActorFromEnt:(ActorEntity * _Nonnull)actor
 {
     GKSvector3d loc = [actor positionVector];
@@ -101,33 +99,6 @@
     [actor computeActorInContext:self.context];
     [self.toActors addObject:actor];   // add to local mutable set
 }
-
-
-- (void)doStageActorEnt:(ActorEntity * _Nonnull)actor
-{
-    GKSvector3d loc = [actor positionVector];
-    GKSvector3d rot = [actor rotationVector];
-    GKSvector3d sca = [actor scaleVector];
-    
-    NSNumber *kine = @(actor.kind);
-    
-    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-    GKSMeshRep *theMeshRep = [monger getMeshRep:kine];
-    GKSmesh_3 *the_mesh = theMeshRep.meshPtr;
-    
-    NSAssert(the_mesh != NULL, @"Mesh pointer is missing");
-    GKS3DActor *newActorObject = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:kine atLocation:loc withRotation:rot andScale:sca];
-    // TODO: where are the colors stored?
-    newActorObject.lineColor = [NSColor greenColor];
-    newActorObject.fillColor = [NSColor greenColor];
-    [newActorObject computeActorInContext:self.context];
-    
-    // TODO: name confusion
-    actor.actorObject = newActorObject;         // hook from coredata entiry
-    [self.toActors addObject:newActorObject];   // add to local mutable set
-}
-
-
 
 - (GKSlimits_3 *)worldVolumeLimits
 {

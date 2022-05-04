@@ -77,8 +77,8 @@ static void *worldDataContext = &worldDataContext;
 
     self.actorWhitePages = [[NSMutableDictionary alloc] initWithCapacity:1024];
     
-    [self setIsCenteredObject:@YES];
-    [self setMakeKinds:@(kPyramidKind)];
+    [self setIsCenteredObject:@NO];
+    [self setMakeKinds:@(kCubeKind)];
     [self registerAsObserverForScene];
     
 
