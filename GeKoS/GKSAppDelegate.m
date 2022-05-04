@@ -79,7 +79,7 @@ static NSDictionary *defaultValues() {
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
-    return YES;
+    return NO;
 }
 
 

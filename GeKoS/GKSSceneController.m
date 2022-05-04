@@ -27,32 +27,17 @@
     scene.context->cull_flag = flag;
 }
 
-- (NSArray *)sceneObjects {
-    NSArray *objects = nil;
-    
-    NSMutableArray *objectArr = [self.scene valueForKey:@"toObject3DReps"];
-    objects = [NSArray arrayWithArray:objectArr];
-    
-    return objects;
-}
-
-
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep
-{
-    GKSSceneRep *scene = self.scene;
-    GKScontext3DPtr ctx = scene.context;
-
-    NSAssert(ctx != NULL, @"Scene context not set");
-    if (ctx != NULL) {
-        [scene add3DObjectRep:object3DRep];
-    }
-}
 
 - (void)remove3DObjectRep:(GKS3DObjectRep *)objectRep
 {
     NSMutableSet *actors = self.scene.toActors;
     
+    NSAssert(actors != nil, @"Actors array not set");
+
     GKS3DActor *actorPull = objectRep.actorObject;
+
+    NSAssert(actorPull != nil, @"actor object missing");
+
     [actors removeObject:actorPull];
 }
 
@@ -62,23 +47,18 @@
     NSMutableSet *actors = self.scene.toActors;
     
     GKS3DActor *actorPull = actorEntity.actorObject;
+    
+    NSAssert(actorPull != nil, @"actor object missing");
     [actors removeObject:actorPull];
 }
 
-- (void)stageActorForRep:(GKS3DObjectRep *)objectRep {
-    [self.scene doStageActor:objectRep];
-}
 
-- (void)stageActorForEnt:(ActorEntity *)actorEntity
-{
-    [self.scene doStageActorEnt:actorEntity];
-}
 
 - (void)deleteLastObject
 {
-    GKSSceneRep *scene = self.scene;
+//    GKSSceneRep *scene = self.scene;
 
-    [scene deleteLast3DObjectRep];
+//    [scene deleteLast3DObjectRep];
 }
 
 - (void)transformAllObjects

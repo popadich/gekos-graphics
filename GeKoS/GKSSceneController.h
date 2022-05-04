@@ -22,16 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setFrustumCulling:(BOOL)flag;
 
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
 - (void)remove3DObjectRep:(GKS3DObjectRep *)object3DRep;
-- (void)stageActorForRep:(GKS3DObjectRep *)object3DRep;
-- (void)stageActorForEnt:(ActorEntity *)actorEntity;
 - (void)unstageActorEnt:(ActorEntity *)actorEntity;
 
 
 - (void)deleteLastObject;
-
-- (NSArray *)sceneObjects;
 
 - (void)transformAllObjects;
 

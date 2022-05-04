@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #include "gks/gks_types.h"
 #import "ActorEntity+CoreDataClass.h"
+#import "GKS3DActor.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,10 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithContext:(GKScontext3D *)contextPtr;
 - (GKSlimits_3 *)worldVolumeLimits;
 
-- (void)add3DObjectRep:(GKS3DObjectRep *)object3DRep;
-- (void)doStageActor:(GKS3DObjectRep * _Nonnull)object3DRep;
-- (void)doStageActorEnt:(ActorEntity * _Nonnull)actor;
-- (void)deleteLast3DObjectRep;
+- (GKS3DActor *)castActorFromEnt:(ActorEntity * _Nonnull)actor;
+//- (void)doStageActorEnt:(ActorEntity * _Nonnull)actor;
+- (void)stageActor:(GKS3DActor *)actorObj;
 
 @end
 

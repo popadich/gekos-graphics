@@ -33,9 +33,7 @@
 @property (assign) NSInteger currentVPIndex;
 @property (strong) NSMutableArray *vantagePoints;
 
-
-@property (strong) NSMutableSet *currentActorSet;
-
+@property (strong) NSMutableDictionary *actorWhitePages;
 @end
 
 
@@ -77,6 +75,7 @@ static void *worldDataContext = &worldDataContext;
         [self.vantagePoints addObject:vantageProperties];
     }
 
+    self.actorWhitePages = [[NSMutableDictionary alloc] initWithCapacity:1024];
     
     [self setIsCenteredObject:@YES];
     [self setMakeKinds:@(kPyramidKind)];
@@ -88,11 +87,17 @@ static void *worldDataContext = &worldDataContext;
     NSError *error = nil;
     NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (!results) {
-        NSLog(@"Error fetching Employee objects: %@\n%@", [error localizedDescription], [error userInfo]);
+        NSLog(@"Error fetching Actor entities: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
-    for (ActorEntity *act in results) {
-        [self.sceneController stageActorForEnt:act];
+    
+    // FIXME: override fetch
+    for (ActorEntity *actorEntity in results) {
+        GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
+//        NSManagedObjectID *actorEntID = actorEntity.objectID;
+//        NSLog(@"ActorEntID: %@", actorEntity.name);
+        [self.actorWhitePages setObject:actor forKey:actorEntity.name];
+        [self.sceneController.scene stageActor:actor];
     }
         
     // notifications come after camera values have been set
@@ -115,7 +120,8 @@ static void *worldDataContext = &worldDataContext;
     // set the scene controller's scene, part of an initializer maybe?
     GKSSceneRep *sceneOne = [storyBoard sceneOne];
     self.sceneController.scene = sceneOne;
-    self.currentActorSet = sceneOne.toActors;
+    
+    NSAssert(sceneOne != nil, @"scene rep must exist");
     
     self.cameraViewController.representedObject = sceneOne.toCamera;
     self.drawingViewController.representedObject = sceneOne;
@@ -188,42 +194,32 @@ static void *worldDataContext = &worldDataContext;
     }
 }
 
-// Add a 3d object to the scene/world
-- (void)addObjectRepToScene
-{
-    
-    GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
-    GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
-    GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
 
-    GKS3DObjectRep *newObjectRep = [[GKS3DObjectRep alloc] initWithKind:self.makeKinds.intValue atLocation:loc withRotation:rot andScale:sca];
-
-    newObjectRep.fillColor = self.contentFillColor;
-    newObjectRep.lineColor = self.contentLineColor;
-    [self.sceneController add3DObjectRep:newObjectRep];
-    [self.sceneController stageActorForRep:newObjectRep];
-    
-    [self.drawingViewController refresh];
-     
-}
 
 - (void)addActorEntToScene
 {
-    ActorEntity *actor = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
-    actor.kind  = self.makeKinds.intValue;
-    actor.locX = 0.0;
-    actor.locY = 0.0;
-    actor.locZ = 0.0;
-    actor.rotX = 0.0;
-    actor.rotY = 0.0;
-    actor.rotZ = 0.0;
-    actor.scaleX = 1.0;
-    actor.scaleY = 1.0;
-    actor.scaleZ = 1.0;
-    actor.name = [NSString stringWithFormat:@"new actor"];
+    ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
+    actorEntity.kind  = self.makeKinds.intValue;
+    actorEntity.locX = 0.0;
+    actorEntity.locY = 0.0;
+    actorEntity.locZ = 0.0;
+    actorEntity.rotX = 0.0;
+    actorEntity.rotY = 0.0;
+    actorEntity.rotZ = 0.0;
+    actorEntity.scaleX = 1.0;
+    actorEntity.scaleY = 1.0;
+    actorEntity.scaleZ = 1.0;
+    NSString *newID = [[NSUUID UUID] UUIDString];
+    actorEntity.name = newID;
     
-    [self.sceneController stageActorForEnt:actor];
-    [self.actorArrayController addObject:actor];
+    GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
+    NSManagedObjectID *actorEntID = actorEntity.objectID;
+    NSLog(@"ActorEntID: %@", actorEntID);
+    [self.actorWhitePages setObject:actor forKey:actorEntity.name];
+    [self.sceneController.scene stageActor:actor];
+    
+    
+    [self.actorArrayController addObject:actorEntity];
 }
 
 
@@ -290,17 +286,22 @@ static void *worldDataContext = &worldDataContext;
 - (IBAction)performDeleteQuick:(id)sender {
 
     NSArray *objects = [self.actorArrayController selectedObjects];
-    
-    NSAssert(objects.count == 1, @"One selection is mandatory");
-    
-    if (objects.count == 1) {
-        ActorEntity *act = [objects objectAtIndex:0];
-
-        // Pull the actor first
-        [self.sceneController unstageActorEnt:act];
         
-        // removes selected object
-        [self.actorArrayController removeObject:act];
+    if (objects.count == 1) {
+        ActorEntity *actorEntity = [objects objectAtIndex:0];
+
+        // Pull the actor first. this should be a method on scenecontroller
+        NSMutableSet *actors = self.sceneController.scene.toActors;
+            
+        NSString *actorName = actorEntity.name;
+        GKS3DActor *actorPull = [self.actorWhitePages objectForKey:actorName];
+        
+        NSAssert(actorPull != nil, @"actor object missing");
+        [actors removeObject:actorPull];
+    
+
+        // remove selected actor entity
+        [self.actorArrayController removeObject:actorEntity];
         [self.drawingViewController refresh];
     }
 
@@ -313,13 +314,15 @@ static void *worldDataContext = &worldDataContext;
     NSAssert(objects.count == 1, @"One selection is mandatory");
     
     if (objects.count == 1) {
-        ActorEntity *actorEnt = [objects objectAtIndex:0];
+        ActorEntity *actorEntity = [objects objectAtIndex:0];
         //    GKS3DActor *selectedActor = [self.objectArrayController.selection valueForKey:@"actorObject"];
-        GKS3DActor *selectedActor = actorEnt.actorObject;
         
-        GKSvector3d pos = actorEnt.positionVector;
-        GKSvector3d rot = actorEnt.rotationVector;
-        GKSvector3d sca = actorEnt.scaleVector;
+        NSString *actorName = actorEntity.name;
+        GKS3DActor *selectedActor = [self.actorWhitePages objectForKey:actorName];
+        
+        GKSvector3d pos = actorEntity.positionVector;
+        GKSvector3d rot = actorEntity.rotationVector;
+        GKSvector3d sca = actorEntity.scaleVector;
         
         [selectedActor setPosition:pos];
         [selectedActor setRotation:rot];
@@ -393,7 +396,7 @@ static void *worldDataContext = &worldDataContext;
                 // TODO: this is a cube
                 GKS3DObjectRep *objRep = [[GKS3DObjectRep alloc] init];
                 objRep.kind = meshID;
-                [self.sceneController add3DObjectRep:objRep];
+//                [self.sceneController add3DObjectRep:objRep];
                 
                 [self.drawingViewController refresh];
                 

@@ -77,7 +77,7 @@
         the_actor.mesh_object = *mesh_ptr;
         the_actor.dev_coords = dev_coord_ptr;
         
-        gks_actor_transform_to_world(&the_actor);
+        [self stageUpdateActor];
         
     }
     return self;
