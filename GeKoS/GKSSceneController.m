@@ -28,39 +28,6 @@
 }
 
 
-- (void)remove3DObjectRep:(GKS3DObjectRep *)objectRep
-{
-    NSMutableSet *actors = self.scene.toActors;
-    
-    NSAssert(actors != nil, @"Actors array not set");
-
-    GKS3DActor *actorPull = objectRep.actorObject;
-
-    NSAssert(actorPull != nil, @"actor object missing");
-
-    [actors removeObject:actorPull];
-}
-
-
-- (void)unstageActorEnt:(ActorEntity *)actorEntity
-{
-    NSMutableSet *actors = self.scene.toActors;
-    
-    GKS3DActor *actorPull = actorEntity.actorObject;
-    
-    NSAssert(actorPull != nil, @"actor object missing");
-    [actors removeObject:actorPull];
-}
-
-
-
-- (void)deleteLastObject
-{
-//    GKSSceneRep *scene = self.scene;
-
-//    [scene deleteLast3DObjectRep];
-}
-
 - (void)transformAllObjects
 {
     GKSSceneRep *scene = self.scene;

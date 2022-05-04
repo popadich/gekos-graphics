@@ -6,8 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GKS3DActor.h"
-#import "GKS3DObjectRep.h"
 #import "GKSSceneRep.h"
 #import "ActorEntity+CoreDataClass.h"
 
@@ -17,16 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSSceneRep *scene;
 
-
-
-
 - (void)setFrustumCulling:(BOOL)flag;
-
-- (void)remove3DObjectRep:(GKS3DObjectRep *)object3DRep;
-- (void)unstageActorEnt:(ActorEntity *)actorEntity;
-
-
-- (void)deleteLastObject;
 
 - (void)transformAllObjects;
 

@@ -95,7 +95,6 @@ static void *worldDataContext = &worldDataContext;
     for (ActorEntity *actorEntity in results) {
         GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
 //        NSManagedObjectID *actorEntID = actorEntity.objectID;
-//        NSLog(@"ActorEntID: %@", actorEntity.name);
         [self.actorWhitePages setObject:actor forKey:actorEntity.name];
         [self.sceneController.scene stageActor:actor];
     }
@@ -195,34 +194,6 @@ static void *worldDataContext = &worldDataContext;
 }
 
 
-
-- (void)addActorEntToScene
-{
-    ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
-    actorEntity.kind  = self.makeKinds.intValue;
-    actorEntity.locX = 0.0;
-    actorEntity.locY = 0.0;
-    actorEntity.locZ = 0.0;
-    actorEntity.rotX = 0.0;
-    actorEntity.rotY = 0.0;
-    actorEntity.rotZ = 0.0;
-    actorEntity.scaleX = 1.0;
-    actorEntity.scaleY = 1.0;
-    actorEntity.scaleZ = 1.0;
-    NSString *newID = [[NSUUID UUID] UUIDString];
-    actorEntity.name = newID;
-    
-    GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
-    NSManagedObjectID *actorEntID = actorEntity.objectID;
-    NSLog(@"ActorEntID: %@", actorEntID);
-    [self.actorWhitePages setObject:actor forKey:actorEntity.name];
-    [self.sceneController.scene stageActor:actor];
-    
-    
-    [self.actorArrayController addObject:actorEntity];
-}
-
-
 // MARK: ACTIONS
 - (IBAction)updateVantage:(id)sender
 {
@@ -274,11 +245,27 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performAddQuick:(id)sender {
 
-    // Add 3d object to the object list
-    // some other controller needs to handle this?
-//    [self addObjectRepToScene];
-    [self addActorEntToScene];
+    ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
+    actorEntity.kind  = self.makeKinds.intValue;
+    actorEntity.locX = 0.0;
+    actorEntity.locY = 0.0;
+    actorEntity.locZ = 0.0;
+    actorEntity.rotX = 0.0;
+    actorEntity.rotY = 0.0;
+    actorEntity.rotZ = 0.0;
+    actorEntity.scaleX = 1.0;
+    actorEntity.scaleY = 1.0;
+    actorEntity.scaleZ = 1.0;
+    NSString *newID = [[NSUUID UUID] UUIDString];
+    actorEntity.name = newID;
     
+    // get unique identifier for actor entity
+    GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
+    [self.actorWhitePages setObject:actor forKey:actorEntity.name];
+    [self.sceneController.scene stageActor:actor];
+    
+    [self.actorArrayController addObject:actorEntity];
+
     [self.drawingViewController refresh];
 
 }
