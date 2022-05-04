@@ -10,7 +10,6 @@
 #import "GKSContent.h"
 #import "GKSCameraRep.h"
 #import "GKSMeshMonger.h"
-#import "GKS3DObjectRep.h"
 #import "GKS3DActor.h"
 #import "GKSSceneController.h"
 #import "GKSMeshParser.h"
@@ -108,20 +107,14 @@ static void *worldDataContext = &worldDataContext;
     
     // content should be populated by the document read methods
     GKSContent *content = self.representedObject;
-    GKSStoryBoardRep *storyBoard = content.storyBoard;
     self.managedObjectContext = content.managedObjectContext;
-
-    [self willChangeValueForKey:@"itsStoryBoard"];
-    self.itsStoryBoard = storyBoard;
-    [self didChangeValueForKey:@"itsStoryBoard"];
-
  
     // set the scene controller's scene, part of an initializer maybe?
-    GKSSceneRep *sceneOne = [storyBoard sceneOne];
-    self.sceneController.scene = sceneOne;
-    
+    GKSSceneRep *sceneOne = content.theScene;
+
     NSAssert(sceneOne != nil, @"scene rep must exist");
     
+    self.sceneController.scene = sceneOne;
     self.cameraViewController.representedObject = sceneOne.toCamera;
     self.drawingViewController.representedObject = sceneOne;
 
@@ -380,9 +373,9 @@ static void *worldDataContext = &worldDataContext;
                 GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh_ptr];
                 [monger addMeshRep:meshRep];
                 
-                // TODO: this is a cube
-                GKS3DObjectRep *objRep = [[GKS3DObjectRep alloc] init];
-                objRep.kind = meshID;
+                // TODO: create a fresh actor entity with meshID
+//                GKS3DObjectRep *objRep = [[GKS3DObjectRep alloc] init];
+//                objRep.kind = meshID;
 //                [self.sceneController add3DObjectRep:objRep];
                 
                 [self.drawingViewController refresh];

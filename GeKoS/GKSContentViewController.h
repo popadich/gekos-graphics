@@ -23,8 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) NSManagedObjectContext *managedObjectContext;
 
-@property (strong) GKSStoryBoardRep* itsStoryBoard;
-
 @property (strong) NSNumber *isCenteredObject;
 @property (strong) NSNumber *makeKinds;
 

@@ -7,7 +7,6 @@
 
 #import "GKSSceneRep.h"
 #import "GKSConstants.h"
-#import "GKS3DObjectRep.h"
 #import "GKS3DActor.h"
 #import "GKSMeshMonger.h"
 

@@ -8,7 +8,6 @@
 #import "GKSContent.h"
 #import "GKSConstants.h"
 #import "GKSCameraRep.h"
-#import "GKSSceneRep.h"
 #import "GKSMeshMonger.h"
 
 
@@ -30,6 +29,7 @@
         [storyBoard.toScenes addObject:sceneRep];
         
         _storyBoard = storyBoard;
+        _theScene = sceneRep;
         
     }
     return self;
