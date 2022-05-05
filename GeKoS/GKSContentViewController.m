@@ -93,9 +93,10 @@ static void *worldDataContext = &worldDataContext;
     // FIXME: override fetch
     for (ActorEntity *actorEntity in results) {
         GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
-//        NSManagedObjectID *actorEntID = actorEntity.objectID;
         [self.actorWhitePages setObject:actor forKey:actorEntity.name];
         [self.sceneController.scene stageActor:actor];
+        
+//        actorEntity.transientActor = actor;
     }
         
     // notifications come after camera values have been set
@@ -251,6 +252,7 @@ static void *worldDataContext = &worldDataContext;
     actorEntity.scaleZ = 1.0;
     NSString *newID = [[NSUUID UUID] UUIDString];
     actorEntity.name = newID;
+    actorEntity.lineColor = self.contentLineColor;
     
     // get unique identifier for actor entity
     GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
@@ -302,9 +304,12 @@ static void *worldDataContext = &worldDataContext;
         
         NSString *actorName = actEntity.name;
         GKS3DActor *found3DActor = [self.actorWhitePages objectForKey:actorName];
+//        found3DActor = ( GKS3DActor *)actEntity.transientActor;
         [found3DActor setPosition:pos];
         [found3DActor setRotation:rot];
         [found3DActor setScaling:sca];
+        
+        found3DActor.lineColor = actEntity.lineColor;
         
         [found3DActor stageUpdateActor];
 
@@ -412,3 +417,45 @@ static void *worldDataContext = &worldDataContext;
 
 
 @end
+
+/*
+@interface NSColorTransformer: NSValueTransformer {}
+@end
+@implementation NSColorTransformer
++ (Class)transformedValueClass {
+    return [NSColor class];
+}
++ (BOOL)allowsReverseTransformation {
+    return YES;
+}
+- (id)transformedValue:(id)value {
+    
+    NSColor *theColor = nil;
+    NSError *error;
+    NSData *colorData = value;
+    if (colorData != nil) {
+        theColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+    }
+
+    return (value == nil) ? nil : theColor;
+}
+
+- (id)reverseTransformedValue:(id)value
+{
+    if (value == nil) return nil;
+    
+    NSData *colorData = nil;
+    NSError *error;
+    if(![value isKindOfClass:[NSColor class]]) {
+        [NSException raise:NSInternalInconsistencyException format:@"Value (%@) is not an NSColor instance", [value class]];
+    }
+        
+    colorData = [NSKeyedArchiver archivedDataWithRootObject:value requiringSecureCoding:YES error:&error];
+    
+    
+    return colorData;
+}
+
+@end
+
+*/

@@ -84,7 +84,7 @@
     GKS3DActor *newActorObject = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:kindNum atLocation:loc withRotation:rot andScale:sca];
     
     // TODO: where are the colors stored?
-    newActorObject.lineColor = [NSColor greenColor];
+    newActorObject.lineColor = actorEntity.lineColor;
     newActorObject.fillColor = [NSColor greenColor];
     
     return newActorObject;

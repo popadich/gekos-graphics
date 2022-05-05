@@ -106,18 +106,18 @@
                     GKSfloat locY = i%2;
                     GKSfloat locZ = -2.0 * i;
                     
-                    ActorEntity *actor = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
-                    actor.kind  = (i%2) ? kCubeKind : kPyramidKind;
-                    actor.locX = locX;
-                    actor.locY = locY;
-                    actor.locZ = locZ;
-                    actor.scaleX = 1.0;
-                    actor.scaleY = 1.0;
-                    actor.scaleZ = 1.0;
-                    actor.name =  [[NSUUID UUID] UUIDString];;
-
-                    [actors addObject:actor];
-
+                    ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
+                    actorEntity.kind  = (i%2) ? kCubeKind : kPyramidKind;
+                    actorEntity.locX = locX;
+                    actorEntity.locY = locY;
+                    actorEntity.locZ = locZ;
+                    actorEntity.scaleX = 1.0;
+                    actorEntity.scaleY = 1.0;
+                    actorEntity.scaleZ = 1.0;
+                    actorEntity.name =  [[NSUUID UUID] UUIDString];
+                    [actors addObject:actorEntity];
+                    actorEntity.lineColor = [NSColor greenColor];
+                    
                     rad += 35;
                 }
                 scene.toActors = actors;

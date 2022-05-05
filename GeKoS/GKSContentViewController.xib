@@ -580,6 +580,9 @@
                                                         <constraint firstAttribute="height" constant="21" id="RsE-zl-ixP"/>
                                                     </constraints>
                                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.lineColor" id="VLM-Nd-5i1"/>
+                                                    </connections>
                                                 </colorWell>
                                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="exv-2j-O6M">
                                                     <rect key="frame" x="61" y="18" width="61" height="16"/>

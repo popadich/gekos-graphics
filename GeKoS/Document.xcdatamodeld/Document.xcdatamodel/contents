@@ -3,7 +3,7 @@
     <entity name="ActorEntity" representedClassName="ActorEntity" syncable="YES" codeGenerationType="class">
         <attribute name="hidden" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="kind" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="lineColor" optional="YES" attributeType="Transformable" valueTransformerName="NSKeyedUnarchiveFromData"/>
+        <attribute name="lineColor" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="NSColor"/>
         <attribute name="locX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -15,7 +15,7 @@
         <attribute name="scaleX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="transientActor" optional="YES" transient="YES" attributeType="Transformable"/>
+        <attribute name="transientActor" optional="YES" transient="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="GKS3DActor"/>
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toActors" inverseEntity="SceneEntity"/>
     </entity>
     <entity name="CameraEntity" representedClassName="CameraEntity" syncable="YES" codeGenerationType="class">
