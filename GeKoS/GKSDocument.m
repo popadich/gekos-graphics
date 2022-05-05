@@ -68,6 +68,13 @@
 
             SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
             scene.title = @"Scene 1";
+            scene.sceneType = @"START";
+            scene.volumeMinX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX] doubleValue];
+            scene.volumeMaxX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX] doubleValue];
+            scene.volumeMinY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY] doubleValue];
+            scene.volumeMaxY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY] doubleValue];
+            scene.volumeMinZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ] doubleValue];
+            scene.volumeMaxZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ] doubleValue];
             
             // Load Default Colors for Content View
             NSError *error;
