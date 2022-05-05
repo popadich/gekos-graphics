@@ -27,7 +27,8 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-        _content = [[GKSContent alloc] init];
+        
+        _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
         // Stage actors for all Actor entities
         NSFetchRequest *request = [StoryBoardEntity fetchRequest];
         NSError *error = nil;
@@ -51,9 +52,11 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-        _content = [[GKSContent alloc] init];
+        
         if ([typeName isEqual:@"com.xephyr.gekos"]) {
+            
             NSManagedObjectContext *moc = [self managedObjectContext];
+            _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
             
             NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
             
@@ -76,7 +79,7 @@
             scene.volumeMinZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ] doubleValue];
             scene.volumeMaxZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ] doubleValue];
             
-            // Load Default Colors for Content View
+            // Load default background color for this scene
             NSError *error;
             NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
             if (colorData != nil) {
@@ -167,10 +170,7 @@
     
     // No need to specify nib file if it has the same name as the class
     GKSContentViewController *contentController = [[GKSContentViewController alloc] init];
-
-    // TODO: move this to content object
-    NSManagedObjectContext *cont = self.managedObjectContext;
-    self.content.managedObjectContext = cont;
+    
     contentController.representedObject = self.content;
     windowController.contentViewController = contentController;
 }

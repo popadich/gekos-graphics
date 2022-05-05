@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSContent : NSObject
+- (instancetype)initWithManagedObjectContext: (NSManagedObjectContext *)moc;
 
 @property (strong) GKSSceneRep *theScene;
 @property (weak) NSManagedObjectContext *managedObjectContext;

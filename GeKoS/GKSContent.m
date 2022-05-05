@@ -14,12 +14,13 @@
 
 @implementation GKSContent
 
-- (instancetype)init
+- (instancetype)initWithManagedObjectContext: (NSManagedObjectContext *)moc
 {
     self = [super init];
     if (self) {
         _context3D =  gks_init();
-
+        _managedObjectContext = moc;
+        
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
         sceneRep.toCamera = cameraRep;

@@ -7,6 +7,7 @@
 
 #import "GKSCameraController.h"
 #import "GKSConstants.h"
+#import "GKSContent.h"
 #import "GKSCameraRep.h"
 
 

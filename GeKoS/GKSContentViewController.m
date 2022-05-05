@@ -111,14 +111,13 @@ static void *worldDataContext = &worldDataContext;
     self.managedObjectContext = content.managedObjectContext;
  
     // set the scene controller's scene, part of an initializer maybe?
-    GKSSceneRep *sceneOne = content.theScene;
+    GKSSceneRep *sceneRep = content.theScene;
+    NSAssert(sceneRep != nil, @"scene rep must exist");
+    self.sceneController.scene = sceneRep;
+    self.cameraViewController.representedObject = sceneRep.toCamera;
+    self.drawingViewController.representedObject = sceneRep;
 
-    NSAssert(sceneOne != nil, @"scene rep must exist");
     
-    self.sceneController.scene = sceneOne;
-    self.cameraViewController.representedObject = sceneOne.toCamera;
-    self.drawingViewController.representedObject = sceneOne;
-
     // Load Default Colors for Content View
     NSError *error;
     NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
