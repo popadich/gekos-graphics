@@ -837,9 +837,21 @@
                                                         <font key="font" metaFont="miniSystem"/>
                                                     </buttonCell>
                                                 </button>
+                                                <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="R4y-fs-tpa">
+                                                    <rect key="frame" x="73" y="107" width="44" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23" id="6OD-QB-MVN"/>
+                                                        <constraint firstAttribute="width" constant="44" id="R40-jp-4UC"/>
+                                                    </constraints>
+                                                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <binding destination="ziB-ro-WAM" name="value" keyPath="selection.backgroundColor" id="ftR-xE-XIL"/>
+                                                    </connections>
+                                                </colorWell>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="POj-6e-lIg" firstAttribute="centerY" secondItem="bPt-MF-J01" secondAttribute="centerY" id="0ad-Cv-yQH"/>
+                                                <constraint firstItem="R4y-fs-tpa" firstAttribute="leading" secondItem="a1K-pX-qS0" secondAttribute="leading" constant="73" id="131-A3-h69"/>
                                                 <constraint firstItem="f6a-Zt-qGR" firstAttribute="centerY" secondItem="hgY-on-ufS" secondAttribute="centerY" id="3nH-Wn-i5j"/>
                                                 <constraint firstItem="PXr-aa-zGe" firstAttribute="centerX" secondItem="vq9-qI-M5W" secondAttribute="centerX" id="3qs-fv-J7E"/>
                                                 <constraint firstItem="Vw3-7B-RZb" firstAttribute="centerY" secondItem="bPt-MF-J01" secondAttribute="centerY" id="4no-kz-rus"/>
@@ -863,6 +875,7 @@
                                                 <constraint firstItem="vq9-qI-M5W" firstAttribute="centerX" secondItem="Vw3-7B-RZb" secondAttribute="centerX" id="lgF-G2-dBb"/>
                                                 <constraint firstItem="f6a-Zt-qGR" firstAttribute="top" secondItem="Bst-dk-3hQ" secondAttribute="bottom" constant="7" id="mHm-EP-8Hc"/>
                                                 <constraint firstItem="Owc-Wv-ts4" firstAttribute="centerY" secondItem="y4f-ia-1eb" secondAttribute="centerY" id="n8o-Sp-byc"/>
+                                                <constraint firstItem="R4y-fs-tpa" firstAttribute="top" secondItem="a1K-pX-qS0" secondAttribute="top" constant="15" id="y4t-rf-zTx"/>
                                             </constraints>
                                         </view>
                                         <constraints>

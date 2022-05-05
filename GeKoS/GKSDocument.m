@@ -58,6 +58,8 @@
             NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
             
             StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
+            
+
 
             story.storyTitle = @"Gekos";
             story.storyDescription = @"A geko's story";
@@ -66,6 +68,18 @@
 
             SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
             scene.title = @"Scene 1";
+            
+            // Load Default Colors for Content View
+            NSError *error;
+            NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
+            if (colorData != nil) {
+                NSColor *sceneBackColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+                scene.backgroundColor = sceneBackColor;
+            }
+            else {
+                scene.backgroundColor = [NSColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+            }
+           
             scene.toStoryBoard = story;
             [toScenes addObject:scene];
             
