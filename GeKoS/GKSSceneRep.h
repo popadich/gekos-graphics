@@ -8,13 +8,13 @@
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 #include "gks/gks_types.h"
-#import "ActorEntity+CoreDataClass.h"
 #import "GKS3DActor.h"
+#import "Document+CoreDataModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class GKS3DObjectRep;
 @class GKSCameraRep;
+
 
 @interface GKSSceneRep : NSObject
 

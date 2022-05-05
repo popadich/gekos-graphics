@@ -30,6 +30,8 @@
 		FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E47280F3345009C1047 /* GKSSceneRep.m */; };
 		FA697E4B280F776E009C1047 /* GKSMeshRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4A280F776E009C1047 /* GKSMeshRep.m */; };
 		FA697E4E28104C45009C1047 /* GKSMeshMonger.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4D28104C45009C1047 /* GKSMeshMonger.m */; };
+		FA83739328235E010011E1D2 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */; };
+		FA8398D128235DBF006F757A /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */; };
 		FA9842CC2782023E00EBDC7D /* gks.c in Sources */ = {isa = PBXBuildFile; fileRef = FA9842CB2782023E00EBDC7D /* gks.c */; };
 		FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE7BF27E24E1A005A4150 /* GKSSceneInspector.m */; };
 		FA9EE7C227E24E1A005A4150 /* GKSSceneInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */; };
@@ -49,8 +51,6 @@
 		FACF8B582800BAFA00B9BD5F /* GKSMeshParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FACF8B572800BAFA00B9BD5F /* GKSMeshParser.m */; };
 		FAE5E75027D59380008E793F /* GKSSceneController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E74F27D59380008E793F /* GKSSceneController.m */; };
 		FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E75227D59C52008E793F /* GKSDrawingController.m */; };
-		FAE75A2E28215E43002F3ED2 /* ActorEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE75A2C28215E43002F3ED2 /* ActorEntity+CoreDataClass.m */; };
-		FAE75A2F28215E43002F3ED2 /* ActorEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE75A2D28215E43002F3ED2 /* ActorEntity+CoreDataProperties.m */; };
 		FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA1AD227E163F8009FCA8B /* GKSContent.m */; };
 /* End PBXBuildFile section */
 
@@ -153,10 +153,6 @@
 		FAE5E74F27D59380008E793F /* GKSSceneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKSSceneController.m; sourceTree = "<group>"; };
 		FAE5E75127D59C52008E793F /* GKSDrawingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSDrawingController.h; sourceTree = "<group>"; };
 		FAE5E75227D59C52008E793F /* GKSDrawingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSDrawingController.m; sourceTree = "<group>"; };
-		FAE75A2A28215E43002F3ED2 /* ActorEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActorEntity+CoreDataClass.h"; sourceTree = "<group>"; };
-		FAE75A2B28215E43002F3ED2 /* ActorEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActorEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FAE75A2C28215E43002F3ED2 /* ActorEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActorEntity+CoreDataClass.m"; sourceTree = "<group>"; };
-		FAE75A2D28215E43002F3ED2 /* ActorEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActorEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FAFA1AD127E163F8009FCA8B /* GKSContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSContent.h; sourceTree = "<group>"; };
 		FAFA1AD227E163F8009FCA8B /* GKSContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSContent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -291,10 +287,6 @@
 				FA658890281CC47E008CDF60 /* Defaults.plist */,
 				FAA02D572756D6F600A0C454 /* main.m */,
 				FAA02D592756D6F600A0C454 /* GeKoS.entitlements */,
-				FAE75A2A28215E43002F3ED2 /* ActorEntity+CoreDataClass.h */,
-				FAE75A2C28215E43002F3ED2 /* ActorEntity+CoreDataClass.m */,
-				FAE75A2B28215E43002F3ED2 /* ActorEntity+CoreDataProperties.h */,
-				FAE75A2D28215E43002F3ED2 /* ActorEntity+CoreDataProperties.m */,
 				FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */,
 			);
 			path = GeKoS;
@@ -462,14 +454,12 @@
 				FA3C4E892794E3B000A1196D /* GKSPreferences.m in Sources */,
 				FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */,
 				FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */,
-				FAE75A2F28215E43002F3ED2 /* ActorEntity+CoreDataProperties.m in Sources */,
 				FA081B7627CFC5F60070056A /* GKSCameraView.m in Sources */,
 				FA081B7227CFBAF40070056A /* GKSCameraController.m in Sources */,
 				FAE5E75027D59380008E793F /* GKSSceneController.m in Sources */,
 				FA58B8A5275F0EF000BFFB11 /* gks_3d_projection.c in Sources */,
 				FA43CAF32812F766005A0AB1 /* gks_3d_actor.c in Sources */,
 				FA35285C275864C6002B716C /* gks_3d_matrix.c in Sources */,
-				FAE75A2E28215E43002F3ED2 /* ActorEntity+CoreDataClass.m in Sources */,
 				FA274D65276BF659005104A4 /* gks_3d_view_orient.c in Sources */,
 				FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */,
 				FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */,
@@ -495,6 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA83739328235E010011E1D2 /* Document.xcdatamodeld in Sources */,
 				FA352861275875E7002B716C /* GeKoSCoreTests.m in Sources */,
 				FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */,
 			);
@@ -504,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA8398D128235DBF006F757A /* Document.xcdatamodeld in Sources */,
 				FAA02D6E2756D6F700A0C454 /* GeKoSUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

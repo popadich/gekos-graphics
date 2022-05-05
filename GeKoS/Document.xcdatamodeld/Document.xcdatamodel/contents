@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="ActorEntity" representedClassName="ActorEntity" syncable="YES">
+    <entity name="ActorEntity" representedClassName="ActorEntity" syncable="YES" codeGenerationType="class">
         <attribute name="hidden" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="kind" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lineColor" optional="YES" attributeType="Transformable" valueTransformerName="NSKeyedUnarchiveFromData"/>
         <attribute name="locX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -14,6 +15,7 @@
         <attribute name="scaleX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="transientActor" optional="YES" transient="YES" attributeType="Transformable"/>
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toActors" inverseEntity="SceneEntity"/>
     </entity>
     <entity name="CameraEntity" representedClassName="CameraEntity" syncable="YES" codeGenerationType="class">
@@ -60,7 +62,7 @@
         <relationship name="toScenes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toStoryBoard" inverseEntity="SceneEntity"/>
     </entity>
     <elements>
-        <element name="ActorEntity" positionX="-425.70849609375" positionY="130.377197265625" width="128" height="239"/>
+        <element name="ActorEntity" positionX="-425.70849609375" positionY="130.377197265625" width="128" height="269"/>
         <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
         <element name="MeshEntity" positionX="-66.2364501953125" positionY="241.6806793212891" width="128" height="74"/>
         <element name="SceneEntity" positionX="-194.2896728515625" positionY="-185.5485382080078" width="128" height="194"/>

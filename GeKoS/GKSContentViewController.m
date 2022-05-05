@@ -13,7 +13,7 @@
 #import "GKS3DActor.h"
 #import "GKSSceneController.h"
 #import "GKSMeshParser.h"
-#import "ActorEntity+CoreDataClass.h"
+#import "Document+CoreDataModel.h"
 
 
 #define GKS_MAX_VANTAGE_PTS 6
@@ -294,28 +294,23 @@ static void *worldDataContext = &worldDataContext;
     NSAssert(objects.count == 1, @"One selection is mandatory");
     
     if (objects.count == 1) {
-        ActorEntity *actorEntity = [objects objectAtIndex:0];
-        //    GKS3DActor *selectedActor = [self.objectArrayController.selection valueForKey:@"actorObject"];
+        ActorEntity *actEntity = [objects objectAtIndex:0];
+
+        GKSvector3d pos = GKSMakeVector(actEntity.locX, actEntity.locY, actEntity.locZ);
+        GKSvector3d rot = GKSMakeVector(actEntity.rotX, actEntity.rotY, actEntity.rotZ);
+        GKSvector3d sca = GKSMakeVector(actEntity.scaleX, actEntity.scaleY, actEntity.scaleZ);
         
-        NSString *actorName = actorEntity.name;
-        GKS3DActor *selectedActor = [self.actorWhitePages objectForKey:actorName];
+        NSString *actorName = actEntity.name;
+        GKS3DActor *found3DActor = [self.actorWhitePages objectForKey:actorName];
+        [found3DActor setPosition:pos];
+        [found3DActor setRotation:rot];
+        [found3DActor setScaling:sca];
         
-        GKSvector3d pos = actorEntity.positionVector;
-        GKSvector3d rot = actorEntity.rotationVector;
-        GKSvector3d sca = actorEntity.scaleVector;
-        
-        [selectedActor setPosition:pos];
-        [selectedActor setRotation:rot];
-        [selectedActor setScaling:sca];
-        
-        [selectedActor stageUpdateActor];
+        [found3DActor stageUpdateActor];
 
         [self.sceneController transformAllObjects];
         [self.drawingViewController refresh];
     }
-    
-    
-
 }
 
 
