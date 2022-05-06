@@ -28,11 +28,11 @@
 }
 
 
-- (void)castArrayOfActors:(NSArray *)actors
+- (void)castSetOfActors:(NSSet *)actors
 {
-    NSLog(@"Cast array of actors now");
-
-//  pull old actors
+    NSLog(@"Cast set of actors now");
+    
+    //  pull old actors
     [self.scene.toActors removeAllObjects];
     
     NSMutableDictionary *actorWhitePages = [[NSMutableDictionary alloc] initWithCapacity:1024];
@@ -45,7 +45,6 @@
         
     }
     self.actorWhitePages = actorWhitePages;
-
 }
 
 

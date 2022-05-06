@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setFrustumCulling:(BOOL)flag;
 
-- (void)castArrayOfActors:(NSArray *)actors;
+- (void)castSetOfActors:(NSSet *)actors;
 
 - (void)transformAllObjects;
 

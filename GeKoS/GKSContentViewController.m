@@ -32,6 +32,8 @@
 @property (assign) NSInteger currentVPIndex;
 @property (strong) NSMutableArray *vantagePoints;
 
+@property (strong) id currentSceneId;
+
 @end
 
 
@@ -111,6 +113,7 @@ static void *worldDataContext = &worldDataContext;
     BOOL cullFlag = [[NSUserDefaults standardUserDefaults] boolForKey:gksPrefFrustumCullFlag];
     [self.sceneController setFrustumCulling:cullFlag];
     
+    self.currentSceneId = nil;
     self.itsContent = content;
 
 }
@@ -163,21 +166,24 @@ static void *worldDataContext = &worldDataContext;
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
     if ([notification.object isKindOfClass:[NSTableView class]]) {
-
         if ([notification.object tag] == 1) {            
             id selectionProxy = [self.sceneArrayController selection];
             NSInteger selectedObjectCount = [[self.sceneArrayController selectedObjects] count];
             if (selectedObjectCount == 1) {
                 SceneEntity *sceneEnt = [selectionProxy valueForKey:@"self"];
                 if (sceneEnt != nil) {
-                    NSSet *actorEnts = [sceneEnt toActors];
-                    [self.sceneController castArrayOfActors:[actorEnts allObjects]];
-                    [self showScene];
+                    if (sceneEnt.objectID != self.currentSceneId) {
+                        NSSet *actorEnts = [sceneEnt toActors];
+                        [self.sceneController castSetOfActors:actorEnts];
+                        self.currentSceneId = sceneEnt.objectID;
+
+                    }
+
                 }
                 
             }
+            [self showScene];
         }
-        
     }
     
 }
