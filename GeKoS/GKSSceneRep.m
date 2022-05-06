@@ -92,8 +92,7 @@
 
 - (void)stageActor:(GKS3DActor *)actor
 {
-
-    [actor computeActorInContext:self.context];
+    // TODO: mutable set?
     [self.toActors addObject:actor];   // add to local mutable set
 }
 

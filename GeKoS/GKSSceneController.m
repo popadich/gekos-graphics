@@ -28,23 +28,25 @@
 }
 
 
-- (void)castSetOfActors:(NSSet *)actors
+- (void)castSetOfActors:(NSSet *)actorEntities
 {
     NSLog(@"Cast set of actors now");
     
     //  pull old actors
-    [self.scene.toActors removeAllObjects];
+//    [self.scene.toActors removeAllObjects];
     
+    NSMutableSet *actors = [[NSMutableSet alloc] init];
     NSMutableDictionary *actorWhitePages = [[NSMutableDictionary alloc] initWithCapacity:1024];
-    for (ActorEntity *actorEntity in actors) {
+    for (ActorEntity *actorEntity in actorEntities) {
         //TODO: get transient actor
         // actor = actorEntity.transientActor;
         GKS3DActor *actor = [self.scene castActorFromEnt:actorEntity];
         [actorWhitePages setObject:actor forKey:actorEntity.name];
-        [self.scene stageActor:actor];
+        [actors addObject:actor];
         
     }
     self.actorWhitePages = actorWhitePages;
+    self.scene.toActors = actors;
 }
 
 
