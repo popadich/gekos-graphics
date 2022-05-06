@@ -79,15 +79,14 @@ static void *worldDataContext = &worldDataContext;
     
 
     // Stage actors for all Actor entities
-    NSFetchRequest *request = [ActorEntity fetchRequest];
-    NSError *error = nil;
-    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
-    if (!results) {
-        NSLog(@"Error fetching Actor entities: %@\n%@", [error localizedDescription], [error userInfo]);
-        abort();
-    }
-    // TODO: at scene selection time
-    [self.sceneController castArrayOfActors:results];
+//    NSFetchRequest *request = [ActorEntity fetchRequest];
+//    NSError *error = nil;
+//    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+//    if (!results) {
+//        NSLog(@"Error fetching Actor entities: %@\n%@", [error localizedDescription], [error userInfo]);
+//        abort();
+//    }
+
 
     
     // notifications come after camera values have been set
@@ -142,8 +141,9 @@ static void *worldDataContext = &worldDataContext;
     if ([[notification name] isEqualToString:@"cameraMoved"]) {
 //        NSDictionary *userInfo = notification.userInfo;
 //        NSString *moveType = [userInfo objectForKey:@"moveType"];
-        [self.sceneController transformAllObjects];
-        [self.drawingViewController.view setNeedsDisplay:YES];
+//        [self.sceneController transformAllObjects];
+//        [self.drawingViewController.view setNeedsDisplay:YES];
+        [self showScene];
     }
 }
 
@@ -182,7 +182,9 @@ static void *worldDataContext = &worldDataContext;
             if (selectedObjectCount == 1) {
                 SceneEntity *sceneEnt = [selectionProxy valueForKey:@"self"];
                 if (sceneEnt != nil) {
-                    NSLog(@"Scene Title %@", [sceneEnt title]);
+                    NSSet *actorEnts = [sceneEnt toActors];
+                    [self.sceneController castArrayOfActors:[actorEnts allObjects]];
+                    [self showScene];
                 }
                 
             }
@@ -190,6 +192,12 @@ static void *worldDataContext = &worldDataContext;
         
     }
     
+}
+
+
+- (void)showScene {
+    [self.sceneController transformAllObjects];
+    [self.drawingViewController refresh];
 }
 
 
@@ -228,8 +236,10 @@ static void *worldDataContext = &worldDataContext;
         camera.projectionType = [vantage valueForKey:@"projectionType"];
         
         [self.sceneController setWorldVolumeG];
+        
         [self.sceneController transformAllObjects];
         [self.drawingViewController refresh];
+        
         self.currentVPIndex = newButtonTag;
     }
 }
@@ -289,7 +299,7 @@ static void *worldDataContext = &worldDataContext;
 
         // remove selected actor entity
         [self.actorArrayController removeObject:actorEntity];
-        [self.drawingViewController refresh];
+        [self showScene];
     }
 
 }
@@ -318,8 +328,7 @@ static void *worldDataContext = &worldDataContext;
         
         [found3DActor stageUpdateActor];
 
-        [self.sceneController transformAllObjects];
-        [self.drawingViewController refresh];
+        [self showScene];
     }
 }
 
@@ -327,13 +336,13 @@ static void *worldDataContext = &worldDataContext;
 - (IBAction)performLookQuick:(id)sender {
     
     [self.cameraViewController cameraSetViewLookAtG];
-    [self.sceneController transformAllObjects];
-    [self.drawingViewController refresh];
+    [self performRenderQuick:sender];
 }
 
+
 - (IBAction)performRenderQuick:(id)sender {
-    NSLog(@"Draw everything");
-    [self.sceneController transformAllObjects];
+    [self showScene];
+    
 }
 
 - (IBAction)setCenterObjects:(id)sender {

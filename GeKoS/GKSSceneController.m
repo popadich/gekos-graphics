@@ -32,20 +32,19 @@
 {
     NSLog(@"Cast array of actors now");
 
-// TODO: pull old actor white pages
+//  pull old actors
+    [self.scene.toActors removeAllObjects];
     
     NSMutableDictionary *actorWhitePages = [[NSMutableDictionary alloc] initWithCapacity:1024];
-
-    // FIXME: override fetch
     for (ActorEntity *actorEntity in actors) {
+        //TODO: get transient actor
+        // actor = actorEntity.transientActor;
         GKS3DActor *actor = [self.scene castActorFromEnt:actorEntity];
         [actorWhitePages setObject:actor forKey:actorEntity.name];
         [self.scene stageActor:actor];
         
-//        actorEntity.transientActor = actor;
     }
     self.actorWhitePages = actorWhitePages;
-
 
 }
 
