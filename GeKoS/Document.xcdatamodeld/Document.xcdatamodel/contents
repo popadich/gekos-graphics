@@ -15,7 +15,7 @@
         <attribute name="scaleX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="transientActor" optional="YES" transient="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="GKS3DActor"/>
+        <attribute name="transientActor" optional="YES" transient="YES" attributeType="UUID" valueTransformerName="NSSecureUnarchiveFromData" usesScalarValueType="NO" customClassName="GKS3DActor"/>
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toActors" inverseEntity="SceneEntity"/>
     </entity>
     <entity name="CameraEntity" representedClassName="CameraEntity" syncable="YES" codeGenerationType="class">

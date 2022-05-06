@@ -13,7 +13,7 @@
     GKSDCArrPtr dev_coord_ptr;
 }
 
-@property (nonatomic, strong) NSNumber* actorID;
+@property (nonatomic, strong) NSUUID* actorID;
 @property (nonatomic, strong) NSNumber* kind;
 @property (nonatomic, strong) NSNumber* hidden;
 @property (nonatomic, strong) NSNumber* priority;
@@ -48,7 +48,7 @@
         _hidden = [NSNumber numberWithBool:NO];
         _kind = kind;
         _priority = @0;
-        _actorID = @0;
+        _actorID = [NSUUID UUID];
         
         // TODO: better defaults
         _lineColor = [NSColor greenColor];
