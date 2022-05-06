@@ -12,6 +12,7 @@
                 <outlet property="cameraCustomView" destination="TxN-l7-jPx" id="aJz-1v-zOA"/>
                 <outlet property="cameraViewController" destination="NFN-fq-5sy" id="r2C-xL-U5N"/>
                 <outlet property="drawingViewController" destination="sxa-LD-8zy" id="Lna-fI-O4D"/>
+                <outlet property="sceneArrayController" destination="ziB-ro-WAM" id="0uc-SH-tZv"/>
                 <outlet property="sceneController" destination="Fm7-nA-xaM" id="LuX-29-e8M"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -120,7 +121,7 @@
                                             <rect key="frame" x="1" y="1" width="101" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="2A9-1V-jkH" viewBased="YES" id="SUZ-cS-6th">
+                                                <tableView verticalHuggingPriority="750" tag="1" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="2A9-1V-jkH" viewBased="YES" id="SUZ-cS-6th">
                                                     <rect key="frame" x="0.0" y="0.0" width="101" height="71"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="17" height="0.0"/>
@@ -170,6 +171,7 @@
                                                     <connections>
                                                         <binding destination="ziB-ro-WAM" name="content" keyPath="arrangedObjects" id="B78-Na-mpa"/>
                                                         <binding destination="ziB-ro-WAM" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="B78-Na-mpa" id="Xxm-on-SsZ"/>
+                                                        <outlet property="delegate" destination="-2" id="kim-nc-3I6"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -1023,11 +1025,23 @@
                         <binding destination="-2" name="value" keyPath="self.isCenteredObject" id="8ap-L0-w63"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s9F-Lg-ndy">
+                    <rect key="frame" x="931" y="13" width="78" height="32"/>
+                    <buttonCell key="cell" type="push" title="Render" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hFP-qY-BEo">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="performRenderQuick:" target="-2" id="0dG-hr-FFy"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="TCR-Jr-Xrg" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="12" symbolic="YES" id="1Ga-mf-3sn"/>
                 <constraint firstAttribute="bottom" secondItem="TxN-l7-jPx" secondAttribute="bottom" id="5Gh-1f-RW1"/>
                 <constraint firstItem="TxN-l7-jPx" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Jn0-HU-GXZ"/>
+                <constraint firstAttribute="bottom" secondItem="s9F-Lg-ndy" secondAttribute="bottom" constant="20" symbolic="YES" id="MDk-jD-6bq"/>
+                <constraint firstAttribute="trailing" secondItem="s9F-Lg-ndy" secondAttribute="trailing" constant="20" symbolic="YES" id="OjB-dK-eYL"/>
                 <constraint firstItem="TxN-l7-jPx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TCR-Jr-Xrg" secondAttribute="bottom" constant="59" id="SpX-cC-n5G"/>
                 <constraint firstAttribute="trailing" secondItem="TCR-Jr-Xrg" secondAttribute="trailing" constant="20" symbolic="YES" id="gfY-QH-w65"/>
                 <constraint firstItem="TCR-Jr-Xrg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="451" id="vQz-JF-NVs"/>

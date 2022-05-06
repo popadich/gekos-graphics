@@ -14,8 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSSceneController : NSObject
 
 @property (strong) GKSSceneRep *scene;
+@property (strong) NSMutableDictionary *actorWhitePages;
 
 - (void)setFrustumCulling:(BOOL)flag;
+
+- (void)castArrayOfActors:(NSArray *)actors;
 
 - (void)transformAllObjects;
 

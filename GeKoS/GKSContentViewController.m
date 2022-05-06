@@ -21,8 +21,8 @@
 @interface GKSContentViewController ()
 
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
-@property (weak) IBOutlet NSArrayController *objectArrayController;
 @property (weak) IBOutlet NSArrayController *actorArrayController;
+@property (weak) IBOutlet NSArrayController *sceneArrayController;
 
 @property (strong) GKSContent *itsContent;
 
@@ -32,7 +32,6 @@
 @property (assign) NSInteger currentVPIndex;
 @property (strong) NSMutableArray *vantagePoints;
 
-@property (strong) NSMutableDictionary *actorWhitePages;
 @end
 
 
@@ -74,8 +73,6 @@ static void *worldDataContext = &worldDataContext;
         [self.vantagePoints addObject:vantageProperties];
     }
 
-    self.actorWhitePages = [[NSMutableDictionary alloc] initWithCapacity:1024];
-    
     [self setIsCenteredObject:@NO];
     [self setMakeKinds:@(kCubeKind)];
     [self registerAsObserverForScene];
@@ -89,16 +86,10 @@ static void *worldDataContext = &worldDataContext;
         NSLog(@"Error fetching Actor entities: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
+    // TODO: at scene selection time
+    [self.sceneController castArrayOfActors:results];
+
     
-    // FIXME: override fetch
-    for (ActorEntity *actorEntity in results) {
-        GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
-        [self.actorWhitePages setObject:actor forKey:actorEntity.name];
-        [self.sceneController.scene stageActor:actor];
-        
-//        actorEntity.transientActor = actor;
-    }
-        
     // notifications come after camera values have been set
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
     
@@ -137,11 +128,6 @@ static void *worldDataContext = &worldDataContext;
 
 }
 
-- (void)viewDidLayout {
-
-    // TODO: make sure all matrices have been initialized and set
-    [self.sceneController transformAllObjects];
-}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -184,6 +170,26 @@ static void *worldDataContext = &worldDataContext;
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    if ([notification.object isKindOfClass:[NSTableView class]]) {
+
+        if ([notification.object tag] == 1) {            
+            id selectionProxy = [self.sceneArrayController selection];
+            NSInteger selectedObjectCount = [[self.sceneArrayController selectedObjects] count];
+            if (selectedObjectCount == 1) {
+                SceneEntity *sceneEnt = [selectionProxy valueForKey:@"self"];
+                if (sceneEnt != nil) {
+                    NSLog(@"Scene Title %@", [sceneEnt title]);
+                }
+                
+            }
+        }
+        
+    }
+    
 }
 
 
@@ -255,7 +261,7 @@ static void *worldDataContext = &worldDataContext;
     
     // get unique identifier for actor entity
     GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
-    [self.actorWhitePages setObject:actor forKey:actorEntity.name];
+    [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.name];
     [self.sceneController.scene stageActor:actor];
     
     [self.actorArrayController addObject:actorEntity];
@@ -275,7 +281,7 @@ static void *worldDataContext = &worldDataContext;
         NSMutableSet *actors = self.sceneController.scene.toActors;
             
         NSString *actorName = actorEntity.name;
-        GKS3DActor *actorPull = [self.actorWhitePages objectForKey:actorName];
+        GKS3DActor *actorPull = [self.sceneController.actorWhitePages objectForKey:actorName];
         
         NSAssert(actorPull != nil, @"actor object missing");
         [actors removeObject:actorPull];
@@ -302,7 +308,7 @@ static void *worldDataContext = &worldDataContext;
         GKSvector3d sca = GKSMakeVector(actEntity.scaleX, actEntity.scaleY, actEntity.scaleZ);
         
         NSString *actorName = actEntity.name;
-        GKS3DActor *found3DActor = [self.actorWhitePages objectForKey:actorName];
+        GKS3DActor *found3DActor = [self.sceneController.actorWhitePages objectForKey:actorName];
 //        found3DActor = ( GKS3DActor *)actEntity.transientActor;
         [found3DActor setPosition:pos];
         [found3DActor setRotation:rot];
@@ -325,6 +331,10 @@ static void *worldDataContext = &worldDataContext;
     [self.drawingViewController refresh];
 }
 
+- (IBAction)performRenderQuick:(id)sender {
+    NSLog(@"Draw everything");
+    [self.sceneController transformAllObjects];
+}
 
 - (IBAction)setCenterObjects:(id)sender {
     

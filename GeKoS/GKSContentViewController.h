@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class GKSSceneController;
 
-@interface GKSContentViewController : NSViewController
+@interface GKSContentViewController : NSViewController<NSTableViewDelegate>
 
 @property (strong) IBOutlet GKSCameraController* cameraViewController;
 @property (strong) IBOutlet GKSDrawingController* drawingViewController;
