@@ -170,6 +170,7 @@
 {
     GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
 
+
     NSMutableSet *meshes = [[NSMutableSet alloc] init];
     for (int i=kCubeKind; i<=kHouseKind; i++) {
         GKSMeshRep *meshRep = [monger getMeshRep:@(i)];
@@ -179,6 +180,135 @@
     
     return ([NSSet setWithSet:meshes]);
 }
+
+- (StoryBoardEntity *)makeEmptyStoryBoard {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
+    
+    StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
+    
+    story.storyTitle = @"Gekos";
+    story.storyDescription = @"A geko's story";
+    
+    NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
+    
+    SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
+    scene.title = @"Scene 1";
+    scene.toStoryBoard = story;
+    [toScenes addObject:scene];
+    
+    NSDictionary *cameraSettings = [defaults valueForKey:@"camera"];
+    CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
+    
+    camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
+    camera.positionY = [[cameraSettings valueForKey:@"posY"] doubleValue];
+    camera.positionZ = [[cameraSettings valueForKey:@"posZ"] doubleValue];
+    
+    camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
+    camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
+    camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
+    
+    camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
+    camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
+    camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
+    
+    camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
+    camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
+    camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
+    
+    camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
+    camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
+    camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
+    
+    camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
+    
+    scene.toCamera = camera;
+    
+    [moc processPendingChanges];
+    [[moc undoManager] removeAllActions];
+    [self updateChangeCount:NSChangeCleared];
+    return story;
+}
+
+- (StoryBoardEntity *)makePlayStoryBoard {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
+    
+    StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
+    
+    story.storyTitle = @"Gekos";
+    story.storyDescription = @"A geko's story";
+    
+    NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
+    
+    SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
+    scene.title = @"Scene 1";
+    scene.toStoryBoard = story;
+    [toScenes addObject:scene];
+    
+    NSDictionary *cameraSettings = [defaults valueForKey:@"camera"];
+    CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
+    
+    camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
+    camera.positionY = [[cameraSettings valueForKey:@"posY"] doubleValue];
+    camera.positionZ = [[cameraSettings valueForKey:@"posZ"] doubleValue];
+    
+    camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
+    camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
+    camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
+    
+    camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
+    camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
+    camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
+    
+    camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
+    camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
+    camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
+    
+    camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
+    camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
+    camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
+    
+    camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
+    
+    scene.toCamera = camera;
+    
+    // TODO: remove when done with playing
+    BOOL playing = YES;
+    if (playing) {
+        NSMutableSet *actors = [[NSMutableSet alloc] init];
+        GKSfloat rad = 0.0;
+        for (int i=1; i<8; i++) {
+            GKSfloat locX = 0.0;
+            GKSfloat locY = i%2;
+            GKSfloat locZ = -2.0 * i;
+            
+            ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
+            actorEntity.kind  = (i%2) ? kCubeKind : kPyramidKind;
+            actorEntity.locX = locX;
+            actorEntity.locY = locY;
+            actorEntity.locZ = locZ;
+            actorEntity.scaleX = 1.0;
+            actorEntity.scaleY = 1.0;
+            actorEntity.scaleZ = 1.0;
+            actorEntity.name =  [[NSUUID UUID] UUIDString];
+            [actors addObject:actorEntity];
+            actorEntity.lineColor = [NSColor greenColor];
+            
+            rad += 35;
+        }
+        scene.toActors = actors;
+    }
+    
+    [moc processPendingChanges];
+    [[moc undoManager] removeAllActions];
+    [self updateChangeCount:NSChangeCleared];
+    return story;
+}
+
+
 
 + (BOOL)autosavesInPlace {
     return YES;

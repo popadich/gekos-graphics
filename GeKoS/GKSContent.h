@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) NSManagedObjectContext *managedObjectContext;
 @property (assign) GKScontext3DPtr context3D;
 
+- (NSData *)textRepresentation;
+
 @end
 
 NS_ASSUME_NONNULL_END
