@@ -77,18 +77,6 @@ static void *worldDataContext = &worldDataContext;
     [self setMakeKinds:@(kCubeKind)];
     [self registerAsObserverForScene];
     
-
-    // Stage actors for all Actor entities
-//    NSFetchRequest *request = [ActorEntity fetchRequest];
-//    NSError *error = nil;
-//    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
-//    if (!results) {
-//        NSLog(@"Error fetching Actor entities: %@\n%@", [error localizedDescription], [error userInfo]);
-//        abort();
-//    }
-
-
-    
     // notifications come after camera values have been set
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
     
@@ -235,20 +223,19 @@ static void *worldDataContext = &worldDataContext;
         camera.far = [vantage valueForKey:@"far"];
         camera.projectionType = [vantage valueForKey:@"projectionType"];
         
-        [self.sceneController setWorldVolumeG];
-        
-        [self.sceneController transformAllObjects];
-        [self.drawingViewController refresh];
-        
         self.currentVPIndex = newButtonTag;
+
+        [self.sceneController setWorldVolumeG];
+        [self showScene];
+        
     }
 }
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
     [self.sceneController setWorldVolumeG];
-    [self.sceneController transformAllObjects];
-    [self.drawingViewController refresh];
+    [self showScene];
+
 
 }
 
@@ -276,7 +263,7 @@ static void *worldDataContext = &worldDataContext;
     
     [self.actorArrayController addObject:actorEntity];
 
-    [self.drawingViewController refresh];
+    [self showScene];
 
 }
 
