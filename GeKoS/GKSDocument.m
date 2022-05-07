@@ -52,114 +52,8 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-        
         if ([typeName isEqual:@"com.xephyr.gekos"]) {
-            
-            NSManagedObjectContext *moc = [self managedObjectContext];
-            _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
-            
-            NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
-            
-            StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
-            
-
-
-            story.storyTitle = @"Gekos";
-            story.storyDescription = @"A geko's story";
-
-            NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
-
-            SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
-            scene.title = @"Scene 1";
-            scene.sceneType = @"START";
-            scene.volumeMinX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX] doubleValue];
-            scene.volumeMaxX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX] doubleValue];
-            scene.volumeMinY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY] doubleValue];
-            scene.volumeMaxY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY] doubleValue];
-            scene.volumeMinZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ] doubleValue];
-            scene.volumeMaxZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ] doubleValue];
-            
-            // Load default background color for this scene
-            NSError *error;
-            NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
-            if (colorData != nil) {
-                NSColor *sceneBackColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
-                scene.backgroundColor = sceneBackColor;
-            }
-            else {
-                scene.backgroundColor = [NSColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-            }
-           
-            scene.toStoryBoard = story;
-            [toScenes addObject:scene];
-            
-            NSDictionary *cameraSettings = [defaults valueForKey:@"cameraDefaults"];
-            CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
-            
-            camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
-            camera.positionY = [[cameraSettings valueForKey:@"posY"] doubleValue];
-            camera.positionZ = [[cameraSettings valueForKey:@"posZ"] doubleValue];
-            
-            camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
-            camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
-            camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
-
-            camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
-            camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
-            camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
-
-            camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
-            camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
-            camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
-
-            camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
-            camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
-            camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
-
-            camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
-            camera.toScene = scene;
-            scene.toCamera = camera;
-            
-            // TODO: remove when done with playing
-            BOOL playing = YES;
-            if (playing) {
-                NSMutableSet *actors = [[NSMutableSet alloc] init];
-                GKSfloat rad = 0.0;
-                for (int i=1; i<8; i++) {
-                    GKSfloat locX = 0.0;
-                    GKSfloat locY = i%2;
-                    GKSfloat locZ = -2.0 * i;
-                    
-                    ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
-                    actorEntity.kind  = (i%2) ? kCubeKind : kPyramidKind;
-                    actorEntity.locX = locX;
-                    actorEntity.locY = locY;
-                    actorEntity.locZ = locZ;
-                    actorEntity.scaleX = 1.0;
-                    actorEntity.scaleY = 1.0;
-                    actorEntity.scaleZ = 1.0;
-                    actorEntity.name =  [[NSUUID UUID] UUIDString];
-                    [actors addObject:actorEntity];
-                    actorEntity.lineColor = [NSColor greenColor];
-                    
-                    rad += 35;
-                }
-                scene.toActors = actors;
-            }
-            
-            NSSet *baked_in_meshes = [self meshList];
-            for (GKSMeshRep *meshRep in baked_in_meshes) {
-                NSLog(@"Mesh: %@", meshRep.meshName);
-                MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
-                meshEnt.meshName = meshRep.meshName;
-                meshEnt.meshID = meshRep.meshId.intValue;
-            }
-            
-            [moc processPendingChanges];
-            [[moc undoManager] removeAllActions];
-            [self updateChangeCount:NSChangeCleared];
-            
-            _storyBoard = story;
+            _storyBoard = [self makeEmptyStoryBoard];
         }
 
     }
@@ -183,22 +77,44 @@
 
 - (StoryBoardEntity *)makeEmptyStoryBoard {
     NSManagedObjectContext *moc = [self managedObjectContext];
+    _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
     
     NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
     
     StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
     
+
+
     story.storyTitle = @"Gekos";
     story.storyDescription = @"A geko's story";
-    
+
     NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
-    
+
     SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
     scene.title = @"Scene 1";
+    scene.sceneType = @"START";
+    scene.volumeMinX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX] doubleValue];
+    scene.volumeMaxX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX] doubleValue];
+    scene.volumeMinY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY] doubleValue];
+    scene.volumeMaxY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY] doubleValue];
+    scene.volumeMinZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ] doubleValue];
+    scene.volumeMaxZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ] doubleValue];
+    
+    // Load default background color for this scene
+    NSError *error;
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
+    if (colorData != nil) {
+        NSColor *sceneBackColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+        scene.backgroundColor = sceneBackColor;
+    }
+    else {
+        scene.backgroundColor = [NSColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    }
+   
     scene.toStoryBoard = story;
     [toScenes addObject:scene];
     
-    NSDictionary *cameraSettings = [defaults valueForKey:@"camera"];
+    NSDictionary *cameraSettings = [defaults valueForKey:@"cameraDefaults"];
     CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
     
     camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
@@ -208,47 +124,72 @@
     camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
     camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
     camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
-    
+
     camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
     camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
     camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
-    
+
     camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
     camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
     camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
-    
+
     camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
     camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
     camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
-    
+
     camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
-    
+
+    camera.toScene = scene;
     scene.toCamera = camera;
+    
     
     [moc processPendingChanges];
     [[moc undoManager] removeAllActions];
     [self updateChangeCount:NSChangeCleared];
+
     return story;
 }
 
 - (StoryBoardEntity *)makePlayStoryBoard {
     NSManagedObjectContext *moc = [self managedObjectContext];
+    _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
     
     NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
     
     StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
     
+
+
     story.storyTitle = @"Gekos";
     story.storyDescription = @"A geko's story";
-    
+
     NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
-    
+
     SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
     scene.title = @"Scene 1";
+    scene.sceneType = @"START";
+    scene.volumeMinX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinX] doubleValue];
+    scene.volumeMaxX = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxX] doubleValue];
+    scene.volumeMinY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinY] doubleValue];
+    scene.volumeMaxY = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxY] doubleValue];
+    scene.volumeMinZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMinZ] doubleValue];
+    scene.volumeMaxZ = [[[NSUserDefaults standardUserDefaults] valueForKey:gksPrefWorldVolumeMaxZ] doubleValue];
+    
+    // Load default background color for this scene
+    NSError *error;
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefBackgroundColor];
+    if (colorData != nil) {
+        NSColor *sceneBackColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+        scene.backgroundColor = sceneBackColor;
+    }
+    else {
+        scene.backgroundColor = [NSColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    }
+   
     scene.toStoryBoard = story;
     [toScenes addObject:scene];
     
-    NSDictionary *cameraSettings = [defaults valueForKey:@"camera"];
+    NSDictionary *cameraSettings = [defaults valueForKey:@"cameraDefaults"];
     CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
     
     camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
@@ -258,21 +199,22 @@
     camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
     camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
     camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
-    
+
     camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
     camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
     camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
-    
+
     camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
     camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
     camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
-    
+
     camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
     camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
     camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
-    
+
     camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
-    
+
+    camera.toScene = scene;
     scene.toCamera = camera;
     
     // TODO: remove when done with playing
@@ -305,6 +247,7 @@
     [moc processPendingChanges];
     [[moc undoManager] removeAllActions];
     [self updateChangeCount:NSChangeCleared];
+
     return story;
 }
 
