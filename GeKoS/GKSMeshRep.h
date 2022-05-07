@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSMeshRep : NSObject
 
 @property (strong)NSNumber *meshId;
+@property (strong)NSString *meshName;
 @property (assign)GKSmesh_3 *meshPtr;
 
 - (instancetype)initWithID:(NSNumber *)meshID andMeshPtr:(GKSmesh_3 *)meshPtr;

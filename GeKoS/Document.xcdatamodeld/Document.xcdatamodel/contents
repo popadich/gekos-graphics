@@ -15,7 +15,7 @@
         <attribute name="scaleX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="transientActor" optional="YES" transient="YES" attributeType="UUID" valueTransformerName="NSSecureUnarchiveFromData" usesScalarValueType="NO" customClassName="GKS3DActor"/>
+        <attribute name="transientActor" optional="YES" transient="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="GKS3DActor"/>
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toActors" inverseEntity="SceneEntity"/>
     </entity>
     <entity name="CameraEntity" representedClassName="CameraEntity" syncable="YES" codeGenerationType="class">
@@ -63,10 +63,10 @@
         <relationship name="toScenes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toStoryBoard" inverseEntity="SceneEntity"/>
     </entity>
     <elements>
-        <element name="ActorEntity" positionX="-425.70849609375" positionY="130.377197265625" width="128" height="269"/>
+        <element name="ActorEntity" positionX="-420.5046997070312" positionY="114.049560546875" width="128" height="283"/>
         <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
-        <element name="MeshEntity" positionX="-66.2364501953125" positionY="241.6806793212891" width="128" height="74"/>
-        <element name="SceneEntity" positionX="-194.2896728515625" positionY="-185.5485382080078" width="128" height="209"/>
-        <element name="StoryBoardEntity" positionX="-22.0419921875" positionY="52.19068908691406" width="128" height="103"/>
+        <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="74"/>
+        <element name="SceneEntity" positionX="-241.47509765625" positionY="-186.5136413574219" width="128" height="209"/>
+        <element name="StoryBoardEntity" positionX="-206.7398681640625" positionY="118.4457244873047" width="128" height="103"/>
     </elements>
 </model>

@@ -354,6 +354,30 @@ static void *worldDataContext = &worldDataContext;
 }
 
 
+// MARK: Sorting
+
+- (NSArray *)meshSortDescriptors
+{
+    NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"meshID" ascending:YES];
+    return [NSArray arrayWithObject:sd];
+    
+}
+
+- (NSArray *)sceneSortDescriptors
+{
+    NSSortDescriptor *sortBySceneTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    NSArray *sorts = [NSArray arrayWithObject:sortBySceneTitle];
+    return sorts;
+}
+
+- (NSArray *)actorSortDescriptors
+{
+    NSSortDescriptor *sortByActorZ = [NSSortDescriptor sortDescriptorWithKey:@"locZ" ascending:NO];
+    NSArray *sorts = [NSArray arrayWithObject:sortByActorZ];
+    return sorts;
+}
+
+
 // MARK: OPEN/SAVE PANEL
 
 - (IBAction)importDocument:(id)sender {

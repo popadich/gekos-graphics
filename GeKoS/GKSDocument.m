@@ -147,6 +147,14 @@
                 scene.toActors = actors;
             }
             
+            NSSet *baked_in_meshes = [self meshList];
+            for (GKSMeshRep *meshRep in baked_in_meshes) {
+                NSLog(@"Mesh: %@", meshRep.meshName);
+                MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
+                meshEnt.meshName = meshRep.meshName;
+                meshEnt.meshID = meshRep.meshId.intValue;
+            }
+            
             [moc processPendingChanges];
             [[moc undoManager] removeAllActions];
             [self updateChangeCount:NSChangeCleared];
@@ -158,7 +166,19 @@
     return self;
 }
 
+- (NSSet *)meshList
+{
+    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
 
+    NSMutableSet *meshes = [[NSMutableSet alloc] init];
+    for (int i=kCubeKind; i<=kHouseKind; i++) {
+        GKSMeshRep *meshRep = [monger getMeshRep:@(i)];
+        [meshes addObject:meshRep];
+        
+    }
+    
+    return ([NSSet setWithSet:meshes]);
+}
 
 + (BOOL)autosavesInPlace {
     return YES;

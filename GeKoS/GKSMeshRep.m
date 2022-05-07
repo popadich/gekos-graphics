@@ -21,6 +21,15 @@
     if (self) {
         _meshId = meshID;
         _meshPtr = meshPtr;
+        
+        NSDictionary *meshNameLookup = @{  @1 : @"Cube",
+                                           @2 : @"Sphere",
+                                           @3 : @"Pyramid",
+                                           @4 : @"Cone",
+                                           @5 : @"House"
+        };
+        _meshName = meshNameLookup[meshID];
+        
     }
     return self;
 }
