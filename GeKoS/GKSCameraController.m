@@ -15,7 +15,6 @@ static double head_size_adjust = 1.0;
 
 @interface GKSCameraController ()
 
-@property (strong)GKSCameraRep *camera;
 @property (weak)IBOutlet GKSHeadView *headView;
 
 @end
@@ -39,10 +38,11 @@ void logMatrix(GKSmatrix_3 M) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    GKSCameraRep *camera = (GKSCameraRep *)self.representedObject;
-    if (camera) {
-        self.camera = camera;
-        [self resetCamera:camera];
+    GKSCameraRep *cameraRep = (GKSCameraRep *)self.representedObject;
+
+//    GKSCameraRep *cameraRep = self.camera;
+    if (cameraRep != nil) {
+        [self resetCamera:cameraRep];
         [self registerAsObserverForCamera];
     }
 

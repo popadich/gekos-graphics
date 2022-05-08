@@ -13,11 +13,14 @@
 
 
 NS_ASSUME_NONNULL_BEGIN
+@class GKSCameraRep;
 
 @interface GKSCameraController : NSViewController
 
 
 - (IBAction)doCameraReset:(id)sender;
+
+@property (strong)GKSCameraRep *camera;
 
 - (void)cameraSetViewMatrixG;
 - (void)cameraSetViewLookAtG;

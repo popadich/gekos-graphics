@@ -95,6 +95,7 @@ static void *worldDataContext = &worldDataContext;
     NSAssert(sceneRep != nil, @"scene rep must exist");
     self.sceneController.scene = sceneRep;
     self.cameraViewController.representedObject = content.theCamera;
+    self.cameraViewController.camera = content.theCamera;
     self.drawingViewController.representedObject = sceneRep;
 
     
@@ -199,9 +200,10 @@ static void *worldDataContext = &worldDataContext;
 
 
 // MARK: ACTIONS
-/*
+
 - (IBAction)updateVantage:(id)sender
 {
+    /*
     if ([sender isKindOfClass:[NSButton class]]) {
         
         // store current vantage properties for later
@@ -213,8 +215,7 @@ static void *worldDataContext = &worldDataContext;
         GKSint newButtonTag = (GKSint)[sender tag];
         NSDictionary *vantage = [self.vantagePoints objectAtIndex:newButtonTag];
         
-        GKSSceneRep *scene = self.sceneController.scene;
-        GKSCameraRep *camera = scene.toCamera;
+        GKSCameraRep *camera = self.itsContent.theCamera;
         
         camera.yaw = [vantage valueForKey:@"yaw"];
         camera.pitch = [vantage valueForKey:@"pitch"];
@@ -239,8 +240,9 @@ static void *worldDataContext = &worldDataContext;
         [self showScene];
         
     }
+     */
 }
-*/
+
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
