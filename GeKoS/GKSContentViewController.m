@@ -94,7 +94,7 @@ static void *worldDataContext = &worldDataContext;
     GKSSceneRep *sceneRep = content.theScene;
     NSAssert(sceneRep != nil, @"scene rep must exist");
     self.sceneController.scene = sceneRep;
-    self.cameraViewController.representedObject = content.theCamera;
+//    self.cameraViewController.representedObject = content.theCamera;
     self.cameraViewController.camera = content.theCamera;
     self.drawingViewController.representedObject = sceneRep;
 
@@ -175,8 +175,9 @@ static void *worldDataContext = &worldDataContext;
                 
                 if (sceneEnt != nil) {
                     if (sceneEnt.objectID != self.currentSceneId) {
-//                        CameraEntity *camEnt = sceneEnt.toCamera;
+                        CameraEntity *camEnt = sceneEnt.toCamera;
 //                        NSLog(@"Scene camera: %@", camEnt);
+//                        self.cameraViewController.representedObject = camEnt;
                         NSSet *actorEnts = [sceneEnt toActors];
                         [self.sceneController castSetOfActors:actorEnts];
                         self.currentSceneId = sceneEnt.objectID;

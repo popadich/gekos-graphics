@@ -38,9 +38,10 @@ void logMatrix(GKSmatrix_3 M) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    GKSCameraRep *cameraRep = (GKSCameraRep *)self.representedObject;
+//    CameraEntity *cameraEnt = (CameraEntity *)self.representedObject;
 
-//    GKSCameraRep *cameraRep = self.camera;
+    GKSCameraRep *cameraRep = self.camera;
+    self.representedObject = cameraRep;
     if (cameraRep != nil) {
         [self resetCamera:cameraRep];
         [self registerAsObserverForCamera];

@@ -144,7 +144,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatY" id="dLR-ZX-aej"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.uHatY" id="xHd-Vx-GWK"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Bx-Nb-HnH">
@@ -156,7 +156,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatX" id="rSm-V0-Gmz"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.uHatX" id="Ln8-VO-WEX"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OGA-9b-7I8">
@@ -168,7 +168,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatZ" id="vdq-ko-UF9"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.vHatZ" id="WnW-Km-z16"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yfc-Fh-fBh">
@@ -180,7 +180,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatX" id="Tn4-Na-pI3"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.vHatX" id="ckR-NM-P8O"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5mx-rN-Vzq">
@@ -192,7 +192,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirX" id="luX-v8-Txc"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.dirX" id="kWU-ZU-J7s"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-kr-0Iw">
@@ -204,7 +204,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.vHatY" id="fu3-dy-hvk"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.vHatY" id="d54-3X-SMI"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oRA-ng-btd">
@@ -216,7 +216,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.uHatZ" id="OcH-1t-D50"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.uHatZ" id="e7H-MX-nnD"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jBU-da-DlQ">
@@ -228,7 +228,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirY" id="oCm-Qo-e3e"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.dirY" id="fD9-jH-bfm"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U9B-Nt-32E">
@@ -240,7 +240,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.representedObject.dirZ" id="Qkq-F4-pgb"/>
+                                    <binding destination="-2" name="value" keyPath="self.camera.dirZ" id="WE0-09-Qu3"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fw2-eU-vpc">
