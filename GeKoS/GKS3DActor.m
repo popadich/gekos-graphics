@@ -166,6 +166,32 @@
     
 }
 
+- (NSDictionary *)actorAsDictionary
+{
+    GKSfloat locX = self.location_vec.crd.x;
+    GKSfloat locY = self.location_vec.crd.y;
+    GKSfloat locZ = self.location_vec.crd.z;
+    GKSfloat rotX = self.rotationVector.crd.x;
+    GKSfloat rotY = self.rotationVector.crd.y;
+    GKSfloat rotZ = self.rotationVector.crd.z;
+    GKSfloat scaX = self.scaleVector.crd.x;
+    GKSfloat scaY = self.scaleVector.crd.y;
+    GKSfloat scaZ = self.scaleVector.crd.z;
+    
+    NSDictionary *actDict = @{ @"posX"    : @(locX),
+                               @"posY"    : @(locY),
+                               @"posZ"    : @(locZ),
+                               @"rotX"    : @(rotX),
+                               @"rotY"    : @(rotY),
+                               @"rotZ"    : @(rotZ),
+                               @"scaleX"    : @(scaX),
+                               @"scaleY"    : @(scaY),
+                               @"scaleZ"    : @(scaZ),
+                               @"kind"    : self.kind
+    };
+    
+    return actDict;
+}
 
 - (GKSint)getPolygonCount
 {
