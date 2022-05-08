@@ -45,12 +45,9 @@
     NSMutableArray *filmFrames = [[NSMutableArray alloc] init];
     for (NSInteger i=0; i<frameCount; i++) {
         NSDictionary *frameDict = [[NSMutableDictionary alloc] init];
-        NSDictionary *observerDict = [[NSMutableDictionary alloc] init];
 
-        [observerDict setValue:@"camera" forKey:@"observer"];
-        [observerDict setValue:@"locX" forKey:@"posX"];
-        [observerDict setValue:@"locY" forKey:@"posY"];
-        [observerDict setValue:@"locZ" forKey:@"posZ"];
+        GKSCameraRep *camera = self.theScene.toCamera;
+        NSDictionary *observerDict = camera.cameraAsDictionary;
         [frameDict setValue:observerDict forKey:@"observer"];
         
         // add actor array

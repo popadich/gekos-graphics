@@ -53,6 +53,26 @@
     return dir_vector;
 }
 
+- (NSDictionary *)cameraAsDictionary
+{
+    NSMutableDictionary *camDict = [[NSMutableDictionary alloc] init];
+    camDict[@"label"] = @"camera1";
+    camDict[@"posX"] = self.positionX;
+    camDict[@"posY"] = self.positionY;
+    camDict[@"posZ"] = self.positionZ;
+    camDict[@"lookAtX"] = self.lookX;
+    camDict[@"lookAtY"] = self.lookY;
+    camDict[@"lookAtZ"] = self.lookZ;
+    camDict[@"focalLength"] = self.focalLength;
+    camDict[@"upVectX"] = self.upX;
+    camDict[@"upVectY"] = self.upY;
+    camDict[@"upVectZ"] = self.upZ;
+
+    NSDictionary *retCamera = [NSDictionary dictionaryWithDictionary:camDict];
+    
+    return retCamera;
+}
+
 - (void)zeroSettings {
     
         if (self) {
