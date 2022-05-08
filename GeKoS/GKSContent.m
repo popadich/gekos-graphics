@@ -23,7 +23,7 @@
         
         GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
         GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
-        sceneRep.toCamera = cameraRep;
+        _theCamera = cameraRep;
 
         _theScene = sceneRep;
         

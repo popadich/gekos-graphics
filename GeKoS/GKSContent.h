@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithManagedObjectContext: (NSManagedObjectContext *)moc;
 
 @property (strong) GKSSceneRep *theScene;
+@property (strong) GKSCameraRep *theCamera;
 @property (weak) NSManagedObjectContext *managedObjectContext;
 @property (assign) GKScontext3DPtr context3D;
 

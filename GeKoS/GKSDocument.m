@@ -117,7 +117,7 @@
             camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
 
             camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
-
+            camera.toScene = scene;
             scene.toCamera = camera;
             
             // TODO: remove when done with playing

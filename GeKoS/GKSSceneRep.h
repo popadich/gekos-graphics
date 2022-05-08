@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GKSSceneRep : NSObject
 
 @property (assign) GKScontext3DPtr context;
-@property (strong) GKSCameraRep *toCamera;
+//@property (strong) GKSCameraRep *toCamera;
 @property (strong) NSMutableSet* toActors;
 
 @property (strong) NSString *title;

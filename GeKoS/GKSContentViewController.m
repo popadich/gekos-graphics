@@ -69,11 +69,11 @@ static void *worldDataContext = &worldDataContext;
 
     // Set all vantage points to the same default values
     self.currentVPIndex = 0;
-    self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
-    for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
-        NSDictionary *vantageProperties = [self gatherVantage];
-        [self.vantagePoints addObject:vantageProperties];
-    }
+//    self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
+//    for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
+//        NSDictionary *vantageProperties = [self gatherVantage];
+//        [self.vantagePoints addObject:vantageProperties];
+//    }
 
     [self setIsCenteredObject:@NO];
     [self setMakeKinds:@(kCubeKind)];
@@ -94,7 +94,7 @@ static void *worldDataContext = &worldDataContext;
     GKSSceneRep *sceneRep = content.theScene;
     NSAssert(sceneRep != nil, @"scene rep must exist");
     self.sceneController.scene = sceneRep;
-    self.cameraViewController.representedObject = sceneRep.toCamera;
+    self.cameraViewController.representedObject = content.theCamera;
     self.drawingViewController.representedObject = sceneRep;
 
     
@@ -171,8 +171,11 @@ static void *worldDataContext = &worldDataContext;
             NSInteger selectedObjectCount = [[self.sceneArrayController selectedObjects] count];
             if (selectedObjectCount == 1) {
                 SceneEntity *sceneEnt = [selectionProxy valueForKey:@"self"];
+                
                 if (sceneEnt != nil) {
                     if (sceneEnt.objectID != self.currentSceneId) {
+//                        CameraEntity *camEnt = sceneEnt.toCamera;
+//                        NSLog(@"Scene camera: %@", camEnt);
                         NSSet *actorEnts = [sceneEnt toActors];
                         [self.sceneController castSetOfActors:actorEnts];
                         self.currentSceneId = sceneEnt.objectID;
@@ -196,6 +199,7 @@ static void *worldDataContext = &worldDataContext;
 
 
 // MARK: ACTIONS
+/*
 - (IBAction)updateVantage:(id)sender
 {
     if ([sender isKindOfClass:[NSButton class]]) {
@@ -236,6 +240,7 @@ static void *worldDataContext = &worldDataContext;
         
     }
 }
+*/
 
 - (IBAction)performVolumeResizeQuick:(id)sender
 {
@@ -420,6 +425,7 @@ static void *worldDataContext = &worldDataContext;
     }];
 }
 
+/*
 - (NSDictionary *)gatherVantage
 {
     NSDictionary *vantage = nil;
@@ -449,6 +455,7 @@ static void *worldDataContext = &worldDataContext;
         
     return vantage;
 }
+*/
 
 
 @end
