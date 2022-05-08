@@ -35,26 +35,44 @@
 {
 //    NSString *simplestjson = @"{ 'name' : 'alex' }";
     
-    NSMutableDictionary *sceneDict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *filmDict = [[NSMutableDictionary alloc] init];
     
-    [sceneDict setObject:@"Alex Popadich" forKey:@"director"];
-    [sceneDict setObject:@1 forKey:@"frameCount"];
+    NSInteger frameCount = 1;
+    [filmDict setObject:@"Alex Popadich" forKey:@"director"];
+    [filmDict setObject:@(frameCount) forKey:@"frameCount"];
     
     
-    NSMutableArray *film = [[NSMutableArray alloc] init];
-    [sceneDict setObject:film forKey:@"film"];
-    
-    GKSSceneRep *teh_scene = self.theScene;
-    for (GKS3DActor *actor3D in teh_scene.toActors) {
+    NSMutableArray *filmFrames = [[NSMutableArray alloc] init];
+    for (NSInteger i=0; i<frameCount; i++) {
+        NSDictionary *frameDict = [[NSMutableDictionary alloc] init];
+        NSDictionary *observerDict = [[NSMutableDictionary alloc] init];
+
+        [observerDict setValue:@"camera" forKey:@"observer"];
+        [observerDict setValue:@"locX" forKey:@"posX"];
+        [observerDict setValue:@"locY" forKey:@"posY"];
+        [observerDict setValue:@"locZ" forKey:@"posZ"];
+        [frameDict setValue:observerDict forKey:@"observer"];
         
-        NSDictionary* actorSpecs = actor3D.actorAsDictionary;
+        // add actor array
+        NSMutableArray *actorList = [[NSMutableArray alloc] init];
+        for (GKS3DActor *actor3D in self.theScene.toActors) {
+            
+            NSDictionary* actorSpecs = actor3D.actorAsDictionary;
+            
+            [actorList addObject:actorSpecs];
+            
+        }
+        [frameDict setValue:actorList forKey:@"spheres"];
         
-        [film addObject:actorSpecs];
-        
+        [filmFrames addObject:frameDict];
     }
     
+    
+    [filmDict setObject:filmFrames forKey:@"frames"];
+
+    NSDictionary *filmJson = @{@"film" : filmDict };
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:sceneDict
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:filmJson
                                                        options:NSJSONWritingPrettyPrinted error:&error];
     
     return jsonData;
