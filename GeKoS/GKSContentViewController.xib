@@ -907,7 +907,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="mSv-7A-iyM">
                                             <rect key="frame" x="1" y="1" width="523" height="348"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="yWo-CJ-0av" viewBased="YES" id="jiO-3B-TT7">
                                                     <rect key="frame" x="0.0" y="0.0" width="523" height="320"/>
@@ -929,7 +929,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="nmC-cP-b54">
-                                                                    <rect key="frame" x="8" y="0.0" width="114" height="24"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="114" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCm-fx-NW7">
@@ -964,7 +964,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="TvN-sR-ICF">
-                                                                    <rect key="frame" x="139" y="0.0" width="375" height="24"/>
+                                                                    <rect key="frame" x="149" y="0.0" width="375" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0f-lX-feF">
@@ -996,7 +996,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Jse-Yy-AvV">
-                                            <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                            <rect key="frame" x="1" y="334" width="523" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="oQm-bK-0ad">
@@ -1185,8 +1185,8 @@
                         <bool key="NSDeletesObjectsOnRemove" value="YES"/>
                     </dictionary>
                 </binding>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="NGx-Ar-B8U"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.actorSortDescriptors" id="D09-u9-Ryw"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="NGx-Ar-B8U"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="MeshEntity" automaticallyPreparesContent="YES" id="2FK-L7-FSg" userLabel="Meshes">

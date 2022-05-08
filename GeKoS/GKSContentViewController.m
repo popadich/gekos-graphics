@@ -177,7 +177,7 @@ static void *worldDataContext = &worldDataContext;
                     if (sceneEnt.objectID != self.currentSceneId) {
                         CameraEntity *camEnt = sceneEnt.toCamera;
 //                        NSLog(@"Scene camera: %@", camEnt);
-//                        self.cameraViewController.representedObject = camEnt;
+                        self.cameraViewController.representedObject = camEnt;
                         NSSet *actorEnts = [sceneEnt toActors];
                         [self.sceneController castSetOfActors:actorEnts];
                         self.currentSceneId = sceneEnt.objectID;

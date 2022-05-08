@@ -25,21 +25,21 @@
                     </constraints>
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="xjb-W2-2XT"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.roll" id="Zcc-d9-5Xt"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.roll" id="UWU-1b-W3A"/>
                     </connections>
                 </slider>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="utE-Yr-fbs">
                     <rect key="frame" x="18" y="198" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="T5I-FI-dAP"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.pitch" id="wFb-1k-bHu"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.pitch" id="4aA-Al-jV9"/>
                     </connections>
                 </slider>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pZS-0I-YEc">
                     <rect key="frame" x="18" y="170" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="-1.5707960000000001" maxValue="1.5707960000000001" tickMarkPosition="above" sliderType="linear" id="u0J-3x-yFL"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.yaw" id="gtq-Zq-0NA"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.yaw" id="2Hz-Cv-LpM"/>
                     </connections>
                 </slider>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2qG-eK-CKO">
@@ -83,7 +83,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.roll" id="09j-Ap-nMA"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.roll" id="M0A-3e-Q3N"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vZR-EG-tOp">
@@ -95,7 +95,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.pitch" id="WGp-n2-muc"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.pitch" id="UZY-Iu-8tJ"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZFo-a9-4zp">
@@ -107,7 +107,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.yaw" id="CFb-uT-OwD"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.yaw" id="7Ol-lF-Fjq"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qgq-8w-Aon">
@@ -119,14 +119,14 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="eiW-g6-Zkg"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.focalLength" id="Uwg-ho-ICk"/>
                     </connections>
                 </textField>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YsV-SS-ctN">
                     <rect key="frame" x="18" y="142" width="184" height="28"/>
                     <sliderCell key="cell" state="on" alignment="left" minValue="0.10000000000000001" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="RlP-fA-Dow"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.focalLength" id="due-cD-Rru"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.focalLength" id="9iK-eW-2uC"/>
                     </connections>
                 </slider>
                 <box borderType="line" title="Camera" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ezx-uv-pjo">
@@ -390,7 +390,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.upX" id="pPV-Ro-OtF"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.upX" id="bbg-LP-LQq"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ei2-Ip-iEA">
@@ -403,7 +403,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.upY" id="fWt-h9-Lgs"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.upY" id="fRL-CA-W8A"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Lg-Tq-Ejb">
@@ -416,7 +416,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.upZ" id="1gc-bo-fRV"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.upZ" id="vYY-Mh-Kpx"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aet-eY-ZS5">
@@ -429,7 +429,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.positionX" id="FDf-1n-UQ2"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.positionX" id="28x-Zv-rJl"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KpD-4q-ZVF">
@@ -442,7 +442,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.positionY" id="e5u-A3-Xwh"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.positionY" id="5sq-GT-QhL"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGZ-AT-Ly8">
@@ -455,7 +455,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.positionZ" id="U0R-2S-MBD"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.positionZ" id="hbh-nV-xRZ"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hcs-ld-Glj">
@@ -468,7 +468,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.lookX" id="Yes-Ii-MOb"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.lookX" id="KsU-Rr-VQ3"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hMN-aL-h7D">
@@ -481,7 +481,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.lookY" id="LPv-MS-3Cf"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.lookY" id="pPw-go-XLJ"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMY-fv-7b2">
@@ -494,7 +494,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.lookZ" id="3Fq-Uo-zah"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.lookZ" id="ozP-Pl-Glf"/>
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e5y-is-e3V">
@@ -546,14 +546,14 @@
                 <textField verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="it3-8Y-2gg">
                     <rect key="frame" x="336" y="79" width="36" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="4" drawsBackground="YES" id="SR1-Lp-GUE">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0.1" drawsBackground="YES" id="SR1-Lp-GUE">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="8Up-nF-K1I"/>
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.near" id="Uyb-tL-wVl"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.near" id="I2u-sz-phJ"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r3Z-Wu-CMy">
@@ -568,14 +568,14 @@
                 <textField verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="DnQ-vh-YEw">
                     <rect key="frame" x="336" y="53" width="36" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="30" drawsBackground="YES" id="489-3K-seU">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="100" drawsBackground="YES" id="489-3K-seU">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="tjw-4m-fMe"/>
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.representedObject.far" id="oXI-ue-1nd"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.far" id="pCA-43-AYq"/>
                     </connections>
                 </textField>
             </subviews>
