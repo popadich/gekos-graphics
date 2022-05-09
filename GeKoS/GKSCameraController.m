@@ -38,15 +38,38 @@ void logMatrix(GKSmatrix_3 M) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    
+    // use values from camera entity to initialize cameraRep
 //    CameraEntity *cameraEnt = (CameraEntity *)self.representedObject;
 
     GKSCameraRep *cameraRep = self.camera;
-    self.representedObject = cameraRep;
     if (cameraRep != nil) {
         [self resetCamera:cameraRep];
         [self registerAsObserverForCamera];
     }
+}
 
+
+- (void) dealloc
+{
+    GKSCameraRep *camera = self.camera;
+    [camera removeObserver:self forKeyPath:@"positionX" context:CameraPositionContext];
+    [camera removeObserver:self forKeyPath:@"positionY" context:CameraPositionContext];
+    [camera removeObserver:self forKeyPath:@"positionZ" context:CameraPositionContext];
+
+    [camera removeObserver:self forKeyPath:@"upX" context:CameraPositionContext];
+    [camera removeObserver:self forKeyPath:@"upY" context:CameraPositionContext];
+    [camera removeObserver:self forKeyPath:@"upZ" context:CameraPositionContext];
+
+    [camera removeObserver:self forKeyPath:@"yaw" context:CameraRotationContext];
+    [camera removeObserver:self forKeyPath:@"pitch" context:CameraRotationContext];
+    [camera removeObserver:self forKeyPath:@"roll" context:CameraRotationContext];
+
+    [camera removeObserver:self forKeyPath:@"focalLength" context:CameraFocusContext];
+    [camera removeObserver:self forKeyPath:@"near" context:CameraFocusContext];
+    [camera removeObserver:self forKeyPath:@"far" context:CameraFocusContext];
+
+    [camera removeObserver:self forKeyPath:@"projectionType" context:CameraProjectionContext];
 }
 
 
@@ -60,6 +83,38 @@ void logMatrix(GKSmatrix_3 M) {
 
 }
 
+
+// copy values from camera entity to camera rep an app model object.
+- (void) gripCamera;
+{
+    GKSCameraRep *cameraRep = self.camera;
+    CameraEntity *cameraEnt = (CameraEntity *)self.representedObject;
+    if ( cameraRep != nil && cameraEnt != nil ) {
+        self.camera.lookX = [cameraEnt valueForKey:@"lookX"];
+        self.camera.lookY = [cameraEnt valueForKey:@"lookY"];
+        self.camera.lookZ = [cameraEnt valueForKey:@"lookZ"];
+        self.camera.projectionType = [cameraEnt valueForKey:@"projectionType"];
+        self.camera.focalLength = [cameraEnt valueForKey:@"focalLength"];
+        self.camera.near = [cameraEnt valueForKey:@"near"];
+        self.camera.far = [cameraEnt valueForKey:@"far"];
+        self.camera.upX = [cameraEnt valueForKey:@"upX"];
+        self.camera.upY = [cameraEnt valueForKey:@"upY"];
+        self.camera.upZ = [cameraEnt valueForKey:@"upZ"];
+        self.camera.positionX = [cameraEnt valueForKey:@"positionX"];
+        self.camera.positionY = [cameraEnt valueForKey:@"positionY"];
+        self.camera.positionZ = [cameraEnt valueForKey:@"positionZ"];
+        self.camera.yaw = [cameraEnt valueForKey:@"yaw"];
+        self.camera.pitch = [cameraEnt valueForKey:@"pitch"];
+        self.camera.roll = [cameraEnt valueForKey:@"roll"];
+    }
+//    [self cameraSetProjectionType:[cameraEnt valueForKey:@"projectionType"]];
+//    [self cameraSetProjectionTypeG];
+//    [self cameraSetViewMatrixG];
+//    [self adjustHead];
+//    
+//    NSString *moveType = @"Location";  // TODO: use defined const
+//    [self notifyAllConcerned:moveType];
+}
 
 - (void)registerAsObserverForCamera
 {
@@ -149,6 +204,37 @@ void logMatrix(GKSmatrix_3 M) {
     [self.headView setNeedsDisplay:YES];
 }
 
+//
+//- (IBAction)setCameraFocus:(id)sender
+//{
+//    if ([sender isKindOfClass:[NSSlider class]]) {
+//        NSSlider *slider = sender;
+//        NSNumber *sliderValue = [slider objectValue];
+//        self.camera.focalLength =  sliderValue;
+//        [self cameraSetProjectionTypeG];
+//    }
+//}
+//
+//- (IBAction)setCameraLocation:(id)sender
+//{
+//    if ([sender isKindOfClass:[NSTextField class]]) {
+//        NSTextField *textField = sender;
+//        if (textField.tag == 1) {
+//            NSLog(@"Location Camera X Change");
+//            self.camera.positionX = [textField objectValue];
+//        } else if (textField.tag == 2) {
+//            NSLog(@"Location Camera Y Change");
+//            self.camera.positionY = [textField objectValue];
+//        } else if (textField.tag == 3) {
+//            self.camera.positionZ = [textField objectValue];
+//        }
+//        [self cameraSetViewMatrixG];
+//        [self adjustHead];
+//
+//        NSString *moveType = @"Location";  // TODO: use defined const
+//        [self notifyAllConcerned:moveType];
+//    }
+//}
 
 - (void)notifyAllConcerned:(NSString *)moveType {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:moveType forKey:@"moveType"];

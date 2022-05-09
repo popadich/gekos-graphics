@@ -119,9 +119,13 @@ static void *worldDataContext = &worldDataContext;
 
 }
 
-
-- (void)dealloc {
+- (void)dealloc
+{
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.sceneController removeObserver:self forKeyPath:@"worldBackColor" context:worldDataContext];
+    [self.sceneController removeObserver:self forKeyPath:@"worldFillColor" context:worldDataContext];
+    [self.sceneController removeObserver:self forKeyPath:@"worldLineColor" context:worldDataContext];
 }
 
 
@@ -176,8 +180,8 @@ static void *worldDataContext = &worldDataContext;
                 if (sceneEnt != nil) {
                     if (sceneEnt.objectID != self.currentSceneId) {
                         CameraEntity *camEnt = sceneEnt.toCamera;
-//                        NSLog(@"Scene camera: %@", camEnt);
                         self.cameraViewController.representedObject = camEnt;
+
                         NSSet *actorEnts = [sceneEnt toActors];
                         [self.sceneController castSetOfActors:actorEnts];
                         self.currentSceneId = sceneEnt.objectID;
@@ -335,9 +339,8 @@ static void *worldDataContext = &worldDataContext;
 
 
 - (IBAction)performLookQuick:(id)sender {
-    
     [self.cameraViewController cameraSetViewLookAtG];
-    [self performRenderQuick:sender];
+    [self showScene];
 }
 
 

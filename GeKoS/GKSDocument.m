@@ -93,7 +93,7 @@
             scene.toStoryBoard = story;
             [toScenes addObject:scene];
             
-            NSDictionary *cameraSettings = [defaults valueForKey:@"camera"];
+            NSDictionary *cameraSettings = [defaults valueForKey:@"cameraDefaults"];
             CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
             
             camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
