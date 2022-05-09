@@ -46,7 +46,7 @@
     for (NSInteger i=0; i<frameCount; i++) {
         NSDictionary *frameDict = [[NSMutableDictionary alloc] init];
 
-        GKSCameraRep *camera = self.theScene.toCamera;
+        GKSCameraRep *camera = self.theCamera;
         NSDictionary *observerDict = camera.cameraAsDictionary;
         [frameDict setValue:observerDict forKey:@"observer"];
         
