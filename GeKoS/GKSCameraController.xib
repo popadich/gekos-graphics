@@ -429,7 +429,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.camera.positionY" id="1bH-gV-bqF"/>
+                        <binding destination="-2" name="value" keyPath="self.camera.positionX" id="dEB-EZ-hG1"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="KpD-4q-ZVF">

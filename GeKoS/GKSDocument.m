@@ -104,6 +104,40 @@
     }
 }
 
+- (void)addCamera:(NSDictionary *)defaults moc:(NSManagedObjectContext *)moc scene:(SceneEntity *)scene {
+    NSDictionary *cameraSettings = [defaults valueForKey:@"cameraDefaults"];
+    CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
+    
+    camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
+    camera.positionY = [[cameraSettings valueForKey:@"posY"] doubleValue];
+    camera.positionZ = [[cameraSettings valueForKey:@"posZ"] doubleValue];
+    
+    camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
+    camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
+    camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
+    
+    camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
+    camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
+    camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
+    
+    camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
+    camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
+    camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
+    
+    camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
+    camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
+    camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
+    
+    camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
+    
+    camera.toScene = scene;
+    scene.toCamera = camera;
+}
+
+
+
+
+
 - (StoryBoardEntity *)makeEmptyStoryBoard {
     NSManagedObjectContext *moc = [self managedObjectContext];
     _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
@@ -112,13 +146,15 @@
     
     StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
     
+    NSDictionary *storyDefaults = [defaults valueForKey:@"storyDefaults"];
+    NSString *title = [storyDefaults valueForKey:@"storyTitle"];;
+    NSString *desc = [storyDefaults valueForKey:@"storyDescription"];
+    story.storyTitle = title;
+    story.storyDescription = desc;
 
-
-    story.storyTitle = @"Gekos";
-    story.storyDescription = @"A geko's story";
-
-    NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
-
+    // add one scene to a set
+//    NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
+    NSMutableSet *sceneSetOne = [[NSMutableSet alloc] init];
     SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
     scene.title = @"Scene 1";
     scene.sceneType = @"START";
@@ -139,37 +175,13 @@
     else {
         scene.backgroundColor = [NSColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     }
-   
+    [sceneSetOne addObject:scene];
+
     scene.toStoryBoard = story;
-    [toScenes addObject:scene];
+    story.toScenes = sceneSetOne;
     
-    NSDictionary *cameraSettings = [defaults valueForKey:@"cameraDefaults"];
-    CameraEntity *camera = [NSEntityDescription insertNewObjectForEntityForName:@"CameraEntity" inManagedObjectContext:moc];
-    
-    camera.positionX = [[cameraSettings valueForKey:@"posX"] doubleValue];
-    camera.positionY = [[cameraSettings valueForKey:@"posY"] doubleValue];
-    camera.positionZ = [[cameraSettings valueForKey:@"posZ"] doubleValue];
-    
-    camera.lookX = [[cameraSettings valueForKey:@"lookX"] doubleValue];
-    camera.lookY = [[cameraSettings valueForKey:@"lookY"] doubleValue];
-    camera.lookZ = [[cameraSettings valueForKey:@"lookZ"] doubleValue];
 
-    camera.upX = [[cameraSettings valueForKey:@"upX"] doubleValue];
-    camera.upY = [[cameraSettings valueForKey:@"upY"] doubleValue];
-    camera.upZ = [[cameraSettings valueForKey:@"upZ"] doubleValue];
-
-    camera.yaw = [[cameraSettings valueForKey:@"yaw"] doubleValue];
-    camera.pitch = [[cameraSettings valueForKey:@"pitch"] doubleValue];
-    camera.roll = [[cameraSettings valueForKey:@"roll"] doubleValue];
-
-    camera.far = [[cameraSettings valueForKey:@"far"] doubleValue];
-    camera.near = [[cameraSettings valueForKey:@"near"] doubleValue];
-    camera.focalLength = [[cameraSettings valueForKey:@"focalLength"] doubleValue];
-
-    camera.projectionType = [[cameraSettings valueForKey:@"projectionType"] intValue];
-
-    camera.toScene = scene;
-    scene.toCamera = camera;
+    [self addCamera:defaults moc:moc scene:scene];
     
     
     // TODO: remove when done with playing
@@ -292,4 +304,38 @@
 }
  */
 
+- (NSString *)convertMeshToOffString:(GKSmesh_3 *)meshPtr
+{
+    NSMutableString *catString = [NSMutableString stringWithString: @"OFF\n"];
+    
+    [catString appendFormat:@"%d %d %d\n", meshPtr->vertnum, meshPtr->polynum, meshPtr->edgenum];
+    
+    GKSvertexArrPtr vertexes = meshPtr->vertices;
+    for (GKSint i = 0; i<meshPtr->vertnum; i++) {
+        GKSvector3d vertex = vertexes[i];
+        [catString appendFormat:@"%lf %lf %lf", vertex.crd.x, vertex.crd.y, vertex.crd.z];
+    }
+    GKSindexArrPtr polygons = meshPtr->polygons;
+    GKSint poly_size = 0;
+    for (GKSint i = 0; i<meshPtr->polystoresize; i++) {
+        if (poly_size == 0){
+            poly_size = polygons[i];
+            [catString appendFormat:@"%d ",poly_size];
+        }
+        else {
+            poly_size -= 1;
+            GKSint polyidx = polygons[i];
+            if (i != 0) {
+                [catString appendFormat:@"%d ", polyidx];
+            }
+            else {
+                [catString appendFormat:@"%d\n", polyidx];
+            }
+        }
+    }
+    
+    
+    NSString *resultString = [NSString stringWithString:catString];
+    return resultString;
+}
 @end

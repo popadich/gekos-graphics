@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>storyDefaults</key>
+	<dict>
+		<key>storyTitle</key>
+		<string>Gekos</string>
+		<key>storyDescription</key>
+		<string>A geko&apos;s story</string>
+	</dict>
 	<key>worldDefaults</key>
 	<dict>
 		<key>ambient</key>

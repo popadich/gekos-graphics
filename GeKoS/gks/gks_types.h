@@ -117,6 +117,7 @@ typedef struct
 {
     GKSint vertnum;
     GKSint polynum;
+    GKSint polystoresize;
     GKSint edgenum;
     GKSvertexArrPtr vertices;
     GKSindexArrPtr polygons;

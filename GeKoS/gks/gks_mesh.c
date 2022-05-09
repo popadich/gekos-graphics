@@ -133,6 +133,7 @@ GKSmesh_3 *CubeMesh(void)
     aCube->edges = edge_array;
     aCube->vertnum = GKS_CUBE_VERTEX_COUNT;
     aCube->polynum = GKS_CUBE_POLYGON_COUNT;
+    aCube->polystoresize = GKS_CUBE_PARRAY_SIZE;
     
     return aCube;
 }
@@ -215,6 +216,7 @@ GKSmesh_3 *PyramidMesh(void)
     aPyramid->edges = edge_array;
     aPyramid->vertnum = GKS_PYRAMID_VERTEX_COUNT;
     aPyramid->polynum = GKS_PYRAMID_POLYGON_COUNT;
+    aPyramid->polystoresize = GKS_PYRAMID_PARRAY_SIZE;
 
     return aPyramid;
 }
@@ -311,6 +313,7 @@ GKSmesh_3 *HouseMesh(void)
     aHouse->edges = edge_array;
     aHouse->vertnum = GKS_HOUSE_VERTEX_COUNT;
     aHouse->polynum = GKS_HOUSE_POLYGON_COUNT;
+    aHouse->polystoresize = GKS_HOUSE_PARRAY_SIZE;
 
     return aHouse;
 }
@@ -395,6 +398,7 @@ GKSmesh_3 *SphereMesh(void)
     aSphere->vertnum = vertex_count;
     aSphere->polygons = polygon_array;
     aSphere->polynum = polygon_count;
+    aSphere->polystoresize = calc_compact_count;
 
     return aSphere;
 }
@@ -514,6 +518,7 @@ GKSmesh_3 *ConeMesh(void)
     aCone->polygons = polygon_array;
     aCone->vertnum = calc_vertex_count;
     aCone->polynum = calc_polygon_count;
+    aCone->polystoresize = calc_compact_count;
 
     return aCone;
 }
