@@ -69,11 +69,11 @@ static void *worldDataContext = &worldDataContext;
 
     // Set all vantage points to the same default values
     self.currentVPIndex = 0;
-//    self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
-//    for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
-//        NSDictionary *vantageProperties = [self gatherVantage];
-//        [self.vantagePoints addObject:vantageProperties];
-//    }
+    self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
+    for (GKSint vantage_idx=0; vantage_idx<GKS_MAX_VANTAGE_PTS; vantage_idx++) {
+        NSDictionary *vantageProperties = [self gatherVantage];
+        [self.vantagePoints addObject:vantageProperties];
+    }
 
     [self setIsCenteredObject:@NO];
     [self setMakeKinds:@(kCubeKind)];
@@ -208,7 +208,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)updateVantage:(id)sender
 {
-    /*
+    
     if ([sender isKindOfClass:[NSButton class]]) {
         
         // store current vantage properties for later
@@ -245,7 +245,7 @@ static void *worldDataContext = &worldDataContext;
         [self showScene];
         
     }
-     */
+     
 }
 
 
@@ -431,12 +431,11 @@ static void *worldDataContext = &worldDataContext;
     }];
 }
 
-/*
+
 - (NSDictionary *)gatherVantage
 {
     NSDictionary *vantage = nil;
-    GKSSceneRep *scene = self.sceneController.scene;
-    GKSCameraRep *camera = scene.toCamera;
+    GKSCameraRep *camera = self.cameraViewController.camera;
     
     NSMutableDictionary *collector = [[NSMutableDictionary alloc] init];
     [collector setValue:camera.upX forKey:@"upX"];
@@ -461,7 +460,7 @@ static void *worldDataContext = &worldDataContext;
         
     return vantage;
 }
-*/
+
 
 
 @end

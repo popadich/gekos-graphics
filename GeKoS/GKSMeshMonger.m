@@ -35,20 +35,20 @@
     if (self) {
         _meshes = [[NSMutableDictionary alloc] init];
         
-        GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:@(kCubeKind) andMeshPtr:CubeMesh()];
-        [self.meshes setObject:meshRep forKey:meshRep.meshId];
+        GKSMeshRep *cubemeshRep = [[GKSMeshRep alloc] initWithID:@(kCubeKind) andMeshPtr:CubeMesh()];
+        [self.meshes setObject:cubemeshRep forKey:cubemeshRep.meshId];
         
-        meshRep = [[GKSMeshRep alloc] initWithID:@(kPyramidKind) andMeshPtr:PyramidMesh()];
-        [self.meshes setObject:meshRep forKey:meshRep.meshId];
+        GKSMeshRep *pyramidmeshRep = [[GKSMeshRep alloc] initWithID:@(kPyramidKind) andMeshPtr:PyramidMesh()];
+        [self.meshes setObject:pyramidmeshRep forKey:pyramidmeshRep.meshId];
 
-        meshRep = [[GKSMeshRep alloc] initWithID:@(kHouseKind) andMeshPtr:HouseMesh()];
-        [self.meshes setObject:meshRep forKey:meshRep.meshId];
+        GKSMeshRep *housemeshRep = [[GKSMeshRep alloc] initWithID:@(kHouseKind) andMeshPtr:HouseMesh()];
+        [self.meshes setObject:housemeshRep forKey:housemeshRep.meshId];
 
-        meshRep = [[GKSMeshRep alloc] initWithID:@(kSphereKind) andMeshPtr:SphereMesh()];
-        [self.meshes setObject:meshRep forKey:meshRep.meshId];
+        GKSMeshRep *spheremeshRep = [[GKSMeshRep alloc] initWithID:@(kSphereKind) andMeshPtr:SphereMesh()];
+        [self.meshes setObject:spheremeshRep forKey:spheremeshRep.meshId];
 
-        meshRep = [[GKSMeshRep alloc] initWithID:@(kConeKind) andMeshPtr:ConeMesh()];
-        [self.meshes setObject:meshRep forKey:meshRep.meshId];
+        GKSMeshRep *conemeshRep = [[GKSMeshRep alloc] initWithID:@(kConeKind) andMeshPtr:ConeMesh()];
+        [self.meshes setObject:conemeshRep forKey:conemeshRep.meshId];
 
         _maxID = kHouseKind;
     }
