@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>worldDefaults</key>
+	<dict>
+		<key>ambient</key>
+		<dict>
+			<key>redAmbient</key>
+			<real>0.5</real>
+			<key>greenAmbient</key>
+			<real>0.5</real>
+			<key>blueAmbient</key>
+			<real>0.5</real>
+		</dict>
+	</dict>
 	<key>cameraDefaults</key>
 	<dict>
 		<key>posX</key>
