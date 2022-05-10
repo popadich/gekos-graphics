@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSMeshMonger : NSObject
 
-@property (strong)NSMutableDictionary *meshes;
 
 + (id)sharedMeshMonger;
 

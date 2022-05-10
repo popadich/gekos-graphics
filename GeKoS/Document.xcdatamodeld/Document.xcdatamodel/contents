@@ -38,9 +38,9 @@
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toCamera" inverseEntity="SceneEntity"/>
     </entity>
     <entity name="MeshEntity" representedClassName="MeshEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="meshData" optional="YES" attributeType="Binary"/>
         <attribute name="meshID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="meshName" optional="YES" attributeType="String"/>
+        <attribute name="offString" optional="YES" attributeType="String"/>
     </entity>
     <entity name="SceneEntity" representedClassName="SceneEntity" syncable="YES" codeGenerationType="class">
         <attribute name="backgroundColor" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="NSColor"/>

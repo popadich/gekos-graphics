@@ -10,7 +10,8 @@
 
 @interface GKSMeshMonger ()
 
-@property (assign) NSInteger maxID;
+@property (strong)NSMutableDictionary *meshes;
+@property (assign)NSInteger maxID;
 
 @end
 
@@ -77,6 +78,21 @@
     NSNumber *newID = [NSNumber numberWithInt:(GKSint)self.maxID];
     return newID;
 }
+
+
+- (NSArray *)meshList
+{
+    NSMutableArray *meshes = [[NSMutableArray alloc] init];
+    for (int i=kCubeKind; i<=kHouseKind; i++) {
+        GKSMeshRep *meshRep = [self getMeshRep:@(i)];
+        [meshes addObject:meshRep];
+        
+    }
+    
+    return ([NSArray arrayWithArray:meshes]);
+}
+
+
 
 
 @end

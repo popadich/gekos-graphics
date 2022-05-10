@@ -13,7 +13,6 @@
 #import "GKSMeshParser.h"
 #import "GKSMeshMonger.h"
 #import "ActorEntity+CoreDataClass.h"
-#import "Document+CoreDataModel.h"
 
 @interface GKSDocument ()
 
@@ -60,19 +59,19 @@
     return self;
 }
 
-- (NSSet *)meshList
+- (NSArray *)meshList
 {
     GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
 
 
-    NSMutableSet *meshes = [[NSMutableSet alloc] init];
+    NSMutableArray *meshes = [[NSMutableArray alloc] init];
     for (int i=kCubeKind; i<=kHouseKind; i++) {
         GKSMeshRep *meshRep = [monger getMeshRep:@(i)];
         [meshes addObject:meshRep];
         
     }
     
-    return ([NSSet setWithSet:meshes]);
+    return ([NSArray arrayWithArray:meshes]);
 }
 
 - (void)addPlayThings:(NSManagedObjectContext *)moc scene:(SceneEntity *)scene {
@@ -182,6 +181,17 @@
     
 
     [self addCamera:defaults moc:moc scene:scene];
+    
+    // fill meshes
+    NSArray *meshes = [self meshList];
+    for (GKSMeshRep *mesh in meshes) {
+        MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
+        meshEnt.meshID = mesh.meshId.intValue;
+        meshEnt.meshName = mesh.meshName;
+        meshEnt.offString = mesh.offString;
+    }
+    
+
     
     
     // TODO: remove when done with playing
@@ -304,38 +314,5 @@
 }
  */
 
-- (NSString *)convertMeshToOffString:(GKSmesh_3 *)meshPtr
-{
-    NSMutableString *catString = [NSMutableString stringWithString: @"OFF\n"];
-    
-    [catString appendFormat:@"%d %d %d\n", meshPtr->vertnum, meshPtr->polynum, meshPtr->edgenum];
-    
-    GKSvertexArrPtr vertexes = meshPtr->vertices;
-    for (GKSint i = 0; i<meshPtr->vertnum; i++) {
-        GKSvector3d vertex = vertexes[i];
-        [catString appendFormat:@"%lf %lf %lf", vertex.crd.x, vertex.crd.y, vertex.crd.z];
-    }
-    GKSindexArrPtr polygons = meshPtr->polygons;
-    GKSint poly_size = 0;
-    for (GKSint i = 0; i<meshPtr->polystoresize; i++) {
-        if (poly_size == 0){
-            poly_size = polygons[i];
-            [catString appendFormat:@"%d ",poly_size];
-        }
-        else {
-            poly_size -= 1;
-            GKSint polyidx = polygons[i];
-            if (i != 0) {
-                [catString appendFormat:@"%d ", polyidx];
-            }
-            else {
-                [catString appendFormat:@"%d\n", polyidx];
-            }
-        }
-    }
-    
-    
-    NSString *resultString = [NSString stringWithString:catString];
-    return resultString;
-}
+
 @end
