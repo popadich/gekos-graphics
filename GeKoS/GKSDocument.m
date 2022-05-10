@@ -39,9 +39,13 @@
         if (results.count == 1) {
             StoryBoardEntity *story = [results objectAtIndex:0];
             _storyBoard = story;
+
         }
         
         
+        // TODO: make monger a view controller
+        GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+        monger.managedObjectContext = self.managedObjectContext;
     }
     return self;
 }
@@ -57,21 +61,6 @@
 
     }
     return self;
-}
-
-- (NSArray *)meshList
-{
-    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-
-
-    NSMutableArray *meshes = [[NSMutableArray alloc] init];
-    for (int i=kCubeKind; i<=kHouseKind; i++) {
-        GKSMeshRep *meshRep = [monger getMeshRep:@(i)];
-        [meshes addObject:meshRep];
-        
-    }
-    
-    return ([NSArray arrayWithArray:meshes]);
 }
 
 - (void)addPlayThings:(NSManagedObjectContext *)moc scene:(SceneEntity *)scene {
@@ -182,8 +171,11 @@
 
     [self addCamera:defaults moc:moc scene:scene];
     
+    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+    monger.managedObjectContext = self.managedObjectContext;
+    
     // fill meshes
-    NSArray *meshes = [self meshList];
+    NSArray *meshes = [monger meshList];
     for (GKSMeshRep *mesh in meshes) {
         MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
         meshEnt.meshID = mesh.meshId.intValue;

@@ -409,14 +409,16 @@ static void *worldDataContext = &worldDataContext;
             NSError *error;
      
             // load the mesh
+            NSString *fileOffString = [[NSString alloc] initWithContentsOfURL:theURL encoding:NSUTF8StringEncoding error:&error];
             GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-            GKSmesh_3* mesh_ptr = [parser parseOFFMeshFile:theURL error:&error];
+            GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:fileOffString error:&error];
             if (mesh_ptr != NULL) {
                 
                 GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
                 
                 NSNumber *meshID = [monger nextID];
-                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh_ptr];
+                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh_ptr andOffString:fileOffString];
+                meshRep.meshName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
                 [monger addMeshRep:meshRep];
                 
                 // TODO: create a fresh actor entity with meshID

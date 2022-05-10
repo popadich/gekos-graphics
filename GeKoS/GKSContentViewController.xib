@@ -610,6 +610,9 @@
                                                                 <menuItem title="House" tag="5" id="lBj-C6-Cdk">
                                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                                 </menuItem>
+                                                                <menuItem title="Tetra" tag="6" id="I5F-hX-633">
+                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                </menuItem>
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
@@ -951,7 +954,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="378" minWidth="40" maxWidth="1000" id="gYs-tk-yas">
+                                                        <tableColumn width="110" minWidth="40" maxWidth="1000" id="gYs-tk-yas">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -964,11 +967,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="TvN-sR-ICF">
-                                                                    <rect key="frame" x="139" y="0.0" width="375" height="24"/>
+                                                                    <rect key="frame" x="139" y="0.0" width="110" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0f-lX-feF">
-                                                                            <rect key="frame" x="0.0" y="4" width="375" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="4" width="110" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="PJe-6D-kGr">
                                                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -982,6 +985,41 @@
                                                                     </subviews>
                                                                     <connections>
                                                                         <outlet property="textField" destination="E0f-lX-feF" id="ndQ-vx-V0a"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
+                                                        </tableColumn>
+                                                        <tableColumn width="219" minWidth="10" maxWidth="3.4028234663852886e+38" id="3pb-Ns-1ee">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="OFF">
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="9iv-oG-SVp">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <prototypeCellViews>
+                                                                <tableCellView id="Kqu-vi-2c8">
+                                                                    <rect key="frame" x="266" y="0.0" width="216" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="64u-Qx-KKi">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="216" height="16"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="PUi-Gn-jQC">
+                                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <connections>
+                                                                                <binding destination="Kqu-vi-2c8" name="value" keyPath="objectValue.offString" id="fdC-h8-cpD"/>
+                                                                            </connections>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="64u-Qx-KKi" id="9cD-va-Z0F"/>
                                                                     </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>
@@ -1097,30 +1135,21 @@
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dx2-vw-2jy">
                     <rect key="frame" x="113" y="318" width="116" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="lnt-3s-vsQ" id="XCT-9o-XZo">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="XCT-9o-XZo">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="Jof-7H-0aj">
-                            <items>
-                                <menuItem title="Cube" state="on" tag="1" id="lnt-3s-vsQ">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Sphere" tag="2" id="nqB-27-1eu">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Pyramid" tag="3" id="JBy-eH-oea">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Cone" tag="4" id="2Jl-zW-Cve">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="House" tag="5" id="OzZ-SF-325">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
+                        <menu key="menu" id="Jof-7H-0aj"/>
                         <connections>
-                            <binding destination="-2" name="selectedTag" keyPath="self.makeKinds" id="qFe-j6-tgA"/>
+                            <binding destination="2FK-L7-FSg" name="content" keyPath="arrangedObjects" id="zGW-HO-hUe">
+                                <dictionary key="options">
+                                    <integer key="NSContentPlacementTag" value="1"/>
+                                </dictionary>
+                            </binding>
+                            <binding destination="2FK-L7-FSg" name="contentValues" keyPath="arrangedObjects.meshName" previousBinding="zGW-HO-hUe" id="1h0-6b-4bK">
+                                <dictionary key="options">
+                                    <integer key="NSContentPlacementTag" value="1"/>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </popUpButtonCell>
                 </popUpButton>
