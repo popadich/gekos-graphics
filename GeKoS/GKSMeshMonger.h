@@ -16,9 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSManagedObjectContext *managedObjectContext;
 
 + (id)sharedMeshMonger;
-- (NSArray *)meshList;
 
-- (void)addMeshEntityFromRep:(GKSMeshRep *)meshRep;
+- (void)addToMoc:(NSManagedObjectContext *)moc meshEntityFromRep:(GKSMeshRep *)meshRep;
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID;
 - (NSNumber *)nextID;
 

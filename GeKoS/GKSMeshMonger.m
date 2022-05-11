@@ -72,9 +72,9 @@
     return self;
 }
 
-- (void)addMeshEntityFromRep:(GKSMeshRep *)meshRep
+- (void)addToMoc:(NSManagedObjectContext *)moc meshEntityFromRep:(GKSMeshRep *)meshRep
 {
-    if (self.managedObjectContext != nil) {
+    if (moc != nil) {
         GKSint calcID = (GKSint)[self.meshes count] + 1;
         meshRep.meshId = @(calcID);
         
@@ -86,7 +86,7 @@
         meshEnt.meshName = meshRep.meshName;
         meshEnt.offString = meshRep.offString;
         
-        [self.managedObjectContext processPendingChanges];   // TODO: do I need this?
+        [moc processPendingChanges];   // TODO: do I need this?
     }
 }
 
