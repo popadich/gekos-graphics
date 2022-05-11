@@ -126,22 +126,7 @@
 
 
 
-- (StoryBoardEntity *)makeEmptyStoryBoard {
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
-    
-    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
-    
-    StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
-    
-    NSDictionary *storyDefaults = [defaults valueForKey:@"storyDefaults"];
-    NSString *title = [storyDefaults valueForKey:@"storyTitle"];;
-    NSString *desc = [storyDefaults valueForKey:@"storyDescription"];
-    story.storyTitle = title;
-    story.storyDescription = desc;
-
-    // add one scene to a set
-//    NSMutableSet *toScenes = [story valueForKey:@"toScenes"];
+static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *story) {
     NSMutableSet *sceneSetOne = [[NSMutableSet alloc] init];
     SceneEntity *scene = [NSEntityDescription insertNewObjectForEntityForName:@"SceneEntity" inManagedObjectContext:moc];
     scene.title = @"Scene 1";
@@ -164,11 +149,28 @@
         scene.backgroundColor = [NSColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     }
     [sceneSetOne addObject:scene];
-
+    
     scene.toStoryBoard = story;
     story.toScenes = sceneSetOne;
-    
+    return scene;
+}
 
+- (StoryBoardEntity *)makeEmptyStoryBoard {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
+    
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
+    
+    StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
+    
+    NSDictionary *storyDefaults = [defaults valueForKey:@"storyDefaults"];
+    NSString *title = [storyDefaults valueForKey:@"storyTitle"];;
+    NSString *desc = [storyDefaults valueForKey:@"storyDescription"];
+    story.storyTitle = title;
+    story.storyDescription = desc;
+
+    // add one scene to a set
+    SceneEntity * scene = addSceneOne(moc, story);
     [self addCamera:defaults moc:moc scene:scene];
     
     GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
@@ -183,7 +185,6 @@
         meshEnt.offString = mesh.offString;
     }
     
-
     
     
     // TODO: remove when done with playing

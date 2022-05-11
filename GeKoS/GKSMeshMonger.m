@@ -172,7 +172,7 @@
     GKSvertexArrPtr vertexes = meshPtr->vertices;
     for (GKSint i = 0; i<meshPtr->vertnum; i++) {
         GKSvector3d vertex = vertexes[i];
-        [catString appendFormat:@"%lf %lf %lf\n", vertex.crd.x, vertex.crd.y, vertex.crd.z];
+        [catString appendFormat:@"%.3lf %.3lf %.3lf\n", vertex.crd.x, vertex.crd.y, vertex.crd.z];
     }
     GKSindexArrPtr polygons = meshPtr->polygons;
     GKSint poly_size = 0;
