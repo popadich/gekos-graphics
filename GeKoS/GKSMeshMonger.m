@@ -80,7 +80,7 @@
         
         [self.meshes setObject:meshRep forKey:@(calcID)];
         
-        MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:self.managedObjectContext];
+        MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
         
         meshEnt.meshID = calcID;
         meshEnt.meshName = meshRep.meshName;
@@ -93,50 +93,7 @@
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID
 {
     GKSMeshRep *theMesh = nil;
-    
-    if (meshID.intValue > kHouseKind ) {
-        if (self.managedObjectContext != nil) {
-            theMesh = [self.meshes objectForKey:meshID];
-            if (theMesh == nil) {
-                // try to fetch from core data
-                
-                NSFetchRequest *request = [MeshEntity fetchRequest];
-                [request setPredicate:[NSPredicate predicateWithFormat:@"meshID == %@", meshID]];
-                
-                MeshEntity *meshEnt = nil;
-                NSError *error = nil;
-                NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
-                if (!results) {
-                    NSLog(@"Error fetching mesh : %@\n%@", [error localizedDescription], [error userInfo]);
-                    abort();
-                }
-                if (results.count == 1) {
-                    meshEnt = [results objectAtIndex:0];
-                    NSString *offString = meshEnt.offString;
-                    NSString *meshName = meshEnt.meshName;
-                    GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-                    GKSmesh_3 *mesh_ptr = [parser parseOFFMeshString:offString error:&error];
-                    
-                    GKSMeshRep *aMesh = [[GKSMeshRep alloc] initWithID:@(meshEnt.meshID) andName:meshName andMeshPtr:mesh_ptr andOffString:offString];
-                    
-                    aMesh.meshId = @(meshEnt.meshID);
-                    aMesh.meshName = meshEnt.meshName;
-                    aMesh.offString = offString;
-                    aMesh.meshPtr = mesh_ptr;
-                    
-                    theMesh = aMesh;
-                    [self.meshes setObject:aMesh forKey:meshID];
-
-                    NSLog(@"%@", theMesh.offString);
-                }
-            }
-        }
-    }
-    else {
-        theMesh = [self.meshes objectForKey:meshID];
-    }
-    
-    
+    theMesh = [self.meshes objectForKey:meshID];
     return theMesh;
 }
 

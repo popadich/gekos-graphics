@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSMeshMonger : NSObject
 
-@property (strong) NSManagedObjectContext *managedObjectContext;
-
 + (id)sharedMeshMonger;
 
 - (void)addToMoc:(NSManagedObjectContext *)moc meshEntityFromRep:(GKSMeshRep *)meshRep;

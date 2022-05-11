@@ -44,8 +44,8 @@
         
         
         // TODO: make monger a view controller
-        GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-        monger.managedObjectContext = self.managedObjectContext;
+//        GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+//        monger.managedObjectContext = self.managedObjectContext;
     }
     return self;
 }
@@ -176,13 +176,10 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     [self addCamera:defaults moc:moc scene:scene];
     
     
-    // base meshes
-    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-    monger.managedObjectContext = self.managedObjectContext;
-    
     // Populate base meshes from Defaults and add them to the monger
     NSError *error;
     NSArray* meshDefaults = [defaults valueForKey:@"meshDefaults"];
+    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
     for (NSDictionary *meshDict in meshDefaults) {
         NSString* meshName = meshDict[@"meshName"];
         NSNumber* meshID = [meshDict valueForKey:@"meshID"];
