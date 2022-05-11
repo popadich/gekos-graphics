@@ -11,7 +11,7 @@
 			<integer>1</integer>
 			<key>meshOffString</key>
 			<string>OFF
-8 6 0
+8 6 12
 0.000 0.000 0.000
 1.000 0.000 0.000
 1.000 1.000 0.000
@@ -35,7 +35,7 @@
 			<string>2</string>
 			<key>meshOffString</key>
 			<string>OFF
-684 648 0
+684 648 1296
 0.000 0.000 0.500
 0.000 0.000 0.500
 0.000 0.000 0.500
@@ -1377,7 +1377,7 @@
 			<string>3</string>
 			<key>meshOffString</key>
 			<string>OFF
-5 5 0
+5 5 8
 0.000 0.000 0.000
 1.000 0.000 0.000
 1.000 0.000 1.000
@@ -1397,7 +1397,7 @@
 			<string>4</string>
 			<key>meshOffString</key>
 			<string>OFF
-38 72 0
+38 72 108
 0.000 0.000 0.000
 0.000 1.000 0.000
 0.500 0.000 0.000
@@ -1517,7 +1517,7 @@
 			<string>5</string>
 			<key>meshOffString</key>
 			<string>OFF
-10 7 0
+10 7 15
 0.000 0.000 30.000
 16.000 0.000 30.000
 16.000 10.000 30.000

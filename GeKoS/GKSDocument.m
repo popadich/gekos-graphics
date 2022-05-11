@@ -169,10 +169,14 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     story.storyTitle = title;
     story.storyDescription = desc;
 
-    // add one scene to a set
+    // add one scene to a story
     SceneEntity * scene = addSceneOne(moc, story);
+    
+    // add one camera to the scene
     [self addCamera:defaults moc:moc scene:scene];
     
+    
+    // base meshes
     GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
     monger.managedObjectContext = self.managedObjectContext;
     
@@ -184,7 +188,6 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
         meshEnt.meshName = mesh.meshName;
         meshEnt.offString = mesh.offString;
     }
-    
     
     
     // TODO: remove when done with playing

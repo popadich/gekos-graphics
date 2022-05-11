@@ -18,10 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)sharedMeshMonger;
 - (NSArray *)meshList;
 
-- (void)addMeshRep:(GKSMeshRep *)meshRep;
+- (void)addMeshEntityFromRep:(GKSMeshRep *)meshRep;
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID;
 - (NSNumber *)nextID;
 
+- (NSString *)convertMeshToOffString:(GKSmesh_3 *)meshPtr;
 @end
 
 NS_ASSUME_NONNULL_END

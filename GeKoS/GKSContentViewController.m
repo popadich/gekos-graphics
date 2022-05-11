@@ -417,9 +417,10 @@ static void *worldDataContext = &worldDataContext;
                 GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
                 
                 NSNumber *meshID = [monger nextID];
-                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh_ptr andOffString:fileOffString];
+                NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
+                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
                 meshRep.meshName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
-                [monger addMeshRep:meshRep];
+                [monger addMeshEntityFromRep:meshRep];
                 
                 // TODO: create a fresh actor entity with meshID
 //                GKS3DObjectRep *objRep = [[GKS3DObjectRep alloc] init];
