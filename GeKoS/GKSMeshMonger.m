@@ -37,36 +37,36 @@
     if (self) {
         _meshes = [[NSMutableDictionary alloc] init];
         
-        GKSmesh_3 *cubeMesh = CubeMesh();
-        NSString *cubeOffString = [self convertMeshToOffString:cubeMesh];
-        GKSMeshRep *cubemeshRep = [[GKSMeshRep alloc] initWithID:@(kCubeKind) andName:@"Cube" andMeshPtr:cubeMesh andOffString:cubeOffString];
-        [self.meshes setObject:cubemeshRep forKey:cubemeshRep.meshId];
-        
-        
-        GKSmesh_3 *pyramidMesh = PyramidMesh();
-        NSString *pyramidOffString = [self convertMeshToOffString:pyramidMesh];
-        GKSMeshRep *pyramidmeshRep = [[GKSMeshRep alloc] initWithID:@(kPyramidKind) andName:@"Pyramid" andMeshPtr:pyramidMesh andOffString:pyramidOffString];
-        [self.meshes setObject:pyramidmeshRep forKey:pyramidmeshRep.meshId];
-
-        
-        
-        GKSmesh_3 *houseMesh = HouseMesh();
-        NSString *houseOffString = [self convertMeshToOffString:houseMesh];
-        GKSMeshRep *housemeshRep = [[GKSMeshRep alloc] initWithID:@(kHouseKind) andName:@"House" andMeshPtr:houseMesh andOffString:houseOffString];
-        [self.meshes setObject:housemeshRep forKey:housemeshRep.meshId];
-
-        
-        
-        GKSmesh_3 *sphereMesh = SphereMesh();
-        NSString *sphereOffString = [self convertMeshToOffString:sphereMesh];
-        GKSMeshRep *spheremeshRep = [[GKSMeshRep alloc] initWithID:@(kSphereKind) andName:@"Sphere" andMeshPtr:sphereMesh andOffString:sphereOffString];
-        [self.meshes setObject:spheremeshRep forKey:spheremeshRep.meshId];
-
-        
-        GKSmesh_3 *coneMesh = ConeMesh();
-        NSString *coneOffString = [self convertMeshToOffString:coneMesh];
-        GKSMeshRep *conemeshRep = [[GKSMeshRep alloc] initWithID:@(kConeKind) andName: @"Cone" andMeshPtr:coneMesh andOffString:coneOffString];
-        [self.meshes setObject:conemeshRep forKey:conemeshRep.meshId];
+//        GKSmesh_3 *cubeMesh = CubeMesh();
+//        NSString *cubeOffString = [self convertMeshToOffString:cubeMesh];
+//        GKSMeshRep *cubemeshRep = [[GKSMeshRep alloc] initWithID:@(kCubeKind) andName:@"Cube" andMeshPtr:cubeMesh andOffString:cubeOffString];
+//        [self.meshes setObject:cubemeshRep forKey:cubemeshRep.meshId];
+//        
+//        
+//        GKSmesh_3 *pyramidMesh = PyramidMesh();
+//        NSString *pyramidOffString = [self convertMeshToOffString:pyramidMesh];
+//        GKSMeshRep *pyramidmeshRep = [[GKSMeshRep alloc] initWithID:@(kPyramidKind) andName:@"Pyramid" andMeshPtr:pyramidMesh andOffString:pyramidOffString];
+//        [self.meshes setObject:pyramidmeshRep forKey:pyramidmeshRep.meshId];
+//
+//        
+//        
+//        GKSmesh_3 *houseMesh = HouseMesh();
+//        NSString *houseOffString = [self convertMeshToOffString:houseMesh];
+//        GKSMeshRep *housemeshRep = [[GKSMeshRep alloc] initWithID:@(kHouseKind) andName:@"House" andMeshPtr:houseMesh andOffString:houseOffString];
+//        [self.meshes setObject:housemeshRep forKey:housemeshRep.meshId];
+//
+//        
+//        
+//        GKSmesh_3 *sphereMesh = SphereMesh();
+//        NSString *sphereOffString = [self convertMeshToOffString:sphereMesh];
+//        GKSMeshRep *spheremeshRep = [[GKSMeshRep alloc] initWithID:@(kSphereKind) andName:@"Sphere" andMeshPtr:sphereMesh andOffString:sphereOffString];
+//        [self.meshes setObject:spheremeshRep forKey:spheremeshRep.meshId];
+//
+//        
+//        GKSmesh_3 *coneMesh = ConeMesh();
+//        NSString *coneOffString = [self convertMeshToOffString:coneMesh];
+//        GKSMeshRep *conemeshRep = [[GKSMeshRep alloc] initWithID:@(kConeKind) andName: @"Cone" andMeshPtr:coneMesh andOffString:coneOffString];
+//        [self.meshes setObject:conemeshRep forKey:conemeshRep.meshId];
 
     }
     return self;
@@ -121,8 +121,9 @@
 
 - (NSString *)convertMeshToOffString:(GKSmesh_3 *)meshPtr
 {
+
     NSMutableString *catString = [NSMutableString stringWithString: @"OFF\n"];
-    int edgeNumComputed = (meshPtr->polystoresize - meshPtr->polynum)/2;
+    int edgeNumComputed = meshPtr->edgenum;
     [catString appendFormat:@"%d %d %d\n", meshPtr->vertnum, meshPtr->polynum, edgeNumComputed];
     
     GKSvertexArrPtr vertexes = meshPtr->vertices;
@@ -132,19 +133,21 @@
     }
     GKSindexArrPtr polygons = meshPtr->polygons;
     GKSint poly_size = 0;
+    GKSint total_edges = 0;
     for (GKSint i = 0; i<meshPtr->polystoresize; i++) {
         if (poly_size == 0){
             poly_size = polygons[i];
+            total_edges += poly_size;
             [catString appendFormat:@"%d ",poly_size];
         }
         else {
             poly_size -= 1;
             GKSint polyidx = polygons[i];
             if (poly_size != 0) {
-                [catString appendFormat:@"%d ", polyidx];
+                [catString appendFormat:@"%d ", polyidx-1];
             }
             else {
-                [catString appendFormat:@"%d\n", polyidx];
+                [catString appendFormat:@"%d\n", polyidx-1];
             }
         }
     }

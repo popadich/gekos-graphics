@@ -345,6 +345,14 @@ static void *worldDataContext = &worldDataContext;
 
 
 - (IBAction)performRenderQuick:(id)sender {
+    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+    GKSMeshRep *meshRep = [monger getMeshRep:@3];
+    GKSmesh_3 *mesh_ptr = meshRep.meshPtr;
+    NSString *meshOffString = [monger convertMeshToOffString:mesh_ptr];
+
+    NSLog(@"%@",meshOffString);
+
+
     [self showScene];
     
 }
@@ -420,12 +428,8 @@ static void *worldDataContext = &worldDataContext;
                 NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
                 GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
                 meshRep.meshName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
-//                [monger addMeshEntityFromRep:meshRep];
+                [monger addToMoc:self.managedObjectContext meshEntityFromRep:meshRep];
                 
-                // TODO: create a fresh actor entity with meshID
-//                GKS3DObjectRep *objRep = [[GKS3DObjectRep alloc] init];
-//                objRep.kind = meshID;
-//                [self.sceneController add3DObjectRep:objRep];
                 
                 [self.drawingViewController refresh];
                 

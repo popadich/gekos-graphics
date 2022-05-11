@@ -100,6 +100,10 @@
         specified_polys = [componentsCount[1] intValue];
         specified_edges = [componentsCount[2] intValue];
         
+        if (specified_edges == 0) {
+            NSLog(@"Edge count is necessary to compute array size");
+            return NULL;
+        }
         vertex_array = (GKSvertexArrPtr)calloc(specified_verts, sizeof(GKSvector3d));
         
         // TODO: verify calculated array size
@@ -157,14 +161,17 @@
     } @finally {
         NSLog(@"Arivadercci Finale");
         NSLog(@"Meta Data:  Verts: %d  Polys: %d  Edges: %d", specified_verts, specified_polys, specified_edges);
-        NSLog(@"Mesh        Verts: %d  Polys: %d  Edges: %d", vert_count, poly_count, edge_count);
+        NSLog(@"Mesh        Verts: %d  Polys: %d  Edges: %d", vert_count, poly_count, edge_count / 2);
         
+        NSAssert(specified_edges == (edge_count/2), @"edge count must be correct");
         anObjectMesh = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
 
         anObjectMesh->vertices = vertex_array;
         anObjectMesh->vertnum = specified_verts;
         anObjectMesh->polynum = specified_polys;
         anObjectMesh->polygons = compact_array;
+        anObjectMesh->edgenum = edge_count / 2;
+        anObjectMesh->polystoresize = edge_count + specified_polys;
     }
     
     return anObjectMesh;
