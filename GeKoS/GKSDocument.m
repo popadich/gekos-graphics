@@ -189,7 +189,7 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
 
         GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
 
-        [monger addToMoc:self.managedObjectContext meshEntityFromRep:meshRep];
+        [monger insertMeshRep:meshRep intoMoc:self.managedObjectContext];
         NSLog(@"meshDict Name:%@", meshName);
     }
 

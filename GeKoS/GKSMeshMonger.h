@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id)sharedMeshMonger;
 
-- (void)addToMoc:(NSManagedObjectContext *)moc meshEntityFromRep:(GKSMeshRep *)meshRep;
+- (void)insertMeshRep:(GKSMeshRep *)meshRep intoMoc:(NSManagedObjectContext *)moc;
+- (void)addMeshRepToMongerMenu:(GKSMeshRep * _Nonnull)meshRep;
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID;
 - (NSNumber *)nextID;
 

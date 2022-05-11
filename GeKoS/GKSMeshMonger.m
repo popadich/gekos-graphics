@@ -72,20 +72,27 @@
     return self;
 }
 
-- (void)addToMoc:(NSManagedObjectContext *)moc meshEntityFromRep:(GKSMeshRep *)meshRep
+- (void)addMeshRepToMongerMenu:(GKSMeshRep * _Nonnull)meshRep {
+    // TODO: verify all fields
+    [self.meshes setObject:meshRep forKey:meshRep.meshId];
+}
+
+- (void)insertMeshRep:(GKSMeshRep *)meshRep  intoMoc:(NSManagedObjectContext *)moc
 {
     if (moc != nil) {
-        GKSint calcID = (GKSint)[self.meshes count] + 1;
-        meshRep.meshId = @(calcID);
         
-        [self.meshes setObject:meshRep forKey:@(calcID)];
+        NSNumber *newMeshID = [self nextID];
         
         MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
         
-        meshEnt.meshID = calcID;
+        meshEnt.meshID = newMeshID.intValue;
         meshEnt.meshName = meshRep.meshName;
         meshEnt.offString = meshRep.offString;
         
+        
+        meshRep.meshId = newMeshID;
+        [self addMeshRepToMongerMenu:meshRep];
+
         [moc processPendingChanges];   // TODO: do I need this?
     }
 }

@@ -23,6 +23,7 @@
 @property (nonatomic, weak) IBOutlet NSView* cameraCustomView;
 @property (weak) IBOutlet NSArrayController *actorArrayController;
 @property (weak) IBOutlet NSArrayController *sceneArrayController;
+@property (weak) IBOutlet NSArrayController *meshArrayController;
 
 @property (strong) GKSContent *itsContent;
 
@@ -257,6 +258,25 @@ static void *worldDataContext = &worldDataContext;
 
 }
 
+- (IBAction)performAddSelectedToScene:(id)sender
+{
+    NSLog(@"Add mesh from selection in table");
+    
+    NSArray *objects = [self.meshArrayController selectedObjects];
+    
+    NSAssert(objects.count == 1, @"One selection is mandatory");
+    
+    if (objects.count == 1) {
+        MeshEntity *meshEntity = [objects objectAtIndex:0];
+
+        GKSint kind = meshEntity.meshID;
+        NSLog(@"Add mesh KIND: %d",kind);
+        self.makeKinds = @(kind);
+        [self performAddQuick:self];
+    }
+     
+}
+
 - (IBAction)performAddQuick:(id)sender {
 
     ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
@@ -428,7 +448,7 @@ static void *worldDataContext = &worldDataContext;
                 NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
                 GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
                 meshRep.meshName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
-                [monger addToMoc:self.managedObjectContext meshEntityFromRep:meshRep];
+                [monger insertMeshRep:meshRep intoMoc:self.managedObjectContext];
                 
                 
                 [self.drawingViewController refresh];
