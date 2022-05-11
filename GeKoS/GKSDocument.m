@@ -56,7 +56,8 @@
     if (self) {
         // Add your subclass-specific initialization here.
         if ([typeName isEqual:@"com.xephyr.gekos"]) {
-            _storyBoard = [self makeEmptyStoryBoard];
+            _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
+            _storyBoard = [self insertEmptyStoryBoardIntoMoc:self.managedObjectContext];
         }
 
     }
@@ -155,9 +156,7 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     return scene;
 }
 
-- (StoryBoardEntity *)makeEmptyStoryBoard {
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    _content = [[GKSContent alloc] initWithManagedObjectContext:moc];
+- (StoryBoardEntity *)insertEmptyStoryBoardIntoMoc:(NSManagedObjectContext *)moc {
     
     NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
     

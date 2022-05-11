@@ -36,37 +36,6 @@
     self = [super init];
     if (self) {
         _meshes = [[NSMutableDictionary alloc] init];
-        
-//        GKSmesh_3 *cubeMesh = CubeMesh();
-//        NSString *cubeOffString = [self convertMeshToOffString:cubeMesh];
-//        GKSMeshRep *cubemeshRep = [[GKSMeshRep alloc] initWithID:@(kCubeKind) andName:@"Cube" andMeshPtr:cubeMesh andOffString:cubeOffString];
-//        [self.meshes setObject:cubemeshRep forKey:cubemeshRep.meshId];
-//        
-//        
-//        GKSmesh_3 *pyramidMesh = PyramidMesh();
-//        NSString *pyramidOffString = [self convertMeshToOffString:pyramidMesh];
-//        GKSMeshRep *pyramidmeshRep = [[GKSMeshRep alloc] initWithID:@(kPyramidKind) andName:@"Pyramid" andMeshPtr:pyramidMesh andOffString:pyramidOffString];
-//        [self.meshes setObject:pyramidmeshRep forKey:pyramidmeshRep.meshId];
-//
-//        
-//        
-//        GKSmesh_3 *houseMesh = HouseMesh();
-//        NSString *houseOffString = [self convertMeshToOffString:houseMesh];
-//        GKSMeshRep *housemeshRep = [[GKSMeshRep alloc] initWithID:@(kHouseKind) andName:@"House" andMeshPtr:houseMesh andOffString:houseOffString];
-//        [self.meshes setObject:housemeshRep forKey:housemeshRep.meshId];
-//
-//        
-//        
-//        GKSmesh_3 *sphereMesh = SphereMesh();
-//        NSString *sphereOffString = [self convertMeshToOffString:sphereMesh];
-//        GKSMeshRep *spheremeshRep = [[GKSMeshRep alloc] initWithID:@(kSphereKind) andName:@"Sphere" andMeshPtr:sphereMesh andOffString:sphereOffString];
-//        [self.meshes setObject:spheremeshRep forKey:spheremeshRep.meshId];
-//
-//        
-//        GKSmesh_3 *coneMesh = ConeMesh();
-//        NSString *coneOffString = [self convertMeshToOffString:coneMesh];
-//        GKSMeshRep *conemeshRep = [[GKSMeshRep alloc] initWithID:@(kConeKind) andName: @"Cone" andMeshPtr:coneMesh andOffString:coneOffString];
-//        [self.meshes setObject:conemeshRep forKey:conemeshRep.meshId];
 
     }
     return self;
@@ -77,7 +46,7 @@
     [self.meshes setObject:meshRep forKey:meshRep.meshId];
 }
 
-- (void)insertMeshRep:(GKSMeshRep *)meshRep  intoMoc:(NSManagedObjectContext *)moc
+- (void)insertMeshRep:(GKSMeshRep *)meshRep intoMoc:(NSManagedObjectContext *)moc
 {
     if (moc != nil) {
         
@@ -114,14 +83,14 @@
 
 - (NSArray *)meshList
 {
-    NSMutableArray *meshes = [[NSMutableArray alloc] init];
+    NSMutableArray *meshesArr = [[NSMutableArray alloc] init];
     for (int i=kCubeKind; i<=kHouseKind; i++) {
         GKSMeshRep *meshRep = [self getMeshRep:@(i)];
-        [meshes addObject:meshRep];
+        [meshesArr addObject:meshRep];
         
     }
     
-    return ([NSArray arrayWithArray:meshes]);
+    return ([NSArray arrayWithArray:meshesArr]);
 }
 
 
