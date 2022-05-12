@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "GKSSceneController.h"
 #import "GKSSceneRep.h"
+#import "GKSMeshMonger.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) GKSSceneRep *theScene;
 @property (strong) GKSCameraRep *theCamera;
 @property (weak) NSManagedObjectContext *managedObjectContext;
+@property (strong) NSManagedObject* theStory;
 @property (assign) GKScontext3DPtr context3D;
+@property (strong) GKSMeshMonger *theMonger;
 
 - (NSData *)textRepresentation;
 

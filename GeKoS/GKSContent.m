@@ -27,6 +27,9 @@
 
         _theScene = sceneRep;
         
+        GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
+        _theMonger = monger;
+        
     }
     return self;
 }

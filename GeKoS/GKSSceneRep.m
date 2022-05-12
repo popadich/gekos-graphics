@@ -67,28 +67,6 @@
     return self;
 }
 
-- (GKS3DActor *)castActorFromEnt:(ActorEntity * _Nonnull)actorEntity
-{
-    
-    GKSvector3d loc = GKSMakeVector(actorEntity.locX, actorEntity.locY, actorEntity.locZ);
-    GKSvector3d rot = GKSMakeVector(actorEntity.rotX, actorEntity.rotY, actorEntity.rotZ);
-    GKSvector3d sca = GKSMakeVector(actorEntity.scaleX, actorEntity.scaleY, actorEntity.scaleZ);
-
-    NSNumber *kindNum = @(actorEntity.kind);
-    
-    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-    GKSMeshRep *theMeshRep = [monger getMeshRep:kindNum];
-    GKSmesh_3 *the_mesh = theMeshRep.meshPtr;
-    
-    NSAssert(the_mesh != NULL, @"Mesh pointer is missing");
-    GKS3DActor *newActorObject = [[GKS3DActor alloc] initWithMesh:the_mesh ofKind:kindNum atLocation:loc withRotation:rot andScale:sca];
-    
-    // TODO: where are the colors stored?
-    newActorObject.lineColor = actorEntity.lineColor;
-    newActorObject.fillColor = [NSColor greenColor];
-    
-    return newActorObject;
-}
 
 - (void)stageActor:(GKS3DActor *)actor
 {

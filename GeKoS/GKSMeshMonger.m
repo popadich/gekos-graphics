@@ -19,17 +19,6 @@
 @implementation GKSMeshMonger
 
 
-+ (id)sharedMeshMonger {
-    static GKSMeshMonger *sharedMeshMonger = nil;
-    
-    static dispatch_once_t onceToken; // onceToken = 0
-    _dispatch_once(&onceToken, ^{
-        sharedMeshMonger = [[GKSMeshMonger alloc] init];
-    });
-    
-    return sharedMeshMonger;
-}
-
 
 - (instancetype)init
 {

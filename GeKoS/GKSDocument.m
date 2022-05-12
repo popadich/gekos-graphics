@@ -28,21 +28,8 @@
         // Add your subclass-specific initialization here.
         
         _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
-        // Stage actors for all Actor entities
-        NSFetchRequest *request = [StoryBoardEntity fetchRequest];
-        NSError *error = nil;
-        NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
-        if (!results) {
-            NSLog(@"Error fetching storyboard objects: %@\n%@", [error localizedDescription], [error userInfo]);
-            abort();
-        }
-        if (results.count == 1) {
-            StoryBoardEntity *story = [results objectAtIndex:0];
-            _storyBoard = story;
 
-        }
-        
-        
+    
         // TODO: make monger a view controller
 //        GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
 //        monger.managedObjectContext = self.managedObjectContext;
@@ -57,7 +44,7 @@
         // Add your subclass-specific initialization here.
         if ([typeName isEqual:@"com.xephyr.gekos"]) {
             _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
-            _storyBoard = [self insertEmptyStoryBoardIntoMoc:self.managedObjectContext];
+            _content.theStory = [self insertEmptyStoryBoardIntoMoc:self.managedObjectContext];
         }
 
     }
@@ -178,7 +165,7 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     // Populate base meshes from Defaults and add them to the monger
     NSError *error;
     NSArray* meshDefaults = [defaults valueForKey:@"meshDefaults"];
-    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+    GKSMeshMonger *monger = self.content.theMonger;
     for (NSDictionary *meshDict in meshDefaults) {
         NSString* meshName = meshDict[@"meshName"];
         NSNumber* meshID = [meshDict valueForKey:@"meshID"];
@@ -189,7 +176,6 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
         GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
 
         [monger insertMeshRep:meshRep intoMoc:self.managedObjectContext];
-        NSLog(@"meshDict Name:%@", meshName);
     }
 
     

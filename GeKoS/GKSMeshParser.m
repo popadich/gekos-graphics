@@ -159,11 +159,11 @@
         // populate the error object with the details
         *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:userInfoDict];
     } @finally {
-        NSLog(@"Arivadercci Finale");
-        NSLog(@"Meta Data:  Verts: %d  Polys: %d  Edges: %d", specified_verts, specified_polys, specified_edges);
-        NSLog(@"Mesh        Verts: %d  Polys: %d  Edges: %d", vert_count, poly_count, edge_count / 2);
+//        NSLog(@"Arivadercci Finale");
+//        NSLog(@"Meta Data:  Verts: %d  Polys: %d  Edges: %d", specified_verts, specified_polys, specified_edges);
+//        NSLog(@"Mesh        Verts: %d  Polys: %d  Edges: %d", vert_count, poly_count, edge_count / 2);
         
-        NSAssert(specified_edges == (edge_count/2), @"edge count must be correct");
+        NSAssert(specified_edges == (edge_count/2), @"edge count %d must be %d", edge_count, specified_edges);
         anObjectMesh = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
 
         anObjectMesh->vertices = vertex_array;

@@ -68,6 +68,51 @@ static void *worldDataContext = &worldDataContext;
     [self.drawingViewController drawingSetViewRectG];
     [self.sceneController setWorldVolumeG];
 
+    
+    
+    NSError *error = nil;
+    NSArray *results = nil;
+    
+    NSFetchRequest *fetchMeshesRequest = [MeshEntity fetchRequest];
+    results = [self.managedObjectContext executeFetchRequest:fetchMeshesRequest error:&error];
+    if (!results) {
+        NSLog(@"Error fetching meshes objects: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
+    for (MeshEntity *meshEnt in results) {
+        NSString* meshName = meshEnt.meshName;
+        NSNumber* meshID = [NSNumber numberWithInt:meshEnt.meshID];
+        NSString* meshOffString = meshEnt.offString;
+        GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
+        GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:meshOffString error:&error];
+
+        GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
+        [self.itsContent.theMonger addMeshRepToMongerMenu:meshRep];
+
+    }
+    
+
+    
+      // Stage actors for all Actor entities
+      NSFetchRequest *fetchStoryRequest = [StoryBoardEntity fetchRequest];
+      results = [self.managedObjectContext executeFetchRequest:fetchStoryRequest error:&error];
+      if (!results) {
+          NSLog(@"Error fetching storyboard objects: %@\n%@", [error localizedDescription], [error userInfo]);
+          abort();
+      }
+      if (results.count == 1) {
+          StoryBoardEntity *story = [results objectAtIndex:0];
+          self.itsContent.theStory = story;
+
+      }
+    
+    
+    
+    
+    
+    
+    
+    
     // Set all vantage points to the same default values
     self.currentVPIndex = 0;
     self.vantagePoints = [[NSMutableArray alloc] initWithCapacity:GKS_MAX_VANTAGE_PTS];
@@ -95,6 +140,8 @@ static void *worldDataContext = &worldDataContext;
     GKSSceneRep *sceneRep = content.theScene;
     NSAssert(sceneRep != nil, @"scene rep must exist");
     self.sceneController.scene = sceneRep;
+    self.sceneController.theMonger = content.theMonger;
+    
 //    self.cameraViewController.representedObject = content.theCamera;
     self.cameraViewController.camera = content.theCamera;
     self.drawingViewController.representedObject = sceneRep;
@@ -260,17 +307,15 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performAddSelectedToScene:(id)sender
 {
-    NSLog(@"Add mesh from selection in table");
     
     NSArray *objects = [self.meshArrayController selectedObjects];
     
-    NSAssert(objects.count == 1, @"One selection is mandatory");
+    NSAssert(objects.count == 1, @"One mesh must be selected");
     
     if (objects.count == 1) {
         MeshEntity *meshEntity = [objects objectAtIndex:0];
-
         GKSint kind = meshEntity.meshID;
-        NSLog(@"Add mesh KIND: %d",kind);
+//        NSLog(@"Add mesh KIND: %d",kind);
         self.makeKinds = @(kind);
         [self performAddQuick:self];
     }
@@ -295,7 +340,7 @@ static void *worldDataContext = &worldDataContext;
     actorEntity.lineColor = self.contentLineColor;
     
     // get unique identifier for actor entity
-    GKS3DActor *actor = [self.sceneController.scene castActorFromEnt:actorEntity];
+    GKS3DActor *actor = [self.sceneController castActorFromEnt:actorEntity];
     [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.name];
     [self.sceneController.scene stageActor:actor];
     
@@ -365,7 +410,7 @@ static void *worldDataContext = &worldDataContext;
 
 
 - (IBAction)performRenderQuick:(id)sender {
-    GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+    GKSMeshMonger *monger = self.itsContent.theMonger;
     GKSMeshRep *meshRep = [monger getMeshRep:@3];
     GKSmesh_3 *mesh_ptr = meshRep.meshPtr;
     NSString *meshOffString = [monger convertMeshToOffString:mesh_ptr];
@@ -442,7 +487,7 @@ static void *worldDataContext = &worldDataContext;
             GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:fileOffString error:&error];
             if (mesh_ptr != NULL) {
                 
-                GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
+                GKSMeshMonger *monger = self.itsContent.theMonger;
                 
                 NSNumber *meshID = [monger nextID];
                 NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];

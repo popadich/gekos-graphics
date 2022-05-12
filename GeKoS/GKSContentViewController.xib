@@ -1176,8 +1176,9 @@
         </viewController>
         <customObject id="Fm7-nA-xaM" customClass="GKSSceneController"/>
         <userDefaultsController representsSharedInstance="YES" id="HFF-pk-F7y"/>
-        <arrayController mode="entity" entityName="StoryBoardEntity" automaticallyPreparesContent="YES" id="9yN-p9-N6p" userLabel="StoryBoards">
+        <arrayController mode="entity" entityName="StoryBoardEntity" id="9yN-p9-N6p" userLabel="StoryBoards">
             <connections>
+                <binding destination="-2" name="contentObject" keyPath="self.representedObject.theStory" id="xTA-1o-hJa"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="4IQ-gy-Fz9"/>
             </connections>
         </arrayController>

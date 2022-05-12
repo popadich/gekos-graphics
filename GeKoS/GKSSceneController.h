@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GKSSceneRep.h"
+#import "GKSMeshMonger.h"
 #import "ActorEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -15,10 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) GKSSceneRep *scene;
 @property (strong) NSMutableDictionary *actorWhitePages;
+@property (strong) GKSMeshMonger *theMonger;
 
 - (void)setFrustumCulling:(BOOL)flag;
 
 - (void)castSetOfActors:(NSSet *)actors;
+- (GKS3DActor *)castActorFromEnt:(ActorEntity * _Nonnull)actor;
 
 - (void)transformAllObjects;
 

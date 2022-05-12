@@ -67,6 +67,6 @@
         <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
         <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="74"/>
         <element name="SceneEntity" positionX="-241.47509765625" positionY="-186.5136413574219" width="128" height="209"/>
-        <element name="StoryBoardEntity" positionX="-206.7398681640625" positionY="118.4457244873047" width="128" height="103"/>
+        <element name="StoryBoardEntity" positionX="-206.7398681640625" positionY="118.4457244873047" width="128" height="89"/>
     </elements>
 </model>

@@ -15,6 +15,5 @@
 @property (nonatomic, strong) NSColor* backColor;
 
 @property (strong) GKSContent* content;
-@property (strong) id storyBoard;
 
 @end

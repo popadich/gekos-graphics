@@ -39,7 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithContext:(GKScontext3D *)contextPtr;
 - (GKSlimits_3 *)worldVolumeLimits;
 
-- (GKS3DActor *)castActorFromEnt:(ActorEntity * _Nonnull)actor;
 - (void)stageActor:(GKS3DActor *)actorObj;
 
 @end
