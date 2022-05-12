@@ -411,8 +411,7 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performRenderQuick:(id)sender {
     GKSMeshMonger *monger = self.itsContent.theMonger;
-    GKSMeshRep *meshRep = [monger getMeshRep:@3];
-    GKSmesh_3 *mesh_ptr = meshRep.meshPtr;
+    GKSmesh_3 *mesh_ptr = SphereMesh();
     NSString *meshOffString = [monger convertMeshToOffString:mesh_ptr];
 
     NSLog(@"%@",meshOffString);

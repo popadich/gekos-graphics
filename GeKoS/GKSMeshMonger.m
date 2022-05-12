@@ -88,8 +88,7 @@
 {
 
     NSMutableString *catString = [NSMutableString stringWithString: @"OFF\n"];
-    int edgeNumComputed = meshPtr->edgenum;
-    [catString appendFormat:@"%d %d %d\n", meshPtr->vertnum, meshPtr->polynum, edgeNumComputed];
+    [catString appendFormat:@"%d %d %d\n", meshPtr->vertnum, meshPtr->polynum, meshPtr->edgenum];
     
     GKSvertexArrPtr vertexes = meshPtr->vertices;
     for (GKSint i = 0; i<meshPtr->vertnum; i++) {

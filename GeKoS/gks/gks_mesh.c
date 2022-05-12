@@ -401,7 +401,7 @@ GKSmesh_3 *SphereMesh(void)
     aSphere->vertnum = vertex_count;
     aSphere->polygons = polygon_array;
     aSphere->polynum = polygon_count;
-    aSphere->edgenum = 1296;    //TODO: compute this
+    aSphere->edgenum = 2592;    //TODO: compute this
     aSphere->polystoresize = calc_compact_count;
 
     return aSphere;
@@ -522,7 +522,7 @@ GKSmesh_3 *ConeMesh(void)
     aCone->polygons = polygon_array;
     aCone->vertnum = calc_vertex_count;
     aCone->polynum = calc_polygon_count;
-    aCone->edgenum = 108;
+    aCone->edgenum = 216;
     aCone->polystoresize = calc_compact_count;
 
     return aCone;
