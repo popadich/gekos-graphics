@@ -475,6 +475,7 @@ static void *worldDataContext = &worldDataContext;
     // This method displays the panel and returns immediately.
     // The completion handler is called when the user selects an
     // item or cancels the panel.
+    StoryBoardEntity *storyBoardEnt = self.itsContent.theStory;
     [panel beginWithCompletionHandler:^(NSInteger result){
         if (result == NSModalResponseOK) {
             NSURL* theURL = [[panel URLs] objectAtIndex:0];
@@ -487,13 +488,22 @@ static void *worldDataContext = &worldDataContext;
             if (mesh_ptr != NULL) {
                 
                 GKSMeshMonger *monger = self.itsContent.theMonger;
-                
                 NSNumber *meshID = [monger nextID];
                 NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
-                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
-                meshRep.meshName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
-                [monger insertMeshRep:meshRep intoMoc:self.managedObjectContext];
                 
+                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
+
+
+                
+                MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:self.managedObjectContext];
+                
+                meshEnt.meshID = meshID.intValue;
+                meshEnt.meshName = meshRep.meshName;
+                meshEnt.offString = meshRep.offString;
+                
+                [storyBoardEnt addToMeshesObject:meshEnt];
+                
+                [monger addMeshRepToMongerMenu:meshRep];
                 
                 [self.drawingViewController refresh];
                 

@@ -41,6 +41,7 @@
         <attribute name="meshID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="meshName" optional="YES" attributeType="String"/>
         <attribute name="offString" optional="YES" attributeType="String"/>
+        <relationship name="toStoryBoard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoryBoardEntity" inverseName="toMeshes" inverseEntity="StoryBoardEntity"/>
     </entity>
     <entity name="SceneEntity" representedClassName="SceneEntity" syncable="YES" codeGenerationType="class">
         <attribute name="backgroundColor" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="NSColor"/>
@@ -60,13 +61,14 @@
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="storyDescription" optional="YES" attributeType="String"/>
         <attribute name="storyTitle" attributeType="String" defaultValueString="Untitled Story"/>
+        <relationship name="toMeshes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MeshEntity" inverseName="toStoryBoard" inverseEntity="MeshEntity"/>
         <relationship name="toScenes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toStoryBoard" inverseEntity="SceneEntity"/>
     </entity>
     <elements>
         <element name="ActorEntity" positionX="-420.5046997070312" positionY="114.049560546875" width="128" height="283"/>
         <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
-        <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="74"/>
+        <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="89"/>
         <element name="SceneEntity" positionX="-241.47509765625" positionY="-186.5136413574219" width="128" height="209"/>
-        <element name="StoryBoardEntity" positionX="-206.7398681640625" positionY="118.4457244873047" width="128" height="89"/>
+        <element name="StoryBoardEntity" positionX="-206.7398681640625" positionY="118.4457244873047" width="128" height="104"/>
     </elements>
 </model>

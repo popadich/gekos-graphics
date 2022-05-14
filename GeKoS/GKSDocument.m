@@ -163,24 +163,23 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     
     
     // Populate base meshes from Defaults and add them to the monger
-    NSError *error;
     NSArray* meshDefaults = [defaults valueForKey:@"meshDefaults"];
-    GKSMeshMonger *monger = self.content.theMonger;
+    NSMutableSet *meshEntities = [[NSMutableSet alloc] init];
     for (NSDictionary *meshDict in meshDefaults) {
-        NSString* meshName = meshDict[@"meshName"];
+        MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
+        
         NSNumber* meshID = [meshDict valueForKey:@"meshID"];
-        NSString* meshOffString = [meshDict valueForKey:@"meshOffString"];
-        GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-        GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:meshOffString error:&error];
-
-        GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
-
-        [monger insertMeshRep:meshRep intoMoc:self.managedObjectContext];
+        meshEnt.meshID = meshID.intValue;
+        meshEnt.meshName = meshDict[@"meshName"];
+        meshEnt.offString = [meshDict valueForKey:@"meshOffString"];;
+        [meshEntities addObject:meshEnt];
+        
     }
 
+    [story addToMeshes:meshEntities];
     
     // TODO: remove when done with playing
-    [self addPlayThings:moc scene:scene];
+//    [self addPlayThings:moc scene:scene];
     
     
     [moc processPendingChanges];
@@ -189,6 +188,9 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
 
     return story;
 }
+
+
+
 
 + (BOOL)autosavesInPlace {
     return YES;
