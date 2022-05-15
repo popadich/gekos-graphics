@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="ActorEntity" representedClassName="ActorEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="actorID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="centerX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="centerY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="centerZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="hidden" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="kind" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lineColor" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="NSColor"/>
         <attribute name="locX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="material" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String" defaultValueString="Cuby"/>
         <attribute name="priority" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rotX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -15,6 +20,7 @@
         <attribute name="scaleX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="scaleZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="summary" optional="YES" transient="YES" attributeType="String"/>
         <attribute name="transientActor" optional="YES" transient="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="GKS3DActor"/>
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toActors" inverseEntity="SceneEntity"/>
     </entity>
@@ -65,7 +71,7 @@
         <relationship name="toScenes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toStoryBoard" inverseEntity="SceneEntity"/>
     </entity>
     <elements>
-        <element name="ActorEntity" positionX="-420.5046997070312" positionY="114.049560546875" width="128" height="283"/>
+        <element name="ActorEntity" positionX="-420.5046997070312" positionY="114.049560546875" width="128" height="359"/>
         <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
         <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="89"/>
         <element name="SceneEntity" positionX="-241.47509765625" positionY="-186.5136413574219" width="128" height="209"/>

@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKSMeshMonger : NSObject
 
-
-- (void)insertMeshRep:(GKSMeshRep *)meshRep intoMoc:(NSManagedObjectContext *)moc;
 - (void)addMeshRepToMongerMenu:(GKSMeshRep * _Nonnull)meshRep;
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID;
 - (NSNumber *)nextID;

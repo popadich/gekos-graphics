@@ -91,27 +91,18 @@ static void *worldDataContext = &worldDataContext;
 
     }
     
+    // Fetch the first available story board
+    NSFetchRequest *fetchStoryRequest = [StoryBoardEntity fetchRequest];
+  results = [self.managedObjectContext executeFetchRequest:fetchStoryRequest error:&error];
+  if (!results) {
+      NSLog(@"Error fetching storyboard objects: %@\n%@", [error localizedDescription], [error userInfo]);
+      abort();
+  }
+  if (results.count == 1) {
+      StoryBoardEntity *story = [results objectAtIndex:0];
+      self.itsContent.theStory = story;
 
-    
-      // Stage actors for all Actor entities
-      NSFetchRequest *fetchStoryRequest = [StoryBoardEntity fetchRequest];
-      results = [self.managedObjectContext executeFetchRequest:fetchStoryRequest error:&error];
-      if (!results) {
-          NSLog(@"Error fetching storyboard objects: %@\n%@", [error localizedDescription], [error userInfo]);
-          abort();
-      }
-      if (results.count == 1) {
-          StoryBoardEntity *story = [results objectAtIndex:0];
-          self.itsContent.theStory = story;
-
-      }
-    
-    
-    
-    
-    
-    
-    
+  }
     
     // Set all vantage points to the same default values
     self.currentVPIndex = 0;

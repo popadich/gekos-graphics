@@ -29,10 +29,6 @@
         
         _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
 
-    
-        // TODO: make monger a view controller
-//        GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-//        monger.managedObjectContext = self.managedObjectContext;
     }
     return self;
 }
@@ -54,15 +50,14 @@
 - (void)addPlayThings:(NSManagedObjectContext *)moc scene:(SceneEntity *)scene {
     BOOL playing = YES;
     if (playing) {
-        NSMutableSet *actors = [[NSMutableSet alloc] init];
         GKSfloat rad = 0.0;
-        for (int i=1; i<8; i++) {
-            GKSfloat locX = 0.0;
-            GKSfloat locY = i%2;
+        for (int i=1; i<9; i++) {
+            GKSfloat locX = i%2 * 5;
+            GKSfloat locY = 0.0;
             GKSfloat locZ = -2.0 * i;
             
             ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:moc];
-            actorEntity.kind  = (i%2) ? kCubeKind : kPyramidKind;
+            actorEntity.kind  = kCubeKind;
             actorEntity.locX = locX;
             actorEntity.locY = locY;
             actorEntity.locZ = locZ;
@@ -70,13 +65,12 @@
             actorEntity.scaleY = 1.0;
             actorEntity.scaleZ = 1.0;
             actorEntity.name =  [[NSUUID UUID] UUIDString];
-            actorEntity.toScene = scene;
-            [actors addObject:actorEntity];
             actorEntity.lineColor = [NSColor greenColor];
             
+            [scene addToActorsObject:actorEntity];
             rad += 35;
         }
-        scene.toActors = actors;
+        
     }
 }
 
@@ -179,7 +173,7 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     [story addToMeshes:meshEntities];
     
     // TODO: remove when done with playing
-//    [self addPlayThings:moc scene:scene];
+    [self addPlayThings:moc scene:scene];
     
     
     [moc processPendingChanges];

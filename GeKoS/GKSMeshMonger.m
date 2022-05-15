@@ -35,25 +35,6 @@
     [self.meshes setObject:meshRep forKey:meshRep.meshId];
 }
 
-- (void)insertMeshRep:(GKSMeshRep *)meshRep intoMoc:(NSManagedObjectContext *)moc
-{
-    if (moc != nil) {
-        
-        NSNumber *newMeshID = [self nextID];
-        
-        MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:moc];
-        
-        meshEnt.meshID = newMeshID.intValue;
-        meshEnt.meshName = meshRep.meshName;
-        meshEnt.offString = meshRep.offString;
-        
-        
-        meshRep.meshId = newMeshID;
-        [self addMeshRepToMongerMenu:meshRep];
-
-        [moc processPendingChanges];   // TODO: do I need this?
-    }
-}
 
 - (GKSMeshRep *)getMeshRep:(NSNumber *)meshID
 {
