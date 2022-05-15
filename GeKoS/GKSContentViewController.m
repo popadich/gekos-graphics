@@ -24,6 +24,7 @@
 @property (weak) IBOutlet NSArrayController *actorArrayController;
 @property (weak) IBOutlet NSArrayController *sceneArrayController;
 @property (weak) IBOutlet NSArrayController *meshArrayController;
+@property (weak) IBOutlet NSArrayController *storyBoardArrayController;
 
 @property (strong) GKSContent *itsContent;
 
@@ -47,27 +48,27 @@ static void *worldDataContext = &worldDataContext;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-
+    
     // Place camera controller view into custom camera view
     NSView* cameraSubView = self.cameraViewController.view;
     cameraSubView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.cameraCustomView addSubview:cameraSubView];
-
+    
     NSDictionary *viewsDictionary = @{@"newView":cameraSubView};
-
+    
     NSString *hFormatString = @"H:|-0-[newView]-0-|";
     NSString *vFormatString = @"V:|-[newView]-|";
-
+    
     NSArray *horzConstraints = [NSLayoutConstraint constraintsWithVisualFormat:hFormatString options:0 metrics:nil views:viewsDictionary];
     NSArray *vertConstraints = [NSLayoutConstraint constraintsWithVisualFormat:vFormatString options:0 metrics:nil views:viewsDictionary];
     
     // add constraints
     [self.view addConstraints:horzConstraints];
     [self.view addConstraints:vertConstraints];
-
+    
     [self.drawingViewController drawingSetViewRectG];
     [self.sceneController setWorldVolumeG];
-
+    
     // Fetch the first available story board
     NSError *error = nil;
     NSArray *results = nil;
@@ -102,7 +103,7 @@ static void *worldDataContext = &worldDataContext;
         NSDictionary *vantageProperties = [self gatherVantage];
         [self.vantagePoints addObject:vantageProperties];
     }
-
+    
     [self setIsCenteredObject:@NO];
     [self setMakeKinds:@(kCubeKind)];
     [self registerAsObserverForScene];

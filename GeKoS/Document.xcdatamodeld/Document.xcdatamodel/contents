@@ -12,8 +12,9 @@
         <attribute name="locY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="material" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="Cuby"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priority" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rotX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rotY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rotZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -71,7 +72,7 @@
         <relationship name="toScenes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toStoryBoard" inverseEntity="SceneEntity"/>
     </entity>
     <elements>
-        <element name="ActorEntity" positionX="-420.5046997070312" positionY="114.049560546875" width="128" height="359"/>
+        <element name="ActorEntity" positionX="-420.5046997070312" positionY="114.049560546875" width="128" height="374"/>
         <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
         <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="89"/>
         <element name="SceneEntity" positionX="-241.47509765625" positionY="-186.5136413574219" width="128" height="209"/>

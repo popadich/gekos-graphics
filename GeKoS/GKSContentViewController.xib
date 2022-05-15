@@ -15,6 +15,7 @@
                 <outlet property="meshArrayController" destination="2FK-L7-FSg" id="Jtt-dp-CEI"/>
                 <outlet property="sceneArrayController" destination="ziB-ro-WAM" id="0uc-SH-tZv"/>
                 <outlet property="sceneController" destination="Fm7-nA-xaM" id="LuX-29-e8M"/>
+                <outlet property="storyBoardArrayController" destination="9yN-p9-N6p" id="6cM-fP-vFg"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -1214,10 +1215,9 @@ DQ
         </viewController>
         <customObject id="Fm7-nA-xaM" customClass="GKSSceneController"/>
         <userDefaultsController representsSharedInstance="YES" id="HFF-pk-F7y"/>
-        <arrayController mode="entity" entityName="StoryBoardEntity" id="9yN-p9-N6p" userLabel="StoryBoards">
+        <arrayController mode="entity" entityName="StoryBoardEntity" automaticallyPreparesContent="YES" id="9yN-p9-N6p" userLabel="StoryBoards">
             <connections>
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="4IQ-gy-Fz9"/>
-                <binding destination="-2" name="contentObject" keyPath="self.representedObject.theStory" id="xTA-1o-hJa"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="SceneEntity" id="ziB-ro-WAM" userLabel="Scenes">
