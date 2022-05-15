@@ -48,7 +48,7 @@ static void *worldDataContext = &worldDataContext;
     [super viewDidLoad];
     // Do view setup here.
 
-    // Can't use replace subview because constraints in parent view are lost
+    // Place camera controller view into custom camera view
     NSView* cameraSubView = self.cameraViewController.view;
     cameraSubView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.cameraCustomView addSubview:cameraSubView];
@@ -68,30 +68,9 @@ static void *worldDataContext = &worldDataContext;
     [self.drawingViewController drawingSetViewRectG];
     [self.sceneController setWorldVolumeG];
 
-    
-    
+    // Fetch the first available story board
     NSError *error = nil;
     NSArray *results = nil;
-    
-    NSFetchRequest *fetchMeshesRequest = [MeshEntity fetchRequest];
-    results = [self.managedObjectContext executeFetchRequest:fetchMeshesRequest error:&error];
-    if (!results) {
-        NSLog(@"Error fetching meshes objects: %@\n%@", [error localizedDescription], [error userInfo]);
-        abort();
-    }
-    for (MeshEntity *meshEnt in results) {
-        NSString* meshName = meshEnt.meshName;
-        NSNumber* meshID = [NSNumber numberWithInt:meshEnt.meshID];
-        NSString* meshOffString = meshEnt.offString;
-        GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-        GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:meshOffString error:&error];
-
-        GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
-        [self.itsContent.theMonger addMeshRepToMongerMenu:meshRep];
-
-    }
-    
-    // Fetch the first available story board
     NSFetchRequest *fetchStoryRequest = [StoryBoardEntity fetchRequest];
   results = [self.managedObjectContext executeFetchRequest:fetchStoryRequest error:&error];
   if (!results) {
@@ -100,6 +79,18 @@ static void *worldDataContext = &worldDataContext;
   }
   if (results.count == 1) {
       StoryBoardEntity *story = [results objectAtIndex:0];
+      // feed the monger with meshes
+      for (MeshEntity *meshEnt in story.toMeshes) {
+          NSString* meshName = meshEnt.meshName;
+          NSNumber* meshID = [NSNumber numberWithInt:meshEnt.meshID];
+          NSString* meshOffString = meshEnt.offString;
+          GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
+          GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:meshOffString error:&error];
+
+          GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
+          [self.itsContent.theMonger addMeshRepToMongerMenu:meshRep];
+      }
+      
       self.itsContent.theStory = story;
 
   }

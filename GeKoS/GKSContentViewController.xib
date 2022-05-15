@@ -649,6 +649,9 @@
                                                     <buttonCell key="cell" type="push" title="Update" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="t6G-BT-Zpe">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="performUpdateQuick:" target="-1" id="hbY-Bq-9K3"/>
@@ -1235,8 +1238,9 @@
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="NGx-Ar-B8U"/>
             </connections>
         </arrayController>
-        <arrayController mode="entity" entityName="MeshEntity" automaticallyPreparesContent="YES" id="2FK-L7-FSg" userLabel="Meshes">
+        <arrayController mode="entity" entityName="MeshEntity" id="2FK-L7-FSg" userLabel="Meshes">
             <connections>
+                <binding destination="9yN-p9-N6p" name="contentSet" keyPath="selection.toMeshes" id="gzD-uD-IX5"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="72s-60-BJ1"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.meshSortDescriptors" id="jkO-VJ-RAw"/>
             </connections>
