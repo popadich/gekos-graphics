@@ -9,6 +9,12 @@
 			<string>Cube</string>
 			<key>meshID</key>
 			<integer>1</integer>
+			<key>vertexCount</key>
+			<integer>8</integer>
+			<key>polygonCount</key>
+			<integer>6</integer>
+			<key>edgeCount</key>
+			<integer>24</integer>
 			<key>meshOffString</key>
 			<string>OFF
 8 6 24
@@ -33,6 +39,12 @@
 			<string>Sphere</string>
 			<key>meshID</key>
 			<string>2</string>
+			<key>vertexCount</key>
+			<integer>684</integer>
+			<key>polygonCount</key>
+			<integer>648</integer>
+			<key>edgeCount</key>
+			<integer>2592</integer>
 			<key>meshOffString</key>
 			<string>OFF
 684 648 2592
@@ -1375,6 +1387,12 @@
 			<string>Pyramid</string>
 			<key>meshID</key>
 			<string>3</string>
+			<key>vertexCount</key>
+			<integer>5</integer>
+			<key>polygonCount</key>
+			<integer>5</integer>
+			<key>edgeCount</key>
+			<integer>16</integer>
 			<key>meshOffString</key>
 			<string>OFF
 5 5 16
@@ -1395,6 +1413,12 @@
 			<string>Cone</string>
 			<key>meshID</key>
 			<string>4</string>
+			<key>vertexCount</key>
+			<integer>38</integer>
+			<key>polygonCount</key>
+			<integer>72</integer>
+			<key>edgeCount</key>
+			<integer>216</integer>
 			<key>meshOffString</key>
 			<string>OFF
 38 72 216
@@ -1515,6 +1539,12 @@
 			<string>House</string>
 			<key>meshID</key>
 			<string>5</string>
+			<key>vertexCount</key>
+			<integer>10</integer>
+			<key>polygonCount</key>
+			<integer>7</integer>
+			<key>edgeCount</key>
+			<integer>30</integer>
 			<key>meshOffString</key>
 			<string>OFF
 10 7 30

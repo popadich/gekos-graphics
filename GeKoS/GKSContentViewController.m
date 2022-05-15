@@ -483,6 +483,9 @@ static void *worldDataContext = &worldDataContext;
                 meshEnt.meshID = meshID.intValue;
                 meshEnt.meshName = meshRep.meshName;
                 meshEnt.offString = meshRep.offString;
+                meshEnt.vertexCount = mesh_ptr->vertnum;
+                meshEnt.polygonCount = mesh_ptr->polynum;
+                meshEnt.edgeCount = mesh_ptr->edgenum;
                 
                 [storyBoardEnt addToMeshesObject:meshEnt];
                 

@@ -143,7 +143,7 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     StoryBoardEntity *story = [NSEntityDescription insertNewObjectForEntityForName:@"StoryBoardEntity" inManagedObjectContext:moc];
     
     NSDictionary *storyDefaults = [defaults valueForKey:@"storyDefaults"];
-    NSString *title = [storyDefaults valueForKey:@"storyTitle"];;
+    NSString *title = [storyDefaults valueForKey:@"storyTitle"];
     NSString *desc = [storyDefaults valueForKey:@"storyDescription"];
     story.storyTitle = title;
     story.storyDescription = desc;
@@ -164,7 +164,13 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
         NSNumber* meshID = [meshDict valueForKey:@"meshID"];
         meshEnt.meshID = meshID.intValue;
         meshEnt.meshName = meshDict[@"meshName"];
-        meshEnt.offString = [meshDict valueForKey:@"meshOffString"];;
+        meshEnt.offString = [meshDict valueForKey:@"meshOffString"];
+        NSNumber *polygonCount = [meshDict valueForKey:@"polygonCount"];
+        NSNumber *edgeCount = [meshDict valueForKey:@"edgeCount"];
+        NSNumber *vertexCount = [meshDict valueForKey:@"vertexCount"];
+        meshEnt.vertexCount = vertexCount.intValue;
+        meshEnt.polygonCount = polygonCount.intValue;
+        meshEnt.edgeCount = edgeCount.intValue;
         [meshEntities addObject:meshEnt];
         
     }
