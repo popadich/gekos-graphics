@@ -444,8 +444,19 @@
                             <binding destination="XI3-BN-hwX" name="value" keyPath="values.frustumCullFlag" id="Gjo-Fs-ys6"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wLl-9M-Zzl">
+                        <rect key="frame" x="106" y="268" width="70" height="18"/>
+                        <buttonCell key="cell" type="check" title="Playing" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cce-ic-TRV">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="XI3-BN-hwX" name="value" keyPath="values.playingFlag" id="Xlo-R0-Hod"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="KzO-5P-5Hw" firstAttribute="centerY" secondItem="wLl-9M-Zzl" secondAttribute="centerY" id="0S3-Bf-ycM"/>
                     <constraint firstItem="39F-Uj-HS2" firstAttribute="firstBaseline" secondItem="7cu-q1-QUe" secondAttribute="firstBaseline" id="0ZH-MU-DHH"/>
                     <constraint firstItem="pRq-6r-LvR" firstAttribute="leading" secondItem="SQ1-yp-dPK" secondAttribute="trailing" constant="95" id="0ti-U4-W0K"/>
                     <constraint firstItem="tXH-1R-1WW" firstAttribute="leading" secondItem="39F-Uj-HS2" secondAttribute="trailing" constant="8" symbolic="YES" id="0z7-9Q-lfT"/>
@@ -500,6 +511,7 @@
                     <constraint firstItem="QAc-Wo-dTJ" firstAttribute="firstBaseline" secondItem="tct-1y-fR7" secondAttribute="firstBaseline" id="fqf-FK-NGY"/>
                     <constraint firstItem="Jyr-RL-AGR" firstAttribute="centerY" secondItem="sQB-I0-lID" secondAttribute="centerY" id="fzZ-Ji-r14"/>
                     <constraint firstItem="cK8-D8-UyN" firstAttribute="centerX" secondItem="Zpv-1T-gAl" secondAttribute="centerX" id="g0O-RJ-5bI"/>
+                    <constraint firstItem="KzO-5P-5Hw" firstAttribute="leading" secondItem="wLl-9M-Zzl" secondAttribute="trailing" constant="25" id="g63-28-WGC"/>
                     <constraint firstItem="Ic9-Zv-la7" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" symbolic="YES" id="hhd-W5-pqw"/>
                     <constraint firstItem="cGO-Qq-XtI" firstAttribute="firstBaseline" secondItem="QAc-Wo-dTJ" secondAttribute="firstBaseline" id="hqy-DH-cvn"/>
                     <constraint firstItem="aAg-Ac-ah7" firstAttribute="leading" secondItem="QAc-Wo-dTJ" secondAttribute="trailing" constant="8" symbolic="YES" id="hvd-DR-TVz"/>

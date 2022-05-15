@@ -48,8 +48,8 @@
 }
 
 - (void)addPlayThings:(NSManagedObjectContext *)moc scene:(SceneEntity *)scene {
-    BOOL playing = YES;
-    if (playing) {
+
+    
         GKSfloat rad = 0.0;
         for (int i=1; i<9; i++) {
             GKSfloat locX = i%2 * 5;
@@ -71,7 +71,6 @@
             rad += 35;
         }
         
-    }
 }
 
 - (void)addCamera:(NSDictionary *)defaults moc:(NSManagedObjectContext *)moc scene:(SceneEntity *)scene {
@@ -173,7 +172,11 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
     [story addToMeshes:meshEntities];
     
     // TODO: remove when done with playing
-    [self addPlayThings:moc scene:scene];
+    BOOL isPlaying = [[NSUserDefaults standardUserDefaults] boolForKey:gksPlayingFlag];
+    if (isPlaying) {
+        [self addPlayThings:moc scene:scene];
+    }
+    
     
     
     [moc processPendingChanges];

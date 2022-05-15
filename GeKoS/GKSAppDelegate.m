@@ -60,6 +60,7 @@ static NSDictionary *defaultValues() {
                 [NSNumber numberWithDouble:world_volume[4]], gksPrefWorldVolumeMinZ,
                 [NSNumber numberWithDouble:world_volume[5]], gksPrefWorldVolumeMaxZ,
                 [NSNumber numberWithBool:YES], gksPrefFrustumCullFlag,
+                [NSNumber numberWithBool:YES], gksPlayingFlag,
                 nil];
     }
     return dict;
