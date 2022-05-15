@@ -41,7 +41,7 @@
         //TODO: get transient actor
         // actor = actorEntity.transientActor;
         GKS3DActor *actor = [self castActorFromEnt:actorEntity];
-        [actorWhitePages setObject:actor forKey:actorEntity.name];
+        [actorWhitePages setObject:actor forKey:actorEntity.actorID];
         [actors addObject:actor];
         
     }

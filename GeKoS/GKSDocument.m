@@ -64,7 +64,7 @@
             actorEntity.scaleX = 1.0;
             actorEntity.scaleY = 1.0;
             actorEntity.scaleZ = 1.0;
-            actorEntity.name =  [[NSUUID UUID] UUIDString];
+            actorEntity.actorID =  [NSUUID UUID];
             actorEntity.lineColor = [NSColor greenColor];
             
             [scene addToActorsObject:actorEntity];

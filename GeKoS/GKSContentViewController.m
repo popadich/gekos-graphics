@@ -326,13 +326,13 @@ static void *worldDataContext = &worldDataContext;
     actorEntity.scaleX = 1.0;
     actorEntity.scaleY = 1.0;
     actorEntity.scaleZ = 1.0;
-    NSString *newID = [[NSUUID UUID] UUIDString];
-    actorEntity.name = newID;
+    NSUUID *newID = [NSUUID UUID];
+    actorEntity.actorID = newID;
     actorEntity.lineColor = self.contentLineColor;
     
     // get unique identifier for actor entity
     GKS3DActor *actor = [self.sceneController castActorFromEnt:actorEntity];
-    [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.name];
+    [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.actorID];
     [self.sceneController.scene stageActor:actor];
     
     [self.actorArrayController addObject:actorEntity];
@@ -351,8 +351,8 @@ static void *worldDataContext = &worldDataContext;
         // Pull the actor first. this should be a method on scenecontroller
         NSMutableSet *actors = self.sceneController.scene.toActors;
             
-        NSString *actorName = actorEntity.name;
-        GKS3DActor *actorPull = [self.sceneController.actorWhitePages objectForKey:actorName];
+        NSUUID *actorID = actorEntity.actorID;
+        GKS3DActor *actorPull = [self.sceneController.actorWhitePages objectForKey:actorID];
         
         NSAssert(actorPull != nil, @"actor object missing");
         [actors removeObject:actorPull];
@@ -378,8 +378,8 @@ static void *worldDataContext = &worldDataContext;
         GKSvector3d rot = GKSMakeVector(actEntity.rotX, actEntity.rotY, actEntity.rotZ);
         GKSvector3d sca = GKSMakeVector(actEntity.scaleX, actEntity.scaleY, actEntity.scaleZ);
         
-        NSString *actorName = actEntity.name;
-        GKS3DActor *found3DActor = [self.sceneController.actorWhitePages objectForKey:actorName];
+        NSUUID *actorID = actEntity.actorID;
+        GKS3DActor *found3DActor = [self.sceneController.actorWhitePages objectForKey:actorID];
 //        found3DActor = ( GKS3DActor *)actEntity.transientActor;
         [found3DActor setPosition:pos];
         [found3DActor setRotation:rot];
