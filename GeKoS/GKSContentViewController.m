@@ -14,7 +14,7 @@
 #import "GKSSceneController.h"
 #import "GKSMeshParser.h"
 #import "MeshEntity+CoreDataClass.h"
-#import "Document+CoreDataModel.h"
+#import "GeKoS+CoreDataModel.h"
 
 
 #define GKS_MAX_VANTAGE_PTS 6

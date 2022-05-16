@@ -9,7 +9,7 @@
 #import "GKSSceneController.h"
 #import "GKSSceneRep.h"
 #import "GKSMeshMonger.h"
-#import "Document+CoreDataModel.h"
+#import "GeKoS+CoreDataModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

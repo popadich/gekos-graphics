@@ -36,14 +36,14 @@
 		FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E47280F3345009C1047 /* GKSSceneRep.m */; };
 		FA697E4B280F776E009C1047 /* GKSMeshRep.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4A280F776E009C1047 /* GKSMeshRep.m */; };
 		FA697E4E28104C45009C1047 /* GKSMeshMonger.m in Sources */ = {isa = PBXBuildFile; fileRef = FA697E4D28104C45009C1047 /* GKSMeshMonger.m */; };
-		FA83739328235E010011E1D2 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */; };
-		FA8398D128235DBF006F757A /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */; };
+		FA83739328235E010011E1D2 /* GeKoS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* GeKoS.xcdatamodeld */; };
+		FA8398D128235DBF006F757A /* GeKoS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* GeKoS.xcdatamodeld */; };
 		FA9EE7C127E24E1A005A4150 /* GKSSceneInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE7BF27E24E1A005A4150 /* GKSSceneInspector.m */; };
 		FA9EE7C227E24E1A005A4150 /* GKSSceneInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */; };
 		FAA02D472756D6E800A0C454 /* GKSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D462756D6E800A0C454 /* GKSAppDelegate.m */; };
 		FAA02D4A2756D6E800A0C454 /* GKSDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D492756D6E800A0C454 /* GKSDocument.m */; };
 		FAA02D4D2756D6E800A0C454 /* GKSDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D4B2756D6E800A0C454 /* GKSDocument.xib */; };
-		FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */; };
+		FAA02D502756D6E800A0C454 /* GeKoS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D4E2756D6E800A0C454 /* GeKoS.xcdatamodeld */; };
 		FAA02D522756D6F600A0C454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D512756D6F600A0C454 /* Assets.xcassets */; };
 		FAA02D552756D6F600A0C454 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA02D532756D6F600A0C454 /* MainMenu.xib */; };
 		FAA02D582756D6F600A0C454 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA02D572756D6F600A0C454 /* main.m */; };
@@ -305,7 +305,7 @@
 				FA658890281CC47E008CDF60 /* Defaults.plist */,
 				FAA02D572756D6F600A0C454 /* main.m */,
 				FAA02D592756D6F600A0C454 /* GeKoS.entitlements */,
-				FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */,
+				FAA02D4E2756D6E800A0C454 /* GeKoS.xcdatamodeld */,
 			);
 			path = GeKoS;
 			sourceTree = "<group>";
@@ -469,7 +469,7 @@
 				FACF8B582800BAFA00B9BD5F /* GKSMeshParser.m in Sources */,
 				FA697E4E28104C45009C1047 /* GKSMeshMonger.m in Sources */,
 				FA3C4E892794E3B000A1196D /* GKSPreferences.m in Sources */,
-				FAA02D502756D6E800A0C454 /* Document.xcdatamodeld in Sources */,
+				FAA02D502756D6E800A0C454 /* GeKoS.xcdatamodeld in Sources */,
 				FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */,
 				FA4D1E2428326EF30014F362 /* gks_utility.c in Sources */,
 				FA4D1E2C28326EF30014F362 /* gks_3d_normalization.c in Sources */,
@@ -505,7 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA83739328235E010011E1D2 /* Document.xcdatamodeld in Sources */,
+				FA83739328235E010011E1D2 /* GeKoS.xcdatamodeld in Sources */,
 				FA352861275875E7002B716C /* GeKoSCoreTests.m in Sources */,
 				FAA02D632756D6F700A0C454 /* GeKoSTests.m in Sources */,
 			);
@@ -515,7 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA8398D128235DBF006F757A /* Document.xcdatamodeld in Sources */,
+				FA8398D128235DBF006F757A /* GeKoS.xcdatamodeld in Sources */,
 				FAA02D6E2756D6F700A0C454 /* GeKoSUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -826,13 +826,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		FAA02D4E2756D6E800A0C454 /* Document.xcdatamodeld */ = {
+		FAA02D4E2756D6E800A0C454 /* GeKoS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				FAA02D4F2756D6E800A0C454 /* Document.xcdatamodel */,
 			);
 			currentVersion = FAA02D4F2756D6E800A0C454 /* Document.xcdatamodel */;
-			path = Document.xcdatamodeld;
+			path = GeKoS.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
