@@ -44,7 +44,7 @@
         <attribute name="yaw" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="toScene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SceneEntity" inverseName="toCamera" inverseEntity="SceneEntity"/>
     </entity>
-    <entity name="MeshEntity" representedClassName="MeshEntity" syncable="YES" codeGenerationType="class">
+    <entity name="MeshEntity" representedClassName="MeshEntity" syncable="YES">
         <attribute name="edgeCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="meshID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="meshName" optional="YES" attributeType="String"/>

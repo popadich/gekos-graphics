@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "gks/gks.h"
+#include "gks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

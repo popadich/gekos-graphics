@@ -11,7 +11,7 @@
 #import "GKSSceneInspector.h"
 #import "GKSContent.h"
 
-#include "gks/gks.h"
+#include "gks.h"
 
 @interface GKSAppDelegate ()
 

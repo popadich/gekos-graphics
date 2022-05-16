@@ -7,7 +7,7 @@
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
-#include "gks/gks_types.h"
+#include "gks_types.h"
 #import "GKS3DActor.h"
 #import "Document+CoreDataModel.h"
 

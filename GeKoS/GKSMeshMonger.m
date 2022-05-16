@@ -7,7 +7,7 @@
 
 #import "GKSMeshMonger.h"
 #import "GKSMeshParser.h"
-#include "gks/gks.h"
+#include "gks.h"
 #import "Document+CoreDataModel.h"
 
 @interface GKSMeshMonger ()

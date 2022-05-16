@@ -6,7 +6,7 @@
 //
 
 #import "GKSHeadView.h"
-#include "gks/gks.h"
+#include "gks.h"
 
 static double head_size_adjust = 1.0;
 

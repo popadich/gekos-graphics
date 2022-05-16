@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
-#include "gks/gks.h"
+#include "gks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -8,7 +8,7 @@
 #import "GKSDrawingView.h"
 #import "GKSConstants.h"
 
-#include "gks/gks.h"
+#include "gks.h"
 
 @interface GKSDrawingView () {
     NSColor *bluePrintBlueColor;

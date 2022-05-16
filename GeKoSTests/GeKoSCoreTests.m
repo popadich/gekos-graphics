@@ -6,7 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#include "../GeKoS/gks/gks.h"
+#include "gks.h"
 
 #define epsilon  0.001
 

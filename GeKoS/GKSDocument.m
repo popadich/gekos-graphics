@@ -13,6 +13,7 @@
 #import "GKSMeshParser.h"
 #import "GKSMeshMonger.h"
 #import "ActorEntity+CoreDataClass.h"
+#import "MeshEntity+CoreDataClass.h"
 
 @interface GKSDocument ()
 

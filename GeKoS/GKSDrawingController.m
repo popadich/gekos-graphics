@@ -7,7 +7,7 @@
 
 #import "GKSDrawingController.h"
 #import "GKSSceneRep.h"
-#include "gks/gks.h"
+#include "gks.h"
 
 @interface GKSDrawingController ()
 

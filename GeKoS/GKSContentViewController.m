@@ -13,6 +13,7 @@
 #import "GKS3DActor.h"
 #import "GKSSceneController.h"
 #import "GKSMeshParser.h"
+#import "MeshEntity+CoreDataClass.h"
 #import "Document+CoreDataModel.h"
 
 
