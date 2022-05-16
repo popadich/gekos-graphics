@@ -92,9 +92,6 @@ static void *worldDataContext = &worldDataContext;
           GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
           [self.itsContent.theMonger addMeshRepToMongerMenu:meshRep];
       }
-      
-      self.itsContent.theStory = story;
-
   }
     
     // Set all vantage points to the same default values
@@ -459,44 +456,49 @@ static void *worldDataContext = &worldDataContext;
     // This method displays the panel and returns immediately.
     // The completion handler is called when the user selects an
     // item or cancels the panel.
-    StoryBoardEntity *storyBoardEnt = self.itsContent.theStory;
-    [panel beginWithCompletionHandler:^(NSInteger result){
-        if (result == NSModalResponseOK) {
-            NSURL* theURL = [[panel URLs] objectAtIndex:0];
-            NSError *error;
-     
-            // load the mesh
-            NSString *fileOffString = [[NSString alloc] initWithContentsOfURL:theURL encoding:NSUTF8StringEncoding error:&error];
-            GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-            GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:fileOffString error:&error];
-            if (mesh_ptr != NULL) {
-                
-                GKSMeshMonger *monger = self.itsContent.theMonger;
-                NSNumber *meshID = [monger nextID];
-                NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
-                
-                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
+    NSArray *selectedStoryArr = [self.storyBoardArrayController selectedObjects];
+    if (selectedStoryArr.count == 1) {
+        StoryBoardEntity *storyBoardEnt = selectedStoryArr[0];
+        [panel beginWithCompletionHandler:^(NSInteger result){
+            if (result == NSModalResponseOK) {
+                NSURL* theURL = [[panel URLs] objectAtIndex:0];
+                NSError *error;
+         
+                // load the mesh
+                NSString *fileOffString = [[NSString alloc] initWithContentsOfURL:theURL encoding:NSUTF8StringEncoding error:&error];
+                GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
+                GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:fileOffString error:&error];
+                if (mesh_ptr != NULL) {
+                    
+                    GKSMeshMonger *monger = self.itsContent.theMonger;
+                    NSNumber *meshID = [monger nextID];
+                    NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
+                    
+                    GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
 
 
-                
-                MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:self.managedObjectContext];
-                
-                meshEnt.meshID = meshID.intValue;
-                meshEnt.meshName = meshRep.meshName;
-                meshEnt.offString = meshRep.offString;
-                meshEnt.vertexCount = mesh_ptr->vertnum;
-                meshEnt.polygonCount = mesh_ptr->polynum;
-                meshEnt.edgeCount = mesh_ptr->edgenum;
-                
-                [storyBoardEnt addToMeshesObject:meshEnt];
-                
-                [monger addMeshRepToMongerMenu:meshRep];
-                
-                [self.drawingViewController refresh];
-                
+                    
+                    MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:self.managedObjectContext];
+                    
+                    meshEnt.meshID = meshID.intValue;
+                    meshEnt.meshName = meshRep.meshName;
+                    meshEnt.offString = meshRep.offString;
+                    meshEnt.vertexCount = mesh_ptr->vertnum;
+                    meshEnt.polygonCount = mesh_ptr->polynum;
+                    meshEnt.edgeCount = mesh_ptr->edgenum;
+                    
+                    [storyBoardEnt addToMeshesObject:meshEnt];
+                    
+                    [monger addMeshRepToMongerMenu:meshRep];
+                    
+                    [self.drawingViewController refresh];
+                    
+                }
             }
-        }
-    }];
+        }];
+        
+    }
+
 }
 
 

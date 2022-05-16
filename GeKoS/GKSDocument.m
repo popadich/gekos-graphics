@@ -41,7 +41,7 @@
         // Add your subclass-specific initialization here.
         if ([typeName isEqual:@"com.xephyr.gekos"]) {
             _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
-            _content.theStory = [self insertEmptyStoryBoardIntoMoc:self.managedObjectContext];
+            [self insertEmptyStoryBoardIntoMoc:self.managedObjectContext];
         }
 
     }

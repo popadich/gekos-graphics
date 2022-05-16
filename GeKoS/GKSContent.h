@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) GKSSceneRep *theScene;
 @property (strong) GKSCameraRep *theCamera;
 @property (weak) NSManagedObjectContext *managedObjectContext;
-@property (strong) StoryBoardEntity* theStory;
 @property (assign) GKScontext3DPtr context3D;
 @property (strong) GKSMeshMonger *theMonger;
 
