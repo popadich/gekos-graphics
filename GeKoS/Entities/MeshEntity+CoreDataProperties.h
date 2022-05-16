@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *meshName;
 @property (nullable, nonatomic, copy) NSString *offString;
 @property (nonatomic) int32_t polygonCount;
-@property (nullable, nonatomic, copy) NSString *summary;
+@property (nullable, nonatomic, readonly) NSString *summary;
 @property (nonatomic) int32_t vertexCount;
 @property (nullable, nonatomic, retain) StoryBoardEntity *toStoryBoard;
 

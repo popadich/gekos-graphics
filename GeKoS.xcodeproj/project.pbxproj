@@ -191,10 +191,10 @@
 		FA4D1E0028326BD70014F362 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				FA4D1E0128326BD70014F362 /* MeshEntity+CoreDataClass.m */,
-				FA4D1E0228326BD70014F362 /* MeshEntity+CoreDataProperties.m */,
 				FA4D1E0328326BD70014F362 /* MeshEntity+CoreDataClass.h */,
+				FA4D1E0128326BD70014F362 /* MeshEntity+CoreDataClass.m */,
 				FA4D1E0428326BD70014F362 /* MeshEntity+CoreDataProperties.h */,
+				FA4D1E0228326BD70014F362 /* MeshEntity+CoreDataProperties.m */,
 			);
 			path = Entities;
 			sourceTree = "<group>";

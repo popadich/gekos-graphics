@@ -10,4 +10,14 @@
 
 @implementation MeshEntity
 
+- (NSString *)summary {
+    [self willAccessValueForKey:@"summary"];
+
+    NSString *summary = [NSString stringWithFormat:@"%d  : %d  : %d", self.vertexCount, self.polygonCount, self.edgeCount];
+    
+    [self didAccessValueForKey:@"summary"];
+    
+    return summary;
+}
+
 @end
