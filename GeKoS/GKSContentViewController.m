@@ -32,6 +32,16 @@
 @property (strong) NSColor* contentLineColor;
 @property (strong) NSColor* contentFillColor;
 
+@property (strong) NSNumber* makePosX;
+@property (strong) NSNumber* makePosY;
+@property (strong) NSNumber* makePosZ;
+@property (strong) NSNumber* makeRotX;
+@property (strong) NSNumber* makeRotY;
+@property (strong) NSNumber* makeRotZ;
+@property (strong) NSNumber* makeScaleX;
+@property (strong) NSNumber* makeScaleY;
+@property (strong) NSNumber* makeScaleZ;
+
 @property (assign) NSInteger currentVPIndex;
 @property (strong) NSMutableArray *vantagePoints;
 
@@ -104,6 +114,15 @@ static void *worldDataContext = &worldDataContext;
     
     [self setIsCenteredObject:@NO];
     [self setMakeKinds:@(kCubeKind)];
+    [self setMakePosX:@0.0];
+    [self setMakePosY:@0.0];
+    [self setMakePosZ:@0.0];
+    [self setMakeRotX:@0.0];
+    [self setMakeRotY:@0.0];
+    [self setMakeRotZ:@0.0];
+    [self setMakeScaleX:@1.0];
+    [self setMakeScaleY:@1.0];
+    [self setMakeScaleZ:@1.0];
     [self registerAsObserverForScene];
     
     // notifications come after camera values have been set
@@ -297,8 +316,32 @@ static void *worldDataContext = &worldDataContext;
         MeshEntity *meshEntity = [objects objectAtIndex:0];
         GKSint kind = meshEntity.meshID;
 //        NSLog(@"Add mesh KIND: %d",kind);
-        self.makeKinds = @(kind);
-        [self performAddQuick:self];
+//        self.makeKinds = @(kind);
+//        [self performAddQuick:self];
+        
+        ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
+        actorEntity.kind  = kind;
+        actorEntity.locX = self.makePosX.doubleValue;
+        actorEntity.locY = self.makePosY.doubleValue;
+        actorEntity.locZ = self.makePosZ.doubleValue;
+        actorEntity.rotX = self.makeRotX.doubleValue;
+        actorEntity.rotY = self.makeRotY.doubleValue;
+        actorEntity.rotZ = self.makeRotZ.doubleValue;
+        actorEntity.scaleX = self.makeScaleX.doubleValue;
+        actorEntity.scaleY = self.makeScaleY.doubleValue;
+        actorEntity.scaleZ = self.makeScaleZ.doubleValue;
+        NSUUID *newID = [NSUUID UUID];
+        actorEntity.actorID = newID;
+        actorEntity.lineColor = self.contentLineColor;
+        
+        // get unique identifier for actor entity
+        GKS3DActor *actor = [self.sceneController castActorFromEnt:actorEntity];
+        [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.actorID];
+        [self.sceneController.scene stageActor:actor];
+        
+        [self.actorArrayController addObject:actorEntity];
+
+        [self showScene];
     }
      
 }
@@ -334,7 +377,8 @@ static void *worldDataContext = &worldDataContext;
 - (IBAction)performDeleteQuick:(id)sender {
 
     NSArray *objects = [self.actorArrayController selectedObjects];
-        
+    NSAssert(objects.count == 1, @"One selection is mandatory");
+    
     if (objects.count == 1) {
         ActorEntity *actorEntity = [objects objectAtIndex:0];
 
@@ -370,16 +414,18 @@ static void *worldDataContext = &worldDataContext;
         
         NSUUID *actorID = actEntity.actorID;
         GKS3DActor *found3DActor = [self.sceneController.actorWhitePages objectForKey:actorID];
-//        found3DActor = ( GKS3DActor *)actEntity.transientActor;
-        [found3DActor setPosition:pos];
-        [found3DActor setRotation:rot];
-        [found3DActor setScaling:sca];
         
-        found3DActor.lineColor = actEntity.lineColor;
-        
-        [found3DActor stageUpdateActor];
+        if (found3DActor != nil) {
+            [found3DActor setPosition:pos];
+            [found3DActor setRotation:rot];
+            [found3DActor setScaling:sca];
+            
+            found3DActor.lineColor = actEntity.lineColor;
+            
+            [found3DActor stageUpdateActor];
 
-        [self showScene];
+            [self showScene];
+        }
     }
 }
 
