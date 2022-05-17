@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong) NSNumber *isCenteredObject;
-@property (strong) NSNumber *makeKinds;
 @property (strong) MeshEntity *makeMesh;
 
 @end

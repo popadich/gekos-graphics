@@ -113,7 +113,6 @@ static void *worldDataContext = &worldDataContext;
     }
     
     [self setIsCenteredObject:@NO];
-    [self setMakeKinds:@(kCubeKind)];
     [self setMakePosX:@0.0];
     [self setMakePosY:@0.0];
     [self setMakePosZ:@0.0];
@@ -346,33 +345,6 @@ static void *worldDataContext = &worldDataContext;
      
 }
 
-- (IBAction)performAddQuick:(id)sender {
-
-    ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
-    actorEntity.kind  = self.makeKinds.intValue;
-    actorEntity.locX = 0.0;
-    actorEntity.locY = 0.0;
-    actorEntity.locZ = 0.0;
-    actorEntity.rotX = 0.0;
-    actorEntity.rotY = 0.0;
-    actorEntity.rotZ = 0.0;
-    actorEntity.scaleX = 1.0;
-    actorEntity.scaleY = 1.0;
-    actorEntity.scaleZ = 1.0;
-    NSUUID *newID = [NSUUID UUID];
-    actorEntity.actorID = newID;
-    actorEntity.lineColor = self.contentLineColor;
-    
-    // get unique identifier for actor entity
-    GKS3DActor *actor = [self.sceneController castActorFromEnt:actorEntity];
-    [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.actorID];
-    [self.sceneController.scene stageActor:actor];
-    
-    [self.actorArrayController addObject:actorEntity];
-
-    [self showScene];
-
-}
 
 - (IBAction)performDeleteQuick:(id)sender {
 

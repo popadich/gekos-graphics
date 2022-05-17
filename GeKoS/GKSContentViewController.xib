@@ -573,7 +573,8 @@
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <action selector="performAddQuick:" target="-2" id="8Q9-Ug-dX3"/>
+                                                        <action selector="performAddSelectedToScene:" target="-2" id="ba2-o7-Atg"/>
+                                                        <binding destination="2FK-L7-FSg" name="enabled" keyPath="selectedObjects.@count" id="x4b-yx-VJH"/>
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o2G-Jt-lKn">
