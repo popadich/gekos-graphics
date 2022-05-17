@@ -70,7 +70,8 @@
 
 - (void)stageActor:(GKS3DActor *)actor
 {
-    // TODO: mutable set?
+    GKSmesh_3 *mesh_ptr = actor.mesh_ptr;
+    NSAssert(mesh_ptr != NULL, @"3DActor must have a mesh to be staged");
     [self.toActors addObject:actor];   // add to local mutable set
 }
 

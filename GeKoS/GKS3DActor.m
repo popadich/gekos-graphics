@@ -9,7 +9,6 @@
 
 @interface GKS3DActor () {
     GKSactor the_actor;
-    GKSmesh_3 *mesh_ptr;
     GKSDCArrPtr dev_coord_ptr;
 }
 
@@ -70,11 +69,11 @@
         the_actor.line_color = line_color;
         the_actor.fill_color = fill_color;
         
+        // TODO: make a seperate setter
+        _mesh_ptr = the_mesh;
+        dev_coord_ptr = (GKSDCArrPtr)calloc(the_mesh->vertnum, sizeof(GKSpoint_2));
         
-        mesh_ptr = the_mesh;
-        dev_coord_ptr = (GKSDCArrPtr)calloc(mesh_ptr->vertnum, sizeof(GKSpoint_2));
-        
-        the_actor.mesh_object = *mesh_ptr;
+        the_actor.mesh_object = *the_mesh;
         the_actor.dev_coords = dev_coord_ptr;
         
         [self stageUpdateActor];
@@ -196,14 +195,14 @@
 - (GKSint)getPolygonCount
 {
     GKSint polynum = 0;
-    polynum = mesh_ptr->polynum;
+    polynum = self.mesh_ptr->polynum;
     return polynum;
 }
 
 - (GKSint)getVertexCount
 {
     GKSint vertnum = 0;
-    vertnum = mesh_ptr->vertnum;
+    vertnum = self.mesh_ptr->vertnum;
     return vertnum;
 }
 

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSColor* lineColor;
 @property (nonatomic, copy) NSColor* fillColor;
+@property (assign) GKSmesh_3* mesh_ptr;
 
 - (instancetype)initWithMesh:(GKSmesh_3 *)the_mesh ofKind:(NSNumber *)kind atLocation:(GKSvector3d)location withRotation:(GKSvector3d)rot andScale:(GKSvector3d)scale;
 
