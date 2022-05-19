@@ -119,6 +119,7 @@ typedef struct
     GKSint polynum;
     GKSint polystoresize;
     GKSint edgenum;
+    GKSlimits_3 volume;
     GKSvertexArrPtr vertices;
     GKSindexArrPtr polygons;
     GKSedgeArrPtr edges;

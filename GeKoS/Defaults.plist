@@ -33,6 +33,18 @@
 4 1 5 7 3
 4 0 2 6 4
 </string>
+			<key>volumeMinX</key>
+			<integer>0</integer>
+			<key>volumeMinY</key>
+			<integer>0</integer>
+			<key>volumeMinZ</key>
+			<integer>0</integer>
+			<key>volumeMaxX</key>
+			<real>1</real>
+			<key>volumeMaxY</key>
+			<integer>1</integer>
+			<key>volumeMaxZ</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>meshName</key>
@@ -1381,6 +1393,18 @@
 4 646 647 683 682
 4 647 612 648 683
 </string>
+			<key>volumeMinX</key>
+			<real>-0.5</real>
+			<key>volumeMinY</key>
+			<real>-0.5</real>
+			<key>volumeMinZ</key>
+			<real>-0.5</real>
+			<key>volumeMaxX</key>
+			<real>0.5</real>
+			<key>volumeMaxY</key>
+			<real>0.5</real>
+			<key>volumeMaxZ</key>
+			<real>0.5</real>
 		</dict>
 		<dict>
 			<key>meshName</key>
@@ -1407,6 +1431,18 @@
 3 2 4 3
 3 3 4 0
 </string>
+			<key>volumeMinX</key>
+			<integer>0</integer>
+			<key>volumeMinY</key>
+			<integer>0</integer>
+			<key>volumeMinZ</key>
+			<integer>0</integer>
+			<key>volumeMaxX</key>
+			<real>1</real>
+			<key>volumeMaxY</key>
+			<real>0.664</real>
+			<key>volumeMaxZ</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>meshName</key>
@@ -1533,6 +1569,18 @@
 3 0 37 2
 3 1 37 2
 </string>
+			<key>volumeMinX</key>
+			<real>-0.5</real>
+			<key>volumeMinY</key>
+			<integer>0</integer>
+			<key>volumeMinZ</key>
+			<real>-0.5</real>
+			<key>volumeMaxX</key>
+			<real>0.5</real>
+			<key>volumeMaxY</key>
+			<integer>1</integer>
+			<key>volumeMaxZ</key>
+			<real>0.5</real>
 		</dict>
 		<dict>
 			<key>meshName</key>
@@ -1566,6 +1614,18 @@
 4 2 3 8 7
 4 3 4 9 8
 </string>
+			<key>volumeMinX</key>
+			<integer>0</integer>
+			<key>volumeMinY</key>
+			<integer>0</integer>
+			<key>volumeMinZ</key>
+			<integer>30</integer>
+			<key>volumeMaxX</key>
+			<integer>16</integer>
+			<key>volumeMaxY</key>
+			<integer>16</integer>
+			<key>volumeMaxZ</key>
+			<integer>54</integer>
 		</dict>
 	</array>
 	<key>storyDefaults</key>

@@ -75,6 +75,14 @@
     int vert_count = 0;
     int poly_count = 0;
     int edge_count = 0;
+    
+    GKSfloat minX = 0.0;
+    GKSfloat minY = 0.0;
+    GKSfloat minZ = 0.0;
+    GKSfloat maxX = 0.0;
+    GKSfloat maxY = 0.0;
+    GKSfloat maxZ = 0.0;
+    
     GKSmesh_3 *anObjectMesh = NULL;
     
     int meta_data_offset = 2;  // 2 text lines offset
@@ -119,6 +127,34 @@
             NSString* componentX = vertexComponentsArr[0];
             NSString* componentY = vertexComponentsArr[1];
             NSString* componentZ = vertexComponentsArr[2];
+            if (i == 0) {
+                minX = [componentX doubleValue];
+                minY = [componentY doubleValue];
+                minZ = [componentZ doubleValue];
+                maxX = [componentX doubleValue];
+                maxY = [componentY doubleValue];
+                maxZ = [componentZ doubleValue];
+            }
+            else {
+                if ([componentX doubleValue] < minX) {
+                    minX = [componentX doubleValue];
+                }
+                if ([componentY doubleValue] < minY) {
+                    minY = [componentY doubleValue];
+                }
+                if ([componentZ doubleValue] < minZ) {
+                    minZ = [componentZ doubleValue];
+                }
+                if ([componentX doubleValue] > maxX) {
+                    maxX = [componentX doubleValue];
+                }
+                if ([componentY doubleValue] > maxY) {
+                    maxY = [componentY doubleValue];
+                }
+                if ([componentZ doubleValue] > maxZ) {
+                    maxZ = [componentZ doubleValue];
+                }
+            }
             
             vertex_array[i].crd.x = [componentX doubleValue];
             vertex_array[i].crd.y = [componentY doubleValue];
@@ -164,12 +200,17 @@
         
         if (edge_count > 0 && edge_count == specified_edges) {
             anObjectMesh = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));
+            
+            GKSvector3d minVect = GKSMakeVector(minX, minY, minZ);
+            GKSvector3d maxVect = GKSMakeVector(maxX, maxY, maxZ);
+            GKSlimits_3 mesh_volume = GKSMakeVolume(minVect, maxVect);
 
             anObjectMesh->vertices = vertex_array;
             anObjectMesh->vertnum = specified_verts;
             anObjectMesh->polynum = specified_polys;
             anObjectMesh->polygons = compact_array;
             anObjectMesh->edgenum = edge_count;
+            anObjectMesh->volume = mesh_volume;
             anObjectMesh->polystoresize = edge_count + specified_polys;
         }
     }

@@ -172,6 +172,14 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
         meshEnt.vertexCount = vertexCount.intValue;
         meshEnt.polygonCount = polygonCount.intValue;
         meshEnt.edgeCount = edgeCount.intValue;
+        meshEnt.volumeMinX = [[meshDict valueForKey:@"volumeMinX"] doubleValue];
+        meshEnt.volumeMinY = [[meshDict valueForKey:@"volumeMinY"] doubleValue];
+        meshEnt.volumeMinZ = [[meshDict valueForKey:@"volumeMinZ"] doubleValue];
+        meshEnt.volumeMaxX = [[meshDict valueForKey:@"volumeMaxX"] doubleValue];
+        meshEnt.volumeMaxY = [[meshDict valueForKey:@"volumeMaxY"] doubleValue];
+        meshEnt.volumeMaxZ = [[meshDict valueForKey:@"volumeMaxZ"] doubleValue];
+
+        
         [meshEntities addObject:meshEnt];
         
     }

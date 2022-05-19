@@ -956,7 +956,7 @@ DQ
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                             <connections>
-                                                                                <binding destination="yMw-hn-Fm1" name="value" keyPath="objectValue.summary" id="eAy-AI-fp1"/>
+                                                                                <binding destination="yMw-hn-Fm1" name="value" keyPath="objectValue.summary" id="guj-kU-VjV"/>
                                                                             </connections>
                                                                         </textField>
                                                                     </subviews>

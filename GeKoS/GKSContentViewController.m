@@ -493,8 +493,6 @@ static void *worldDataContext = &worldDataContext;
                     NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
                     
                     GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
-
-
                     
                     MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:self.managedObjectContext];
                     
@@ -504,7 +502,13 @@ static void *worldDataContext = &worldDataContext;
                     meshEnt.vertexCount = mesh_ptr->vertnum;
                     meshEnt.polygonCount = mesh_ptr->polynum;
                     meshEnt.edgeCount = mesh_ptr->edgenum;
-                    
+                    meshEnt.volumeMaxX = mesh_ptr->volume.xmax;
+                    meshEnt.volumeMaxY = mesh_ptr->volume.ymax;
+                    meshEnt.volumeMaxZ = mesh_ptr->volume.zmax;
+                    meshEnt.volumeMinX = mesh_ptr->volume.xmin;
+                    meshEnt.volumeMinY = mesh_ptr->volume.ymin;
+                    meshEnt.volumeMinZ = mesh_ptr->volume.zmin;
+
                     [storyBoardEnt addToMeshesObject:meshEnt];
                     
                     [monger addMeshRepToMongerMenu:meshRep];

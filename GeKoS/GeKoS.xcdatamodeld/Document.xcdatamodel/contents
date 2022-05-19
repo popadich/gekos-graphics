@@ -48,10 +48,17 @@
         <attribute name="edgeCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="meshID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="meshName" optional="YES" attributeType="String"/>
+        <attribute name="meshPointer" optional="YES" transient="YES" attributeType="Binary"/>
         <attribute name="offString" optional="YES" attributeType="String"/>
         <attribute name="polygonCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="summary" optional="YES" transient="YES" attributeType="String"/>
         <attribute name="vertexCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="volumeMaxX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volumeMaxY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volumeMaxZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volumeMinX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volumeMinY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volumeMinZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="toStoryBoard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoryBoardEntity" inverseName="toMeshes" inverseEntity="StoryBoardEntity"/>
     </entity>
     <entity name="SceneEntity" representedClassName="SceneEntity" syncable="YES" codeGenerationType="class">
@@ -78,7 +85,7 @@
     <elements>
         <element name="ActorEntity" positionX="-420.5046997070312" positionY="114.049560546875" width="128" height="374"/>
         <element name="CameraEntity" positionX="-423.835205078125" positionY="-186.7084045410156" width="128" height="284"/>
-        <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="149"/>
+        <element name="MeshEntity" positionX="-216.2843017578125" positionY="284.6967926025391" width="128" height="254"/>
         <element name="SceneEntity" positionX="-241.47509765625" positionY="-186.5136413574219" width="128" height="209"/>
         <element name="StoryBoardEntity" positionX="-206.7398681640625" positionY="118.4457244873047" width="128" height="104"/>
     </elements>
