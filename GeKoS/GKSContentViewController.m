@@ -12,7 +12,6 @@
 #import "GKSMeshMonger.h"
 #import "GKS3DActor.h"
 #import "GKSSceneController.h"
-#import "GKSMeshParser.h"
 #import "MeshEntity+CoreDataClass.h"
 #import "GeKoS+CoreDataModel.h"
 
@@ -96,10 +95,8 @@ static void *worldDataContext = &worldDataContext;
           NSString* meshName = meshEnt.meshName;
           NSNumber* meshID = [NSNumber numberWithInt:meshEnt.meshID];
           NSString* meshOffString = meshEnt.offString;
-          GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-          GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:meshOffString error:&error];
 
-          GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andMeshPtr:mesh_ptr andOffString:meshOffString];
+          GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andOffString:meshOffString];
           [self.itsContent.theMonger addMeshRepToMongerMenu:meshRep];
       }
   }
@@ -314,9 +311,6 @@ static void *worldDataContext = &worldDataContext;
     if (objects.count == 1) {
         MeshEntity *meshEntity = [objects objectAtIndex:0];
         GKSint kind = meshEntity.meshID;
-//        NSLog(@"Add mesh KIND: %d",kind);
-//        self.makeKinds = @(kind);
-//        [self performAddQuick:self];
         
         ActorEntity *actorEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ActorEntity" inManagedObjectContext:self.managedObjectContext];
         actorEntity.kind  = kind;
@@ -484,30 +478,29 @@ static void *worldDataContext = &worldDataContext;
          
                 // load the mesh
                 NSString *fileOffString = [[NSString alloc] initWithContentsOfURL:theURL encoding:NSUTF8StringEncoding error:&error];
-                GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-                GKSmesh_3* mesh_ptr = [parser parseOFFMeshString:fileOffString error:&error];
-                if (mesh_ptr != NULL) {
+
+                if (fileOffString != nil) {
                     
                     GKSMeshMonger *monger = self.itsContent.theMonger;
                     NSNumber *meshID = [monger nextID];
                     NSString *theName = [[[[theURL path] lastPathComponent] stringByDeletingPathExtension] capitalizedString];
                     
-                    GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andMeshPtr:mesh_ptr andOffString:fileOffString];
-                    
+                    GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:theName andOffString:fileOffString];
+
                     MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:self.managedObjectContext];
                     
                     meshEnt.meshID = meshID.intValue;
                     meshEnt.meshName = meshRep.meshName;
                     meshEnt.offString = meshRep.offString;
-                    meshEnt.vertexCount = mesh_ptr->vertnum;
-                    meshEnt.polygonCount = mesh_ptr->polynum;
-                    meshEnt.edgeCount = mesh_ptr->edgenum;
-                    meshEnt.volumeMaxX = mesh_ptr->volume.xmax;
-                    meshEnt.volumeMaxY = mesh_ptr->volume.ymax;
-                    meshEnt.volumeMaxZ = mesh_ptr->volume.zmax;
-                    meshEnt.volumeMinX = mesh_ptr->volume.xmin;
-                    meshEnt.volumeMinY = mesh_ptr->volume.ymin;
-                    meshEnt.volumeMinZ = mesh_ptr->volume.zmin;
+                    meshEnt.vertexCount = meshRep.meshPtr->vertnum;
+                    meshEnt.polygonCount = meshRep.meshPtr->polynum;
+                    meshEnt.edgeCount = meshRep.meshPtr->edgenum;
+                    meshEnt.volumeMaxX = meshRep.meshPtr->volume.xmax;
+                    meshEnt.volumeMaxY = meshRep.meshPtr->volume.ymax;
+                    meshEnt.volumeMaxZ = meshRep.meshPtr->volume.zmax;
+                    meshEnt.volumeMinX = meshRep.meshPtr->volume.xmin;
+                    meshEnt.volumeMinY = meshRep.meshPtr->volume.ymin;
+                    meshEnt.volumeMinZ = meshRep.meshPtr->volume.zmin;
 
                     [storyBoardEnt addToMeshesObject:meshEnt];
                     

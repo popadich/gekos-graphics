@@ -10,8 +10,6 @@
 #import "GKSConstants.h"
 #import "GKSWindowController.h"
 #import "GKSContentViewController.h"
-#import "GKSMeshParser.h"
-#import "GKSMeshMonger.h"
 #import "ActorEntity+CoreDataClass.h"
 #import "MeshEntity+CoreDataClass.h"
 
