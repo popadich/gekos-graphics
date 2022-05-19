@@ -8,12 +8,23 @@
 
 #import "ActorEntity+CoreDataClass.h"
 
+@interface ActorEntity ()
+@property (strong) NSString *primitiveSummary;
+@end
+
 @implementation ActorEntity
 
+@synthesize primitiveSummary;
+
 - (NSString *)summary {
+    if (primitiveSummary != nil) {
+        return primitiveSummary;
+    }
     [self willAccessValueForKey:@"summary"];
 
     NSString *summary = [NSString stringWithFormat:@"%6.2lf  : %6.2lf  : %6.2lf", self.locX, self.locY, self.locZ];
+    
+    primitiveSummary = summary;
     
     [self didAccessValueForKey:@"summary"];
     
@@ -26,6 +37,7 @@
     [self willChangeValueForKey:@"summary"];
     
     [self setPrimitiveValue:@(locX) forKey:@"locX"];
+    primitiveSummary = nil;
     
     [self didChangeValueForKey:@"locX"];
     [self didChangeValueForKey:@"summary"];
@@ -37,6 +49,7 @@
     [self willChangeValueForKey:@"summary"];
     
     [self setPrimitiveValue:@(locY) forKey:@"locY"];
+    primitiveSummary = nil;
 
     [self didChangeValueForKey:@"locY"];
     [self didChangeValueForKey:@"summary"];
@@ -48,6 +61,7 @@
     [self willChangeValueForKey:@"summary"];
     
     [self setPrimitiveValue:@(locZ) forKey:@"locZ"];
+    primitiveSummary = nil;
 
     [self didChangeValueForKey:@"locZ"];
     [self didChangeValueForKey:@"summary"];
