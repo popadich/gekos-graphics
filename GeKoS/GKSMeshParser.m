@@ -196,7 +196,7 @@
         *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:userInfoDict];
     } @finally {
 
-        NSLog(@"edge counts %d = %d", specified_edges, edge_count);
+//        NSLog(@"edge counts %d = %d", specified_edges, edge_count);
         
         if (edge_count > 0 && edge_count == specified_edges) {
             anObjectMesh = (GKSmesh_3 *)calloc(1, sizeof(GKSmesh_3));

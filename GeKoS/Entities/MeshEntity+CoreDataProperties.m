@@ -2,7 +2,7 @@
 //  MeshEntity+CoreDataProperties.m
 //  GeKoS
 //
-//  Created by Alex Popadich on 5/15/22.
+//  Created by Alex Popadich on 5/19/22.
 //
 //
 
@@ -21,6 +21,13 @@
 @dynamic polygonCount;
 @dynamic summary;
 @dynamic vertexCount;
+@dynamic meshPointer;
+@dynamic volumeMinX;
+@dynamic volumeMinY;
+@dynamic volumeMinZ;
+@dynamic volumeMaxX;
+@dynamic volumeMaxY;
+@dynamic volumeMaxZ;
 @dynamic toStoryBoard;
 
 @end

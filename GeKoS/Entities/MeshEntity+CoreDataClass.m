@@ -2,13 +2,14 @@
 //  MeshEntity+CoreDataClass.m
 //  GeKoS
 //
-//  Created by Alex Popadich on 5/15/22.
+//  Created by Alex Popadich on 5/19/22.
 //
 //
 
 #import "MeshEntity+CoreDataClass.h"
 
 @implementation MeshEntity
+
 
 - (NSString *)summary {
     [self willAccessValueForKey:@"summary"];
@@ -19,5 +20,7 @@
     
     return summary;
 }
+
+
 
 @end

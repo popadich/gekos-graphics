@@ -2,7 +2,7 @@
 //  MeshEntity+CoreDataProperties.h
 //  GeKoS
 //
-//  Created by Alex Popadich on 5/15/22.
+//  Created by Alex Popadich on 5/19/22.
 //
 //
 
@@ -22,6 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t polygonCount;
 @property (nullable, nonatomic, readonly) NSString *summary;
 @property (nonatomic) int32_t vertexCount;
+@property (nonatomic) int64_t meshPointer;
+@property (nonatomic) double volumeMinX;
+@property (nonatomic) double volumeMinY;
+@property (nonatomic) double volumeMinZ;
+@property (nonatomic) double volumeMaxX;
+@property (nonatomic) double volumeMaxY;
+@property (nonatomic) double volumeMaxZ;
 @property (nullable, nonatomic, retain) StoryBoardEntity *toStoryBoard;
 
 @end

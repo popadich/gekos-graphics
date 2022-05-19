@@ -15,8 +15,8 @@
 		FA081B7327CFBAF40070056A /* GKSCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA081B7027CFBAF40070056A /* GKSCameraController.xib */; };
 		FA081B7627CFC5F60070056A /* GKSCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA081B7527CFC5F60070056A /* GKSCameraView.m */; };
 		FA081B7C27D121D10070056A /* GKSHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA081B7B27D121D10070056A /* GKSHeadView.m */; };
-		FA1DFF3F28366A42000DF571 /* MeshEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1DFF3D28366A42000DF571 /* MeshEntity+CoreDataClass.m */; };
-		FA1DFF4028366A42000DF571 /* MeshEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1DFF3E28366A42000DF571 /* MeshEntity+CoreDataProperties.m */; };
+		FA1DFF4B28368160000DF571 /* MeshEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1DFF4728368160000DF571 /* MeshEntity+CoreDataClass.m */; };
+		FA1DFF4C28368160000DF571 /* MeshEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1DFF4A28368160000DF571 /* MeshEntity+CoreDataProperties.m */; };
 		FA352861275875E7002B716C /* GeKoSCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA352860275875E7002B716C /* GeKoSCoreTests.m */; };
 		FA3C4E892794E3B000A1196D /* GKSPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C4E872794E3B000A1196D /* GKSPreferences.m */; };
 		FA3C4E8A2794E3B000A1196D /* GKSPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA3C4E882794E3B000A1196D /* GKSPreferences.xib */; };
@@ -90,10 +90,10 @@
 		FA081B7527CFC5F60070056A /* GKSCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKSCameraView.m; sourceTree = "<group>"; };
 		FA081B7A27D121D10070056A /* GKSHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSHeadView.h; sourceTree = "<group>"; };
 		FA081B7B27D121D10070056A /* GKSHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSHeadView.m; sourceTree = "<group>"; };
-		FA1DFF3B28366A42000DF571 /* MeshEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MeshEntity+CoreDataProperties.h"; sourceTree = SOURCE_ROOT; };
-		FA1DFF3C28366A42000DF571 /* MeshEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MeshEntity+CoreDataClass.h"; sourceTree = SOURCE_ROOT; };
-		FA1DFF3D28366A42000DF571 /* MeshEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MeshEntity+CoreDataClass.m"; sourceTree = SOURCE_ROOT; };
-		FA1DFF3E28366A42000DF571 /* MeshEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MeshEntity+CoreDataProperties.m"; sourceTree = SOURCE_ROOT; };
+		FA1DFF4728368160000DF571 /* MeshEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeshEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FA1DFF4828368160000DF571 /* MeshEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeshEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FA1DFF4928368160000DF571 /* MeshEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeshEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FA1DFF4A28368160000DF571 /* MeshEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeshEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FA352860275875E7002B716C /* GeKoSCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeKoSCoreTests.m; sourceTree = "<group>"; };
 		FA3C4E862794E3B000A1196D /* GKSPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSPreferences.h; sourceTree = "<group>"; };
 		FA3C4E872794E3B000A1196D /* GKSPreferences.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSPreferences.m; sourceTree = "<group>"; };
@@ -197,10 +197,10 @@
 		FA4D1E0028326BD70014F362 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				FA1DFF3C28366A42000DF571 /* MeshEntity+CoreDataClass.h */,
-				FA1DFF3D28366A42000DF571 /* MeshEntity+CoreDataClass.m */,
-				FA1DFF3B28366A42000DF571 /* MeshEntity+CoreDataProperties.h */,
-				FA1DFF3E28366A42000DF571 /* MeshEntity+CoreDataProperties.m */,
+				FA1DFF4928368160000DF571 /* MeshEntity+CoreDataClass.h */,
+				FA1DFF4728368160000DF571 /* MeshEntity+CoreDataClass.m */,
+				FA1DFF4828368160000DF571 /* MeshEntity+CoreDataProperties.h */,
+				FA1DFF4A28368160000DF571 /* MeshEntity+CoreDataProperties.m */,
 				FACCA90B28329523008DA846 /* ActorEntity+CoreDataClass.h */,
 				FACCA90C28329523008DA846 /* ActorEntity+CoreDataClass.m */,
 				FACCA90A28329523008DA846 /* ActorEntity+CoreDataProperties.h */,
@@ -482,7 +482,7 @@
 				FAA02D502756D6E800A0C454 /* GeKoS.xcdatamodeld in Sources */,
 				FA697E48280F3345009C1047 /* GKSSceneRep.m in Sources */,
 				FA4D1E2428326EF30014F362 /* gks_utility.c in Sources */,
-				FA1DFF3F28366A42000DF571 /* MeshEntity+CoreDataClass.m in Sources */,
+				FA1DFF4B28368160000DF571 /* MeshEntity+CoreDataClass.m in Sources */,
 				FACCA90F28329523008DA846 /* ActorEntity+CoreDataProperties.m in Sources */,
 				FA4D1E2C28326EF30014F362 /* gks_3d_normalization.c in Sources */,
 				FA081B7627CFC5F60070056A /* GKSCameraView.m in Sources */,
@@ -509,7 +509,7 @@
 				FA4D1E2328326EF30014F362 /* gks_3d_pipeline.c in Sources */,
 				FABD7BB127F28956004D5150 /* GKS3DActor.m in Sources */,
 				FA4D1E2528326EF30014F362 /* gks_3d_view_orient.c in Sources */,
-				FA1DFF4028366A42000DF571 /* MeshEntity+CoreDataProperties.m in Sources */,
+				FA1DFF4C28368160000DF571 /* MeshEntity+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
