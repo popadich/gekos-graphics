@@ -324,7 +324,8 @@ static void *worldDataContext = &worldDataContext;
         actorEntity.lineColor = self.contentLineColor;
         
         // get unique identifier for actor entity
-        GKS3DActor *actor = [self.sceneController castActorFromEnt:actorEntity];
+//        GKS3DActor *actor = [self.sceneController castActorFromEnt:actorEntity];
+        GKS3DActor *actor = actorEntity.transientActor;
         [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.actorID];
         [self.sceneController.scene stageActor:actor];
         

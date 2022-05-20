@@ -7,6 +7,7 @@
 //
 
 #import "ActorEntity+CoreDataClass.h"
+#import "GKS3DActor.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -36,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double scaleY;
 @property (nonatomic) double scaleZ;
 @property (nullable, nonatomic, readonly) NSString *summary;
-@property (nullable, nonatomic, retain) GKS3DActor *transientActor;
+@property (nullable, nonatomic, readonly) GKS3DActor *transientActor;
 @property (nullable, nonatomic, retain) SceneEntity *toScene;
 
 @end

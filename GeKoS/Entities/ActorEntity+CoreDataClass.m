@@ -7,6 +7,8 @@
 //
 
 #import "ActorEntity+CoreDataClass.h"
+#import "GKSContent.h"
+#import "GKSDocument.h"
 
 @interface ActorEntity ()
 @property (strong) NSString *primitiveSummary;
@@ -65,6 +67,51 @@
 
     [self didChangeValueForKey:@"locZ"];
     [self didChangeValueForKey:@"summary"];
+}
+
+
+- (GKS3DActor *)transientActor
+{
+    [self willAccessValueForKey:@"transientActor"];
+    
+    GKS3DActor *theActor =  [self primitiveValueForKey:@"transientActor"];
+    
+    if (theActor == nil) {
+        GKSDocument *doc = [[NSDocumentController sharedDocumentController] currentDocument];
+        GKSContent *theContent = doc.content;
+        NSManagedObjectContext *moc = [theContent managedObjectContext];
+        NSFetchRequest *meshRequest = [NSFetchRequest fetchRequestWithEntityName:@"MeshEntity"];
+
+        [meshRequest setPredicate:[NSPredicate predicateWithFormat:@"meshID == %d", self.kind]];
+
+
+        NSError *error = nil;
+        NSArray *results = [moc executeFetchRequest:meshRequest error:&error];
+        if (!results) {
+            NSLog(@"Error fetching mesh object: %@\n%@", [error localizedDescription], [error userInfo]);
+            abort();
+        }
+        
+        if (results.count == 1) {
+            NSManagedObject *meshEnt = results[0];
+            
+            NSNumber *meshID = [meshEnt valueForKey:@"meshID"];
+            GKSMeshRep *meshRep = [meshEnt valueForKey:@"meshPointer"];
+            
+            GKSvector3d loc = GKSMakeVector(self.locX, self.locY, self.locZ);
+            GKSvector3d rot = GKSMakeVector(self.rotX, self.rotY, self.rotZ);
+            GKSvector3d scale = GKSMakeVector(self.scaleX, self.scaleY, self.scaleZ);
+            
+            theActor = [[GKS3DActor alloc] initWithMesh:meshRep.meshPtr ofKind:meshID atLocation:loc withRotation:rot andScale:scale];
+            
+            [self setPrimitiveValue:theActor forKey:@"transientActor"];
+            
+        }
+    }
+    
+    [self didAccessValueForKey:@"transientActor"];
+    
+    return theActor;
 }
 
 @end

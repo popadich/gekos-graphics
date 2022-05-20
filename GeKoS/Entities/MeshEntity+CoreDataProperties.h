@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t polygonCount;
 @property (nullable, nonatomic, readonly) NSString *summary;
 @property (nonatomic) int32_t vertexCount;
-@property (nullable, nonatomic, copy) GKSMeshRep *meshPointer;
+@property (nullable, nonatomic, retain) GKSMeshRep *meshPointer;
 @property (nonatomic) double volumeMinX;
 @property (nonatomic) double volumeMinY;
 @property (nonatomic) double volumeMinZ;

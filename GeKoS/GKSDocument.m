@@ -184,13 +184,6 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
 
     [story addToMeshes:meshEntities];
     
-    // TODO: remove when done with playing
-    BOOL isPlaying = [[NSUserDefaults standardUserDefaults] boolForKey:gksPlayingFlag];
-    if (isPlaying) {
-        [self addPlayThings:moc scene:scene];
-    }
-    
-    
     
     [moc processPendingChanges];
     [[moc undoManager] removeAllActions];
