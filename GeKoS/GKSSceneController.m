@@ -45,7 +45,6 @@
         [actors addObject:actor];
         
     }
-    self.actorWhitePages = actorWhitePages;
     self.scene.toActors = actors;
 }
 

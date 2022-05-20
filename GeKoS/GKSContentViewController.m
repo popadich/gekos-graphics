@@ -299,7 +299,6 @@ static void *worldDataContext = &worldDataContext;
 
 - (IBAction)performAddSelectedToScene:(id)sender
 {
-    
     NSArray *objects = [self.meshArrayController selectedObjects];
     
     NSAssert(objects.count == 1, @"One mesh must be selected");
@@ -319,18 +318,16 @@ static void *worldDataContext = &worldDataContext;
         actorEntity.scaleX = self.makeScaleX.doubleValue;
         actorEntity.scaleY = self.makeScaleY.doubleValue;
         actorEntity.scaleZ = self.makeScaleZ.doubleValue;
-        NSUUID *newID = [NSUUID UUID];
-        actorEntity.actorID = newID;
+        actorEntity.actorID = [NSUUID UUID];
         actorEntity.lineColor = self.contentLineColor;
         
-        // get unique identifier for actor entity
-//        GKS3DActor *actor = [self.sceneController castActorFromEnt:actorEntity];
+        
+        // TODO: check order
+        // looks like all other attributes need to be set first.
         GKS3DActor *actor = actorEntity.transientActor;
-        [self.sceneController.actorWhitePages setObject:actor forKey:actorEntity.actorID];
         [self.sceneController.scene stageActor:actor];
         
         [self.actorArrayController addObject:actorEntity];
-
         [self showScene];
     }
      
@@ -348,12 +345,10 @@ static void *worldDataContext = &worldDataContext;
         // Pull the actor first. this should be a method on scenecontroller
         NSMutableSet *actors = self.sceneController.scene.toActors;
             
-        NSUUID *actorID = actorEntity.actorID;
-        GKS3DActor *actorPull = [self.sceneController.actorWhitePages objectForKey:actorID];
+        GKS3DActor *actorPull = actorEntity.transientActor;
         
         NSAssert(actorPull != nil, @"actor object missing");
         [actors removeObject:actorPull];
-    
 
         // remove selected actor entity
         [self.actorArrayController removeObject:actorEntity];
@@ -375,8 +370,7 @@ static void *worldDataContext = &worldDataContext;
         GKSvector3d rot = GKSMakeVector(actEntity.rotX, actEntity.rotY, actEntity.rotZ);
         GKSvector3d sca = GKSMakeVector(actEntity.scaleX, actEntity.scaleY, actEntity.scaleZ);
         
-        NSUUID *actorID = actEntity.actorID;
-        GKS3DActor *found3DActor = [self.sceneController.actorWhitePages objectForKey:actorID];
+        GKS3DActor *found3DActor = actEntity.transientActor;
         
         if (found3DActor != nil) {
             [found3DActor setPosition:pos];
