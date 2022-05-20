@@ -92,11 +92,7 @@ static void *worldDataContext = &worldDataContext;
       StoryBoardEntity *story = [results objectAtIndex:0];
       // feed the monger with meshes
       for (MeshEntity *meshEnt in story.toMeshes) {
-          NSString* meshName = meshEnt.meshName;
-          NSNumber* meshID = [NSNumber numberWithInt:meshEnt.meshID];
-          NSString* meshOffString = meshEnt.offString;
-
-          GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andName:meshName andOffString:meshOffString];
+          GKSMeshRep *meshRep = meshEnt.meshPointer;
           [self.itsContent.theMonger addMeshRepToMongerMenu:meshRep];
       }
   }
@@ -489,25 +485,10 @@ static void *worldDataContext = &worldDataContext;
 
                     MeshEntity *meshEnt = [NSEntityDescription insertNewObjectForEntityForName:@"MeshEntity" inManagedObjectContext:self.managedObjectContext];
                     
-                    meshEnt.meshID = meshID.intValue;
-                    meshEnt.meshName = meshRep.meshName;
-                    meshEnt.offString = meshRep.offString;
-                    meshEnt.vertexCount = meshRep.meshPtr->vertnum;
-                    meshEnt.polygonCount = meshRep.meshPtr->polynum;
-                    meshEnt.edgeCount = meshRep.meshPtr->edgenum;
-                    meshEnt.volumeMaxX = meshRep.meshPtr->volume.xmax;
-                    meshEnt.volumeMaxY = meshRep.meshPtr->volume.ymax;
-                    meshEnt.volumeMaxZ = meshRep.meshPtr->volume.zmax;
-                    meshEnt.volumeMinX = meshRep.meshPtr->volume.xmin;
-                    meshEnt.volumeMinY = meshRep.meshPtr->volume.ymin;
-                    meshEnt.volumeMinZ = meshRep.meshPtr->volume.zmin;
-
+                    [meshEnt setMeshPointer:meshRep];
                     [storyBoardEnt addToMeshesObject:meshEnt];
                     
                     [monger addMeshRepToMongerMenu:meshRep];
-                    
-                    [self.drawingViewController refresh];
-                    
                 }
             }
         }];

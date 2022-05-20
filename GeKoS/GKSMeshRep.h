@@ -6,7 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "gks_types.h"
+#include "gks.h"
+#import "GKSMeshParser.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

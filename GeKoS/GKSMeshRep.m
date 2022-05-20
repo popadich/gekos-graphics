@@ -6,8 +6,7 @@
 //
 
 #import "GKSMeshRep.h"
-#import "GKSMeshParser.h"
-#include "gks.h"
+
 
 @implementation GKSMeshRep
 
