@@ -28,9 +28,6 @@
 
 @property (strong) GKSContent *itsContent;
 
-@property (strong) NSColor* contentLineColor;
-@property (strong) NSColor* contentFillColor;
-
 @property (strong) NSNumber* makePosX;
 @property (strong) NSNumber* makePosY;
 @property (strong) NSNumber* makePosZ;
@@ -138,17 +135,6 @@ static void *worldDataContext = &worldDataContext;
     self.cameraViewController.camera = content.theCamera;
     self.drawingViewController.representedObject = sceneRep;
 
-    
-    // Load Default Colors for Content View
-    NSError *error;
-    NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
-    if (colorData != nil) {
-        self.contentLineColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
-    }
-    colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
-    if (colorData != nil) {
-        self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
-    }
 
     // Load Default Options for Content View
     BOOL cullFlag = [[NSUserDefaults standardUserDefaults] boolForKey:gksPrefFrustumCullFlag];
@@ -319,12 +305,16 @@ static void *worldDataContext = &worldDataContext;
         actorEntity.scaleY = self.makeScaleY.doubleValue;
         actorEntity.scaleZ = self.makeScaleZ.doubleValue;
         actorEntity.actorID = [NSUUID UUID];
-        actorEntity.lineColor = self.contentLineColor;
+        actorEntity.lineColor = self.itsContent.contentLineColor;
         
         
         // TODO: check order
         // looks like all other attributes need to be set first.
         GKS3DActor *actor = actorEntity.transientActor;
+        
+        // make this part of the init?
+        actor.lineColor = actorEntity.lineColor;
+
         [self.sceneController.scene stageActor:actor];
         
         [self.actorArrayController addObject:actorEntity];

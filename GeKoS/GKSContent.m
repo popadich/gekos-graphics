@@ -21,18 +21,30 @@
         _context3D =  gks_init();
         _managedObjectContext = moc;
         
-        GKSCameraRep *cameraRep = [[GKSCameraRep alloc] initWithContext:_context3D];
-        GKSSceneRep *sceneRep = [[GKSSceneRep alloc] initWithContext:_context3D];
-        _theCamera = cameraRep;
-
-        _theScene = sceneRep;
+        _theCamera = [[GKSCameraRep alloc] initWithContext:_context3D];
+        _theScene = [[GKSSceneRep alloc] initWithContext:_context3D];
         
         GKSMeshMonger *monger = [[GKSMeshMonger alloc] init];
         _theMonger = monger;
         
+        
+        // Load Default Colors for Content View
+        NSError *error;
+        NSData *colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefPenColor];
+        if (colorData != nil) {
+            self.contentLineColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+        }
+        colorData = [[NSUserDefaults standardUserDefaults] dataForKey:gksPrefFillColor];
+        if (colorData != nil) {
+            self.contentFillColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSColor class] fromData:colorData error:&error];
+        }
+
+        
     }
     return self;
 }
+
+
 
 - (NSData *)textRepresentation
 {

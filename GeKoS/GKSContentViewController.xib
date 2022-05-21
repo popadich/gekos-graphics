@@ -106,7 +106,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="L0S-9B-mgn">
-                                            <rect key="frame" x="1" y="85" width="101" height="15"/>
+                                            <rect key="frame" x="1" y="157" width="180" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="RLI-yj-mcV">
@@ -760,6 +760,18 @@ DQ
                                         </constraints>
                                         <font key="titleFont" metaFont="miniSystem"/>
                                     </box>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Yi-Xk-neW">
+                                        <rect key="frame" x="399" y="169" width="122" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="MeshName" id="ah3-1I-k2b">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="2FK-L7-FSg" name="value" keyPath="selection.meshName" id="Joc-rL-q3g"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="d8l-1l-XWe" secondAttribute="bottom" constant="14" id="IJX-yB-5mV"/>
@@ -927,18 +939,6 @@ DQ
                                             <binding destination="2FK-L7-FSg" name="enabled" keyPath="selectedObjects.@count" id="02z-hC-xff"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QZ7-F5-kTV">
-                                        <rect key="frame" x="422" y="159" width="122" height="16"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="MeshName" id="Bfj-iw-Vh2">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <binding destination="2FK-L7-FSg" name="value" keyPath="selection.meshName" id="BP2-lV-3Ga"/>
-                                        </connections>
-                                    </textField>
                                     <box title="Actor" translatesAutoresizingMaskIntoConstraints="NO" id="nf0-ch-uD8">
                                         <rect key="frame" x="137" y="17" width="271" height="158"/>
                                         <view key="contentView" id="KN6-R1-OB4">
@@ -1133,7 +1133,7 @@ DQ
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <binding destination="-2" name="value" keyPath="self.contentLineColor" id="Meb-U1-8AQ"/>
+                                                        <binding destination="-2" name="value" keyPath="self.itsContent.contentLineColor" id="l7k-7W-jeZ"/>
                                                     </connections>
                                                 </colorWell>
                                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Htp-eO-4bk">

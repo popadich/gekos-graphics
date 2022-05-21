@@ -34,6 +34,8 @@
     GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
     GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
+    _lineColor = [NSColor greenColor];
+    
     return ( [self initWithMesh:mesh ofKind:@(kCubeKind) atLocation:loc withRotation:rot andScale:sca] );
 }
 

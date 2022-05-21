@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) GKScontext3DPtr context3D;
 @property (strong) GKSMeshMonger *theMonger;
 
+@property (strong) NSColor* contentLineColor;
+@property (strong) NSColor* contentFillColor;
+
 - (NSData *)textRepresentation;
 
 @end
