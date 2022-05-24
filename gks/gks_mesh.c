@@ -515,7 +515,7 @@ GKSmesh_3 *ConeMesh(void)
     polygon_array[k] = P1 + 1;
     k += 1;
     polygon_array[k] = 3;
-    k += 1;
+//    k += 1;
     
     
     aCone->vertices = vertex_array;
