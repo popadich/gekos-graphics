@@ -75,15 +75,37 @@ def crust_polygons(slices):
 	return polygon_list
 
 
+def lid_polygons(slices):
+	polygon_list = []
+	top_edges = [slices]
+	bot_edges = [slices]
+	vert_center = 0
+	for idx in range(0, slices):
+		ev = vert_center + idx
+		poly_idx = ev % slices + 1
+		top_edges.append(poly_idx)
+	vert_center = slices + 1
+	for idx in range(0, slices):
+		ev = vert_center + idx
+		poly_idx = ev + 1
+		bot_edges.append(poly_idx)
+	polygon_list.append(top_edges)
+	polygon_list.append(bot_edges)
+	return polygon_list
+	
+
+
 def pizza_OFF(slices):
 	total_vertices = 0
 	total_polygons = 0
 	total_edges = 0
 	vl = pizza_vertex_list(slices)
 	total_vertices = len(vl)
+	
 	zpl = pizza_polygons(slices)
-	ppl = crust_polygons(slices)
-	pl = zpl + ppl
+	cpl = crust_polygons(slices)
+	lpl = lid_polygons(slices)
+	pl = cpl + lpl
 	total_polygons = len(pl)
 	for poly in pl:
 		poly_size = poly[0]
