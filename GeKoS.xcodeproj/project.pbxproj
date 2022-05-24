@@ -53,6 +53,7 @@
 		FACCA90E28329523008DA846 /* ActorEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FACCA90C28329523008DA846 /* ActorEntity+CoreDataClass.m */; };
 		FACCA90F28329523008DA846 /* ActorEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FACCA90D28329523008DA846 /* ActorEntity+CoreDataProperties.m */; };
 		FACF8B582800BAFA00B9BD5F /* GKSMeshParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FACF8B572800BAFA00B9BD5F /* GKSMeshParser.m */; };
+		FAD98FE1283C8ABD0010BB11 /* NSSecureColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD98FE0283C8ABD0010BB11 /* NSSecureColorTransformer.m */; };
 		FAE5E75027D59380008E793F /* GKSSceneController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E74F27D59380008E793F /* GKSSceneController.m */; };
 		FAE5E75327D59C52008E793F /* GKSDrawingController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5E75227D59C52008E793F /* GKSDrawingController.m */; };
 		FAFA1AD327E163F8009FCA8B /* GKSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA1AD227E163F8009FCA8B /* GKSContent.m */; };
@@ -161,6 +162,8 @@
 		FACCA90D28329523008DA846 /* ActorEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ActorEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FACF8B562800BAFA00B9BD5F /* GKSMeshParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSMeshParser.h; sourceTree = "<group>"; };
 		FACF8B572800BAFA00B9BD5F /* GKSMeshParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKSMeshParser.m; sourceTree = "<group>"; };
+		FAD98FDF283C8ABD0010BB11 /* NSSecureColorTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSecureColorTransformer.h; sourceTree = "<group>"; };
+		FAD98FE0283C8ABD0010BB11 /* NSSecureColorTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSecureColorTransformer.m; sourceTree = "<group>"; };
 		FAE5E74E27D59380008E793F /* GKSSceneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKSSceneController.h; sourceTree = "<group>"; };
 		FAE5E74F27D59380008E793F /* GKSSceneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKSSceneController.m; sourceTree = "<group>"; };
 		FAE5E75127D59C52008E793F /* GKSDrawingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKSDrawingController.h; sourceTree = "<group>"; };
@@ -305,6 +308,8 @@
 				FA3C4E862794E3B000A1196D /* GKSPreferences.h */,
 				FA3C4E872794E3B000A1196D /* GKSPreferences.m */,
 				FA3C4E882794E3B000A1196D /* GKSPreferences.xib */,
+				FAD98FDF283C8ABD0010BB11 /* NSSecureColorTransformer.h */,
+				FAD98FE0283C8ABD0010BB11 /* NSSecureColorTransformer.m */,
 				FA9EE7BE27E24E1A005A4150 /* GKSSceneInspector.h */,
 				FA9EE7BF27E24E1A005A4150 /* GKSSceneInspector.m */,
 				FA9EE7C027E24E1A005A4150 /* GKSSceneInspector.xib */,
@@ -504,6 +509,7 @@
 				FA4D1E2B28326EF30014F362 /* gks_mesh.c in Sources */,
 				FA081B6E27CFB7700070056A /* GKSCameraRep.m in Sources */,
 				FA53417027C82C6800015433 /* GKSDrawingView.m in Sources */,
+				FAD98FE1283C8ABD0010BB11 /* NSSecureColorTransformer.m in Sources */,
 				FA4D1E2A28326EF30014F362 /* gks.c in Sources */,
 				FA4D1E2628326EF30014F362 /* gks_3d_context.c in Sources */,
 				FA4D1E2328326EF30014F362 /* gks_3d_pipeline.c in Sources */,

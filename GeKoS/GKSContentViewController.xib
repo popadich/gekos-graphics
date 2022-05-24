@@ -456,7 +456,7 @@
                                                     </constraints>
                                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.lineColor" id="VLM-Nd-5i1"/>
+                                                        <binding destination="Zea-HR-mJE" name="value" keyPath="selection.lineColor" id="9w0-MA-1gk"/>
                                                     </connections>
                                                 </colorWell>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fvA-Aj-UcJ">
@@ -698,7 +698,7 @@ DQ
                                                     </constraints>
                                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <binding destination="ziB-ro-WAM" name="value" keyPath="selection.backgroundColor" id="ftR-xE-XIL"/>
+                                                        <binding destination="ziB-ro-WAM" name="value" keyPath="selection.backgroundColor" id="rk1-BN-RCd"/>
                                                     </connections>
                                                 </colorWell>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wd1-hM-sxY">

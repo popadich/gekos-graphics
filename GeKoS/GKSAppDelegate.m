@@ -7,6 +7,7 @@
 
 #import "GKSAppDelegate.h"
 #import "GKSConstants.h"
+#import "NSSecureColorTransformer.h"
 #import "GKSPreferences.h"
 #import "GKSSceneInspector.h"
 #import "GKSContent.h"
@@ -50,8 +51,8 @@ static NSDictionary *defaultValues() {
                 [NSNumber numberWithDouble:locZ], gksPrefCameraLocZ,
                 [NSNumber numberWithBool:NO], gksPrefVisibleSurfaceFlag,
                 [NSKeyedArchiver archivedDataWithRootObject:blueprintColor requiringSecureCoding:YES error:&error], gksPrefBackgroundColor,
-                [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:NO error:&error], gksPrefFillColor,
-                [NSKeyedArchiver archivedDataWithRootObject:greypenColor requiringSecureCoding:NO error:&error], gksPrefPenColor,
+                [NSKeyedArchiver archivedDataWithRootObject:manillafillColor requiringSecureCoding:YES error:&error], gksPrefFillColor,
+                [NSKeyedArchiver archivedDataWithRootObject:greypenColor requiringSecureCoding:YES error:&error], gksPrefPenColor,
                 worldVolumeData, gksPrefWorldVolumeData,
                 [NSNumber numberWithDouble:world_volume[0]], gksPrefWorldVolumeMinX,
                 [NSNumber numberWithDouble:world_volume[1]], gksPrefWorldVolumeMaxX,
@@ -70,6 +71,19 @@ static NSDictionary *defaultValues() {
 {
     if (self == [GKSAppDelegate class]) {
         // Set up default values for preferences managed by NSUserDefaultsController
+        
+        // Register NSColor transformer
+        if (@available(macOS 10.14, *)) {
+            NSSecureColorTransformer *scf = [[NSSecureColorTransformer alloc] init];
+            [NSValueTransformer setValueTransformer:scf forName:@"NSSecureColorTransformer"];
+            
+        } else {
+            // Fallback on earlier versions
+        }
+
+        
+        
+        
         // Nothing gets written to the Preferences "file" until its value changes from
         // the original defaults value.
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues()];
