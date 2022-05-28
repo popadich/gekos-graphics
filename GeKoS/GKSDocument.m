@@ -14,7 +14,6 @@
 #import "MeshEntity+CoreDataClass.h"
 
 @interface GKSDocument ()
-
 @end
 
 @implementation GKSDocument
@@ -37,7 +36,7 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-        if ([typeName isEqual:@"com.xephyr.gekos"]) {
+        if ([typeName isEqualToString:@"com.xephyr.gekos"]) {
             _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
             [self insertEmptyStoryBoardIntoMoc:self.managedObjectContext];
         }
@@ -254,55 +253,21 @@ static SceneEntity *addSceneOne(NSManagedObjectContext *moc, StoryBoardEntity *s
 //    return  mesh;
 //}
 
-// TODO: enable when done with core data setup
 /*
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError *__autoreleasing  _Nullable *)error
 {
     BOOL hasRead = NO;
-    GKSmesh_3 *mesh = nil;
-    
-    if ([typeName isEqual:@"com.xephyr.off"]) {
-        NSLog(@"OFF file to read %@", absoluteURL);
-        NSString *meshString = [[NSString alloc] initWithContentsOfURL:absoluteURL encoding:NSUTF8StringEncoding error:error];
-        if (meshString != nil) {
-            GKSMeshParser *parser = [GKSMeshParser sharedMeshParser];
-            mesh = [parser parseOFFMeshString:meshString error:error];
-            if (mesh) {
-                
-                // TODO: mesh monger is too buried and this could all be move there
-                // add new mesh to monger
-                GKSMeshMonger *monger = [GKSMeshMonger sharedMeshMonger];
-                
-                NSNumber *meshID = [monger nextID];
-                GKSMeshRep *meshRep = [[GKSMeshRep alloc] initWithID:meshID andMeshPtr:mesh];
-                [monger addMeshRep:meshRep];
-                
-                
-                // TODO: object add should happen elsewhere
-                GKSvector3d loc = GKSMakeVector(0.0, 0.0, 0.0);
-                GKSvector3d rot = GKSMakeVector(0.0, 0.0, 0.0);
-                GKSvector3d sca = GKSMakeVector(1.0, 1.0, 1.0);
-                
-                // TODO: pass mesh here
-                GKS3DObjectRep *objectRep = [[GKS3DObjectRep alloc] initWithKind:meshID.intValue atLocation:loc withRotation:rot andScale:sca];
-                
-                // TODO: fragile
-                GKSSceneRep *theScene = [self.content.storyBoard sceneOne];
-                [theScene add3DObjectRep:objectRep withMesh:mesh];
-                
-                
-            }
-            hasRead = YES;
-        }
-    }
-    else if ([typeName isEqual:@"com.xephyr.json"]) {
+//    if ([typeName isEqual:@"com.xephyr.off"]) {
+//        NSLog(@"OFF file to read %@", absoluteURL);
+//    }
+//    else if ([typeName isEqual:@"com.xephyr.json"]) {
 //        model = [self.content readModelFromJsonData:data];
-    }
+//    }
     
     return hasRead;
 
 }
- */
+*/
 
 
 @end

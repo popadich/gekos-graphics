@@ -26,7 +26,7 @@
 			<key>CFBundleTypeName</key>
 			<string>Open File Format</string>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>None</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
