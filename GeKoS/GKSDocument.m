@@ -13,6 +13,8 @@
 #import "ActorEntity+CoreDataClass.h"
 #import "MeshEntity+CoreDataClass.h"
 
+static NSString *GekosDocumentType = @"com.xephyr.gekos";
+
 @interface GKSDocument ()
 @end
 
@@ -36,7 +38,7 @@
     self = [super init];
     if (self) {
         // Add your subclass-specific initialization here.
-        if ([typeName isEqualToString:@"com.xephyr.gekos"]) {
+        if ([typeName isEqualToString:GekosDocumentType]) {
             _content = [[GKSContent alloc] initWithManagedObjectContext:self.managedObjectContext];
             [self insertEmptyStoryBoardIntoMoc:self.managedObjectContext];
         }
