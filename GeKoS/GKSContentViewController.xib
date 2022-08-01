@@ -711,8 +711,8 @@ DQ
                                                         <action selector="remove:" target="ziB-ro-WAM" id="8S8-SL-WWi"/>
                                                     </connections>
                                                 </button>
-                                                <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iWv-zy-b8H">
-                                                    <rect key="frame" x="93" y="104" width="36" height="27"/>
+                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iWv-zy-b8H">
+                                                    <rect key="frame" x="85" y="104" width="36" height="27"/>
                                                     <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XWD-09-VmX">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
@@ -733,6 +733,7 @@ DQ
                                                 <constraint firstItem="Vw3-7B-RZb" firstAttribute="leading" secondItem="Bst-dk-3hQ" secondAttribute="trailing" constant="9" id="AYB-Wn-zJA"/>
                                                 <constraint firstItem="y4f-ia-1eb" firstAttribute="centerX" secondItem="Bst-dk-3hQ" secondAttribute="centerX" id="BGS-BV-kNP"/>
                                                 <constraint firstItem="f6a-Zt-qGR" firstAttribute="centerX" secondItem="Bst-dk-3hQ" secondAttribute="centerX" id="Cb7-1b-sek"/>
+                                                <constraint firstItem="iWv-zy-b8H" firstAttribute="leading" secondItem="Wd1-hM-sxY" secondAttribute="trailing" constant="8" symbolic="YES" id="ENB-tL-95u"/>
                                                 <constraint firstItem="n2G-rI-pe1" firstAttribute="centerX" secondItem="Vw3-7B-RZb" secondAttribute="centerX" id="Gso-aa-unt"/>
                                                 <constraint firstItem="Bst-dk-3hQ" firstAttribute="top" secondItem="y4f-ia-1eb" secondAttribute="bottom" constant="8" symbolic="YES" id="Io0-VG-0aj"/>
                                                 <constraint firstItem="vq9-qI-M5W" firstAttribute="centerY" secondItem="hgY-on-ufS" secondAttribute="centerY" id="KQ4-tC-AK3"/>
@@ -819,7 +820,7 @@ DQ
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCm-fx-NW7">
                                                                             <rect key="frame" x="0.0" y="4" width="55" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="aqv-sz-u0K">
+                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="ID" id="aqv-sz-u0K">
                                                                                 <font key="font" usesAppearanceFont="YES"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
