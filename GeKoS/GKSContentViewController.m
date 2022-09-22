@@ -26,6 +26,10 @@
 @property (weak) IBOutlet NSArrayController *meshArrayController;
 @property (weak) IBOutlet NSArrayController *storyBoardArrayController;
 
+@property (strong) NSArray *meshSortDescriptors;
+@property (strong) NSArray *sceneSortDescriptors;
+@property (strong) NSArray *actorSortDescriptors;
+
 @property (strong) GKSContent *itsContent;
 
 @property (strong) NSNumber* makePosX;
@@ -116,6 +120,12 @@ static void *worldDataContext = &worldDataContext;
     
     // notifications come after camera values have been set
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraMovedNotification:) name:@"cameraMoved" object:nil];
+    
+    
+    // Sorting
+    self.meshSortDescriptors = [self makeMeshSortDescriptors];;
+    self.sceneSortDescriptors = [self makeSceneSortDescriptors];
+    self.actorSortDescriptors = [self makeActorSortDescriptors];
     
 }
 
@@ -413,23 +423,23 @@ static void *worldDataContext = &worldDataContext;
 
 // MARK: Sorting
 
-- (NSArray *)meshSortDescriptors
+- (NSArray *)makeMeshSortDescriptors
 {
     NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"meshID" ascending:YES];
     return [NSArray arrayWithObject:sd];
     
 }
 
-- (NSArray *)sceneSortDescriptors
+- (NSArray *)makeSceneSortDescriptors
 {
     NSSortDescriptor *sortBySceneTitle = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
     NSArray *sorts = [NSArray arrayWithObject:sortBySceneTitle];
     return sorts;
 }
 
-- (NSArray *)actorSortDescriptors
+- (NSArray *)makeActorSortDescriptors
 {
-    NSSortDescriptor *sortByActorZ = [NSSortDescriptor sortDescriptorWithKey:@"locZ" ascending:NO];
+    NSSortDescriptor *sortByActorZ = [NSSortDescriptor sortDescriptorWithKey:@"locZ" ascending:YES];
     NSArray *sorts = [NSArray arrayWithObject:sortByActorZ];
     return sorts;
 }
