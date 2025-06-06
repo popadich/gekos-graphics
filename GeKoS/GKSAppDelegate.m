@@ -21,7 +21,7 @@
 
 @implementation GKSAppDelegate
 
-static NSDictionary *defaultValues() {
+static NSDictionary *defaultValues(void) {
     double world_volume[6] = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0};
     double locX = 0.0;
     double locY = 0.0;
@@ -128,5 +128,8 @@ static NSDictionary *defaultValues() {
     // Insert code here to tear down your application
 }
 
+- (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)application {
+    return YES;
+}
 
 @end

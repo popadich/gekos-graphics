@@ -139,12 +139,15 @@ static double head_size_adjust = 1.0;
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
+    // Get the view's bounds
+    NSRect viewBounds = [self bounds]; // Use bounds for defining your drawing space
+    
     // Drawing code here.
     [NSColor.blueColor set];
-    [NSBezierPath fillRect:dirtyRect];
+    [NSBezierPath fillRect:viewBounds];
     
     // draw head
-    NSPoint centerPoint = NSMakePoint(NSMidX(dirtyRect), NSMidY(dirtyRect));
+    NSPoint centerPoint = NSMakePoint(NSMidX(viewBounds), NSMidY(viewBounds));
     double turnYaw = [self.headYaw doubleValue];
     double turnPitch = [self.headPitch doubleValue];
     double turnRoll = [self.headRoll doubleValue];

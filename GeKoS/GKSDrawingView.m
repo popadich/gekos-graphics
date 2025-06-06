@@ -103,8 +103,11 @@ static void my_polyline_cb(GKSint polygonID, GKSint num_pt, GKSDCArrPtr dc_array
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
 
+    // Get the view's bounds
+    NSRect viewBounds = [self bounds]; // Use bounds for defining your drawing space
+
     [maizeColor set];
-    [NSBezierPath fillRect:dirtyRect];
+    [NSBezierPath fillRect:viewBounds];
 
     [self.backgroundColor set];
     NSRect blueprintBox = NSInsetRect(self.bounds, 20.0, 20.0);
