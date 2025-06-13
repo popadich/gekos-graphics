@@ -70,3 +70,5 @@ iOSInjectionProject/
 # scratch space for mesh testing
 Sample\ Data/mesh/meshery
 
+.DS_Store
+
