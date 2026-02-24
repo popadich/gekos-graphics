@@ -11,9 +11,6 @@
 
 # include "gks_types.h"
 
-#define DEG_TO_RAD 0.01745329252
-
-
 void gks_create_identity_matrix_2(GKSmatrix_2 result);
 void gks_create_identity_matrix_3(GKSmatrix_3 result);
 void gks_create_matrix_3(GKSvector3d v1, GKSvector3d v2, GKSvector3d v3, GKSvector3d v4, GKSmatrix_3 result);

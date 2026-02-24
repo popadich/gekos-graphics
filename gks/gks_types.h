@@ -20,7 +20,9 @@
 #endif
 
 
-#define GKS_POLY_VERTEX_MAX    99
+#define GKS_POLY_VERTEX_MAX     99
+#define GKS_ERROR_MSG_MAX       256
+#define DEG_TO_RAD              0.01745329252
 
 typedef int GKSint;
 typedef double GKSfloat;
