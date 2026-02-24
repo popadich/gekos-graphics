@@ -24,6 +24,30 @@
 #define GKS_ERROR_MSG_MAX       256
 #define DEG_TO_RAD              0.01745329252
 
+
+// Error handling
+typedef enum {
+    GKS_ERROR_NONE = 0,
+    GKS_ERROR_INVALID_FORMAT,
+    GKS_ERROR_MISSING_HEADER,
+    GKS_ERROR_INVALID_COUNTS,
+    GKS_ERROR_PARSE_VERTEX,
+    GKS_ERROR_PARSE_POLYGON,
+    GKS_ERROR_MEMORY_ALLOCATION,
+    GKS_ERROR_FILE_EMPTY,
+    GKS_ERROR_INVALID_DATA
+} GKSerrorCode;
+
+typedef struct {
+    GKSerrorCode code;
+    char message[GKS_ERROR_MSG_MAX];
+} GKSerror;
+
+// A simple structure to hold your parsed file data
+typedef struct {
+    double x, y, w, h;
+} RectData;
+
 typedef int GKSint;
 typedef double GKSfloat;
 typedef char GKSchar;
