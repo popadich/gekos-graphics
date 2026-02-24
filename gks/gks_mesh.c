@@ -158,14 +158,14 @@ GKSmesh_3 *PyramidMesh(void)
         {3,4,5,1}
     };
     static GKSedge_3 object_edges[GKS_PYRAMID_EDGE_COUNT] = {
-        1,2,
-        2,3,
-        3,4,
-        4,1,
-        1,5,
-        2,5,
-        3,5,
-        4,5
+        {1,2},
+        {2,3},
+        {3,4},
+        {4,1},
+        {1,5},
+        {2,5},
+        {3,5},
+        {4,5}
     };
     GKSpoint_3 *p;
     GKSvector3dPtr q;
