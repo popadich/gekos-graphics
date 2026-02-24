@@ -61,6 +61,14 @@
     
     anObjectMesh = [self parseOFFMeshString:fileTextString error:error];
     
+    NSLog(@"\n==================================\n");
+    NSLog(@"MESH OBJECT STRUCTURE\n");
+    NSLog(@"==================================\n");
+    NSLog(@"Vertex count:         %d\n", anObjectMesh->vertnum);
+    NSLog(@"Polygon count:        %d\n", anObjectMesh->polynum);
+    NSLog(@"Edge count:           %d\n", anObjectMesh->edgenum);
+
+
     return anObjectMesh;
 }
 
