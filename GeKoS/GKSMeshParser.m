@@ -52,7 +52,7 @@
 // a better explanation can be found here
 //  https://en.wikipedia.org/wiki/OFF_(file_format)
 //
-// TODO: parser needs to be excercised with different files
+// TODO: parser needs to be exercised with different files
 - (GKSmesh_3 *)parseOFFMeshFile:(NSURL*)URL error:(NSError **)error
 {
     GKSmesh_3 *anObjectMesh = NULL;
@@ -72,7 +72,7 @@
     int specified_polys;
     int specified_edges;
     
-    int vert_count = 0;
+    int vertex_count = 0;
     int poly_count = 0;
     int edge_count = 0;
     
@@ -120,6 +120,8 @@
         
         
         int current_line_no = meta_data_offset;
+        
+        // process the vertex data in the first loop
         for(GKSint i=0; i<specified_verts; i++)
         {
             NSString* vertexLine = textLines[current_line_no];
@@ -161,25 +163,25 @@
             vertex_array[i].crd.z = [componentZ doubleValue];
             vertex_array[i].crd.w = 1.0;
             current_line_no += 1;
-            vert_count += 1;
         }
         
         int k = 0;
         edge_count = 0;
         
+        // process the polygons in the second loop
         for(GKSint i=0; i<specified_polys; i++)
         {
             NSString* polygonLine = textLines[current_line_no + i];
             NSArray* polygonComponentsArr = [self componentsMatchingRegularExpression:@"\\d+" fromString:polygonLine];
             NSString* componentPointCount = polygonComponentsArr[0];
-            int verts = [componentPointCount intValue];
+            vertex_count = [componentPointCount intValue];
 
-            edge_count += verts;
+            edge_count += vertex_count;
             poly_count += 1;
             
-            compact_array[k] = verts;    // compact string all in a row
+            compact_array[k] = vertex_count;    // compact string all in a row
             k += 1;
-            for(GKSint j=1; j<=verts; j++)
+            for(GKSint j=1; j<=vertex_count; j++)
             {
                 NSString* componentPointNo = polygonComponentsArr[j];
                 int pointNo = [componentPointNo intValue];
