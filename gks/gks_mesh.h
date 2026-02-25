@@ -5,8 +5,7 @@
 //  Created by Alex Popadich on 12/5/21.
 //
 
-#ifndef gks_mesh_h
-#define gks_mesh_h
+#pragma once
 
 #include <stdbool.h>
 #include "gks_types.h"
@@ -39,4 +38,3 @@ GKSmesh_3 *SphereMesh(void);
 
 void free_mesh(GKSmesh_3 *the_mesh);
 
-#endif /* gks_mesh_h */

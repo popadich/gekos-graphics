@@ -6,8 +6,7 @@
 //
 
 
-#ifndef gks_3d_matrix_h
-#define gks_3d_matrix_h
+#pragma once
 
 # include "gks_types.h"
 
@@ -54,5 +53,4 @@ void vectornormal(GKSvector3d vec, GKSvector3dPtr normal);
 GKSfloat vectorabsolute(GKSvector3d vec);
 void vectorcopy(GKSvector3d vec, GKSvector3dPtr result);
 
-#endif /* gks_3d_matrix_h */
 

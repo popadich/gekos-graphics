@@ -5,9 +5,7 @@
 //  Created by Alex Popadich on 12/1/21.
 //
 
-#ifndef gks_types_h
-#define gks_types_h
-
+#pragma once
 
 #if !defined(GKS_INLINE)
     #if defined(__GNUC__)
@@ -228,4 +226,3 @@ GKS_INLINE GKSlimits_3 GKSMakeVolume(GKSvector3d minPoint, GKSvector3d maxPoint)
     return l;
 }
 
-#endif /* gks_types_h */

@@ -106,7 +106,7 @@ void gks_create_translation_matrix_3(GKSfloat dx, GKSfloat dy, GKSfloat dz, GKSm
 
 
 // Forms the matrix product result = A*B
-void accumulate_matrices_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_b, GKSmatrix_3 result)
+static void accumulate_matrices_3(GKSmatrix_3 matrix_a, GKSmatrix_3 matrix_b, GKSmatrix_3 result)
 {
     int i,j,k;
     GKSmatrix_3    temp;
@@ -304,7 +304,7 @@ void gks_matrix_multiply_3(GKSmatrix_3 a, GKSmatrix_3 b, GKSmatrix_3 r)
 }
 
 
-void subMatrix(GKSint n, GKSfloat m[n][n], GKSint I, GKSint J, GKSfloat M[n-1][n-1])
+static void subMatrix(GKSint n, GKSfloat m[n][n], GKSint I, GKSint J, GKSfloat M[n-1][n-1])
 {
     GKSint i, a = 0, b = 0;
     GKSint j;
@@ -330,7 +330,7 @@ void subMatrix(GKSint n, GKSfloat m[n][n], GKSint I, GKSint J, GKSfloat M[n-1][n
 }
 
 // this recursive function calculates the determinant
-GKSfloat determinant(GKSint n, GKSfloat M[n][n])
+static GKSfloat determinant(GKSint n, GKSfloat M[n][n])
 {
     double det = 0;
     //the functions continues to call its self until n=2

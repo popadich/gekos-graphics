@@ -5,8 +5,7 @@
 //  Created by Alex Popadich on 3/27/22.
 //
 
-#ifndef gks_utility_h
-#define gks_utility_h
+#pragma once
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -20,4 +19,3 @@ bool essentiallyEqual(float a, float b, float epsilon);
 bool definitelyGreaterThan(float a, float b, float epsilon);
 bool definitelyLessThan(float a, float b, float epsilon);
 
-#endif /* gks_utility_h */

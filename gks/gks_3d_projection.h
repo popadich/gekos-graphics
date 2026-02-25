@@ -5,8 +5,7 @@
 //  Created by Alex Popadich on 12/6/21.
 //
 
-#ifndef gks_3d_projection_h
-#define gks_3d_projection_h
+#pragma once
 
 #include "gks_types.h"
 
@@ -26,4 +25,3 @@ void gks_projection_set_alternate(GKScontext3DPtr context_ptr, GKSfloat alpha, G
 
 GKSmatrixPtr gks_projection_get_matrix(GKScontext3DPtr context_ptr);
 
-#endif /* gks_3d_projection_h */
