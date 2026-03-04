@@ -19,3 +19,4 @@ bool essentiallyEqual(float a, float b, float epsilon);
 bool definitelyGreaterThan(float a, float b, float epsilon);
 bool definitelyLessThan(float a, float b, float epsilon);
 
+

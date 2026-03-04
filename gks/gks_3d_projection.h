@@ -25,3 +25,4 @@ void gks_projection_set_alternate(GKScontext3DPtr context_ptr, GKSfloat alpha, G
 
 GKSmatrixPtr gks_projection_get_matrix(GKScontext3DPtr context_ptr);
 
+

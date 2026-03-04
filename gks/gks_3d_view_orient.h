@@ -5,8 +5,7 @@
 //  Created by Alex Popadich on 12/16/21.
 //
 
-#ifndef gks_3d_view_orient_h
-#define gks_3d_view_orient_h
+#pragma once
 
 #include "gks_types.h"
 
@@ -24,4 +23,4 @@ void gks_view_matrix_p_get(GKScontext3DPtr context_ptr, GKSvector3dPtr p_loc);
 
 void gks_view_look_unit(GKSvector3d pos, GKSvector3d look_at, GKSvector3dPtr w_dir);
 
-#endif /* gks_3d_view_orient_h */
+

@@ -99,10 +99,10 @@ void gks_view_matrix_compute(GKScontext3DPtr context_ptr, GKSvector3d obs, GKSve
 
     // TODO: look at alternative method
     GKSmatrix_3 translation = {
-        1,0,0,-obs.crd.x,
-        0,1,0,-obs.crd.y,
-        0,0,1,-obs.crd.z,
-        0, 0, 0, 1
+        {1,0,0,-obs.crd.x},
+        {0,1,0,-obs.crd.y},
+        {0,0,1,-obs.crd.z},
+        {0, 0, 0, 1}
     };
 
     gks_matrix_multiply_3(orientation, translation, result);
@@ -144,10 +144,10 @@ void gks_view_matrix_lookat_compute(GKScontext3DPtr context_ptr, GKSvector3d obs
     orientation[3][3] = 1.0;
 
     GKSmatrix_3 translation = {
-        1,0,0,-obs.crd.x,
-        0,1,0,-obs.crd.y,
-        0,0,1,-obs.crd.z,
-        0, 0, 0, 1
+        {1,0,0,-obs.crd.x},
+        {0,1,0,-obs.crd.y},
+        {0,0,1,-obs.crd.z},
+        {0, 0, 0, 1}
     };
 
     gks_matrix_multiply_3(orientation, translation, result);

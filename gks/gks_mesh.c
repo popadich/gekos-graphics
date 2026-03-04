@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "gks_mesh.h"
-#include "gks_3d_matrix.h"
 
 static bool centeredFlag = false;
 

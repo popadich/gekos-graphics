@@ -21,7 +21,7 @@
 #define GKS_POLY_VERTEX_MAX     99
 #define GKS_ERROR_MSG_MAX       256
 #define DEG_TO_RAD              0.01745329252
-
+#define GKS_PI 3.14159265358979323846
 
 // Error handling
 typedef enum {
@@ -123,7 +123,6 @@ typedef struct {
     GKSfloat alpha;
 } GKScolor;
 
-
 // Polygon has a vertex count followed
 // by count vertex indexes (usually 3 or 4)
 // but potentially more. Make room by
@@ -135,6 +134,9 @@ typedef GKSint          *GKSindexArrPtr;
 typedef GKSedge_3       *GKSedgeArrPtr;
 typedef GKSpoint_2      *GKSDCArrPtr;
 typedef GKSvector3d     *GKSnormalArrPtr;       // normal vector to each polygon
+                                                //
+                                                //
+
 
 
 typedef struct
@@ -170,7 +172,7 @@ typedef struct
     GKSvector3d translate_vector;
     GKScolor fill_color;
     GKScolor line_color;
-    
+
     GKSnormalArrPtr  normals;
     GKSDCArrPtr      dev_coords;
 
@@ -187,23 +189,22 @@ typedef struct {
     GKSfloat near;
     GKSfloat far;
     GKSint projection_type;
-    
+
     GKSfloat wrld_xscale;
     GKSfloat wrld_xcoord;
     GKSfloat wrld_yscale;
     GKSfloat wrld_ycoord;
     GKSfloat wrld_zscale;
     GKSfloat wrld_zcoord;
-    
+
     GKSfloat dev_xscale;
     GKSfloat dev_xcoord;
     GKSfloat dev_yscale;
     GKSfloat dev_ycoord;
-    
+
     GKSbool cull_flag;
 } GKScontext3D;
 typedef GKScontext3D *GKScontext3DPtr;
-
 
 
 GKS_INLINE GKSvector3d GKSMakeVector(GKSfloat x, GKSfloat y, GKSfloat z) {
@@ -225,4 +226,5 @@ GKS_INLINE GKSlimits_3 GKSMakeVolume(GKSvector3d minPoint, GKSvector3d maxPoint)
     l.zmax = maxPoint.crd.z;
     return l;
 }
+
 

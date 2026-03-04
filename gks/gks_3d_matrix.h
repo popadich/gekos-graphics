@@ -54,3 +54,4 @@ GKSfloat vectorabsolute(GKSvector3d vec);
 void vectorcopy(GKSvector3d vec, GKSvector3dPtr result);
 
 
+

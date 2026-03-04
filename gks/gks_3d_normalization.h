@@ -5,8 +5,7 @@
 //  Created by Alex Popadich on 4/6/22.
 //
 
-#ifndef gks_3d_normalization_h
-#define gks_3d_normalization_h
+#pragma once
 
 #include "gks_types.h"
 
@@ -19,4 +18,4 @@ void gks_norms_set_device_viewport(GKScontext3DPtr context_ptr, GKSlimits_2 *dev
 void gks_norms_wc_to_nwc (GKScontext3DPtr context_ptr, GKSvector3d wc_pt, GKSvector3dPtr nwc_pt);
 void gks_norms_nwc_3_to_dc_2 (GKScontext3DPtr context_ptr, GKSvector3d ndc_pt, GKSfloat *r, GKSfloat *s);
 
-#endif /* gks_3d_normalization_h */
+
